@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 
 const Landing = () => {
   const navigate = useNavigate();
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isAnimating, setIsAnimating] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
+  const [currentTime, setCurrentTime] = useState(new Date());
+  const containerRef = useRef(null);
+  const parallaxRef = useRef(null);
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -13,8 +17,21 @@ const Landing = () => {
     };
 
     window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    
+    // Update time for dynamic elements
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+    
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      clearInterval(timer);
+    };
   }, []);
+  
+  // Calculate parallax values based on mouse position
+  const parallaxX = (mousePosition.x - window.innerWidth / 2) * 0.02;
+  const parallaxY = (mousePosition.y - window.innerHeight / 2) * 0.02;
 
   const handleEnterSite = () => {
     setIsAnimating(true);
@@ -25,43 +42,164 @@ const Landing = () => {
   };
 
   return (
-    <div className="min-h-screen relative overflow-hidden flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-black">
-      {/* Subtle texture overlay */}
-      <div className="absolute inset-0 opacity-30" style={{
+    <div 
+      ref={containerRef}
+      className="min-h-screen relative overflow-hidden flex items-center justify-center"
+      style={{
         background: `
-          radial-gradient(circle at 30% 30%, rgba(255,255,255,0.05) 0%, transparent 50%),
-          radial-gradient(circle at 70% 70%, rgba(255,255,255,0.03) 0%, transparent 50%)
+          radial-gradient(ellipse at ${mousePosition.x}px ${mousePosition.y}px, 
+            rgba(29, 78, 216, 0.15) 0%, 
+            transparent 40%),
+          linear-gradient(135deg, 
+            #0f172a 0%, 
+            #1e293b 25%, 
+            #0f172a 50%, 
+            #1e293b 75%, 
+            #0f172a 100%)
         `,
-        backgroundSize: '200px 200px, 300px 300px'
-      }}></div>
-      
-      {/* Subtle animated background elements */}
-      <motion.div 
-        className="absolute inset-0 opacity-20"
-        animate={{
-          background: [
-            "radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%)",
-            "radial-gradient(circle at 80% 50%, rgba(255,255,255,0.1) 0%, transparent 50%)",
-            "radial-gradient(circle at 40% 50%, rgba(255,255,255,0.1) 0%, transparent 50%)"
-          ]
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "linear"
-        }}
-      />
-
-      {/* Mouse follower effect */}
-      <motion.div
-        className="absolute w-64 h-64 rounded-full pointer-events-none"
+        backgroundSize: '400% 400%',
+        animation: 'gradientShift 15s ease infinite'
+      }}
+    >
+      {/* Architectural grid overlay - represents precision and structure */}
+      <div 
+        className="absolute inset-0 opacity-10"
         style={{
-          background: "radial-gradient(circle, rgba(192,192,192,0.1) 0%, transparent 70%)",
-          left: mousePosition.x - 128,
-          top: mousePosition.y - 128,
+          backgroundImage: `
+            linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px),
+            linear-gradient(rgba(255,255,255,0.05) 2px, transparent 2px),
+            linear-gradient(90deg, rgba(255,255,255,0.05) 2px, transparent 2px)
+          `,
+          backgroundSize: '50px 50px, 50px 50px, 100px 100px, 100px 100px',
+          transform: `perspective(1000px) rotateX(60deg) translateZ(${parallaxY}px)`,
+          transformOrigin: 'center center'
         }}
-        transition={{ type: "spring", damping: 30, stiffness: 100 }}
       />
+      
+      {/* Floating geometric shapes - represents modern architecture */}
+      <div className="absolute inset-0 pointer-events-none">
+        {[...Array(5)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute"
+            style={{
+              left: `${20 + i * 15}%`,
+              top: `${30 + i * 10}%`,
+              width: `${100 + i * 20}px`,
+              height: `${100 + i * 20}px`,
+            }}
+            animate={{
+              x: [0, 30, -20, 0],
+              y: [0, -40, 20, 0],
+              rotate: [0, 90, 180, 270, 360],
+            }}
+            transition={{
+              duration: 20 + i * 5,
+              repeat: Infinity,
+              ease: "linear"
+            }}
+          >
+            <div 
+              className="w-full h-full border border-white/5"
+              style={{
+                clipPath: i % 2 === 0 
+                  ? 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)' // Diamond
+                  : 'polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)' // Hexagon
+              }}
+            />
+          </motion.div>
+        ))}
+      </div>
+      
+      {/* Dynamic light beams - represents light in architecture */}
+      <div className="absolute inset-0 overflow-hidden">
+        {[...Array(3)].map((_, i) => (
+          <motion.div
+            key={`beam-${i}`}
+            className="absolute h-full"
+            style={{
+              width: '2px',
+              background: `linear-gradient(to bottom, 
+                transparent 0%, 
+                rgba(59, 130, 246, 0.5) 50%, 
+                transparent 100%)`,
+              left: `${30 + i * 20}%`,
+              filter: 'blur(1px)',
+            }}
+            animate={{
+              x: [-100, window.innerWidth],
+              opacity: [0, 0.3, 0.3, 0],
+            }}
+            transition={{
+              duration: 8,
+              delay: i * 2,
+              repeat: Infinity,
+              ease: "linear"
+            }}
+          />
+        ))}
+      </div>
+      
+      {/* Particles system - represents building materials */}
+      <div className="absolute inset-0 pointer-events-none">
+        {[...Array(20)].map((_, i) => (
+          <motion.div
+            key={`particle-${i}`}
+            className="absolute w-1 h-1 bg-white/20 rounded-full"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              y: [-20, 20],
+              x: [-10, 10],
+              opacity: [0, 0.5, 0],
+            }}
+            transition={{
+              duration: 3 + Math.random() * 2,
+              delay: Math.random() * 2,
+              repeat: Infinity,
+              repeatType: "reverse",
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Advanced mouse follower with ripple effect */}
+      <AnimatePresence>
+        <motion.div
+          className="absolute pointer-events-none mix-blend-screen"
+          style={{
+            width: '400px',
+            height: '400px',
+            left: mousePosition.x - 200,
+            top: mousePosition.y - 200,
+          }}
+          transition={{ type: "spring", damping: 25, stiffness: 150 }}
+        >
+          <div 
+            className="w-full h-full rounded-full"
+            style={{
+              background: `
+                radial-gradient(circle at center, 
+                  rgba(59, 130, 246, 0.2) 0%, 
+                  rgba(59, 130, 246, 0.1) 30%,
+                  transparent 70%)
+              `,
+              filter: 'blur(2px)',
+            }}
+          />
+          {/* Inner glow */}
+          <div 
+            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full"
+            style={{
+              background: 'radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%)',
+              animation: 'pulse 2s ease-in-out infinite',
+            }}
+          />
+        </motion.div>
+      </AnimatePresence>
 
       {/* Main content */}
       <motion.div 
@@ -71,9 +209,9 @@ const Landing = () => {
         transition={{ duration: 1, delay: 0.5 }}
       >
 
-        {/* Minimal logo design */}
+        {/* Enhanced logo design with architectural elements */}
         <motion.div 
-          className="mb-20"
+          className="mb-20 relative"
           initial={{ opacity: 0, y: 30 }}
           animate={{ 
             opacity: isAnimating ? 0 : 1, 
@@ -86,100 +224,192 @@ const Landing = () => {
             delay: isAnimating ? 0.1 : 1.2,
             ease: isAnimating ? [0.76, 0, 0.24, 1] : "easeOut"
           }}
+          onMouseEnter={() => setIsHovering(true)}
+          onMouseLeave={() => setIsHovering(false)}
         >
-          {/* Main company name with underline */}
+          {/* Architectural frame elements */}
+          <motion.div 
+            className="absolute -top-20 -left-20 w-40 h-40 border-l-2 border-t-2 border-white/10"
+            animate={{
+              opacity: isHovering ? 0.3 : 0.1,
+              scale: isHovering ? 1.1 : 1,
+            }}
+            transition={{ duration: 0.6 }}
+          />
+          <motion.div 
+            className="absolute -bottom-20 -right-20 w-40 h-40 border-r-2 border-b-2 border-white/10"
+            animate={{
+              opacity: isHovering ? 0.3 : 0.1,
+              scale: isHovering ? 1.1 : 1,
+            }}
+            transition={{ duration: 0.6 }}
+          />
+          {/* Enhanced typography with dynamic effects */}
           <div className="text-center mb-12">
-            <div className="relative inline-block">
-              <h1 className="text-lg sm:text-xl md:text-2xl font-thin text-white tracking-[0.2em] sm:tracking-[0.3em] mb-3">
-                b r a u n   &   e y e r
-              </h1>
-              {/* Underline */}
-              <div className="absolute -bottom-1 left-0 right-0 h-[1px] bg-white"></div>
+            <div className="relative inline-block group">
+              <motion.h1 
+                className="text-2xl sm:text-3xl md:text-4xl font-thin text-white tracking-[0.3em] sm:tracking-[0.4em] mb-3 relative z-10"
+                style={{
+                  fontFamily: "'Helvetica Neue', sans-serif",
+                  fontWeight: 100,
+                  textShadow: '0 0 30px rgba(255,255,255,0.1)',
+                }}
+              >
+                {/* Split text for individual letter animations */}
+                {['b','r','a','u','n',' ','&',' ','e','y','e','r'].map((letter, i) => (
+                  <motion.span
+                    key={i}
+                    className="inline-block"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{
+                      duration: 0.5,
+                      delay: 1.5 + (i * 0.05),
+                      ease: "easeOut"
+                    }}
+                    whileHover={{
+                      y: -5,
+                      color: "#3b82f6",
+                      transition: { duration: 0.2 }
+                    }}
+                  >
+                    {letter === ' ' ? '\u00A0' : letter}
+                  </motion.span>
+                ))}
+              </motion.h1>
+              
+              {/* Dynamic underline with gradient */}
+              <motion.div 
+                className="absolute -bottom-2 left-0 right-0 h-[2px] overflow-hidden"
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{ duration: 1, delay: 2.2, ease: "easeOut" }}
+              >
+                <div 
+                  className="w-full h-full"
+                  style={{
+                    background: 'linear-gradient(90deg, transparent, #3b82f6, #60a5fa, #3b82f6, transparent)',
+                    backgroundSize: '200% 100%',
+                    animation: 'shimmer 3s infinite linear',
+                  }}
+                />
+              </motion.div>
             </div>
-            <p className="text-lg sm:text-xl md:text-2xl font-thin text-white tracking-[0.2em] sm:tracking-[0.3em] mt-6">
-              a r c h i t e k t e n
-            </p>
+            
+            <motion.p 
+              className="text-xl sm:text-2xl md:text-3xl font-thin text-white/90 tracking-[0.3em] sm:tracking-[0.4em] mt-8"
+              style={{
+                fontFamily: "'Helvetica Neue', sans-serif",
+                fontWeight: 100,
+              }}
+              initial={{ opacity: 0, letterSpacing: '0.1em' }}
+              animate={{ opacity: 1, letterSpacing: '0.4em' }}
+              transition={{ duration: 1, delay: 2.5 }}
+            >
+              architekten
+            </motion.p>
           </div>
           
-          {/* Bottom section with architektur and design - responsive design with animation */}
+          {/* Innovative split design element */}
           <motion.div 
-            className="relative w-screen h-6 sm:h-8"
-            animate={{
-              y: isAnimating ? -window.innerHeight/2 + 32 : 0, // Move to top of screen (navbar position)
-              scale: isAnimating ? 1.05 : 1, // Slight scale for emphasis
-              filter: isAnimating ? "blur(0px)" : "blur(0px)"
+            className="relative flex items-center justify-center mt-16 mb-8"
+            initial={{ opacity: 0 }}
+            animate={{ 
+              opacity: isAnimating ? 0 : 1,
+              y: isAnimating ? -window.innerHeight/2 + 32 : 0,
             }}
             transition={{
-              duration: isAnimating ? 1.4 : 0,
-              delay: isAnimating ? 0.3 : 0,
-              ease: isAnimating ? [0.87, 0, 0.13, 1] : "linear" // More dramatic ease for the main element
+              duration: isAnimating ? 1.4 : 0.8,
+              delay: isAnimating ? 0.3 : 2.8,
+              ease: isAnimating ? [0.87, 0, 0.13, 1] : "easeOut"
             }}
           >
-            <div className="absolute inset-0 flex justify-center items-center">
-              <div className="flex items-center">
+            {/* Dual concept visualization with innovative layout */}
+            <div className="flex items-center gap-8 relative">
+              {/* Historic Architecture Side */}
+              <motion.div 
+                className="relative group"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.3 }}
+              >
                 <motion.span 
-                  className="text-sm sm:text-lg md:text-xl font-thin text-white tracking-[0.15em] sm:tracking-[0.25em] z-10"
-                  animate={{
-                    opacity: isAnimating ? 0 : 1,
-                    x: isAnimating ? -50 : 0,
-                    filter: isAnimating ? "blur(4px)" : "blur(0px)"
-                  }}
-                  transition={{
-                    duration: isAnimating ? 0.8 : 0.5,
-                    delay: isAnimating ? 0.1 : 0.5,
-                    ease: isAnimating ? [0.76, 0, 0.24, 1] : "easeOut"
+                  className="text-lg sm:text-xl md:text-2xl font-thin text-white/80 tracking-[0.25em] relative z-10"
+                  style={{
+                    fontFamily: "'Didot', serif",
+                    fontWeight: 300,
                   }}
                 >
-                  a r c h i t e k t u r
+                  architektur
                 </motion.span>
-                <motion.span 
-                  className="text-sm sm:text-lg md:text-xl font-thin text-gray-800 tracking-[0.15em] sm:tracking-[0.25em] ml-4 sm:ml-8 z-10"
-                  animate={{
-                    opacity: isAnimating ? 0 : 1,
-                    x: isAnimating ? 50 : 0,
-                    filter: isAnimating ? "blur(4px)" : "blur(0px)"
+                {/* Historic pattern overlay */}
+                <div 
+                  className="absolute -inset-4 opacity-0 group-hover:opacity-20 transition-opacity duration-500"
+                  style={{
+                    backgroundImage: `
+                      repeating-linear-gradient(45deg, 
+                        transparent, 
+                        transparent 10px, 
+                        rgba(255,255,255,0.1) 10px, 
+                        rgba(255,255,255,0.1) 20px)
+                    `,
                   }}
-                  transition={{
-                    duration: isAnimating ? 0.8 : 0.5,
-                    delay: isAnimating ? 0.2 : 0.5,
-                    ease: isAnimating ? [0.76, 0, 0.24, 1] : "easeOut"
+                />
+              </motion.div>
+              
+              {/* Center divider - architectural column */}
+              <motion.div 
+                className="relative h-20 w-[2px] bg-gradient-to-b from-transparent via-white/40 to-transparent"
+                animate={{
+                  scaleY: [1, 1.2, 1],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              />
+              
+              {/* Modern Design Side */}
+              <motion.div 
+                className="relative group"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.3 }}
+              >
+                <motion.span 
+                  className="text-lg sm:text-xl md:text-2xl font-thin text-blue-400 tracking-[0.25em] relative z-10"
+                  style={{
+                    fontFamily: "'Futura', sans-serif",
+                    fontWeight: 200,
+                    textShadow: '0 0 20px rgba(59, 130, 246, 0.5)',
                   }}
                 >
-                  d e s i g n
+                  design
                 </motion.span>
-              </div>
+                {/* Modern geometric overlay */}
+                <motion.div 
+                  className="absolute -inset-4 opacity-0 group-hover:opacity-30 transition-opacity duration-500"
+                  animate={{
+                    rotate: [0, 360],
+                  }}
+                  transition={{
+                    duration: 20,
+                    repeat: Infinity,
+                    ease: "linear"
+                  }}
+                >
+                  <div 
+                    className="w-full h-full"
+                    style={{
+                      background: 'conic-gradient(from 0deg, transparent, rgba(59, 130, 246, 0.2), transparent)',
+                    }}
+                  />
+                </motion.div>
+              </motion.div>
             </div>
-            <motion.div 
-              className="absolute bg-white h-6 sm:h-8 top-0" 
-              style={{ 
-                left: 'calc(50% + 30px)', 
-                right: '0' 
-              }}
-              initial={{
-                width: '0%',
-                opacity: 0,
-                boxShadow: "0 0 0 rgba(255,255,255,0)"
-              }}
-              animate={{
-                left: isAnimating ? '0' : 'calc(50% + 30px)',
-                width: isAnimating ? '100vw' : 'auto',
-                opacity: isAnimating ? 1 : 1,
-                y: 0, // Keep at same level, parent container moves it
-                height: isAnimating ? '64px' : '24px', // Match navbar height
-                boxShadow: isAnimating ? "0 0 50px rgba(255,255,255,0.3)" : "0 0 0 rgba(255,255,255,0)"
-              }}
-              transition={{
-                width: { duration: 0.8, delay: 2.0, ease: "easeOut" }, // Initial grow animation
-                opacity: { duration: 0.5, delay: 1.8 },
-                left: { duration: 1.4, delay: isAnimating ? 0.4 : 0, ease: [0.87, 0, 0.13, 1] }, // More dramatic for flying
-                height: { duration: 1.4, delay: isAnimating ? 0.4 : 0, ease: [0.87, 0, 0.13, 1] },
-                boxShadow: { duration: 1.4, delay: isAnimating ? 0.4 : 0, ease: "easeOut" }
-              }}
-            />
           </motion.div>
         </motion.div>
 
-        {/* Modern Enter button with cursor interaction */}
+        {/* Revolutionary Enter button with liquid metal effect */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ 
@@ -190,19 +420,32 @@ const Landing = () => {
           }}
           transition={{ 
             duration: isAnimating ? 1.0 : 0.8, 
-            delay: isAnimating ? 0 : 1.8,
+            delay: isAnimating ? 0 : 3.5,
             ease: isAnimating ? [0.76, 0, 0.24, 1] : "easeOut"
           }}
-          className="relative"
+          className="relative mt-20"
         >
           <motion.button
             onClick={handleEnterSite}
-            className="group relative overflow-hidden px-8 sm:px-12 py-2 sm:py-3 bg-transparent border border-white/30 text-white text-xs sm:text-sm tracking-[0.15em] sm:tracking-[0.2em] font-thin transition-all duration-500 hover:border-white hover:bg-white/5"
-            whileHover={{ 
-              scale: 1.02,
-              y: -2
+            className="group relative overflow-hidden px-12 sm:px-16 py-4 sm:py-5 bg-transparent text-white text-sm sm:text-base tracking-[0.2em] sm:tracking-[0.3em] font-thin transition-all duration-700"
+            style={{
+              border: '1px solid rgba(255,255,255,0.2)',
+              backdropFilter: 'blur(10px)',
+              background: 'linear-gradient(135deg, rgba(255,255,255,0.02) 0%, rgba(59,130,246,0.05) 100%)',
+              boxShadow: `
+                inset 0 0 20px rgba(255,255,255,0.05),
+                0 0 40px rgba(59,130,246,0.1)
+              `,
             }}
-            whileTap={{ scale: 0.98 }}
+            whileHover={{ 
+              scale: 1.05,
+              boxShadow: `
+                inset 0 0 30px rgba(59,130,246,0.1),
+                0 0 60px rgba(59,130,246,0.2),
+                0 0 100px rgba(59,130,246,0.1)
+              `,
+            }}
+            whileTap={{ scale: 0.95 }}
             onMouseEnter={(e) => {
               const rect = e.target.getBoundingClientRect();
               setMousePosition({ 
@@ -218,79 +461,122 @@ const Landing = () => {
               });
             }}
           >
-            {/* Cursor follower inside button */}
+            {/* Liquid metal effect on hover */}
             <motion.div
-              className="absolute w-32 h-32 rounded-full pointer-events-none opacity-0 group-hover:opacity-20"
+              className="absolute pointer-events-none opacity-0 group-hover:opacity-100"
               style={{
-                background: "radial-gradient(circle, rgba(255,255,255,0.8) 0%, transparent 70%)",
-                left: mousePosition.x - 64,
-                top: mousePosition.y - 64,
+                width: '200px',
+                height: '200px',
+                left: mousePosition.x - 100,
+                top: mousePosition.y - 100,
+                background: `
+                  radial-gradient(circle at center, 
+                    rgba(59, 130, 246, 0.4) 0%, 
+                    rgba(59, 130, 246, 0.2) 30%,
+                    transparent 70%)
+                `,
+                filter: 'blur(20px)',
+                mixBlendMode: 'screen',
               }}
-              transition={{ type: "spring", damping: 20, stiffness: 200 }}
+              transition={{ type: "spring", damping: 15, stiffness: 150 }}
             />
             
-            {/* Text with sliding effect */}
-            <span className="relative z-10 block overflow-hidden">
-              <motion.span
-                className="block"
-                whileHover={{ y: -30 }}
-                transition={{ duration: 0.3 }}
-              >
-                Enter the Page
-              </motion.span>
-              <motion.span
-                className="absolute top-0 left-0 block"
-                initial={{ y: 30 }}
-                whileHover={{ y: 0 }}
-                transition={{ duration: 0.3 }}
-              >
-                Enter the Page
-              </motion.span>
-            </span>
-            
-            {/* Animated border */}
-            <motion.div
-              className="absolute inset-0 border border-white/0"
-              whileHover={{
-                borderColor: "rgba(255, 255, 255, 0.6)",
-                boxShadow: "0 0 25px rgba(255,255,255,0.15)"
+            {/* Animated border gradient */}
+            <motion.div 
+              className="absolute inset-0 opacity-0 group-hover:opacity-100"
+              style={{
+                background: `
+                  linear-gradient(90deg, 
+                    transparent, 
+                    rgba(59, 130, 246, 0.5), 
+                    transparent)
+                `,
+                backgroundSize: '200% 100%',
               }}
-              transition={{ duration: 0.3 }}
+              animate={{
+                backgroundPosition: ['0% 0%', '200% 0%'],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "linear"
+              }}
             />
             
-            {/* Corner accents */}
-            <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-white/40 transition-all duration-300 group-hover:border-white/80"></div>
-            <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-white/40 transition-all duration-300 group-hover:border-white/80"></div>
-            <div className="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-white/40 transition-all duration-300 group-hover:border-white/80"></div>
-            <div className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-white/40 transition-all duration-300 group-hover:border-white/80"></div>
+            {/* Multi-layer text effect */}
+            <div className="relative z-10 overflow-hidden">
+              <motion.div 
+                className="flex items-center justify-center gap-3"
+                whileHover={{ letterSpacing: '0.4em' }}
+                transition={{ duration: 0.5 }}
+              >
+                <motion.span
+                  className="relative"
+                  style={{
+                    fontFamily: "'Helvetica Neue', sans-serif",
+                    fontWeight: 200,
+                  }}
+                >
+                  ENTER
+                </motion.span>
+                <motion.div 
+                  className="w-8 h-[1px] bg-white/60 group-hover:w-12 transition-all duration-500"
+                />
+                <motion.span
+                  className="relative"
+                  style={{
+                    fontFamily: "'Helvetica Neue', sans-serif",
+                    fontWeight: 200,
+                  }}
+                >
+                  SPACE
+                </motion.span>
+              </motion.div>
+              
+              {/* Glitch effect on hover */}
+              <motion.div 
+                className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100"
+                style={{
+                  color: '#3b82f6',
+                  filter: 'blur(1px)',
+                  transform: 'translateX(2px)',
+                }}
+              >
+                <span>ENTER</span>
+                <div className="w-8 h-[1px] bg-blue-400/60 mx-3" />
+                <span>SPACE</span>
+              </motion.div>
+            </div>
+            
+            {/* Animated corner brackets */}
+            {[['top-0 left-0', 'border-t border-l'],
+              ['top-0 right-0', 'border-t border-r'],
+              ['bottom-0 left-0', 'border-b border-l'],
+              ['bottom-0 right-0', 'border-b border-r']].map(([position, borders], i) => (
+              <motion.div
+                key={i}
+                className={`absolute ${position} w-6 h-6 ${borders} border-white/30 transition-all duration-500`}
+                whileHover={{
+                  width: '12px',
+                  height: '12px',
+                  borderColor: 'rgba(59, 130, 246, 0.8)',
+                }}
+              />
+            ))}
+            
+            {/* Scanning line effect */}
+            <motion.div 
+              className="absolute left-0 top-0 w-full h-[1px] bg-gradient-to-r from-transparent via-blue-400 to-transparent opacity-0 group-hover:opacity-100"
+              animate={{
+                y: [0, 60, 0],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            />
           </motion.button>
-        </motion.div>
-
-        {/* Bottom accent */}
-        <motion.div 
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-          initial={{ opacity: 0 }}
-          animate={{ 
-            opacity: isAnimating ? 0 : 1,
-            y: isAnimating ? 100 : 0
-          }}
-          transition={{ 
-            duration: isAnimating ? 0.8 : 1, 
-            delay: isAnimating ? 0 : 2.2 
-          }}
-        >
-          <motion.div 
-            className="w-1 h-16 bg-gradient-to-t from-gray-600 to-transparent"
-            animate={{ 
-              height: [64, 48, 64],
-              opacity: [0.6, 1, 0.6]
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          />
         </motion.div>
 
         {/* Full screen page skeleton with gradual color transition */}
@@ -329,9 +615,9 @@ const Landing = () => {
               >
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                   <div className="flex items-center justify-between h-16 lg:h-20">
-                    {/* Logo placeholder */}
+                    {/* Logo placeholder - matching the actual header design */}
                     <motion.div 
-                      className="flex items-center space-x-2"
+                      className="group transition-smooth relative"
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{
@@ -340,11 +626,17 @@ const Landing = () => {
                         ease: "easeOut"
                       }}
                     >
-                      <div className="w-8 h-8 lg:w-10 lg:h-10 bg-black rounded flex items-center justify-center">
-                        <div className="w-4 h-4 bg-white"></div>
-                      </div>
-                      <div className="font-thin text-lg lg:text-xl text-black tracking-wider">
-                        Braun & Eyer
+                      <div className="bg-black px-4 text-center relative z-10 mt-3 mb-3" style={{ paddingTop: '12px', paddingBottom: '18px', marginBottom: '-12px' }}>
+                        <div className="relative inline-block">
+                          <div className="text-sm lg:text-base font-thin text-white tracking-[0.2em] lg:tracking-[0.3em] mb-1">
+                            b r a u n   &   e y e r
+                          </div>
+                          {/* Underline */}
+                          <div className="absolute -bottom-0.5 left-0 right-0 h-[1px] bg-white"></div>
+                        </div>
+                        <div className="text-sm lg:text-base font-thin text-white tracking-[0.2em] lg:tracking-[0.3em]">
+                          a r c h i t e k t e n
+                        </div>
                       </div>
                     </motion.div>
 
