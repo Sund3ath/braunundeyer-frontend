@@ -48,14 +48,14 @@ const Landing = () => {
       style={{
         background: `
           radial-gradient(ellipse at ${mousePosition.x}px ${mousePosition.y}px, 
-            rgba(29, 78, 216, 0.15) 0%, 
+            rgba(255, 255, 255, 0.08) 0%, 
             transparent 40%),
           linear-gradient(135deg, 
-            #0f172a 0%, 
-            #1e293b 25%, 
-            #0f172a 50%, 
-            #1e293b 75%, 
-            #0f172a 100%)
+            #000000 0%, 
+            #1a1a1a 25%, 
+            #000000 50%, 
+            #1a1a1a 75%, 
+            #000000 100%)
         `,
         backgroundSize: '400% 400%',
         animation: 'gradientShift 15s ease infinite'
@@ -63,17 +63,18 @@ const Landing = () => {
     >
       {/* Architectural grid overlay - represents precision and structure */}
       <div 
-        className="absolute inset-0 opacity-10"
+        className="absolute inset-0 opacity-20"
         style={{
           backgroundImage: `
-            linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px),
-            linear-gradient(rgba(255,255,255,0.05) 2px, transparent 2px),
-            linear-gradient(90deg, rgba(255,255,255,0.05) 2px, transparent 2px)
+            linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px),
+            linear-gradient(rgba(255,255,255,0.08) 2px, transparent 2px),
+            linear-gradient(90deg, rgba(255,255,255,0.08) 2px, transparent 2px)
           `,
           backgroundSize: '50px 50px, 50px 50px, 100px 100px, 100px 100px',
           transform: `perspective(1000px) rotateX(60deg) translateZ(${parallaxY}px)`,
-          transformOrigin: 'center center'
+          transformOrigin: 'center center',
+          mixBlendMode: 'overlay'
         }}
       />
       
@@ -101,11 +102,17 @@ const Landing = () => {
             }}
           >
             <div 
-              className="w-full h-full border border-white/5"
+              className="w-full h-full"
               style={{
+                border: '1px solid rgba(255,255,255,0.15)',
+                background: `linear-gradient(45deg, 
+                  rgba(255,255,255,0.02) 0%, 
+                  rgba(255,255,255,0.05) 50%, 
+                  rgba(255,255,255,0.02) 100%)`,
                 clipPath: i % 2 === 0 
                   ? 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)' // Diamond
-                  : 'polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)' // Hexagon
+                  : 'polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)', // Hexagon
+                boxShadow: '0 0 20px rgba(255,255,255,0.1)'
               }}
             />
           </motion.div>
@@ -122,7 +129,7 @@ const Landing = () => {
               width: '2px',
               background: `linear-gradient(to bottom, 
                 transparent 0%, 
-                rgba(59, 130, 246, 0.5) 50%, 
+                rgba(255, 255, 255, 0.6) 50%, 
                 transparent 100%)`,
               left: `${30 + i * 20}%`,
               filter: 'blur(1px)',
@@ -146,7 +153,7 @@ const Landing = () => {
         {[...Array(20)].map((_, i) => (
           <motion.div
             key={`particle-${i}`}
-            className="absolute w-1 h-1 bg-white/20 rounded-full"
+            className="absolute w-1 h-1 bg-white/30 rounded-full"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
@@ -183,19 +190,21 @@ const Landing = () => {
             style={{
               background: `
                 radial-gradient(circle at center, 
-                  rgba(59, 130, 246, 0.2) 0%, 
-                  rgba(59, 130, 246, 0.1) 30%,
+                  rgba(255, 255, 255, 0.15) 0%, 
+                  rgba(255, 255, 255, 0.08) 30%,
                   transparent 70%)
               `,
               filter: 'blur(2px)',
+              mixBlendMode: 'screen'
             }}
           />
           {/* Inner glow */}
           <div 
             className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full"
             style={{
-              background: 'radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%)',
+              background: 'radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 60%)',
               animation: 'pulse 2s ease-in-out infinite',
+              boxShadow: '0 0 40px rgba(255,255,255,0.1)'
             }}
           />
         </motion.div>
@@ -269,7 +278,7 @@ const Landing = () => {
                     }}
                     whileHover={{
                       y: -5,
-                      color: "#3b82f6",
+                      textShadow: '0 0 20px rgba(255,255,255,0.8)',
                       transition: { duration: 0.2 }
                     }}
                   >
@@ -288,9 +297,10 @@ const Landing = () => {
                 <div 
                   className="w-full h-full"
                   style={{
-                    background: 'linear-gradient(90deg, transparent, #3b82f6, #60a5fa, #3b82f6, transparent)',
+                    background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.8), rgba(255,255,255,1), rgba(255,255,255,0.8), transparent)',
                     backgroundSize: '200% 100%',
                     animation: 'shimmer 3s infinite linear',
+                    boxShadow: '0 0 10px rgba(255,255,255,0.3)'
                   }}
                 />
               </motion.div>
@@ -376,18 +386,23 @@ const Landing = () => {
                 transition={{ duration: 0.3 }}
               >
                 <motion.span 
-                  className="text-lg sm:text-xl md:text-2xl font-thin text-blue-400 tracking-[0.25em] relative z-10"
+                  className="text-lg sm:text-xl md:text-2xl font-thin text-white tracking-[0.25em] relative z-10"
                   style={{
                     fontFamily: "'Futura', sans-serif",
                     fontWeight: 200,
-                    textShadow: '0 0 20px rgba(59, 130, 246, 0.5)',
+                    textShadow: '0 0 20px rgba(255, 255, 255, 0.5)',
+                    background: 'linear-gradient(90deg, rgba(255,255,255,0.8), rgba(255,255,255,1), rgba(255,255,255,0.8))',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundSize: '200% auto',
+                    animation: 'shimmer 3s linear infinite'
                   }}
                 >
                   design
                 </motion.span>
                 {/* Modern geometric overlay */}
                 <motion.div 
-                  className="absolute -inset-4 opacity-0 group-hover:opacity-30 transition-opacity duration-500"
+                  className="absolute -inset-4 opacity-0 group-hover:opacity-40 transition-opacity duration-500"
                   animate={{
                     rotate: [0, 360],
                   }}
@@ -400,7 +415,8 @@ const Landing = () => {
                   <div 
                     className="w-full h-full"
                     style={{
-                      background: 'conic-gradient(from 0deg, transparent, rgba(59, 130, 246, 0.2), transparent)',
+                      background: 'conic-gradient(from 0deg, transparent, rgba(255, 255, 255, 0.3), transparent)',
+                      filter: 'blur(1px)'
                     }}
                   />
                 </motion.div>
@@ -429,20 +445,34 @@ const Landing = () => {
             onClick={handleEnterSite}
             className="group relative overflow-hidden px-12 sm:px-16 py-4 sm:py-5 bg-transparent text-white text-sm sm:text-base tracking-[0.2em] sm:tracking-[0.3em] font-thin transition-all duration-700"
             style={{
-              border: '1px solid rgba(255,255,255,0.2)',
+              border: '1px solid rgba(255,255,255,0.3)',
               backdropFilter: 'blur(10px)',
-              background: 'linear-gradient(135deg, rgba(255,255,255,0.02) 0%, rgba(59,130,246,0.05) 100%)',
+              background: `
+                linear-gradient(135deg, 
+                  rgba(255,255,255,0.05) 0%, 
+                  rgba(0,0,0,0.1) 50%,
+                  rgba(255,255,255,0.05) 100%),
+                repeating-linear-gradient(
+                  45deg,
+                  transparent,
+                  transparent 10px,
+                  rgba(255,255,255,0.02) 10px,
+                  rgba(255,255,255,0.02) 20px
+                )
+              `,
               boxShadow: `
-                inset 0 0 20px rgba(255,255,255,0.05),
-                0 0 40px rgba(59,130,246,0.1)
+                inset 0 0 30px rgba(255,255,255,0.1),
+                0 0 40px rgba(255,255,255,0.05),
+                0 10px 40px rgba(0,0,0,0.3)
               `,
             }}
             whileHover={{ 
               scale: 1.05,
               boxShadow: `
-                inset 0 0 30px rgba(59,130,246,0.1),
-                0 0 60px rgba(59,130,246,0.2),
-                0 0 100px rgba(59,130,246,0.1)
+                inset 0 0 40px rgba(255,255,255,0.2),
+                0 0 60px rgba(255,255,255,0.15),
+                0 0 100px rgba(255,255,255,0.1),
+                0 20px 60px rgba(0,0,0,0.4)
               `,
             }}
             whileTap={{ scale: 0.95 }}
@@ -471,8 +501,8 @@ const Landing = () => {
                 top: mousePosition.y - 100,
                 background: `
                   radial-gradient(circle at center, 
-                    rgba(59, 130, 246, 0.4) 0%, 
-                    rgba(59, 130, 246, 0.2) 30%,
+                    rgba(255, 255, 255, 0.5) 0%, 
+                    rgba(255, 255, 255, 0.25) 30%,
                     transparent 70%)
                 `,
                 filter: 'blur(20px)',
@@ -488,10 +518,11 @@ const Landing = () => {
                 background: `
                   linear-gradient(90deg, 
                     transparent, 
-                    rgba(59, 130, 246, 0.5), 
+                    rgba(255, 255, 255, 0.6), 
                     transparent)
                 `,
                 backgroundSize: '200% 100%',
+                boxShadow: '0 0 20px rgba(255,255,255,0.2)'
               }}
               animate={{
                 backgroundPosition: ['0% 0%', '200% 0%'],
@@ -537,13 +568,14 @@ const Landing = () => {
               <motion.div 
                 className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100"
                 style={{
-                  color: '#3b82f6',
+                  color: 'rgba(255,255,255,0.9)',
                   filter: 'blur(1px)',
                   transform: 'translateX(2px)',
+                  textShadow: '0 0 10px rgba(255,255,255,0.5)'
                 }}
               >
                 <span>ENTER</span>
-                <div className="w-8 h-[1px] bg-blue-400/60 mx-3" />
+                <div className="w-8 h-[1px] bg-white/60 mx-3" />
                 <span>SPACE</span>
               </motion.div>
             </div>
@@ -559,14 +591,15 @@ const Landing = () => {
                 whileHover={{
                   width: '12px',
                   height: '12px',
-                  borderColor: 'rgba(59, 130, 246, 0.8)',
+                  borderColor: 'rgba(255, 255, 255, 0.8)',
+                  boxShadow: '0 0 10px rgba(255,255,255,0.4)'
                 }}
               />
             ))}
             
             {/* Scanning line effect */}
             <motion.div 
-              className="absolute left-0 top-0 w-full h-[1px] bg-gradient-to-r from-transparent via-blue-400 to-transparent opacity-0 group-hover:opacity-100"
+              className="absolute left-0 top-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-100"
               animate={{
                 y: [0, 60, 0],
               }}
