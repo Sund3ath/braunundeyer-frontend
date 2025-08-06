@@ -235,8 +235,23 @@ const AboutUs = () => {
         style={{ x: cursorXSpring, y: cursorYSpring }}
       />
       
+      {/* Breadcrumb Section */}
+      <section className="pt-20 lg:pt-24 bg-surface border-b border-border">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
+          <Breadcrumb />
+          <div className="mt-6">
+            <h1 className="text-3xl lg:text-4xl xl:text-5xl font-heading font-light text-primary mb-4">
+              Über uns
+            </h1>
+            <p className="text-xl lg:text-2xl text-text-secondary font-body leading-relaxed">
+              {officePhilosophy.title}
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Hero Section with Philosophy */}
-      <section className="relative pt-20 lg:pt-24">
+      <section className="relative">
         <div className="relative h-96 lg:h-[500px] overflow-hidden">
           <Image
             src={officePhilosophy.backgroundImage}
@@ -246,9 +261,6 @@ const AboutUs = () => {
           <div className="absolute inset-0 bg-primary/60"></div>
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="max-w-4xl mx-auto px-4 text-center text-white">
-              <h1 className="text-3xl lg:text-5xl font-heading font-light mb-6">
-                {officePhilosophy.title}
-              </h1>
               <div className="max-w-2xl mx-auto">
                 <p className="text-lg lg:text-xl font-body leading-relaxed opacity-90">
                   {officePhilosophy.description}
@@ -258,11 +270,6 @@ const AboutUs = () => {
           </div>
         </div>
       </section>
-
-      {/* Breadcrumb */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <Breadcrumb />
-      </div>
 
       {/* Team Members Section */}
       <section className="py-16 lg:py-24">

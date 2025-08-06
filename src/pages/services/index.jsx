@@ -239,14 +239,11 @@ const Services = () => {
       />
       
       {/* Hero Section */}
-      <section className="pt-20 lg:pt-24 pb-12 lg:pb-16 bg-gradient-to-br from-surface to-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-6">
-            <Breadcrumb />
-          </div>
-          
-          <div className="max-w-4xl">
-            <h1 className="text-4xl lg:text-6xl font-heading font-light text-primary mb-6">
+      <section className="pt-20 lg:pt-24 bg-surface border-b border-border">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
+          <Breadcrumb />
+          <div className="mt-6">
+            <h1 className="text-3xl lg:text-4xl xl:text-5xl font-heading font-light text-primary mb-4">
               Unsere Leistungen
             </h1>
             <p className="text-xl lg:text-2xl text-text-secondary font-body leading-relaxed mb-8">

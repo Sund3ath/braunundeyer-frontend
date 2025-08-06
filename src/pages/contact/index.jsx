@@ -220,22 +220,18 @@ const Contact = () => {
       />
       
       <main className="pt-20 lg:pt-24">
-        {/* Breadcrumb */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <Breadcrumb />
-        </div>
-
-        {/* Hero Section */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
-          <div className="text-center mb-12 lg:mb-16">
-            <h1 className="text-3xl lg:text-5xl font-heading font-light text-primary mb-4">
-              Lassen Sie uns gemeinsam
-              <span className="text-accent block lg:inline lg:ml-3">Außergewöhnliches schaffen</span>
-            </h1>
-            <p className="text-lg lg:text-xl text-text-secondary font-body max-w-3xl mx-auto">
-              Bereit, Ihre architektonische Vision zum Leben zu erwecken? Kontaktieren Sie unser Expertenteam 
-              und lassen Sie uns besprechen, wie wir Ihren Raum in etwas Außergewöhnliches verwandeln können.
-            </p>
+        {/* Breadcrumb Section */}
+        <section className="bg-surface border-b border-border">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
+            <Breadcrumb />
+            <div className="mt-6">
+              <h1 className="text-3xl lg:text-4xl xl:text-5xl font-heading font-light text-primary mb-4">
+                Kontakt
+              </h1>
+              <p className="text-xl lg:text-2xl text-text-secondary font-body leading-relaxed">
+                Lassen Sie uns gemeinsam Außergewöhnliches schaffen
+              </p>
+            </div>
           </div>
         </section>
 

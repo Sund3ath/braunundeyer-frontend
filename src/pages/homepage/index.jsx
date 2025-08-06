@@ -1169,6 +1169,7 @@ const Homepage = () => {
                 <li><Link to="/contact" className="text-white/80 hover:text-accent transition-colors duration-200">Kontakt</Link></li>
                 <li><a href="#" className="text-white/80 hover:text-accent transition-colors duration-200">Karriere</a></li>
                 <li><Link to="/impressum" className="text-white/80 hover:text-accent transition-colors duration-200">Impressum</Link></li>
+                <li><Link to="/datenschutz" className="text-white/80 hover:text-accent transition-colors duration-200">Datenschutz</Link></li>
               </ul>
             </motion.div>
 

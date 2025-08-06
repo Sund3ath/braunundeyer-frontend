@@ -10,6 +10,7 @@ import AboutUs from "pages/about-us";
 import Contact from "pages/contact";
 import Services from "pages/services";
 import Impressum from "pages/impressum";
+import Datenschutz from "pages/datenschutz";
 import NotFound from "pages/NotFound";
 
 const Routes = () => {
@@ -26,6 +27,7 @@ const Routes = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/services" element={<Services />} />
           <Route path="/impressum" element={<Impressum />} />
+          <Route path="/datenschutz" element={<Datenschutz />} />
           <Route path="*" element={<NotFound />} />
         </RouterRoutes>
       </ErrorBoundary>
