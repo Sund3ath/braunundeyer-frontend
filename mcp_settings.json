@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "github.com/upstash/context7-mcp": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp"],
+      "disabled": false,
+      "autoApprove": []
+    },
+    "github.com/mendableai/firecrawl-mcp-server": {
+      "command": "npx",
+      "args": ["-y", "firecrawl-mcp"],
+      "disabled": false,
+      "autoApprove": [],
+      "env": {
+        "FIRECRAWL_API_KEY": "fc-f1ed7d7e18194918ae62ba43a7d2819d"
+      }
+    }
+  }
+}

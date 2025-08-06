@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEO Checker - Braun & Eyer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        .check-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        .check-section h2 {
+            color: #4a5568;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .status {
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        .status.success {
+            background: #10b981;
+            color: white;
+        }
+        .status.warning {
+            background: #f59e0b;
+            color: white;
+        }
+        .status.error {
+            background: #ef4444;
+            color: white;
+        }
+        .check-item {
+            padding: 10px;
+            margin: 5px 0;
+            background: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-left: 3px solid #e5e7eb;
+        }
+        .check-item.success {
+            border-left-color: #10b981;
+        }
+        .check-item.warning {
+            border-left-color: #f59e0b;
+        }
+        .check-item.error {
+            border-left-color: #ef4444;
+        }
+        .icon {
+            font-size: 1.2em;
+        }
+        .content {
+            flex: 1;
+        }
+        .content .label {
+            font-weight: bold;
+            color: #4a5568;
+        }
+        .content .value {
+            color: #718096;
+            font-size: 0.9em;
+            margin-top: 2px;
+            word-break: break-word;
+        }
+        .button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .button:hover {
+            background: #5a67d8;
+            transform: translateY(-2px);
+        }
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+        .score-card {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .score-item {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 10px;
+        }
+        .score-value {
+            font-size: 2.5em;
+            font-weight: bold;
+        }
+        .score-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 SEO Checker</h1>
+        <p class="subtitle">Braun & Eyer Architekturbüro - SEO Analysis Tool</p>
+        
+        <div class="score-card" id="scoreCard" style="display: none;">
+            <div class="score-item">
+                <div class="score-value" id="totalScore">0</div>
+                <div class="score-label">Total Score</div>
+            </div>
+            <div class="score-item">
+                <div class="score-value" id="metaScore">0</div>
+                <div class="score-label">Meta Tags</div>
+            </div>
+            <div class="score-item">
+                <div class="score-value" id="ogScore">0</div>
+                <div class="score-label">Social Media</div>
+            </div>
+            <div class="score-item">
+                <div class="score-value" id="structuredScore">0</div>
+                <div class="score-label">Structured Data</div>
+            </div>
+        </div>
+
+        <button class="button" onclick="checkSEO()">Check Current Page SEO</button>
+        
+        <div id="results"></div>
+    </div>
+
+    <script>
+        function checkSEO() {
+            const results = document.getElementById('results');
+            results.innerHTML = '<div class="loading">Analyzing page SEO...</div>';
+            
+            setTimeout(() => {
+                const seoData = analyzePage();
+                displayResults(seoData);
+                calculateScores(seoData);
+            }, 500);
+        }
+
+        function analyzePage() {
+            const data = {
+                title: {
+                    value: document.title,
+                    exists: !!document.title,
+                    length: document.title.length,
+                    optimal: document.title.length > 0 && document.title.length <= 60
+                },
+                meta: {},
+                og: {},
+                twitter: {},
+                structured: [],
+                canonical: null,
+                lang: document.documentElement.lang,
+                headings: {
+                    h1: document.querySelectorAll('h1').length,
+                    h2: document.querySelectorAll('h2').length,
+                    h3: document.querySelectorAll('h3').length
+                }
+            };
+
+            // Check meta tags
+            const metaTags = ['description', 'keywords', 'author', 'viewport', 'robots', 'theme-color'];
+            metaTags.forEach(tag => {
+                const element = document.querySelector(`meta[name="${tag}"]`);
+                data.meta[tag] = element ? element.content : null;
+            });
+
+            // Check Open Graph
+            const ogTags = ['og:title', 'og:description', 'og:image', 'og:url', 'og:type', 'og:site_name'];
+            ogTags.forEach(tag => {
+                const element = document.querySelector(`meta[property="${tag}"]`);
+                data.og[tag] = element ? element.content : null;
+            });
+
+            // Check Twitter Cards
+            const twitterTags = ['twitter:card', 'twitter:title', 'twitter:description', 'twitter:image'];
+            twitterTags.forEach(tag => {
+                const element = document.querySelector(`meta[name="${tag}"]`);
+                data.twitter[tag] = element ? element.content : null;
+            });
+
+            // Check structured data
+            const structuredScripts = document.querySelectorAll('script[type="application/ld+json"]');
+            structuredScripts.forEach(script => {
+                try {
+                    const parsed = JSON.parse(script.textContent);
+                    data.structured.push(parsed);
+                } catch (e) {
+                    data.structured.push({ error: 'Invalid JSON' });
+                }
+            });
+
+            // Check canonical
+            const canonical = document.querySelector('link[rel="canonical"]');
+            data.canonical = canonical ? canonical.href : null;
+
+            return data;
+        }
+
+        function displayResults(data) {
+            const results = document.getElementById('results');
+            let html = '';
+
+            // Title Section
+            html += '<div class="check-section">';
+            html += '<h2>📝 Page Title ' + getStatus(data.title.optimal) + '</h2>';
+            html += `<div class="check-item ${data.title.optimal ? 'success' : 'warning'}">`;
+            html += `<span class="icon">${data.title.exists ? '✅' : '❌'}</span>`;
+            html += '<div class="content">';
+            html += '<div class="label">Title</div>';
+            html += `<div class="value">${data.title.value || 'Not found'} (${data.title.length} characters)</div>`;
+            if (data.title.length > 60) html += '<div class="value">⚠️ Title is too long (recommended: max 60 chars)</div>';
+            html += '</div></div>';
+            html += '</div>';
+
+            // Meta Tags Section
+            html += '<div class="check-section">';
+            let metaCount = Object.values(data.meta).filter(v => v).length;
+            html += `<h2>🏷️ Meta Tags (${metaCount}/6) ${getStatus(metaCount >= 5)}</h2>`;
+            
+            Object.entries(data.meta).forEach(([key, value]) => {
+                const exists = !!value;
+                html += `<div class="check-item ${exists ? 'success' : 'error'}">`;
+                html += `<span class="icon">${exists ? '✅' : '❌'}</span>`;
+                html += '<div class="content">';
+                html += `<div class="label">${key}</div>`;
+                if (value) {
+                    const displayValue = value.length > 100 ? value.substring(0, 100) + '...' : value;
+                    html += `<div class="value">${displayValue}</div>`;
+                    if (key === 'description') {
+                        if (value.length < 150 || value.length > 160) {
+                            html += `<div class="value">⚠️ Length: ${value.length} (recommended: 150-160)</div>`;
+                        }
+                    }
+                } else {
+                    html += '<div class="value">Not found</div>';
+                }
+                html += '</div></div>';
+            });
+            html += '</div>';
+
+            // Open Graph Section
+            html += '<div class="check-section">';
+            let ogCount = Object.values(data.og).filter(v => v).length;
+            html += `<h2>📱 Open Graph Tags (${ogCount}/6) ${getStatus(ogCount >= 5)}</h2>`;
+            
+            Object.entries(data.og).forEach(([key, value]) => {
+                const exists = !!value;
+                html += `<div class="check-item ${exists ? 'success' : 'error'}">`;
+                html += `<span class="icon">${exists ? '✅' : '❌'}</span>`;
+                html += '<div class="content">';
+                html += `<div class="label">${key}</div>`;
+                if (value) {
+                    const displayValue = value.length > 80 ? value.substring(0, 80) + '...' : value;
+                    html += `<div class="value">${displayValue}</div>`;
+                } else {
+                    html += '<div class="value">Not found</div>';
+                }
+                html += '</div></div>';
+            });
+            html += '</div>';
+
+            // Twitter Cards Section
+            html += '<div class="check-section">';
+            let twitterCount = Object.values(data.twitter).filter(v => v).length;
+            html += `<h2>🐦 Twitter Cards (${twitterCount}/4) ${getStatus(twitterCount >= 3)}</h2>`;
+            
+            Object.entries(data.twitter).forEach(([key, value]) => {
+                const exists = !!value;
+                html += `<div class="check-item ${exists ? 'success' : 'error'}">`;
+                html += `<span class="icon">${exists ? '✅' : '❌'}</span>`;
+                html += '<div class="content">';
+                html += `<div class="label">${key}</div>`;
+                if (value) {
+                    const displayValue = value.length > 80 ? value.substring(0, 80) + '...' : value;
+                    html += `<div class="value">${displayValue}</div>`;
+                } else {
+                    html += '<div class="value">Not found</div>';
+                }
+                html += '</div></div>';
+            });
+            html += '</div>';
+
+            // Structured Data Section
+            html += '<div class="check-section">';
+            html += `<h2>📊 Structured Data ${getStatus(data.structured.length > 0)}</h2>`;
+            
+            if (data.structured.length > 0) {
+                data.structured.forEach((item, index) => {
+                    const hasError = item.error;
+                    html += `<div class="check-item ${hasError ? 'error' : 'success'}">`;
+                    html += `<span class="icon">${hasError ? '❌' : '✅'}</span>`;
+                    html += '<div class="content">';
+                    if (hasError) {
+                        html += `<div class="label">Block ${index + 1}: ${item.error}</div>`;
+                    } else {
+                        const type = item['@type'] || (item['@graph'] ? 'Multiple types' : 'Unknown');
+                        html += `<div class="label">Block ${index + 1}: ${type}</div>`;
+                        html += '<div class="value">Valid JSON-LD structured data</div>';
+                    }
+                    html += '</div></div>';
+                });
+            } else {
+                html += '<div class="check-item error">';
+                html += '<span class="icon">❌</span>';
+                html += '<div class="content">';
+                html += '<div class="label">No structured data found</div>';
+                html += '</div></div>';
+            }
+            html += '</div>';
+
+            // Other SEO Factors
+            html += '<div class="check-section">';
+            html += '<h2>🔧 Other SEO Factors</h2>';
+            
+            // Canonical URL
+            html += `<div class="check-item ${data.canonical ? 'success' : 'warning'}">`;
+            html += `<span class="icon">${data.canonical ? '✅' : '⚠️'}</span>`;
+            html += '<div class="content">';
+            html += '<div class="label">Canonical URL</div>';
+            html += `<div class="value">${data.canonical || 'Not specified'}</div>`;
+            html += '</div></div>';
+
+            // Language
+            html += `<div class="check-item ${data.lang ? 'success' : 'error'}">`;
+            html += `<span class="icon">${data.lang ? '✅' : '❌'}</span>`;
+            html += '<div class="content">';
+            html += '<div class="label">Language Tag</div>';
+            html += `<div class="value">${data.lang || 'Not specified'}</div>`;
+            html += '</div></div>';
+
+            // Headings
+            html += `<div class="check-item ${data.headings.h1 === 1 ? 'success' : 'warning'}">`;
+            html += `<span class="icon">${data.headings.h1 === 1 ? '✅' : '⚠️'}</span>`;
+            html += '<div class="content">';
+            html += '<div class="label">Heading Structure</div>';
+            html += `<div class="value">H1: ${data.headings.h1}, H2: ${data.headings.h2}, H3: ${data.headings.h3}</div>`;
+            if (data.headings.h1 !== 1) {
+                html += `<div class="value">⚠️ Should have exactly 1 H1 tag (found ${data.headings.h1})</div>`;
+            }
+            html += '</div></div>';
+            
+            html += '</div>';
+
+            results.innerHTML = html;
+        }
+
+        function getStatus(condition) {
+            if (condition === true) {
+                return '<span class="status success">GOOD</span>';
+            } else if (condition === false) {
+                return '<span class="status error">NEEDS WORK</span>';
+            } else {
+                return '<span class="status warning">CHECK</span>';
+            }
+        }
+
+        function calculateScores(data) {
+            // Calculate scores
+            let metaScore = 0;
+            let maxMeta = 6;
+            Object.values(data.meta).forEach(v => {
+                if (v) metaScore++;
+            });
+            
+            let ogScore = 0;
+            let maxOg = 6;
+            Object.values(data.og).forEach(v => {
+                if (v) ogScore++;
+            });
+            
+            let twitterScore = Object.values(data.twitter).filter(v => v).length;
+            let maxTwitter = 4;
+            
+            let structuredScore = data.structured.length > 0 ? 10 : 0;
+            
+            let otherScore = 0;
+            if (data.title.optimal) otherScore += 3;
+            if (data.canonical) otherScore += 2;
+            if (data.lang) otherScore += 2;
+            if (data.headings.h1 === 1) otherScore += 3;
+            
+            // Calculate percentages
+            const metaPercent = Math.round((metaScore / maxMeta) * 100);
+            const ogPercent = Math.round(((ogScore + twitterScore) / (maxOg + maxTwitter)) * 100);
+            const structuredPercent = structuredScore * 10;
+            const totalScore = Math.round((metaPercent + ogPercent + structuredPercent + otherScore * 2.5) / 4);
+            
+            // Display scores
+            document.getElementById('scoreCard').style.display = 'grid';
+            document.getElementById('totalScore').textContent = totalScore + '%';
+            document.getElementById('metaScore').textContent = metaPercent + '%';
+            document.getElementById('ogScore').textContent = ogPercent + '%';
+            document.getElementById('structuredScore').textContent = structuredPercent + '%';
+        }
+
+        // Auto-check on page load
+        window.addEventListener('load', () => {
+            checkSEO();
+        });
+    </script>
+</body>
+</html>

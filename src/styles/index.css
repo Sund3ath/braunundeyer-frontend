@@ -1,0 +1,317 @@
+/* src/styles/index.css */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Inter;
+  cursor: none; /* Hide default cursor for custom cursor effect */
+}
+
+* {
+  box-sizing: border-box;
+  line-height: normal;
+  font-family: inherit;
+  margin: unset;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+/* Water wave animation keyframes */
+@keyframes water-wave {
+  0% {
+    transform: translateX(-100%) translateY(0) scale(1);
+    opacity: 0.1;
+  }
+  50% {
+    transform: translateX(0) translateY(-10px) scale(1.1);
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateX(100%) translateY(0) scale(1);
+    opacity: 0.1;
+  }
+}
+
+@keyframes water-ripple {
+  0% {
+    transform: scale(0);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+@keyframes float-particles {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
+    opacity: 0.2;
+  }
+  25% {
+    transform: translateY(-20px) translateX(10px);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(-10px) translateX(-5px);
+    opacity: 0.6;
+  }
+  75% {
+    transform: translateY(-30px) translateX(15px);
+    opacity: 0.4;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Modern water drop animations */
+@keyframes water-drop {
+  0% {
+    transform: translateY(-100vh) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(-90vh) scale(0.1);
+  }
+  90% {
+    opacity: 1;
+    transform: translateY(10vh) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(20vh) scale(1.2);
+  }
+}
+
+@keyframes water-splash {
+  0% {
+    transform: scale(0) rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5) rotate(180deg);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(3) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes liquid-morph {
+  0%, 100% {
+    border-radius: 50% 50% 50% 50%;
+    transform: rotate(0deg) scale(1);
+  }
+  25% {
+    border-radius: 60% 40% 30% 70%;
+    transform: rotate(90deg) scale(1.1);
+  }
+  50% {
+    border-radius: 30% 70% 60% 40%;
+    transform: rotate(180deg) scale(0.9);
+  }
+  75% {
+    border-radius: 70% 30% 40% 60%;
+    transform: rotate(270deg) scale(1.05);
+  }
+}
+
+@keyframes surface-tension {
+  0%, 100% {
+    transform: scaleY(1) scaleX(1);
+  }
+  50% {
+    transform: scaleY(0.8) scaleX(1.2);
+  }
+}
+
+/* Water effect classes */
+.water-wave {
+  animation: water-wave 4s infinite linear;
+}
+
+.water-ripple {
+  animation: water-ripple 1s ease-out forwards;
+}
+
+.float-particles {
+  animation: float-particles 3s infinite ease-in-out;
+}
+
+.shimmer-effect {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(192, 192, 192, 0.2),
+    transparent
+  );
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite;
+}
+
+/* Modern water drop effect classes */
+.water-drop {
+  animation: water-drop 4s infinite linear;
+}
+
+.water-splash {
+  animation: water-splash 1.5s ease-out forwards;
+}
+
+.liquid-morph {
+  animation: liquid-morph 6s infinite ease-in-out;
+}
+
+.surface-tension {
+  animation: surface-tension 2s infinite ease-in-out;
+}
+
+.water-drop-element {
+  background: radial-gradient(circle at 30% 30%,
+    rgba(255, 255, 255, 0.8),
+    rgba(192, 192, 192, 0.6),
+    rgba(0, 0, 0, 0.1));
+  border-radius: 50%;
+  box-shadow:
+    inset 0 0 20px rgba(255, 255, 255, 0.3),
+    0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.liquid-surface {
+  background: linear-gradient(180deg,
+    transparent 0%,
+    rgba(192, 192, 192, 0.1) 50%,
+    rgba(0, 0, 0, 0.05) 100%);
+}
+
+/* Custom cursor styles */
+.custom-cursor {
+  cursor: none;
+}
+
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  background-color: rgba(192, 192, 192, 0.8);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.1s ease;
+}
+
+.cursor-ring {
+  width: 40px;
+  height: 40px;
+  border: 2px solid rgba(192, 192, 192, 0.3);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  transition: all 0.3s ease;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  body {
+    cursor: auto; /* Show default cursor on mobile */
+    touch-action: pan-y; /* Prevent horizontal scrolling and zooming */
+    overscroll-behavior: none; /* Prevent bounce scrolling */
+  }
+  
+  .cursor-dot,
+  .cursor-ring {
+    display: none;
+  }
+  
+  /* Prevent body scroll when mobile menu is open */
+  body.mobile-menu-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+  }
+  
+  /* Mobile menu specific styles */
+  .mobile-menu-container {
+    touch-action: none; /* Prevent any touch gestures */
+    overscroll-behavior: none;
+  }
+  
+  /* Ensure mobile menu doesn't exceed viewport */
+  .mobile-menu-panel {
+    max-height: 100vh;
+    max-width: 85vw;
+  }
+}
+
+/* Additional mobile viewport fixes */
+@media (max-width: 480px) {
+  html {
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+  }
+  
+  body {
+    -webkit-overflow-scrolling: touch;
+    overflow-x: hidden;
+  }
+}
+
+/* Metallic gradient animation */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .water-wave,
+  .water-ripple,
+  .float-particles,
+  .shimmer-effect,
+  .water-drop,
+  .water-splash,
+  .liquid-morph,
+  .surface-tension {
+    animation: none;
+  }
+  
+  @keyframes gradientShift {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+  }
+}

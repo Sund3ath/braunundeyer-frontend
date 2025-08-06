@@ -1,0 +1,131 @@
+{
+  "title": "- START",
+  "description": "Platz für Ihren Slogan",
+  "url": "https://www.braunundeyer.de",
+  "scrapedAt": "2025-07-02T15:59:35.509Z",
+  "links": [
+    {
+      "url": "/start/",
+      "text": "START"
+    },
+    {
+      "url": "/Impressum/",
+      "text": "Impressum"
+    },
+    {
+      "url": "/ansprechpartner/",
+      "text": "ANSPRECHPARTNER"
+    },
+    {
+      "url": "/leistungen/",
+      "text": "LEISTUNGEN"
+    },
+    {
+      "url": "/projekte/",
+      "text": "PROJEKTE"
+    },
+    {
+      "url": "/projekte/neubau/",
+      "text": "Neubau"
+    },
+    {
+      "url": "/PROJEKTE/Altbau/",
+      "text": "Altbau"
+    },
+    {
+      "url": "/PROJEKTE/Wohnungsbau-Sanierung/",
+      "text": "Wohnungsbau Sanierung"
+    },
+    {
+      "url": "/PROJEKTE/Denkmal/",
+      "text": "Denkmal"
+    },
+    {
+      "url": "/PROJEKTE/Design/",
+      "text": "Design"
+    },
+    {
+      "url": "/kontakt/",
+      "text": "KONTAKT"
+    },
+    {
+      "url": "/kontakt/datenschutz/",
+      "text": "Datenschutz"
+    },
+    {
+      "url": "mailto:info%40braunundeyer.de?subject=Wie%20k%C3%B6nnen%20wir%20helfen%3F&amp;body=Ihre%20Nachricht%3A",
+      "text": "info@braunundeyer.de"
+    },
+    {
+      "url": "/start/",
+      "text": "Startseite"
+    },
+    {
+      "url": "/kontakt/",
+      "text": "Kontakt"
+    },
+    {
+      "url": "/Impressum/",
+      "text": "Impressum"
+    },
+    {
+      "url": "/kontakt/datenschutz/",
+      "text": "Datenschutzerklärung"
+    },
+    {
+      "url": "/start/",
+      "text": "START"
+    },
+    {
+      "url": "/Impressum/",
+      "text": "Impressum"
+    },
+    {
+      "url": "/ansprechpartner/",
+      "text": "ANSPRECHPARTNER"
+    }
+  ],
+  "images": [
+    {
+      "src": "/.cm4all/uproc.php/0/bilder0621/.neubau-290721.jpg/picture-200?_=17a585e29e0",
+      "alt": ""
+    },
+    {
+      "src": "/.cm4all/uproc.php/0/bilder0621/.altbau-290721.jpg/picture-200?_=17a585e3598",
+      "alt": ""
+    },
+    {
+      "src": "/.cm4all/uproc.php/0/bilder0621/.innenarchitekt-290721.jpg/picture-200?_=17a585e2dc8",
+      "alt": ""
+    },
+    {
+      "src": "/.cm4all/uproc.php/0/bilder0621/.design-290721.jpg/picture-200?_=17a585e31b0",
+      "alt": ""
+    },
+    {
+      "src": "/.cm4all/uproc.php/0/.EFH-retousche%20titel.png/picture-200?_=1777208c3a8",
+      "alt": "EFH-retousche titel"
+    },
+    {
+      "src": "/.cm4all/uproc.php/0/.Altbausanierung.jpg/picture-200?_=1777c13c758",
+      "alt": "Altbausanierung"
+    },
+    {
+      "src": "/.cm4all/uproc.php/0/.Braun_u_Eyer_Baddesign.jpg/picture-200?_=1777c13b3d0",
+      "alt": "Braun_u_Eyer_Baddesign"
+    },
+    {
+      "src": "/.cm4all/uproc.php/0/.Innenarchitektur_Neubau.jpg/picture-200?_=1777c136d80",
+      "alt": "Innenarchitektur_Neubau"
+    },
+    {
+      "src": "/.cm4all/uproc.php/0/.Wohnungsbau1.1.jpg/picture-200?_=17772080ff8",
+      "alt": "Wohnungsbau1.1"
+    },
+    {
+      "src": "/.cm4all/uproc.php/0/.Bismarckstrasse%2075.jpg/picture-200?_=1777c13b7b8",
+      "alt": "Bismarckstrasse 75"
+    }
+  ],
+  "textLength": 2350
+}

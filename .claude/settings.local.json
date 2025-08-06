@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(sips:*)",
+      "mcp__playwright__browser_navigate",
+      "mcp__playwright__browser_click",
+      "mcp__playwright__browser_wait_for",
+      "Bash(mkdir:*)",
+      "mcp__playwright__browser_evaluate",
+      "Bash(npm install:*)",
+      "Bash(node:*)",
+      "Bash(npx playwright install:*)",
+      "Bash(curl:*)",
+      "Bash(npm start)",
+      "mcp__playwright__browser_tab_close"
+    ],
+    "deny": []
+  }
+}

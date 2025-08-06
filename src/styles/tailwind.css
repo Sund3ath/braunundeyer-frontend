@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Primary Colors */
+  --color-primary: #2C2C2C; /* Deep charcoal - gray-800 */
+  --color-secondary: #6B7280; /* Mid-tone gray - gray-500 */
+  --color-accent: #D97706; /* Warm amber - amber-600 */
+  
+  /* Background Colors */
+  --color-background: #FEFEFE; /* Off-white - gray-50 */
+  --color-surface: #F9FAFB; /* Subtle gray - gray-50 */
+  
+  /* Text Colors */
+  --color-text-primary: #111827; /* Near-black - gray-900 */
+  --color-text-secondary: #4B5563; /* Medium gray - gray-600 */
+  
+  /* Status Colors */
+  --color-success: #059669; /* Professional green - emerald-600 */
+  --color-warning: #D97706; /* Warm amber - amber-600 */
+  --color-error: #DC2626; /* Clear red - red-600 */
+  
+  /* Border Colors */
+  --color-border: #E5E7EB; /* Light gray - gray-200 */
+}
+
+@layer base {
+  html {
+    font-family: 'Source Sans Pro', sans-serif;
+  }
+  
+  body {
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
+    line-height: 1.6;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    line-height: 1.2;
+  }
+  
+  .font-heading {
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .font-body {
+    font-family: 'Source Sans Pro', sans-serif;
+  }
+  
+  .font-caption {
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+@layer components {
+  .nav-link {
+    @apply transition-colors duration-200 ease-out hover:text-accent;
+  }
+  
+  .btn-primary {
+    @apply bg-accent text-white px-6 py-3 rounded transition-all duration-200 ease-out hover:scale-102 hover:shadow-lg;
+  }
+  
+  .card {
+    @apply bg-surface rounded border border-border shadow-sm;
+  }
+  
+  .shadow-subtle {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+}
+
+@layer utilities {
+  .hover\:scale-102:hover {
+    transform: scale(1.02);
+  }
+  
+  .transition-smooth {
+    transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .transition-medium {
+    transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .breathing-space {
+    @apply px-4 py-8 md:px-8 md:py-16 lg:px-16 lg:py-32;
+  }
+}
