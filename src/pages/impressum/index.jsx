@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import Header from 'components/ui/Header';
 import SEO from 'components/SEO';
+import CursorTrail from 'components/ui/CursorTrail';
 import { generateBreadcrumbSchema } from 'utils/structuredData';
 
 const Impressum = () => {
@@ -25,7 +26,7 @@ const Impressum = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="container mx-auto px-4 py-20 max-w-4xl"
+        className="container mx-auto px-4 pt-32 pb-20 max-w-4xl"
       >
         <h1 className="text-4xl font-bold mb-8">Impressum</h1>
         
@@ -158,6 +159,7 @@ const Impressum = () => {
           <p className="text-sm text-gray-600">Stand: Dezember 2024</p>
         </div>
       </motion.div>
+      <CursorTrail />
     </div>
   );
 };
