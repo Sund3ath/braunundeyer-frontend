@@ -8,6 +8,7 @@ import Image from 'components/AppImage';
 import WaterEffect from 'components/ui/WaterEffect';
 import CursorTrail from 'components/ui/CursorTrail';
 import AnimatedText from 'components/ui/AnimatedText';
+import ContentBackgroundTypography from 'components/ui/ContentBackgroundTypography';
 import SEO from 'components/SEO';
 import { combineSchemas, generateOrganizationSchema, generateWebsiteSchema, generateLocalBusinessSchema } from 'utils/structuredData';
 
@@ -209,7 +210,10 @@ const Homepage = () => {
   );
 
   return (
-    <div className="min-h-screen bg-background custom-cursor relative overflow-hidden">
+    <div className="min-h-screen custom-cursor relative overflow-hidden bg-background">
+      
+      {/* Background typography is now placed within content sections only */}
+      
       <SEO 
         title="Braun & Eyer Architekturbüro | Neubau und Altbausanierung in Saarbrücken"
         description="Führendes Architekturbüro in Saarbrücken für innovative Neubauprojekte und fachgerechte Altbausanierung. Über 30 Jahre Erfahrung in nachhaltiger Architektur und Denkmalschutz."
@@ -231,9 +235,9 @@ const Homepage = () => {
       />
       
       {/* Enhanced Hero Section with Water Effects */}
-      <WaterEffect className="relative h-screen" style={{ zIndex: 10 }}>
+      <WaterEffect className="relative h-screen bg-background" style={{ zIndex: 20 }}>
         <motion.section 
-          className="relative h-screen overflow-hidden"
+          className="relative h-screen overflow-hidden bg-background"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
@@ -404,59 +408,35 @@ const Homepage = () => {
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
       >
-        {/* Full-width floating text container extending beyond max-width */}
-        <div className="absolute inset-0 w-full pointer-events-none" style={{ zIndex: 1 }}>
-          <motion.div
-            className="absolute text-[14rem] opacity-[0.12] text-gray-400 font-thin select-none whitespace-nowrap"
-            style={{ left: "-5%", top: "40%" }}
-            animate={{
-              x: [0, 30, -15, 0],
-              y: [0, -10, 15, 0],
-              rotate: [0, 0.5, -0.3, 0],
-            }}
-            transition={{
-              duration: 25,
-              repeat: Infinity,
-              ease: "linear"
-            }}
-          >
-            individuell
-          </motion.div>
-          <motion.div
-            className="absolute text-7xl opacity-[0.20] text-gray-400 font-thin select-none whitespace-nowrap"
-            style={{ right: "-8%", top: "10%" }}
-            animate={{
-              x: [0, -20, 12, 0],
-              y: [0, 12, -8, 0],
-              rotate: [0, -0.5, 0.7, 0],
-            }}
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              delay: 3,
-              ease: "linear"
-            }}
-          >
-            dynamisch
-          </motion.div>
-          <motion.div
-            className="absolute text-9xl opacity-[0.15] text-gray-400 font-thin select-none whitespace-nowrap"
-            style={{ left: "85%", top: "70%" }}
-            animate={{
-              x: [0, -25, 10, 0],
-              y: [0, 15, -20, 0],
-              rotate: [0, 1, -0.8, 0],
-            }}
-            transition={{
-              duration: 30,
-              repeat: Infinity,
-              delay: 7,
-              ease: "linear"
-            }}
-          >
-            kreativ
-          </motion.div>
-        </div>
+        {/* Content Background Typography - Only in this section */}
+        <ContentBackgroundTypography 
+          words={[
+            { 
+              text: "PROJEKTE", 
+              size: "text-[14rem]", 
+              opacity: "opacity-[0.06]", 
+              position: { left: "-5%", top: "30%" },
+              animation: "large",
+              delay: 0 
+            },
+            { 
+              text: "INNOVATION", 
+              size: "text-8xl", 
+              opacity: "opacity-[0.08]", 
+              position: { right: "-8%", top: "10%" },
+              animation: "medium",
+              delay: 3 
+            },
+            { 
+              text: "DESIGN", 
+              size: "text-7xl", 
+              opacity: "opacity-[0.07]", 
+              position: { left: "85%", top: "70%" },
+              animation: "small",
+              delay: 5 
+            }
+          ]}
+        />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <motion.div 
             className="text-center mb-16"
@@ -563,60 +543,35 @@ const Homepage = () => {
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
       >
-        {/* Full-width floating text container for services */}
-        <div className="absolute inset-0 w-full pointer-events-none" style={{ zIndex: 1 }}>
-          <motion.div
-            className="absolute text-[12rem] opacity-[0.16] text-gray-400 font-thin select-none whitespace-nowrap"
-            style={{ left: "-10%", top: "20%" }}
-            animate={{
-              x: [0, 40, -20, 0],
-              y: [0, 18, -12, 0],
-              rotate: [0, -0.7, 1.2, 0],
-            }}
-            transition={{
-              duration: 28,
-              repeat: Infinity,
-              delay: 1,
-              ease: "linear"
-            }}
-          >
-            ökologisch
-          </motion.div>
-          <motion.div
-            className="absolute text-5xl opacity-[0.28] text-gray-400 font-thin select-none whitespace-nowrap"
-            style={{ right: "-5%", top: "70%" }}
-            animate={{
-              x: [0, -30, 15, 0],
-              y: [0, -15, 25, 0],
-              rotate: [0, 1, -0.8, 0],
-            }}
-            transition={{
-              duration: 22,
-              repeat: Infinity,
-              delay: 4,
-              ease: "linear"
-            }}
-          >
-            nachhaltig
-          </motion.div>
-          <motion.div
-            className="absolute text-8xl opacity-[0.14] text-gray-400 font-thin select-none whitespace-nowrap"
-            style={{ left: "2%", top: "85%" }}
-            animate={{
-              x: [0, 20, -12, 0],
-              y: [0, -25, 18, 0],
-              rotate: [0, 0.8, -1.2, 0],
-            }}
-            transition={{
-              duration: 26,
-              repeat: Infinity,
-              delay: 8,
-              ease: "linear"
-            }}
-          >
-            effizient
-          </motion.div>
-        </div>
+        {/* Content Background Typography - Only in this section */}
+        <ContentBackgroundTypography 
+          words={[
+            { 
+              text: "LEISTUNGEN", 
+              size: "text-[12rem]", 
+              opacity: "opacity-[0.05]", 
+              position: { left: "-10%", top: "20%" },
+              animation: "large",
+              delay: 1 
+            },
+            { 
+              text: "QUALITÄT", 
+              size: "text-7xl", 
+              opacity: "opacity-[0.07]", 
+              position: { right: "-5%", top: "70%" },
+              animation: "medium",
+              delay: 4 
+            },
+            { 
+              text: "KOMPETENZ", 
+              size: "text-8xl", 
+              opacity: "opacity-[0.06]", 
+              position: { left: "2%", top: "85%" },
+              animation: "small",
+              delay: 8 
+            }
+          ]}
+        />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <motion.div 
             className="text-center mb-16"
@@ -858,77 +813,35 @@ const Homepage = () => {
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
       >
-        {/* Full-width floating text container for testimonials */}
-        <div className="absolute inset-0 w-full pointer-events-none" style={{ zIndex: 1 }}>
-          <motion.div
-            className="absolute text-[11rem] opacity-[0.14] text-gray-400 font-thin select-none whitespace-nowrap"
-            style={{ left: "-8%", top: "20%" }}
-            animate={{
-              x: [0, 35, -18, 0],
-              y: [0, -15, 20, 0],
-              rotate: [0, 0.8, -1.1, 0],
-            }}
-            transition={{
-              duration: 32,
-              repeat: Infinity,
-              delay: 2,
-              ease: "linear"
-            }}
-          >
-            vertrauensvoll
-          </motion.div>
-          <motion.div
-            className="absolute text-7xl opacity-[0.18] text-gray-400 font-thin select-none whitespace-nowrap"
-            style={{ right: "-10%", top: "60%" }}
-            animate={{
-              x: [0, -28, 16, 0],
-              y: [0, 12, -22, 0],
-              rotate: [0, -0.9, 1.3, 0],
-            }}
-            transition={{
-              duration: 28,
-              repeat: Infinity,
-              delay: 5,
-              ease: "linear"
-            }}
-          >
-            professionell
-          </motion.div>
-          <motion.div
-            className="absolute text-6xl opacity-[0.16] text-gray-400 font-thin select-none whitespace-nowrap"
-            style={{ left: "85%", top: "10%" }}
-            animate={{
-              x: [0, -32, 18, 0],
-              y: [0, 20, -14, 0],
-              rotate: [0, 1.2, -0.7, 0],
-            }}
-            transition={{
-              duration: 30,
-              repeat: Infinity,
-              delay: 8,
-              ease: "linear"
-            }}
-          >
-            qualitätsvoll
-          </motion.div>
-          <motion.div
-            className="absolute text-5xl opacity-[0.20] text-gray-400 font-thin select-none whitespace-nowrap"
-            style={{ right: "80%", top: "85%" }}
-            animate={{
-              x: [0, 25, -12, 0],
-              y: [0, -18, 26, 0],
-              rotate: [0, -1.1, 0.8, 0],
-            }}
-            transition={{
-              duration: 26,
-              repeat: Infinity,
-              delay: 12,
-              ease: "linear"
-            }}
-          >
-            zufrieden
-          </motion.div>
-        </div>
+        {/* Content Background Typography - Only in this section */}
+        <ContentBackgroundTypography 
+          words={[
+            { 
+              text: "REFERENZEN", 
+              size: "text-[11rem]", 
+              opacity: "opacity-[0.05]", 
+              position: { left: "-8%", top: "20%" },
+              animation: "large",
+              delay: 2 
+            },
+            { 
+              text: "VERTRAUEN", 
+              size: "text-7xl", 
+              opacity: "opacity-[0.06]", 
+              position: { right: "-10%", top: "60%" },
+              animation: "medium",
+              delay: 5 
+            },
+            { 
+              text: "QUALITÄT", 
+              size: "text-6xl", 
+              opacity: "opacity-[0.05]", 
+              position: { left: "85%", top: "10%" },
+              animation: "small",
+              delay: 8 
+            }
+          ]}
+        />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative" style={{ zIndex: 3 }}>
           <motion.div 
             className="text-center mb-16"
@@ -1104,7 +1017,7 @@ const Homepage = () => {
       </motion.section>
 
       {/* Footer */}
-      <footer className="bg-primary text-white py-16 relative" style={{ zIndex: 1 }}>
+      <footer className="bg-primary text-white py-16 relative z-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
             <motion.div

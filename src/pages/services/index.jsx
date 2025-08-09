@@ -217,8 +217,10 @@ const Services = () => {
     generateFAQSchema(faqSchemaData)
   );
 
+  // Background typography words for Services page - removed as we'll place them per section
+
   return (
-    <div className="min-h-screen bg-background custom-cursor">
+    <div className="min-h-screen custom-cursor relative overflow-hidden bg-background">
       <SEO 
         title="Leistungen | Braun & Eyer Architekturbüro - Neubau, Sanierung & mehr"
         description="Unsere Architekturleistungen: Neubauplanung, Altbausanierung, Energieberatung, Denkmalschutz. Individuelle Lösungen für Ihr Bauprojekt."
@@ -239,7 +241,7 @@ const Services = () => {
       />
       
       {/* Hero Section */}
-      <section className="pt-20 lg:pt-24 bg-surface border-b border-border">
+      <section className="pt-20 lg:pt-24 bg-surface/95 backdrop-blur-sm border-b border-border relative z-base">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
           <Breadcrumb />
           <div className="mt-6">
@@ -270,9 +272,45 @@ const Services = () => {
       </section>
 
       {/* Services Grid */}
-      <section className="py-16 lg:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12 lg:mb-16">
+      <section className="py-16 lg:py-24 relative" style={{ zIndex: 5 }}>
+        {/* Background Typography for Services Grid */}
+        <div className="absolute inset-0 w-full pointer-events-none" style={{ zIndex: 1 }}>
+          <motion.div
+            className="absolute text-[14rem] opacity-[0.08] text-gray-400 font-thin select-none whitespace-nowrap"
+            style={{ left: "-8%", top: "25%" }}
+            animate={{
+              x: [0, 30, -20, 0],
+              y: [0, -15, 10, 0],
+              rotate: [0, 0.4, -0.3, 0],
+            }}
+            transition={{
+              duration: 28,
+              repeat: Infinity,
+              ease: "linear"
+            }}
+          >
+            LEISTUNGEN
+          </motion.div>
+          <motion.div
+            className="absolute text-9xl opacity-[0.12] text-gray-400 font-thin select-none whitespace-nowrap"
+            style={{ right: "-10%", top: "60%" }}
+            animate={{
+              x: [0, -25, 15, 0],
+              y: [0, 20, -12, 0],
+              rotate: [0, -0.5, 0.4, 0],
+            }}
+            transition={{
+              duration: 24,
+              repeat: Infinity,
+              delay: 4,
+              ease: "linear"
+            }}
+          >
+            planung
+          </motion.div>
+        </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 section-content relative" style={{ zIndex: 2 }}>
+          <div className="text-center mb-12 lg:mb-16 z-content">
             <h2 className="text-3xl lg:text-4xl font-heading font-light text-primary mb-4">
               Was wir anbieten
             </h2>
@@ -283,7 +321,7 @@ const Services = () => {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
             {services.map((service) => (
-              <div key={service.id} className="card overflow-hidden">
+              <div key={service.id} className="card-elevated rounded-lg overflow-hidden">
                 <div className="relative h-48 lg:h-56 overflow-hidden">
                   <Image
                     src={service.image}
@@ -361,8 +399,28 @@ const Services = () => {
       </section>
 
       {/* Process Overview */}
-      <section className="py-16 lg:py-24 bg-surface">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-16 lg:py-24 bg-surface/95 backdrop-blur-sm relative" style={{ zIndex: 4 }}>
+        {/* Background Typography for Process Section */}
+        <div className="absolute inset-0 w-full pointer-events-none" style={{ zIndex: 1 }}>
+          <motion.div
+            className="absolute text-[11rem] opacity-[0.10] text-gray-400 font-thin select-none whitespace-nowrap"
+            style={{ right: "-5%", top: "30%" }}
+            animate={{
+              x: [0, -20, 12, 0],
+              y: [0, 15, -10, 0],
+              rotate: [0, -0.3, 0.4, 0],
+            }}
+            transition={{
+              duration: 26,
+              repeat: Infinity,
+              delay: 2,
+              ease: "linear"
+            }}
+          >
+            PROZESS
+          </motion.div>
+        </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative" style={{ zIndex: 2 }}>
           <div className="text-center mb-12 lg:mb-16">
             <h2 className="text-3xl lg:text-4xl font-heading font-light text-primary mb-4">
               Unser Planungsprozess
@@ -412,7 +470,7 @@ const Services = () => {
       </section>
 
       {/* Case Studies */}
-      <section className="py-16 lg:py-24">
+      <section className="py-16 lg:py-24 relative z-base">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 lg:mb-16">
             <h2 className="text-3xl lg:text-4xl font-heading font-light text-primary mb-4">
@@ -476,7 +534,7 @@ const Services = () => {
       </section>
 
       {/* Pricing Information */}
-      <section className="py-16 lg:py-24 bg-surface">
+      <section className="py-16 lg:py-24 bg-surface/95 backdrop-blur-sm relative z-base">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-4xl font-heading font-light text-primary mb-4">
@@ -552,7 +610,7 @@ const Services = () => {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-16 lg:py-24">
+      <section className="py-16 lg:py-24 relative z-base">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-4xl font-heading font-light text-primary mb-4">
@@ -594,7 +652,7 @@ const Services = () => {
       </section>
 
       {/* Consultation Booking */}
-      <section className="py-16 lg:py-24 bg-gradient-to-br from-accent/5 to-surface">
+      <section className="py-16 lg:py-24 bg-gradient-to-br from-accent/5 to-surface/95 backdrop-blur-sm relative z-base">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-4xl font-heading font-light text-primary mb-4">
@@ -696,7 +754,7 @@ const Services = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-primary text-white py-12 lg:py-16">
+      <footer className="bg-primary text-white py-12 lg:py-16 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div>

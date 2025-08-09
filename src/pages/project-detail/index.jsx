@@ -153,8 +153,10 @@ Wir implementierten ein zentrales Atrium-Design, das als Herzstück des Hauses d
     );
   };
 
+  // Background typography words for Project Detail page - removed as we'll place them per section
+
   return (
-    <div className="min-h-screen bg-background custom-cursor">
+    <div className="min-h-screen custom-cursor relative overflow-hidden bg-background">
       <SEO 
         title={`${currentProject.title} | Braun & Eyer Architekturbüro`}
         description={currentProject.description.substring(0, 160)}
@@ -193,8 +195,44 @@ Wir implementierten ein zentrales Atrium-Design, das als Herzstück des Hauses d
       </div>
 
       {/* Main Content */}
-      <div className="px-4 sm:px-6 lg:px-8 pb-16">
-        <div className="max-w-7xl mx-auto">
+      <div className="px-4 sm:px-6 lg:px-8 pb-16 relative" style={{ zIndex: 5 }}>
+        {/* Background Typography for Project Detail */}
+        <div className="absolute inset-0 w-full pointer-events-none" style={{ zIndex: 1 }}>
+          <motion.div
+            className="absolute text-[10rem] opacity-[0.05] text-gray-400 font-thin select-none whitespace-nowrap"
+            style={{ right: "-8%", top: "45%" }}
+            animate={{
+              x: [0, -20, 12, 0],
+              y: [0, 10, -8, 0],
+              rotate: [0, -0.2, 0.3, 0],
+            }}
+            transition={{
+              duration: 32,
+              repeat: Infinity,
+              ease: "linear"
+            }}
+          >
+            DETAIL
+          </motion.div>
+          <motion.div
+            className="absolute text-7xl opacity-[0.07] text-gray-400 font-thin select-none whitespace-nowrap"
+            style={{ left: "5%", top: "75%" }}
+            animate={{
+              x: [0, 15, -10, 0],
+              y: [0, -12, 8, 0],
+              rotate: [0, 0.3, -0.2, 0],
+            }}
+            transition={{
+              duration: 28,
+              repeat: Infinity,
+              delay: 3,
+              ease: "linear"
+            }}
+          >
+            konzept
+          </motion.div>
+        </div>
+        <div className="max-w-7xl mx-auto relative" style={{ zIndex: 2 }}>
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 lg:gap-12">
             {/* Main Content Area */}
             <div className="lg:col-span-3 space-y-8">

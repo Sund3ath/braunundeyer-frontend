@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import Header from 'components/ui/Header';
 import SEO from 'components/SEO';
 import CursorTrail from 'components/ui/CursorTrail';
+import BackgroundTypography from 'components/ui/BackgroundTypography';
 import { generateBreadcrumbSchema } from 'utils/structuredData';
 
 const Datenschutz = () => {
@@ -11,8 +12,33 @@ const Datenschutz = () => {
     { name: 'Datenschutz', url: 'https://braunundeyer.de/datenschutz' }
   ];
 
+  // Very subtle background typography for legal pages
+  const backgroundWords = [
+    { 
+      text: "SCHUTZ", 
+      size: "text-[9rem]", 
+      opacity: "opacity-[0.03]", 
+      position: { left: "65%", top: "35%" },
+      animation: "large",
+      delay: 0,
+      duration: 45
+    },
+    { 
+      text: "DATEN", 
+      size: "text-7xl", 
+      opacity: "opacity-[0.04]", 
+      position: { left: "8%", top: "65%" },
+      animation: "small",
+      delay: 6,
+      duration: 38
+    }
+  ];
+
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen relative overflow-hidden bg-background">
+      
+      {/* Background Typography - now properly positioned */}
+      <BackgroundTypography words={backgroundWords} />
       <SEO 
         title="Datenschutzerklärung | Braun & Eyer Architekturbüro"
         description="Datenschutzerklärung der Braun und Eyer Architekten GbR. Informationen zum Datenschutz gemäß DSGVO."
@@ -26,7 +52,7 @@ const Datenschutz = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="container mx-auto px-4 pt-32 pb-20 max-w-4xl"
+        className="container mx-auto px-4 pt-32 pb-20 max-w-4xl relative z-base"
       >
         <h1 className="text-4xl font-bold mb-8">Datenschutzerklärung</h1>
         

@@ -233,8 +233,10 @@ const ProjectGallery = () => {
 
   const gallerySchema = generateBreadcrumbSchema(breadcrumbs);
 
+  // Background typography words for Project Gallery page - removed as we'll place them per section
+
   return (
-    <div className="min-h-screen bg-background custom-cursor">
+    <div className="min-h-screen custom-cursor relative overflow-hidden bg-background">
       <SEO 
         title="Projekte | Braun & Eyer Architekturbüro - Portfolio & Referenzen"
         description="Entdecken Sie unsere Architekturprojekte: Moderne Neubauten, stilvolle Sanierungen und nachhaltige Bauprojekte. Lassen Sie sich von unseren Referenzen inspirieren."
@@ -257,7 +259,7 @@ const ProjectGallery = () => {
       {/* Main Content */}
       <main className="pt-20 lg:pt-24">
         {/* Hero Section */}
-        <section className="bg-surface border-b border-border">
+        <section className="bg-surface/95 backdrop-blur-sm border-b border-border relative z-base">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
             <Breadcrumb />
             <div className="mt-6">
@@ -272,7 +274,7 @@ const ProjectGallery = () => {
         </section>
 
         {/* Filters and Controls */}
-        <section className="bg-background border-b border-border sticky top-16 lg:top-20 z-50">
+        <section className="bg-background/95 backdrop-blur-sm border-b border-border sticky top-16 lg:top-20 z-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             {/* Search Bar */}
             <div className="mb-4 lg:mb-6">
@@ -378,7 +380,61 @@ const ProjectGallery = () => {
         </section>
 
         {/* Projects Grid */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
+        <section className="py-8 lg:py-12 relative" style={{ zIndex: 5 }}>
+          {/* Background Typography for Projects Grid */}
+          <div className="absolute inset-0 w-full pointer-events-none" style={{ zIndex: 1 }}>
+            <motion.div
+              className="absolute text-[16rem] opacity-[0.06] text-gray-400 font-thin select-none whitespace-nowrap"
+              style={{ left: "-12%", top: "40%" }}
+              animate={{
+                x: [0, 30, -20, 0],
+                y: [0, -15, 10, 0],
+                rotate: [0, 0.3, -0.2, 0],
+              }}
+              transition={{
+                duration: 35,
+                repeat: Infinity,
+                ease: "linear"
+              }}
+            >
+              PROJEKTE
+            </motion.div>
+            <motion.div
+              className="absolute text-9xl opacity-[0.10] text-gray-400 font-thin select-none whitespace-nowrap"
+              style={{ right: "-8%", top: "70%" }}
+              animate={{
+                x: [0, -25, 15, 0],
+                y: [0, 20, -12, 0],
+                rotate: [0, -0.4, 0.5, 0],
+              }}
+              transition={{
+                duration: 28,
+                repeat: Infinity,
+                delay: 4,
+                ease: "linear"
+              }}
+            >
+              portfolio
+            </motion.div>
+            <motion.div
+              className="absolute text-8xl opacity-[0.08] text-gray-400 font-thin select-none whitespace-nowrap"
+              style={{ left: "85%", top: "20%" }}
+              animate={{
+                x: [0, -20, 10, 0],
+                y: [0, 15, -8, 0],
+                rotate: [0, 0.5, -0.3, 0],
+              }}
+              transition={{
+                duration: 30,
+                repeat: Infinity,
+                delay: 6,
+                ease: "linear"
+              }}
+            >
+              werke
+            </motion.div>
+          </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 section-content relative" style={{ zIndex: 2 }}>
           {/* Results Count */}
           <div className="mb-6 lg:mb-8">
             <p className="text-text-secondary font-body">
@@ -414,7 +470,7 @@ const ProjectGallery = () => {
                     <div
                       key={project.id}
                       onClick={() => handleProjectClick(project.id)}
-                      className="group cursor-pointer bg-surface rounded-minimal overflow-hidden border border-border hover:shadow-lg transition-all duration-300 hover:scale-102"
+                      className="group cursor-pointer card-elevated rounded-minimal overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-102"
                     >
                       <div className="aspect-[4/3] overflow-hidden">
                         <Image
@@ -462,7 +518,7 @@ const ProjectGallery = () => {
                     <div
                       key={project.id}
                       onClick={() => handleProjectClick(project.id)}
-                      className="group cursor-pointer bg-surface rounded-minimal overflow-hidden border border-border hover:shadow-lg transition-all duration-300 hover:scale-[1.01]"
+                      className="group cursor-pointer card-elevated rounded-minimal overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.01]"
                     >
                       <div className="flex flex-col md:flex-row">
                         <div className="md:w-1/3 aspect-[4/3] md:aspect-auto overflow-hidden">
@@ -535,11 +591,12 @@ const ProjectGallery = () => {
               )}
             </>
           )}
+        </div>
         </section>
       </main>
 
       {/* Footer */}
-      <footer className="bg-primary text-white mt-16">
+      <footer className="bg-primary text-white mt-16 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div>

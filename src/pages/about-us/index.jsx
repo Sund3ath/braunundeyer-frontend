@@ -214,8 +214,10 @@ const AboutUs = () => {
     generatePersonSchema({ name: 'Herr Eyer', jobTitle: 'Geschäftsführender Architekt' })
   );
 
+  // Background typography words for About page - removed as we'll place them per section
+
   return (
-    <div className="min-h-screen bg-background custom-cursor">
+    <div className="min-h-screen custom-cursor relative overflow-hidden bg-background">
       <SEO 
         title="Über uns | Braun & Eyer Architekturbüro - Ihre Experten für Architektur"
         description="Lernen Sie das Team von Braun & Eyer kennen. Über 30 Jahre Erfahrung in Architektur, Neubau und Altbausanierung. Unsere Vision, Mission und Werte."
@@ -236,7 +238,7 @@ const AboutUs = () => {
       />
       
       {/* Breadcrumb Section */}
-      <section className="pt-20 lg:pt-24 bg-surface border-b border-border">
+      <section className="pt-20 lg:pt-24 bg-surface/95 backdrop-blur-sm border-b border-border relative z-base">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
           <Breadcrumb />
           <div className="mt-6">
@@ -251,7 +253,7 @@ const AboutUs = () => {
       </section>
 
       {/* Hero Section with Philosophy */}
-      <section className="relative">
+      <section className="relative z-base">
         <div className="relative h-96 lg:h-[500px] overflow-hidden">
           <Image
             src={officePhilosophy.backgroundImage}
@@ -272,9 +274,45 @@ const AboutUs = () => {
       </section>
 
       {/* Team Members Section */}
-      <section className="py-16 lg:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+      <section className="py-16 lg:py-24 relative" style={{ zIndex: 5 }}>
+        {/* Background Typography for Team Section */}
+        <div className="absolute inset-0 w-full pointer-events-none" style={{ zIndex: 1 }}>
+          <motion.div
+            className="absolute text-[15rem] opacity-[0.08] text-gray-400 font-thin select-none whitespace-nowrap"
+            style={{ left: "-10%", top: "30%" }}
+            animate={{
+              x: [0, 25, -15, 0],
+              y: [0, -10, 15, 0],
+              rotate: [0, 0.3, -0.2, 0],
+            }}
+            transition={{
+              duration: 30,
+              repeat: Infinity,
+              ease: "linear"
+            }}
+          >
+            TEAM
+          </motion.div>
+          <motion.div
+            className="absolute text-8xl opacity-[0.12] text-gray-400 font-thin select-none whitespace-nowrap"
+            style={{ right: "-5%", top: "60%" }}
+            animate={{
+              x: [0, -20, 10, 0],
+              y: [0, 12, -8, 0],
+              rotate: [0, -0.4, 0.5, 0],
+            }}
+            transition={{
+              duration: 25,
+              repeat: Infinity,
+              delay: 3,
+              ease: "linear"
+            }}
+          >
+            expertise
+          </motion.div>
+        </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 section-content relative" style={{ zIndex: 2 }}>
+          <div className="text-center mb-16 z-content">
             <h2 className="text-3xl lg:text-4xl font-heading font-light text-primary mb-4">
               Unser Team
             </h2>
@@ -285,7 +323,7 @@ const AboutUs = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {teamMembers.map((member) => (
-              <div key={member.id} className="bg-surface rounded-lg border border-border overflow-hidden shadow-subtle">
+              <div key={member.id} className="card-elevated rounded-lg overflow-hidden">
                 <div className="aspect-square overflow-hidden">
                   <Image
                     src={member.image}
@@ -359,9 +397,46 @@ const AboutUs = () => {
       </section>
 
       {/* Office History Timeline */}
-      <section className="py-16 lg:py-24 bg-surface">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+      <section className="py-16 lg:py-24 bg-surface/95 backdrop-blur-sm relative" style={{ zIndex: 4 }}>
+        {/* Background Typography for History Section */}
+        <div className="absolute inset-0 w-full pointer-events-none" style={{ zIndex: 1 }}>
+          <motion.div
+            className="absolute text-[12rem] opacity-[0.10] text-gray-400 font-thin select-none whitespace-nowrap"
+            style={{ right: "-8%", top: "20%" }}
+            animate={{
+              x: [0, -30, 20, 0],
+              y: [0, 15, -10, 0],
+              rotate: [0, 0.5, -0.3, 0],
+            }}
+            transition={{
+              duration: 28,
+              repeat: Infinity,
+              delay: 2,
+              ease: "linear"
+            }}
+          >
+            TRADITION
+          </motion.div>
+          <motion.div
+            className="absolute text-7xl opacity-[0.14] text-gray-400 font-thin select-none whitespace-nowrap"
+            style={{ left: "5%", top: "70%" }}
+            animate={{
+              x: [0, 20, -12, 0],
+              y: [0, -15, 10, 0],
+              rotate: [0, -0.3, 0.4, 0],
+            }}
+            transition={{
+              duration: 24,
+              repeat: Infinity,
+              delay: 5,
+              ease: "linear"
+            }}
+          >
+            geschichte
+          </motion.div>
+        </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 section-content relative" style={{ zIndex: 2 }}>
+          <div className="text-center mb-16 z-content">
             <h2 className="text-3xl lg:text-4xl font-heading font-light text-primary mb-4">
               Unsere Geschichte
             </h2>
@@ -383,7 +458,7 @@ const AboutUs = () => {
                   )}
                 </div>
                 <div className="flex-1 pb-8">
-                  <div className="bg-background rounded-lg p-4 border border-border">
+                  <div className="card-elevated rounded-lg p-4">
                     <h3 className="font-heading font-medium text-primary mb-1">
                       {milestone.title}
                     </h3>
@@ -429,9 +504,29 @@ const AboutUs = () => {
       </section>
 
       {/* Services Overview */}
-      <section className="py-16 lg:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+      <section className="py-16 lg:py-24 relative" style={{ zIndex: 3 }}>
+        {/* Background Typography for Services Section */}
+        <div className="absolute inset-0 w-full pointer-events-none" style={{ zIndex: 1 }}>
+          <motion.div
+            className="absolute text-9xl opacity-[0.11] text-gray-400 font-thin select-none whitespace-nowrap"
+            style={{ left: "-5%", top: "40%" }}
+            animate={{
+              x: [0, 35, -18, 0],
+              y: [0, -20, 15, 0],
+              rotate: [0, 0.6, -0.4, 0],
+            }}
+            transition={{
+              duration: 26,
+              repeat: Infinity,
+              delay: 1,
+              ease: "linear"
+            }}
+          >
+            leistungen
+          </motion.div>
+        </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative" style={{ zIndex: 2 }}>
+          <div className="text-center mb-16 relative" style={{ zIndex: 3 }}>
             <h2 className="text-3xl lg:text-4xl font-heading font-light text-primary mb-4">
               Unsere Leistungen
             </h2>
@@ -473,9 +568,29 @@ const AboutUs = () => {
       </section>
 
       {/* Client Testimonials */}
-      <section className="py-16 lg:py-24 bg-surface">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+      <section className="py-16 lg:py-24 bg-surface/95 backdrop-blur-sm relative" style={{ zIndex: 2 }}>
+        {/* Background Typography for Testimonials Section */}
+        <div className="absolute inset-0 w-full pointer-events-none" style={{ zIndex: 1 }}>
+          <motion.div
+            className="absolute text-[11rem] opacity-[0.09] text-gray-400 font-thin select-none whitespace-nowrap"
+            style={{ right: "-12%", top: "35%" }}
+            animate={{
+              x: [0, -25, 15, 0],
+              y: [0, 10, -18, 0],
+              rotate: [0, -0.5, 0.3, 0],
+            }}
+            transition={{
+              duration: 32,
+              repeat: Infinity,
+              delay: 4,
+              ease: "linear"
+            }}
+          >
+            REFERENZEN
+          </motion.div>
+        </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative" style={{ zIndex: 2 }}>
+          <div className="text-center mb-16 relative" style={{ zIndex: 3 }}>
             <h2 className="text-3xl lg:text-4xl font-heading font-light text-primary mb-4">
               Kundenstimmen
             </h2>
@@ -550,9 +665,29 @@ const AboutUs = () => {
       </section>
 
       {/* Awards and Recognition */}
-      <section className="py-16 lg:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+      <section className="py-16 lg:py-24 relative" style={{ zIndex: 1 }}>
+        {/* Background Typography for Awards Section */}
+        <div className="absolute inset-0 w-full pointer-events-none" style={{ zIndex: 1 }}>
+          <motion.div
+            className="absolute text-8xl opacity-[0.13] text-gray-400 font-thin select-none whitespace-nowrap"
+            style={{ left: "80%", top: "50%" }}
+            animate={{
+              x: [0, -20, 12, 0],
+              y: [0, 18, -10, 0],
+              rotate: [0, 0.4, -0.6, 0],
+            }}
+            transition={{
+              duration: 22,
+              repeat: Infinity,
+              delay: 6,
+              ease: "linear"
+            }}
+          >
+            exzellenz
+          </motion.div>
+        </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative" style={{ zIndex: 2 }}>
+          <div className="text-center mb-16 relative" style={{ zIndex: 3 }}>
             <h2 className="text-3xl lg:text-4xl font-heading font-light text-primary mb-4">
               Auszeichnungen & Anerkennung
             </h2>
@@ -590,9 +725,9 @@ const AboutUs = () => {
       </section>
 
       {/* Contact Information */}
-      <section className="py-16 lg:py-24 bg-surface">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+      <section className="py-16 lg:py-24 bg-surface/95 backdrop-blur-sm relative z-base">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative" style={{ zIndex: 2 }}>
+          <div className="text-center mb-16 relative" style={{ zIndex: 3 }}>
             <h2 className="text-3xl lg:text-4xl font-heading font-light text-primary mb-4">
               Kontakt aufnehmen
             </h2>
@@ -649,7 +784,7 @@ const AboutUs = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-primary text-white py-12">
+      <footer className="bg-primary text-white py-12 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="flex items-center justify-center space-x-2 mb-4">

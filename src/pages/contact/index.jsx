@@ -198,8 +198,10 @@ const Contact = () => {
     generateBreadcrumbSchema(breadcrumbs)
   );
 
+  // Background typography words for Contact page - removed as we'll place them per section
+
   return (
-    <div className="min-h-screen bg-background custom-cursor">
+    <div className="min-h-screen custom-cursor relative overflow-hidden bg-background">
       <SEO 
         title="Kontakt | Braun & Eyer Architekturbüro - Jetzt Beratung anfragen"
         description="Kontaktieren Sie Braun & Eyer Architekturbüro für Ihr Bauprojekt. Kostenlose Erstberatung für Neubau und Sanierung. Saarbrücken und Umgebung."
@@ -221,7 +223,7 @@ const Contact = () => {
       
       <main className="pt-20 lg:pt-24">
         {/* Breadcrumb Section */}
-        <section className="bg-surface border-b border-border">
+        <section className="bg-surface/95 backdrop-blur-sm border-b border-border relative z-base">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
             <Breadcrumb />
             <div className="mt-6">
@@ -236,13 +238,50 @@ const Contact = () => {
         </section>
 
         {/* Main Content */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 lg:pb-24">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+        <section className="py-16 lg:py-24 relative" style={{ zIndex: 5 }}>
+          {/* Background Typography for Contact Form */}
+          <div className="absolute inset-0 w-full pointer-events-none" style={{ zIndex: 1 }}>
+            <motion.div
+              className="absolute text-[13rem] opacity-[0.08] text-gray-400 font-thin select-none whitespace-nowrap"
+              style={{ left: "-10%", top: "35%" }}
+              animate={{
+                x: [0, 25, -15, 0],
+                y: [0, -12, 8, 0],
+                rotate: [0, 0.3, -0.2, 0],
+              }}
+              transition={{
+                duration: 30,
+                repeat: Infinity,
+                ease: "linear"
+              }}
+            >
+              KONTAKT
+            </motion.div>
+            <motion.div
+              className="absolute text-8xl opacity-[0.11] text-gray-400 font-thin select-none whitespace-nowrap"
+              style={{ right: "-8%", top: "65%" }}
+              animate={{
+                x: [0, -20, 10, 0],
+                y: [0, 15, -10, 0],
+                rotate: [0, -0.4, 0.5, 0],
+              }}
+              transition={{
+                duration: 25,
+                repeat: Infinity,
+                delay: 3,
+                ease: "linear"
+              }}
+            >
+              dialog
+            </motion.div>
+          </div>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative" style={{ zIndex: 2 }}>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 relative" style={{ zIndex: 3 }}>
             
             {/* Contact Information & Map */}
             <div className="space-y-8">
               {/* Contact Details */}
-              <div className="bg-surface rounded-lg p-6 lg:p-8 border border-border">
+              <div className="card-elevated rounded-lg p-6 lg:p-8">
                 <h2 className="text-2xl font-heading font-light text-primary mb-6">
                   Kontakt aufnehmen
                 </h2>
@@ -332,7 +371,7 @@ const Contact = () => {
               </div>
 
               {/* Map */}
-              <div className="bg-surface rounded-lg overflow-hidden border border-border">
+              <div className="card-elevated rounded-lg overflow-hidden">
                 <div className="h-64 lg:h-80">
                   <iframe
                     width="100%"
@@ -549,10 +588,11 @@ const Contact = () => {
               )}
             </div>
           </div>
+          </div>
         </section>
 
         {/* FAQ Section */}
-        <section className="bg-surface py-16 lg:py-24">
+        <section className="bg-surface/95 backdrop-blur-sm py-16 lg:py-24 relative z-base">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="text-3xl lg:text-4xl font-heading font-light text-primary mb-4">
@@ -596,7 +636,7 @@ const Contact = () => {
         </section>
 
         {/* Newsletter Section */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24 relative z-base">
           <div className="bg-primary rounded-2xl p-8 lg:p-12 text-center">
             <h2 className="text-2xl lg:text-3xl font-heading font-light text-white mb-4">
               Bleiben Sie über unsere neuesten Projekte informiert

@@ -15,7 +15,12 @@
       "mcp__playwright__browser_tab_close",
       "mcp__playwright__browser_take_screenshot",
       "mcp__playwright__browser_snapshot",
-      "mcp__playwright__browser_close"
+      "mcp__playwright__browser_close",
+      "Bash(npm run build:*)",
+      "Bash(npm run dev:*)",
+      "Bash(npm run start:*)",
+      "Bash(grep:*)",
+      "Bash(npm run:*)"
     ],
     "deny": []
   }

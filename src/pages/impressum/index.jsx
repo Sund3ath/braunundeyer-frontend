@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import Header from 'components/ui/Header';
 import SEO from 'components/SEO';
 import CursorTrail from 'components/ui/CursorTrail';
+import BackgroundTypography from 'components/ui/BackgroundTypography';
 import { generateBreadcrumbSchema } from 'utils/structuredData';
 
 const Impressum = () => {
@@ -11,8 +12,33 @@ const Impressum = () => {
     { name: 'Impressum', url: 'https://braunundeyer.de/impressum' }
   ];
 
+  // Very subtle background typography for legal pages
+  const backgroundWords = [
+    { 
+      text: "RECHT", 
+      size: "text-[8rem]", 
+      opacity: "opacity-[0.03]", 
+      position: { left: "60%", top: "40%" },
+      animation: "large",
+      delay: 0,
+      duration: 40
+    },
+    { 
+      text: "LEGAL", 
+      size: "text-6xl", 
+      opacity: "opacity-[0.04]", 
+      position: { left: "10%", top: "70%" },
+      animation: "small",
+      delay: 5,
+      duration: 35
+    }
+  ];
+
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen relative overflow-hidden bg-background">
+      
+      {/* Background Typography - now properly positioned */}
+      <BackgroundTypography words={backgroundWords} />
       <SEO 
         title="Impressum | Braun & Eyer Architekturbüro"
         description="Impressum der Braun und Eyer Architekten GbR. Angaben gemäß § 5 TMG."
@@ -26,7 +52,7 @@ const Impressum = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="container mx-auto px-4 pt-32 pb-20 max-w-4xl"
+        className="container mx-auto px-4 pt-32 pb-20 max-w-4xl relative z-base"
       >
         <h1 className="text-4xl font-bold mb-8">Impressum</h1>
         

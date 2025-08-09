@@ -296,6 +296,103 @@ h6 {
   }
 }
 
+/* Z-Index Hierarchy System */
+.z-background {
+  z-index: -1 !important;
+}
+
+.z-background-typography {
+  z-index: 1 !important;
+  position: fixed;
+  pointer-events: none;
+}
+
+.z-base {
+  z-index: 2 !important;
+}
+
+.z-content {
+  z-index: 10 !important;
+  position: relative;
+  background: transparent;
+}
+
+.z-card {
+  z-index: 20 !important;
+  position: relative;
+  backdrop-filter: blur(8px);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.z-modal {
+  z-index: 40 !important;
+}
+
+.z-header {
+  z-index: 50 !important;
+}
+
+.z-overlay {
+  z-index: 60 !important;
+}
+
+.z-tooltip {
+  z-index: 70 !important;
+}
+
+.z-notification {
+  z-index: 80 !important;
+}
+
+.z-cursor {
+  z-index: 9999 !important;
+}
+
+/* Card enhanced styles with better separation */
+.card-elevated {
+  position: relative;
+  z-index: 20;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 
+    0 4px 24px rgba(0, 0, 0, 0.08),
+    0 8px 48px rgba(0, 0, 0, 0.06),
+    0 1px 3px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-elevated:hover {
+  transform: translateY(-4px);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.12),
+    0 16px 64px rgba(0, 0, 0, 0.08),
+    0 2px 6px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Background typography optimizations */
+.bg-typography-wrapper {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0.08;
+  filter: blur(0.3px);
+  mix-blend-mode: multiply;
+}
+
+/* Section content wrapper to ensure proper stacking */
+.section-content {
+  position: relative;
+  z-index: 10;
+  isolation: isolate;
+  background: transparent;
+}
+
 /* Metallic gradient animation - monochrome version */
 @keyframes gradientShift {
   0% {
@@ -339,6 +436,64 @@ h6 {
     background-position: 200% center;
     filter: brightness(1);
   }
+}
+
+/* Enhanced background typography effects */
+.bg-text-subtle {
+  opacity: 0.06;
+  filter: blur(0.5px);
+  mix-blend-mode: soft-light;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Glass morphism for cards */
+.glass-card {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 
+    0 8px 32px 0 rgba(31, 38, 135, 0.08),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.6),
+    inset 0 -1px 0 0 rgba(0, 0, 0, 0.05);
+}
+
+/* Enhanced section separators */
+.section-separator {
+  position: relative;
+  isolation: isolate;
+}
+
+.section-separator::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(0, 0, 0, 0.02) 50%,
+    transparent 100%
+  );
+}
+
+/* Improved text shadows for better readability */
+.text-elevated {
+  text-shadow: 
+    0 1px 2px rgba(0, 0, 0, 0.04),
+    0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+/* Enhanced hover states for cards */
+.card-interactive {
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.card-interactive:hover {
+  transform: translateY(-8px) rotateX(2deg);
 }
 
 /* Architectural grid animation */
@@ -698,6 +853,30 @@ h6 {
     inset 0 0 20px rgba(255, 255, 255, 0.1),
     inset 0 0 40px rgba(255, 255, 255, 0.05),
     0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Page background utilities */
+.bg-transparent-white {
+  background: rgba(255, 255, 255, 0.97);
+  backdrop-filter: blur(1px);
+}
+
+.bg-page {
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.98) 0%,
+    rgba(255, 255, 255, 0.95) 50%,
+    rgba(255, 255, 255, 0.98) 100%
+  );
+  position: relative;
+  z-index: 2;
+}
+
+/* Ensure main content sits above typography */
+.main-content {
+  position: relative;
+  z-index: 5;
+  background: transparent;
 }
 
 /* Reduced motion preferences */
