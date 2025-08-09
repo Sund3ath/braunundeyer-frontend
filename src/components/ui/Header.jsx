@@ -1,18 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import Icon from '../AppIcon';
+import { useEditMode } from '../../cms/contexts/EditModeContext';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
-
+  const { i18n } = useTranslation();
+  const { isAuthenticated } = useEditMode();
+  
+  // Get current language from URL or i18n
+  const currentLang = location.pathname.split('/')[1] || i18n.language || 'de';
+  
+  // Language-aware navigation items using the actual routes from LanguageRoutes.jsx
   const navigationItems = [
-    { label: 'Startseite', path: '/homepage', icon: 'Home' },
-    { label: 'Projekte', path: '/project-gallery', icon: 'Building2' },
-    { label: 'Über uns', path: '/about-us', icon: 'Users' },
-    { label: 'Leistungen', path: '/services', icon: 'Settings' },
-    { label: 'Kontakt', path: '/contact', icon: 'Mail' },
+    { label: 'Startseite', path: `/${currentLang}/homepage`, icon: 'Home' },
+    { label: 'Projekte', path: `/${currentLang}/projekte`, icon: 'Building2' },
+    { label: 'Über uns', path: `/${currentLang}/uber-uns`, icon: 'Users' },
+    { label: 'Leistungen', path: `/${currentLang}/leistungen`, icon: 'Settings' },
+    { label: 'Kontakt', path: `/${currentLang}/kontakt`, icon: 'Mail' },
   ];
 
   useEffect(() => {
@@ -49,13 +57,16 @@ const Header = () => {
   };
 
   const isActivePath = (path) => {
+    // Check if current pathname matches the navigation path
     return location.pathname === path;
   };
 
   return (
     <>
       <header 
-        className={`fixed top-0 left-0 right-0 z-header transition-all duration-300 ${
+        className={`fixed left-0 right-0 z-[9000] transition-all duration-300 ${
+          isAuthenticated ? 'top-16' : 'top-0'
+        } ${
           isScrolled 
             ? 'bg-background/95 backdrop-blur-sm shadow-subtle' 
             : 'bg-background'
@@ -65,7 +76,7 @@ const Header = () => {
           <div className="flex items-center justify-between h-16 lg:h-20">
             {/* Logo - Landing page style with black background extending below navbar */}
             <Link 
-              to="/homepage" 
+              to={`/${currentLang}/homepage`} 
               className="group transition-smooth relative"
             >
               <div className="bg-primary px-4 text-center relative z-10 mt-3 mb-3" style={{ paddingTop: '12px', paddingBottom: '18px', marginBottom: '-12px' }}>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Braun & Eyer - Image Preview</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 48px;
+            font-weight: 300;
+        }
+        h2 {
+            margin: 40px 0 20px;
+            font-size: 32px;
+            font-weight: 400;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+        }
+        .hero-section {
+            position: relative;
+            height: 600px;
+            margin-bottom: 60px;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .hero-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.6));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding: 40px;
+        }
+        .hero-title {
+            font-size: 48px;
+            font-weight: 300;
+            margin-bottom: 20px;
+        }
+        .hero-subtitle {
+            font-size: 24px;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        .image-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .image-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        .image-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        .image-card-content {
+            padding: 20px;
+        }
+        .image-card h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+        .image-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+        .two-column {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        .about-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        .footer {
+            text-align: center;
+            padding: 40px 0;
+            color: #666;
+            border-top: 1px solid #ddd;
+            margin-top: 80px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Braun & Eyer Architekturbüro</h1>
+        
+        <!-- Hero Section with Video -->
+        <div class="hero-section">
+            <video class="hero-video" autoplay muted loop>
+                <source src="/assets/images/hero_modernbuilding_video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="hero-overlay">
+                <h2 class="hero-title">Innovative Architektur für moderne Lebensräume</h2>
+                <p class="hero-subtitle">Über 30 Jahre Erfahrung in Neubau und Altbausanierung</p>
+            </div>
+        </div>
+        
+        <h2>Lokale Bilder - Unsere Projekte</h2>
+        <div class="image-grid">
+            <div class="image-card">
+                <img src="/assets/images/ferienvilla.png" alt="Ferienvilla">
+                <div class="image-card-content">
+                    <h3>Villa Moderne am See</h3>
+                    <p>Luxuriöse Villa mit nachhaltiger Bauweise und Panoramablick in Saarbrücken</p>
+                </div>
+            </div>
+            <div class="image-card">
+                <img src="/assets/images/sarnierung_alt_neu.png" alt="Sanierung Alt Neu">
+                <div class="image-card-content">
+                    <h3>Sanierung Gründerzeitvilla</h3>
+                    <p>Denkmalgerechte Sanierung mit moderner Haustechnik in Saarlouis</p>
+                </div>
+            </div>
+            <div class="image-card">
+                <img src="/assets/images/innenarchitektur.png" alt="Innenarchitektur">
+                <div class="image-card-content">
+                    <h3>Moderne Innenarchitektur</h3>
+                    <p>Zeitgemäße Raumgestaltung mit hochwertigen Materialien</p>
+                </div>
+            </div>
+            <div class="image-card">
+                <img src="/assets/images/alt_neu_ungestaltung.png" alt="Alt Neu Umgestaltung">
+                <div class="image-card-content">
+                    <h3>Transformation Historisch zu Modern</h3>
+                    <p>Behutsame Modernisierung unter Erhaltung des Charakters</p>
+                </div>
+            </div>
+        </div>
+        
+        <h2>Weitere Projekte - Moderne Architektur</h2>
+        <div class="image-grid">
+            <div class="image-card">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800" alt="Modern Villa">
+                <div class="image-card-content">
+                    <h3>Mehrfamilienhaus Stadtmitte</h3>
+                    <p>Energieeffizientes Wohngebäude mit 12 Einheiten in Homburg</p>
+                </div>
+            </div>
+            <div class="image-card">
+                <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800" alt="Office Building">
+                <div class="image-card-content">
+                    <h3>Bürogebäude Innovation Campus</h3>
+                    <p>Nachhaltiges Bürogebäude mit flexiblen Arbeitsflächen</p>
+                </div>
+            </div>
+            <div class="image-card">
+                <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800" alt="Contemporary Home">
+                <div class="image-card-content">
+                    <h3>Einfamilienhaus mit Atrium</h3>
+                    <p>Modernes Einfamilienhaus mit zentralem Innenhof</p>
+                </div>
+            </div>
+            <div class="image-card">
+                <img src="https://images.unsplash.com/photo-1567428485212-ce37bede71e1?w=800" alt="Historic Building">
+                <div class="image-card-content">
+                    <h3>Denkmalschutz Rathaus</h3>
+                    <p>Sanierung historisches Rathaus mit Barrierefreiheit</p>
+                </div>
+            </div>
+        </div>
+        
+        <h2>Über Uns</h2>
+        <div class="two-column">
+            <div>
+                <img src="/assets/images/ferienvilla.png" alt="About Image 1" class="about-image">
+            </div>
+            <div>
+                <img src="/assets/images/innenarchitektur.png" alt="About Image 2" class="about-image">
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>© 2025 Braun & Eyer Architekturbüro - Alle Rechte vorbehalten</p>
+            <p style="margin-top: 10px; font-size: 14px;">
+                Bilder von lokalen Projekten und Unsplash (kostenlose Nutzung)
+            </p>
+        </div>
+    </div>
+</body>
+</html>

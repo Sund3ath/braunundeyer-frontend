@@ -310,7 +310,7 @@ Wir implementierten ein zentrales Atrium-Design, das als Herzstück des Hauses d
           <button
             onClick={() => {
               const prevId = projectId > 1 ? projectId - 1 : projects.length;
-              navigate(`/project-detail?id=${prevId}`);
+              navigate(`/de/projekte/${prevId}`);
             }}
             className="flex items-center space-x-2 px-4 py-2 rounded text-text-secondary hover:text-accent hover:bg-surface transition-colors duration-200"
           >
@@ -325,7 +325,7 @@ Wir implementierten ein zentrales Atrium-Design, das als Herzstück des Hauses d
           <button
             onClick={() => {
               const nextId = projectId < projects.length ? projectId + 1 : 1;
-              navigate(`/project-detail?id=${nextId}`);
+              navigate(`/de/projekte/${nextId}`);
             }}
             className="flex items-center space-x-2 px-4 py-2 rounded text-text-secondary hover:text-accent hover:bg-surface transition-colors duration-200"
           >

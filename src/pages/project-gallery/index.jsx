@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
 import Header from 'components/ui/Header';
@@ -17,6 +17,31 @@ const ProjectGallery = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [visibleProjects, setVisibleProjects] = useState(12);
+  const [clickCount, setClickCount] = useState(0);
+  const clickTimeoutRef = useRef(null);
+
+  // Handle triple-click on footer copyright
+  const handleCopyrightClick = () => {
+    // Clear previous timeout
+    if (clickTimeoutRef.current) {
+      clearTimeout(clickTimeoutRef.current);
+    }
+    
+    const newClickCount = clickCount + 1;
+    setClickCount(newClickCount);
+    
+    // Navigate to admin on triple-click (3rd click)
+    if (newClickCount === 3) {
+      navigate('/de/admin');
+      setClickCount(0);
+      return;
+    }
+    
+    // Reset click count after 500ms
+    clickTimeoutRef.current = setTimeout(() => {
+      setClickCount(0);
+    }, 500);
+  };
 
   // Custom cursor motion values
   const cursorX = useMotionValue(0);
@@ -33,7 +58,7 @@ const ProjectGallery = () => {
       location: "Saarbrücken-St. Johann",
       year: 2023,
       category: "Neubau",
-      image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop",
+      image: "/assets/images/flyer-structure.jpg",
       description: "Zeitgenössische Villa mit klaren Linien, nachhaltigen Materialien und panoramischem Stadtblick.",
       area: "420 m²",
       status: "Fertiggestellt"
@@ -44,7 +69,7 @@ const ProjectGallery = () => {
       location: "Saarbrücken-Mitte",
       year: 2023,
       category: "Neubau",
-      image: "https://images.pexels.com/photos/325229/pexels-photo-325229.jpeg?w=800&h=600&fit=crop",
+      image: "/assets/images/flyer.jpg",
       description: "Modernes 8-stöckiges Bürogebäude mit innovativem Arbeitsplatzdesign und LEED-Zertifizierung.",
       area: "3.200 m²",
       status: "Fertiggestellt"
@@ -55,7 +80,7 @@ const ProjectGallery = () => {
       location: "Saarbrücken-St. Arnual",
       year: 2022,
       category: "Innenarchitektur",
-      image: "https://images.pixabay.com/photo/2016/11/18/17/46/house-1836070_1280.jpg?w=800&h=600&fit=crop",
+      image: "/assets/images/howtolook.jpg",
       description: "Hochwertige Innenarchitektur mit maßgefertigten Möbeln und exklusiven Oberflächen.",
       area: "280 m²",
       status: "Fertiggestellt"
@@ -66,7 +91,7 @@ const ProjectGallery = () => {
       location: "Saarbrücken-Altstadt",
       year: 2022,
       category: "Altbausanierung",
-      image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop",
+      image: "/assets/images/flyer-structure-ref.jpg",
       description: "Behutsame Sanierung eines historischen Stadthauses aus dem 19. Jahrhundert mit modernen Annehmlichkeiten.",
       area: "650 m²",
       status: "Fertiggestellt"
@@ -77,7 +102,7 @@ const ProjectGallery = () => {
       location: "Saarbrücken-Dudweiler",
       year: 2023,
       category: "Neubau",
-      image: "https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?w=800&h=600&fit=crop",
+      image: "/assets/images/flyer.jpg",
       description: "Umweltfreundliches Wohnhaus mit Photovoltaik, Regenwassernutzung und natürlichen Materialien.",
       area: "240 m²",
       status: "In Bearbeitung"
@@ -88,7 +113,7 @@ const ProjectGallery = () => {
       location: "Saarbrücken-Burbach",
       year: 2022,
       category: "Neubau",
-      image: "https://images.pixabay.com/photo/2016/11/29/03/53/architecture-1867187_1280.jpg?w=800&h=600&fit=crop",
+      image: "/assets/images/howtolook.jpg",
       description: "Moderner Gewerbebau mit Außenbereichen und nachhaltigen Designelementen.",
       area: "1.800 m²",
       status: "Fertiggestellt"
@@ -99,7 +124,7 @@ const ProjectGallery = () => {
       location: "Saarbrücken-Malstatt",
       year: 2023,
       category: "Innenarchitektur",
-      image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&h=600&fit=crop",
+      image: "/assets/images/flyer-structure.jpg",
       description: "Klare, minimalistische Innenarchitektur mit optimaler Raumnutzung und natürlichem Licht.",
       area: "95 m²",
       status: "Fertiggestellt"
@@ -110,7 +135,7 @@ const ProjectGallery = () => {
       location: "Saarbrücken-Halberg",
       year: 2022,
       category: "Altbausanierung",
-      image: "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?w=800&h=600&fit=crop",
+      image: "/assets/images/flyer.jpg",
       description: "Umwandlung einer alten Fabrikhalle in moderne Wohnlofts unter Erhaltung des Industriecharakters.",
       area: "1.100 m²",
       status: "Fertiggestellt"
@@ -121,7 +146,7 @@ const ProjectGallery = () => {
       location: "Saarbrücken-St. Arnual",
       year: 2023,
       category: "Innenarchitektur",
-      image: "https://images.pixabay.com/photo/2017/03/28/12/10/chairs-2181947_1280.jpg?w=800&h=600&fit=crop",
+      image: "/assets/images/flyer-structure-ref.jpg",
       description: "Flexible Bürogestaltung zur Förderung von Zusammenarbeit und Mitarbeiterwohlbefinden.",
       area: "850 m²",
       status: "In Bearbeitung"
@@ -132,7 +157,7 @@ const ProjectGallery = () => {
       location: "Starnberg",
       year: 2023,
       category: "Neubau",
-      image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop",
+      image: "/assets/images/howtolook.jpg",
       description: "Luxuriöses Landhaus, das sich harmonisch in die natürliche Umgebung einfügt.",
       area: "380 m²",
       status: "In Bearbeitung"
@@ -143,7 +168,7 @@ const ProjectGallery = () => {
       location: "Saarbrücken-Güntersbürg",
       year: 2022,
       category: "Innenarchitektur",
-      image: "https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg?w=800&h=600&fit=crop",
+      image: "/assets/images/flyer.jpg",
       description: "Warme, einladende Restaurantgestaltung mit bayerischen Kultureinflüssen.",
       area: "320 m²",
       status: "Fertiggestellt"
@@ -154,7 +179,7 @@ const ProjectGallery = () => {
       location: "Saarbrücken-Eschberg",
       year: 2022,
       category: "Altbausanierung",
-      image: "https://images.pixabay.com/photo/2016/06/24/10/47/house-1477041_1280.jpg?w=800&h=600&fit=crop",
+      image: "/assets/images/flyer-structure.jpg",
       description: "Modernisierung von Bildungseinrichtungen unter Bewahrung historischer Architekturelemente.",
       area: "2.100 m²",
       status: "Fertiggestellt"
@@ -198,7 +223,7 @@ const ProjectGallery = () => {
   const displayedProjects = filteredAndSortedProjects.slice(0, visibleProjects);
 
   const handleProjectClick = (projectId) => {
-    navigate(`/project-detail?id=${projectId}`);
+    navigate(`/de/projekte/${projectId}`);
   };
 
   const handleLoadMore = () => {
@@ -661,7 +686,11 @@ const ProjectGallery = () => {
           </div>
           
           <div className="border-t border-white/20 mt-8 pt-8 text-center">
-            <p className="text-white/60 font-body">
+            <p 
+              className="text-white/60 font-body cursor-pointer select-none transition-colors duration-200 hover:text-white/80"
+              onClick={handleCopyrightClick}
+              style={{ userSelect: 'none' }}
+            >
               © {new Date().getFullYear()} Braun & Eyer Architekturbüro Ingenieure. Alle Rechte vorbehalten.
             </p>
           </div>

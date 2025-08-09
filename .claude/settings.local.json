@@ -20,7 +20,18 @@
       "Bash(npm run dev:*)",
       "Bash(npm run start:*)",
       "Bash(grep:*)",
-      "Bash(npm run:*)"
+      "Bash(npm run:*)",
+      "Bash(npm ls:*)",
+      "Bash(find:*)",
+      "Bash(chmod:*)",
+      "Bash(rm:*)",
+      "Bash(git checkout:*)",
+      "Bash(sqlite3:*)",
+      "mcp__playwright__browser_type",
+      "Bash(pkill:*)",
+      "Bash(true)",
+      "mcp__ide__executeCode",
+      "Bash(npx playwright codegen:*)"
     ],
     "deny": []
   }

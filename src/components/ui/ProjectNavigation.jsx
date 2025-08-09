@@ -11,18 +11,18 @@ const ProjectNavigation = ({
 
   const handlePrevious = () => {
     if (currentProjectId > 1) {
-      navigate(`/project-detail?id=${currentProjectId - 1}`);
+      navigate(`/de/projekte/${currentProjectId - 1}`);
     }
   };
 
   const handleNext = () => {
     if (currentProjectId < totalProjects) {
-      navigate(`/project-detail?id=${currentProjectId + 1}`);
+      navigate(`/de/projekte/${currentProjectId + 1}`);
     }
   };
 
   const handleBackToGallery = () => {
-    navigate('/project-gallery');
+    navigate('/de/projekte');
   };
 
   return (
@@ -80,21 +80,21 @@ const ProjectNavigation = ({
         </div>
         <div className="space-y-2">
           <Link
-            to="/project-gallery"
+            to="/de/projekte"
             className="flex items-center space-x-2 p-2 rounded-minimal text-text-secondary hover:text-accent hover:bg-surface transition-colors duration-200 text-sm"
           >
             <Icon name="Grid3X3" size={16} />
             <span>All Projects</span>
           </Link>
           <Link
-            to="/services"
+            to="/de/leistungen"
             className="flex items-center space-x-2 p-2 rounded-minimal text-text-secondary hover:text-accent hover:bg-surface transition-colors duration-200 text-sm"
           >
             <Icon name="Settings" size={16} />
             <span>Our Services</span>
           </Link>
           <Link
-            to="/contact"
+            to="/de/kontakt"
             className="flex items-center space-x-2 p-2 rounded-minimal text-text-secondary hover:text-accent hover:bg-surface transition-colors duration-200 text-sm"
           >
             <Icon name="Mail" size={16} />

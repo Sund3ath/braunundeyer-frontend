@@ -6,24 +6,38 @@ const Breadcrumb = () => {
   const location = useLocation();
   
   const pathMap = {
-    '/homepage': 'Startseite',
-    '/project-gallery': 'Projekte',
-    '/project-detail': 'Projektdetails',
-    '/about-us': 'Über uns',
-    '/services': 'Leistungen',
-    '/contact': 'Kontakt',
+    'homepage': 'Startseite',
+    'projekte': 'Projekte',
+    'uber-uns': 'Über uns',
+    'leistungen': 'Leistungen',
+    'kontakt': 'Kontakt',
+    'impressum': 'Impressum',
+    'datenschutz': 'Datenschutz',
   };
 
   const generateBreadcrumbs = () => {
     const pathSegments = location.pathname.split('/').filter(segment => segment);
-    const breadcrumbs = [{ label: 'Startseite', path: '/homepage' }];
+    
+    // Filter out language codes
+    const supportedLanguages = ['de', 'en', 'fr', 'it', 'es'];
+    const filteredSegments = pathSegments.filter(segment => !supportedLanguages.includes(segment));
+    
+    // Get the language prefix for building proper links
+    const langPrefix = supportedLanguages.includes(pathSegments[0]) ? `/${pathSegments[0]}` : '/de';
+    
+    const breadcrumbs = [{ label: 'Startseite', path: `${langPrefix}/homepage` }];
 
-    if (pathSegments.length > 0) {
-      let currentPath = '';
-      pathSegments.forEach((segment) => {
+    if (filteredSegments.length > 0) {
+      let currentPath = langPrefix;
+      filteredSegments.forEach((segment) => {
         currentPath += `/${segment}`;
-        const label = pathMap[currentPath] || segment.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase());
-        breadcrumbs.push({ label, path: currentPath });
+        // Special case for project details
+        if (segment.match(/^\d+$/)) {
+          breadcrumbs.push({ label: `Projekt ${segment}`, path: currentPath });
+        } else {
+          const label = pathMap[segment] || segment.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+          breadcrumbs.push({ label, path: currentPath });
+        }
       });
     }
 

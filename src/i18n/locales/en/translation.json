@@ -1,0 +1,82 @@
+{
+  "nav": {
+    "home": "Home",
+    "projects": "Projects",
+    "about": "About Us",
+    "services": "Services",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "Braun & Eyer Architecture",
+    "subtitle": "Innovative Architecture with Tradition",
+    "cta": "Explore Projects"
+  },
+  "projects": {
+    "title": "Our Projects",
+    "viewAll": "View All Projects",
+    "filter": {
+      "all": "All",
+      "newBuilding": "New Building",
+      "renovation": "Renovation",
+      "commercial": "Commercial"
+    },
+    "details": {
+      "year": "Year",
+      "location": "Location",
+      "area": "Area",
+      "category": "Category"
+    }
+  },
+  "about": {
+    "title": "About Us",
+    "philosophy": "Our Philosophy",
+    "team": "Our Team",
+    "history": "History"
+  },
+  "services": {
+    "title": "Our Services",
+    "planning": "Planning",
+    "consulting": "Consulting",
+    "projectManagement": "Project Management",
+    "renovation": "Renovation"
+  },
+  "contact": {
+    "title": "Contact",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "message": "Message",
+      "send": "Send Message",
+      "success": "Your message has been sent successfully!"
+    },
+    "info": {
+      "address": "Address",
+      "businessHours": "Business Hours",
+      "phone": "Phone",
+      "email": "Email"
+    }
+  },
+  "footer": {
+    "rights": "All rights reserved",
+    "imprint": "Imprint",
+    "privacy": "Privacy"
+  },
+  "cms": {
+    "editMode": "Edit Mode",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "add": "Add",
+    "edit": "Edit",
+    "preview": "Preview",
+    "publish": "Publish",
+    "unpublish": "Unpublish",
+    "addSection": "Add Section",
+    "addProject": "Add Project",
+    "uploadImage": "Upload Image",
+    "changeImage": "Change Image",
+    "saving": "Saving...",
+    "saved": "Saved"
+  }
+}

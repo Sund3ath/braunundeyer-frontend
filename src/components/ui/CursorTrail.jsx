@@ -5,12 +5,16 @@ import { motion } from 'framer-motion';
 const CursorTrail = () => {
   const [mouseHistory, setMouseHistory] = useState([]);
   const [isVisible, setIsVisible] = useState(false);
+  const [idCounter, setIdCounter] = useState(0);
 
   useEffect(() => {
+    let localCounter = 0;
     const handleMouseMove = (e) => {
       setIsVisible(true);
+      localCounter++;
+      const uniqueId = `${Date.now()}-${localCounter}`;
       setMouseHistory(prev => {
-        const newHistory = [...prev, { x: e.clientX, y: e.clientY, id: Date.now() }];
+        const newHistory = [...prev, { x: e.clientX, y: e.clientY, id: uniqueId }];
         return newHistory.slice(-8); // Keep only last 8 positions
       });
     };

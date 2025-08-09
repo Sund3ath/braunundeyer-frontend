@@ -1,6 +1,6 @@
 // src/pages/homepage/index.jsx
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
 import Header from 'components/ui/Header';
 import Icon from 'components/AppIcon';
@@ -11,11 +11,16 @@ import AnimatedText from 'components/ui/AnimatedText';
 import ContentBackgroundTypography from 'components/ui/ContentBackgroundTypography';
 import SEO from 'components/SEO';
 import { combineSchemas, generateOrganizationSchema, generateWebsiteSchema, generateLocalBusinessSchema } from 'utils/structuredData';
+import { useEditMode } from '../../cms/contexts/EditModeContext';
 
 const Homepage = () => {
+  const { isAuthenticated } = useEditMode();
+  const navigate = useNavigate();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [clickCount, setClickCount] = useState(0);
+  const clickTimeoutRef = useRef(null);
   
   // Custom cursor motion values
   const cursorX = useMotionValue(0);
@@ -27,21 +32,22 @@ const Homepage = () => {
   const heroSlides = [
     {
       id: 1,
-      image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80",
+      image: "/assets/images/alt_neu_ungestaltung.png",
+      video: "/assets/images/hero_modernbuilding_video.mp4",
       title: "Architekturbüro Ingenieure",
       subtitle: "Neubau und Altbausanierung mit Expertise",
       description: "Wir entwickeln innovative Architekturlösungen, die moderne Bauweise mit nachhaltiger Sanierung historischer Gebäude verbinden."
     },
     {
       id: 2,
-      image: "https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=2000&q=80",
+      image: "/assets/images/ferienvilla.png",
       title: "Neubau",
       subtitle: "Moderne Architektur für die Zukunft",
       description: "Zeitgemäße Neubauprojekte, die höchste Ansprüche an Design, Funktionalität und Energieeffizienz erfüllen."
     },
     {
       id: 3,
-      image: "https://images.pixabay.com/photo/2016/11/18/17/20/living-room-1835923_1280.jpg?auto=compress&cs=tinysrgb&w=2000&q=80",
+      image: "/assets/images/innenarchitektur.png",
       title: "Altbausanierung",
       subtitle: "Behutsame Modernisierung historischer Substanz",
       description: "Fachgerechte Sanierung und Modernisierung von Altbauten unter Erhaltung des ursprünglichen Charakters."
@@ -54,7 +60,7 @@ const Homepage = () => {
       title: "Modernes Einfamilienhaus",
       type: "Neubau",
       location: "Wohngebiet",
-      image: "https://images.unsplash.com/photo-1600607687644-c7171b42498b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      image: "/assets/images/ferienvilla.png",
       year: "2024"
     },
     {
@@ -62,7 +68,7 @@ const Homepage = () => {
       title: "Historische Villa Sanierung",
       type: "Altbausanierung",
       location: "Altstadt",
-      image: "https://images.pexels.com/photos/2102587/pexels-photo-2102587.jpeg?auto=compress&cs=tinysrgb&w=800&q=80",
+      image: "/assets/images/sarnierung_alt_neu.png",
       year: "2023"
     },
     {
@@ -70,7 +76,7 @@ const Homepage = () => {
       title: "Mehrfamilienhaus Neubau",
       type: "Neubau",
       location: "Stadtrand",
-      image: "https://images.pixabay.com/photo/2017/07/09/03/19/home-2486092_1280.jpg?auto=compress&cs=tinysrgb&w=800&q=80",
+      image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80",
       year: "2024"
     },
     {
@@ -78,7 +84,7 @@ const Homepage = () => {
       title: "Denkmalgeschützte Sanierung",
       type: "Altbausanierung",
       location: "Historisches Zentrum",
-      image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      image: "/assets/images/alt_neu_ungestaltung.png",
       year: "2023"
     },
     {
@@ -86,7 +92,7 @@ const Homepage = () => {
       title: "Energieeffizientes Wohnhaus",
       type: "Neubau",
       location: "Neubaugebiet",
-      image: "https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?auto=compress&cs=tinysrgb&w=800&q=80",
+      image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80",
       year: "2024"
     },
     {
@@ -94,7 +100,7 @@ const Homepage = () => {
       title: "Gründerzeit Modernisierung",
       type: "Altbausanierung",
       location: "Innenstadtbereich",
-      image: "https://images.pixabay.com/photo/2016/11/29/03/53/architecture-1867187_1280.jpg?auto=compress&cs=tinysrgb&w=800&q=80",
+      image: "/assets/images/innenarchitektur.png",
       year: "2023"
     }
   ];
@@ -132,29 +138,29 @@ const Homepage = () => {
       name: "Familie Müller",
       role: "Bauherr",
       content: "Braun & Eyer hat unsere Vorstellungen perfekt umgesetzt. Die Betreuung war professionell und die Qualität der Arbeit überzeugt uns täglich aufs Neue.",
-      avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80"
+      avatar: "/assets/images/no_image.png"
     },
     {
       id: 2,
       name: "Herr Schmidt",
       role: "Eigentümer",
       content: "Die Sanierung unseres Altbaus wurde mit größter Sorgfalt durchgeführt. Das Team versteht es, moderne Technik mit historischer Substanz zu verbinden.",
-      avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80"
+      avatar: "/assets/images/no_image.png"
     },
     {
       id: 3,
       name: "Frau Weber",
       role: "Investorin",
       content: "Die Zusammenarbeit mit Braun & Eyer war durchweg professionell. Ihre Expertise in der Altbausanierung hat unser Projekt zum Erfolg geführt.",
-      avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80"
+      avatar: "/assets/images/no_image.png"
     }
   ];
 
   const clientLogos = [
-    { id: 1, name: "TechCorp", logo: "https://via.placeholder.com/120x60/2C2C2C/FFFFFF?text=TechCorp" },
-    { id: 2, name: "GreenBuild", logo: "https://via.placeholder.com/120x60/2C2C2C/FFFFFF?text=GreenBuild" },
-    { id: 3, name: "UrbanDev", logo: "https://via.placeholder.com/120x60/2C2C2C/FFFFFF?text=UrbanDev" },
-    { id: 4, name: "ModernLiving", logo: "https://via.placeholder.com/120x60/2C2C2C/FFFFFF?text=ModernLiving" }
+    { id: 1, name: "TechCorp", logo: "/assets/images/no_image.png" },
+    { id: 2, name: "GreenBuild", logo: "/assets/images/no_image.png" },
+    { id: 3, name: "UrbanDev", logo: "/assets/images/no_image.png" },
+    { id: 4, name: "ModernLiving", logo: "/assets/images/no_image.png" }
   ];
 
   // Custom cursor tracking
@@ -191,6 +197,29 @@ const Homepage = () => {
 
   const prevSlide = () => {
     setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length);
+  };
+
+  // Handle triple-click on footer copyright
+  const handleCopyrightClick = () => {
+    // Clear previous timeout
+    if (clickTimeoutRef.current) {
+      clearTimeout(clickTimeoutRef.current);
+    }
+    
+    const newClickCount = clickCount + 1;
+    setClickCount(newClickCount);
+    
+    // Navigate to admin on triple-click (3rd click)
+    if (newClickCount === 3) {
+      navigate('/de/admin');
+      setClickCount(0);
+      return;
+    }
+    
+    // Reset click count after 500ms
+    clickTimeoutRef.current = setTimeout(() => {
+      setClickCount(0);
+    }, 500);
   };
 
   // Floating background text words from flyer
@@ -237,7 +266,9 @@ const Homepage = () => {
       {/* Enhanced Hero Section with Water Effects */}
       <WaterEffect className="relative h-screen bg-background" style={{ zIndex: 20 }}>
         <motion.section 
-          className="relative h-screen overflow-hidden bg-background"
+          className={`relative h-screen overflow-hidden bg-background ${
+            isAuthenticated ? 'pt-32 lg:pt-36' : 'pt-20 lg:pt-24'
+          }`}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
@@ -254,11 +285,23 @@ const Homepage = () => {
                 }}
                 transition={{ duration: 5, ease: "linear" }}
               >
-                <Image
-                  src={slide.image}
-                  alt={slide.title}
-                  className="w-full h-full object-cover shimmer-effect"
-                />
+                {slide.video && index === 0 ? (
+                  <video
+                    src={slide.video}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="w-full h-full object-cover shimmer-effect"
+                    poster={slide.image}
+                  />
+                ) : (
+                  <Image
+                    src={slide.image}
+                    alt={slide.title}
+                    className="w-full h-full object-cover shimmer-effect"
+                  />
+                )}
                 <div className="absolute inset-0 bg-black/50" />
                 
                 {/* Animated water waves overlay */}
@@ -324,7 +367,7 @@ const Homepage = () => {
                     whileTap={{ scale: 0.95 }}
                   >
                     <Link
-                      to="/project-gallery"
+                      to="/de/projekte"
                       className="inline-flex items-center justify-center space-x-2 bg-accent text-black px-8 py-4 rounded transition-all duration-200 hover:scale-102 hover:shadow-lg font-body font-medium"
                     >
                       <span>Unsere Arbeiten</span>
@@ -340,7 +383,7 @@ const Homepage = () => {
                     whileTap={{ scale: 0.95 }}
                   >
                     <Link
-                      to="/contact"
+                      to="/de/kontakt"
                       className="inline-flex items-center justify-center space-x-2 border-2 border-white text-white px-8 py-4 rounded transition-all duration-200 hover:bg-white hover:text-black font-body font-medium"
                     >
                       <span>Projekt Starten</span>
@@ -468,7 +511,7 @@ const Homepage = () => {
                 }}
               >
                 <Link
-                  to={`/project-detail?id=${project.id}`}
+                  to={`/de/projekte/${project.id}`}
                   className="group bg-surface rounded border border-border overflow-hidden hover:shadow-lg transition-all duration-300 hover:transform hover:scale-105 block"
                 >
                   <div className="relative h-64 overflow-hidden">
@@ -523,7 +566,7 @@ const Homepage = () => {
               whileTap={{ scale: 0.95 }}
             >
               <Link
-                to="/project-gallery"
+                to="/de/projekte"
                 className="inline-flex items-center space-x-2 bg-accent text-black px-8 py-4 rounded transition-all duration-200 hover:scale-102 hover:shadow-lg font-body font-medium"
               >
                 <span>Alle Projekte Ansehen</span>
@@ -635,7 +678,7 @@ const Homepage = () => {
               whileTap={{ scale: 0.95 }}
             >
               <Link
-                to="/services"
+                to="/de/leistungen"
                 className="inline-flex items-center space-x-2 border-2 border-accent text-accent px-8 py-4 rounded transition-all duration-200 hover:bg-accent hover:text-black font-body font-medium"
               >
                 <span>Mehr Erfahren</span>
@@ -750,7 +793,7 @@ const Homepage = () => {
                 whileTap={{ scale: 0.95 }}
               >
                 <Link
-                  to="/about-us"
+                  to="/de/uber-uns"
                   className="inline-flex items-center space-x-2 bg-accent text-black px-8 py-4 rounded transition-all duration-200 hover:scale-102 hover:shadow-lg font-body font-medium"
                 >
                   <span>Über Unser Team</span>
@@ -772,7 +815,7 @@ const Homepage = () => {
                 transition={{ duration: 0.4 }}
               >
                 <Image
-                  src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                  src="/assets/images/howtolook.jpg"
                   alt="Architectural design process"
                   className="w-full h-96 lg:h-[500px] object-cover rounded"
                 />
@@ -1062,10 +1105,10 @@ const Homepage = () => {
             >
               <h3 className="font-heading font-medium text-lg mb-4">Leistungen</h3>
               <ul className="space-y-2 font-body">
-                <li><Link to="/services" className="text-white/80 hover:text-accent transition-colors duration-200">Neubau</Link></li>
-                <li><Link to="/services" className="text-white/80 hover:text-accent transition-colors duration-200">Altbausanierung</Link></li>
-                <li><Link to="/services" className="text-white/80 hover:text-accent transition-colors duration-200">Ingenieursleistungen</Link></li>
-                <li><Link to="/services" className="text-white/80 hover:text-accent transition-colors duration-200">Energieberatung</Link></li>
+                <li><Link to="/de/leistungen" className="text-white/80 hover:text-accent transition-colors duration-200">Neubau</Link></li>
+                <li><Link to="/de/leistungen" className="text-white/80 hover:text-accent transition-colors duration-200">Altbausanierung</Link></li>
+                <li><Link to="/de/leistungen" className="text-white/80 hover:text-accent transition-colors duration-200">Ingenieursleistungen</Link></li>
+                <li><Link to="/de/leistungen" className="text-white/80 hover:text-accent transition-colors duration-200">Energieberatung</Link></li>
               </ul>
             </motion.div>
 
@@ -1077,12 +1120,12 @@ const Homepage = () => {
             >
               <h3 className="font-heading font-medium text-lg mb-4">Unternehmen</h3>
               <ul className="space-y-2 font-body">
-                <li><Link to="/about-us" className="text-white/80 hover:text-accent transition-colors duration-200">Über Uns</Link></li>
-                <li><Link to="/project-gallery" className="text-white/80 hover:text-accent transition-colors duration-200">Projekte</Link></li>
-                <li><Link to="/contact" className="text-white/80 hover:text-accent transition-colors duration-200">Kontakt</Link></li>
+                <li><Link to="/de/uber-uns" className="text-white/80 hover:text-accent transition-colors duration-200">Über Uns</Link></li>
+                <li><Link to="/de/projekte" className="text-white/80 hover:text-accent transition-colors duration-200">Projekte</Link></li>
+                <li><Link to="/de/kontakt" className="text-white/80 hover:text-accent transition-colors duration-200">Kontakt</Link></li>
                 <li><a href="#" className="text-white/80 hover:text-accent transition-colors duration-200">Karriere</a></li>
-                <li><Link to="/impressum" className="text-white/80 hover:text-accent transition-colors duration-200">Impressum</Link></li>
-                <li><Link to="/datenschutz" className="text-white/80 hover:text-accent transition-colors duration-200">Datenschutz</Link></li>
+                <li><Link to="/de/impressum" className="text-white/80 hover:text-accent transition-colors duration-200">Impressum</Link></li>
+                <li><Link to="/de/datenschutz" className="text-white/80 hover:text-accent transition-colors duration-200">Datenschutz</Link></li>
               </ul>
             </motion.div>
 
@@ -1117,7 +1160,11 @@ const Homepage = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            <p className="font-body text-white/60">
+            <p 
+              className="font-body text-white/60 cursor-pointer select-none transition-colors duration-200 hover:text-white/80"
+              onClick={handleCopyrightClick}
+              style={{ userSelect: 'none' }}
+            >
               © {new Date().getFullYear()} Braun & Eyer Architekturbüro Ingenieure. Alle Rechte vorbehalten.
             </p>
           </motion.div>

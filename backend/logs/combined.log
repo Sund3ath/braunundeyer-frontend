@@ -1,0 +1,229 @@
+{"level":"info","message":"Default admin user created: admin@braunundeyer.de","service":"braunundeyer-api","timestamp":"2025-08-09 14:11:00"}
+{"level":"info","message":"Database initialized successfully","service":"braunundeyer-api","timestamp":"2025-08-09 14:11:00"}
+{"level":"info","message":"Server is running on http://localhost:3001","service":"braunundeyer-api","timestamp":"2025-08-09 14:11:00"}
+{"level":"info","message":"Environment: development","service":"braunundeyer-api","timestamp":"2025-08-09 14:11:00"}
+{"level":"info","message":"CORS enabled for: http://localhost:4028,http://localhost:5173,http://localhost:3000","service":"braunundeyer-api","timestamp":"2025-08-09 14:11:00"}
+2025-08-09 14:31:01:311 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-09 14:31:01:311 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-09 14:31:01:311 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-09 14:31:01:311 [32minfo[39m: [32mServer running on port 3001[39m
+2025-08-09 14:31:01:311 [32minfo[39m: [32mEnvironment: development[39m
+2025-08-09 14:31:01:311 [32minfo[39m: [32mCORS enabled for: http://localhost:4028,http://localhost:5173,http://localhost:3000[39m
+2025-08-09 14:31:01:311 [32minfo[39m: [32mAPI available at: http://localhost:3001/api[39m
+2025-08-09 14:31:12:3112 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-09 14:31:12:3112 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-09 14:31:12:3112 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-09 14:31:56:3156 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-09 14:31:56:3156 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-09 14:31:56:3156 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-09 14:31:56:3156 [32minfo[39m: [32mServer running on port 3001[39m
+2025-08-09 14:31:56:3156 [32minfo[39m: [32mEnvironment: development[39m
+2025-08-09 14:31:56:3156 [32minfo[39m: [32mCORS enabled for: http://localhost:4028,http://localhost:5173,http://localhost:3000[39m
+2025-08-09 14:31:56:3156 [32minfo[39m: [32mAPI available at: http://localhost:3001/api[39m
+2025-08-09 14:33:24:3324 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-09 14:33:24:3324 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-09 14:33:24:3324 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-09 14:33:24:3324 [32minfo[39m: [32mServer running on port 3001[39m
+2025-08-09 14:33:24:3324 [32minfo[39m: [32mEnvironment: development[39m
+2025-08-09 14:33:24:3324 [32minfo[39m: [32mCORS enabled for: http://localhost:4028,http://localhost:5173,http://localhost:3000[39m
+2025-08-09 14:33:24:3324 [32minfo[39m: [32mAPI available at: http://localhost:3001/api[39m
+2025-08-09 14:33:38:3338 [31merror[39m: [31mDatabase run error: SQLITE_ERROR: table sessions has no column named refresh_token[39m
+2025-08-09 14:33:38:3338 [31merror[39m: [31mLogin error: SQLITE_ERROR: table sessions has no column named refresh_token[39m
+2025-08-09 14:35:20:3520 [31merror[39m: [31mDatabase run error: SQLITE_ERROR: table sessions has no column named refresh_token[39m
+2025-08-09 14:35:20:3520 [31merror[39m: [31mLogin error: SQLITE_ERROR: table sessions has no column named refresh_token[39m
+2025-08-09 14:35:46:3546 [32minfo[39m: [32mUser logged in: admin@braunundeyer.de[39m
+2025-08-09 14:37:30:3730 [31merror[39m: [31mDatabase run error: SQLITE_ERROR: table projects has no column named title[39m
+2025-08-09 14:37:30:3730 [31merror[39m: [31mCreate project error: SQLITE_ERROR: table projects has no column named title[39m
+2025-08-09 14:37:38:3738 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-09 14:37:38:3738 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-09 14:37:38:3738 [32minfo[39m: [32mDefault admin user created[39m
+2025-08-09 14:40:46:4046 [31merror[39m: [31mDatabase run error: SQLITE_READONLY: attempt to write a readonly database[39m
+2025-08-09 14:40:46:4046 [31merror[39m: [31mLogin error: SQLITE_READONLY: attempt to write a readonly database[39m
+2025-08-09 14:40:46:4046 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-09 14:40:55:4055 [32minfo[39m: [32mSIGTERM signal received: closing HTTP server[39m
+2025-08-09 14:40:55:4055 [32minfo[39m: [32mDatabase connection closed[39m
+2025-08-09 14:40:55:4055 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-09 14:40:55:4055 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-09 14:40:55:4055 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-09 14:40:55:4055 [32minfo[39m: [32mServer running on port 3001[39m
+2025-08-09 14:40:55:4055 [32minfo[39m: [32mEnvironment: development[39m
+2025-08-09 14:40:55:4055 [32minfo[39m: [32mCORS enabled for: http://localhost:4028,http://localhost:5173,http://localhost:3000[39m
+2025-08-09 14:40:55:4055 [32minfo[39m: [32mAPI available at: http://localhost:3001/api[39m
+2025-08-09 14:41:10:4110 [32minfo[39m: [32mUser logged in: admin@braunundeyer.de[39m
+2025-08-09 14:41:10:4110 [32minfo[39m: [32mProject created: Modern Villa Berlin by admin@braunundeyer.de[39m
+2025-08-09 14:46:23:4623 [32minfo[39m: [32mUser logged in: admin@braunundeyer.de[39m
+2025-08-09 14:52:28:5228 [31merror[39m: [31mDatabase run error: SQLITE_ERROR: no such column: area[39m
+2025-08-09 14:52:28:5228 [31merror[39m: [31mUpdate project error: SQLITE_ERROR: no such column: area[39m
+2025-08-09 14:53:41:5341 [32minfo[39m: [32mUser logged in: admin@braunundeyer.de[39m
+2025-08-09 14:53:41:5341 [32minfo[39m: [32mProject updated: 1 by admin@braunundeyer.de[39m
+2025-08-09 14:54:30:5430 [31merror[39m: [31mDatabase run error: SQLITE_ERROR: no such column: image[39m
+2025-08-09 14:54:30:5430 [31merror[39m: [31mUpdate project error: SQLITE_ERROR: no such column: image[39m
+2025-08-09 14:54:47:5447 [31merror[39m: [31mDatabase run error: SQLITE_ERROR: no such column: image[39m
+2025-08-09 14:54:47:5447 [31merror[39m: [31mUpdate project error: SQLITE_ERROR: no such column: image[39m
+2025-08-09 14:58:27:5827 [32minfo[39m: [32mUser logged in: admin@braunundeyer.de[39m
+2025-08-09 14:58:27:5827 [32minfo[39m: [32mProject updated: 1 by admin@braunundeyer.de[39m
+2025-08-09 15:01:20:120 [32minfo[39m: [32mUser logged in: admin@braunundeyer.de[39m
+2025-08-09 15:01:20:120 [32minfo[39m: [32mProject updated: 1 by admin@braunundeyer.de[39m
+2025-08-09 15:04:07:47 [32minfo[39m: [32mUser logged in: admin@braunundeyer.de[39m
+2025-08-09 15:05:01:51 [32minfo[39m: [32mUser logged in: admin@braunundeyer.de[39m
+2025-08-09 15:05:01:51 [32minfo[39m: [32mProject created: Test Gallery Project by admin@braunundeyer.de[39m
+2025-08-09 15:06:32:632 [32minfo[39m: [32mUser logged in: admin@braunundeyer.de[39m
+2025-08-09 15:06:32:632 [32minfo[39m: [32mProject created: Modern Office Complex by admin@braunundeyer.de[39m
+2025-08-09 15:06:49:649 [32minfo[39m: [32mSIGTERM signal received: closing HTTP server[39m
+2025-08-09 15:06:49:649 [32minfo[39m: [32mDatabase connection closed[39m
+2025-08-09 15:06:50:650 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-09 15:06:50:650 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-09 15:06:50:650 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-09 15:06:50:650 [32minfo[39m: [32mServer running on port 3001[39m
+2025-08-09 15:06:50:650 [32minfo[39m: [32mEnvironment: development[39m
+2025-08-09 15:06:50:650 [32minfo[39m: [32mCORS enabled for: http://localhost:4028,http://localhost:5173,http://localhost:3000[39m
+2025-08-09 15:06:50:650 [32minfo[39m: [32mAPI available at: http://localhost:3001/api[39m
+2025-08-09 15:09:48:948 [32minfo[39m: [32mUser logged in: admin@braunundeyer.de[39m
+2025-08-09 15:09:48:948 [32minfo[39m: [32mProject created: Luxury Apartment by admin@braunundeyer.de[39m
+2025-08-09 15:10:20:1020 [32minfo[39m: [32mUser logged in: admin@braunundeyer.de[39m
+2025-08-09 15:10:38:1038 [32minfo[39m: [32mProject deleted: 1 by admin@braunundeyer.de[39m
+2025-08-09 15:10:41:1041 [32minfo[39m: [32mProject deleted: 2 by admin@braunundeyer.de[39m
+2025-08-09 15:24:05:245 [32minfo[39m: [32mUser logged out: admin@braunundeyer.de[39m
+2025-08-09 15:34:22:3422 [32minfo[39m: [32mUser logged in: admin@braunundeyer.de[39m
+2025-08-09 15:41:10:4110 [32minfo[39m: [32mUser logged in: admin@braunundeyer.de[39m
+2025-08-09 15:43:14:4314 [31merror[39m: [31mDatabase run error: SQLITE_CONSTRAINT: UNIQUE constraint failed: content.key, content.language[39m
+2025-08-09 15:43:14:4314 [31merror[39m: [31mUpdate content error: SQLITE_CONSTRAINT: UNIQUE constraint failed: content.key, content.language[39m
+2025-08-09 15:43:14:4314 [32minfo[39m: [32mContent created: hero_title (de) by admin@braunundeyer.de[39m
+2025-08-09 15:43:22:4322 [31merror[39m: [31mDatabase run error: SQLITE_CONSTRAINT: UNIQUE constraint failed: content.key, content.language[39m
+2025-08-09 15:43:22:4322 [31merror[39m: [31mUpdate content error: SQLITE_CONSTRAINT: UNIQUE constraint failed: content.key, content.language[39m
+2025-08-09 15:43:22:4322 [32minfo[39m: [32mContent created: hero_subtitle (de) by admin@braunundeyer.de[39m
+2025-08-09 16:11:36:1136 [32minfo[39m: [32mImage uploaded: image-1754748696011-427579263.png by admin@braunundeyer.de[39m
+2025-08-09 16:11:41:1141 [32minfo[39m: [32mImage uploaded: image-1754748701085-827508909.png by admin@braunundeyer.de[39m
+2025-08-09 16:11:49:1149 [32minfo[39m: [32mProject created: testproject by admin@braunundeyer.de[39m
+2025-08-09 16:13:04:134 [32minfo[39m: [32mContent created: hero_subtitle (en) by admin@braunundeyer.de[39m
+2025-08-09 16:13:08:138 [32minfo[39m: [32mContent created: hero_title (en) by admin@braunundeyer.de[39m
+2025-08-09 16:21:12:2112 [32minfo[39m: [32mSIGTERM signal received: closing HTTP server[39m
+2025-08-09 16:21:12:2112 [32minfo[39m: [32mDatabase connection closed[39m
+2025-08-09 16:42:06:426 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-09 16:42:06:426 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-09 16:42:06:426 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-09 16:42:06:426 [32minfo[39m: [32mServer running on port 3001[39m
+2025-08-09 16:42:06:426 [32minfo[39m: [32mEnvironment: development[39m
+2025-08-09 16:42:06:426 [32minfo[39m: [32mCORS enabled for: http://localhost:4028,http://localhost:5173,http://localhost:3000[39m
+2025-08-09 16:42:06:426 [32minfo[39m: [32mAPI available at: http://localhost:3001/api[39m
+2025-08-09 16:45:37:4537 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-09 16:45:49:4549 [32minfo[39m: [32mUser logged in: admin@braunundeyer.de[39m
+2025-08-09 16:46:05:465 [32minfo[39m: [32mContent updated: test_translation_key (fr) by admin@braunundeyer.de[39m
+2025-08-09 16:46:21:4621 [32minfo[39m: [32mContent updated: test_translation_key (en) by admin@braunundeyer.de[39m
+2025-08-09 16:46:35:4635 [32minfo[39m: [32mContent updated: test_translation_key (en) by admin@braunundeyer.de[39m
+2025-08-09 16:48:26:4826 [32minfo[39m: [32mContent updated: hero_subtitle (en) by admin@braunundeyer.de[39m
+2025-08-09 16:48:30:4830 [32minfo[39m: [32mContent updated: hero_title (en) by admin@braunundeyer.de[39m
+2025-08-09 16:48:36:4836 [32minfo[39m: [32mContent updated: hero_subtitle (fr) by admin@braunundeyer.de[39m
+2025-08-09 16:48:41:4841 [32minfo[39m: [32mContent updated: hero_title (fr) by admin@braunundeyer.de[39m
+2025-08-09 16:49:18:4918 [32minfo[39m: [32mUser logged out: admin@braunundeyer.de[39m
+2025-08-09 17:03:43:343 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-09 17:03:43:343 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-09 17:03:43:343 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-09 17:03:43:343 [32minfo[39m: [32mServer running on port 3001[39m
+2025-08-09 17:03:43:343 [32minfo[39m: [32mEnvironment: development[39m
+2025-08-09 17:03:43:343 [32minfo[39m: [32mCORS enabled for: http://localhost:4028,http://localhost:5173,http://localhost:3000[39m
+2025-08-09 17:03:43:343 [32minfo[39m: [32mAPI available at: http://localhost:3001/api[39m
+2025-08-09 17:03:55:355 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-09 17:03:55:355 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-09 17:03:55:355 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-09 17:03:55:355 [32minfo[39m: [32mServer running on port 3001[39m
+2025-08-09 17:03:55:355 [32minfo[39m: [32mEnvironment: development[39m
+2025-08-09 17:03:55:355 [32minfo[39m: [32mCORS enabled for: http://localhost:4028,http://localhost:5173,http://localhost:3000[39m
+2025-08-09 17:03:55:355 [32minfo[39m: [32mAPI available at: http://localhost:3001/api[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mUser logged in: admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mContent updated: hero_title (de) by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mContent updated: hero_subtitle (de) by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mContent updated: hero_description (de) by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mContent updated: hero_image (de) by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mContent updated: hero_cta_text (de) by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mContent updated: about_title (de) by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mContent updated: about_subtitle (de) by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mContent updated: about_content (de) by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mContent updated: about_image1 (de) by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mContent updated: about_image2 (de) by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mContent updated: hero_title (en) by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mContent updated: hero_subtitle (en) by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mContent updated: hero_description (en) by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mContent updated: hero_cta_text (en) by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mContent updated: about_title (en) by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mContent updated: about_subtitle (en) by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mContent updated: about_content (en) by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mContent updated: hero_title (fr) by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mContent updated: hero_subtitle (fr) by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mContent updated: hero_description (fr) by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mContent updated: hero_cta_text (fr) by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mProject deleted: 5 by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mProject deleted: 4 by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mProject deleted: 3 by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mProject created: Villa Moderne am See by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mProject created: Sanierung Gründerzeitvilla by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mProject created: Mehrfamilienhaus Stadtmitte by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mProject created: Bürogebäude Innovation Campus by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mProject created: Einfamilienhaus mit Atrium by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mProject created: Denkmalschutz Rathaus by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mContent updated: services_title (de) by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mContent updated: services_subtitle (de) by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mContent updated: service1_title (de) by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mContent updated: service1_description (de) by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mContent updated: service1_icon (de) by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mContent updated: service2_title (de) by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mContent updated: service2_description (de) by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mContent updated: service2_icon (de) by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mContent updated: service3_title (de) by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mContent updated: service3_description (de) by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mContent updated: service3_icon (de) by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mContent updated: services_title (en) by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mContent updated: services_subtitle (en) by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mContent updated: service1_title (en) by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mContent updated: service1_description (en) by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mContent updated: service2_title (en) by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mContent updated: service2_description (en) by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mContent updated: service3_title (en) by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mContent updated: service3_description (en) by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mContent updated: contact_title (de) by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mContent updated: contact_subtitle (de) by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mContent updated: contact_address (de) by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mContent updated: contact_phone (de) by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mContent updated: contact_email (de) by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mContent updated: contact_hours (de) by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mContent updated: contact_title (en) by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mContent updated: contact_subtitle (en) by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mContent updated: contact_address (en) by admin@braunundeyer.de[39m
+2025-08-09 17:04:18:418 [32minfo[39m: [32mContent updated: contact_hours (en) by admin@braunundeyer.de[39m
+2025-08-09 17:09:31:931 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-09 17:09:31:931 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-09 17:09:31:931 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-09 17:09:31:931 [32minfo[39m: [32mServer running on port 3001[39m
+2025-08-09 17:09:31:931 [32minfo[39m: [32mEnvironment: development[39m
+2025-08-09 17:09:31:931 [32minfo[39m: [32mCORS enabled for: http://localhost:4028,http://localhost:5173,http://localhost:3000[39m
+2025-08-09 17:09:31:931 [32minfo[39m: [32mAPI available at: http://localhost:3001/api[39m
+2025-08-09 17:09:45:945 [32minfo[39m: [32mUser logged in: admin@braunundeyer.de[39m
+2025-08-09 17:09:45:945 [32minfo[39m: [32mContent updated: hero_image (de) by admin@braunundeyer.de[39m
+2025-08-09 17:09:45:945 [32minfo[39m: [32mContent updated: hero_image (en) by admin@braunundeyer.de[39m
+2025-08-09 17:09:45:945 [32minfo[39m: [32mContent updated: hero_image (fr) by admin@braunundeyer.de[39m
+2025-08-09 17:09:45:945 [32minfo[39m: [32mContent updated: about_image1 (de) by admin@braunundeyer.de[39m
+2025-08-09 17:09:45:945 [32minfo[39m: [32mContent updated: about_image2 (de) by admin@braunundeyer.de[39m
+2025-08-09 17:09:45:945 [32minfo[39m: [32mContent updated: about_image1 (en) by admin@braunundeyer.de[39m
+2025-08-09 17:09:45:945 [32minfo[39m: [32mContent updated: about_image2 (en) by admin@braunundeyer.de[39m
+2025-08-09 17:09:45:945 [32minfo[39m: [32mProject updated: 6 by admin@braunundeyer.de[39m
+2025-08-09 17:09:45:945 [32minfo[39m: [32mProject updated: 7 by admin@braunundeyer.de[39m
+2025-08-09 17:09:45:945 [32minfo[39m: [32mProject updated: 8 by admin@braunundeyer.de[39m
+2025-08-09 17:09:45:945 [32minfo[39m: [32mProject updated: 9 by admin@braunundeyer.de[39m
+2025-08-09 17:09:45:945 [32minfo[39m: [32mProject updated: 10 by admin@braunundeyer.de[39m
+2025-08-09 17:09:45:945 [32minfo[39m: [32mProject updated: 11 by admin@braunundeyer.de[39m
+2025-08-09 18:57:10:5710 [32minfo[39m: [32mUser logged in: admin@braunundeyer.de[39m
+2025-08-09 18:57:48:5748 [32minfo[39m: [32mContent updated: about_content (en) by admin@braunundeyer.de[39m
+2025-08-09 18:57:53:5753 [32minfo[39m: [32mContent updated: about_image1 (en) by admin@braunundeyer.de[39m
+2025-08-09 18:57:57:5757 [32minfo[39m: [32mContent updated: about_image2 (en) by admin@braunundeyer.de[39m
+2025-08-09 18:58:03:583 [32minfo[39m: [32mContent updated: about_subtitle (en) by admin@braunundeyer.de[39m
+2025-08-09 19:08:27:827 [32minfo[39m: [32mUser logged out: admin@braunundeyer.de[39m
+2025-08-09 19:09:09:99 [32minfo[39m: [32mUser logged in: admin@braunundeyer.de[39m
+2025-08-09 19:09:38:938 [32minfo[39m: [32mContent updated: about_content (en) by admin@braunundeyer.de[39m
+2025-08-09 19:09:42:942 [32minfo[39m: [32mContent updated: about_image1 (en) by admin@braunundeyer.de[39m
+2025-08-09 19:09:47:947 [32minfo[39m: [32mContent updated: about_image2 (en) by admin@braunundeyer.de[39m
+2025-08-09 19:09:51:951 [32minfo[39m: [32mContent updated: about_subtitle (en) by admin@braunundeyer.de[39m
+2025-08-09 19:09:59:959 [32minfo[39m: [32mContent updated: about_content (fr) by admin@braunundeyer.de[39m
+2025-08-09 19:10:04:104 [32minfo[39m: [32mContent updated: about_image1 (fr) by admin@braunundeyer.de[39m
+2025-08-09 19:10:08:108 [32minfo[39m: [32mContent updated: about_image2 (fr) by admin@braunundeyer.de[39m
+2025-08-09 19:10:12:1012 [32minfo[39m: [32mContent updated: about_subtitle (fr) by admin@braunundeyer.de[39m
+2025-08-09 19:10:42:1042 [32minfo[39m: [32mUser logged out: admin@braunundeyer.de[39m

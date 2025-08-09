@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
 import Header from 'components/ui/Header';
 import Breadcrumb from 'components/ui/Breadcrumb';
@@ -10,9 +10,35 @@ import SEO from 'components/SEO';
 import { generateServiceSchema, generateBreadcrumbSchema, generateFAQSchema, combineSchemas } from 'utils/structuredData';
 
 const Services = () => {
+  const navigate = useNavigate();
   const [expandedService, setExpandedService] = useState(null);
   const [expandedFaq, setExpandedFaq] = useState(null);
   const [selectedService, setSelectedService] = useState('');
+  const [clickCount, setClickCount] = useState(0);
+  const clickTimeoutRef = useRef(null);
+
+  // Handle triple-click on footer copyright
+  const handleCopyrightClick = () => {
+    // Clear previous timeout
+    if (clickTimeoutRef.current) {
+      clearTimeout(clickTimeoutRef.current);
+    }
+    
+    const newClickCount = clickCount + 1;
+    setClickCount(newClickCount);
+    
+    // Navigate to admin on triple-click (3rd click)
+    if (newClickCount === 3) {
+      navigate('/de/admin');
+      setClickCount(0);
+      return;
+    }
+    
+    // Reset click count after 500ms
+    clickTimeoutRef.current = setTimeout(() => {
+      setClickCount(0);
+    }, 500);
+  };
 
   // Custom cursor motion values
   const cursorX = useMotionValue(0);
@@ -823,7 +849,11 @@ const Services = () => {
           </div>
           
           <div className="border-t border-white/20 mt-12 pt-8 text-center">
-            <p className="text-white/60 font-body">
+            <p 
+              className="text-white/60 font-body cursor-pointer select-none transition-colors duration-200 hover:text-white/80"
+              onClick={handleCopyrightClick}
+              style={{ userSelect: 'none' }}
+            >
               © {new Date().getFullYear()} Braun & Eyer Architekturbüro Ingenieure. Alle Rechte vorbehalten.
             </p>
           </div>

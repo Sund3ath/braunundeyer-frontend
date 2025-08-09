@@ -40,7 +40,7 @@ const RelatedProjects = ({ currentProjectId, currentCategory, projects }) => {
         {displayProjects.map((project) => (
           <Link
             key={project.id}
-            to={`/project-detail?id=${project.id}`}
+            to={`/de/projekte/${project.id}`}
             className="group space-y-4"
           >
             <div className="relative aspect-video bg-surface rounded overflow-hidden">

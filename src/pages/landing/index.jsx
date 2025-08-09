@@ -37,7 +37,7 @@ const Landing = () => {
     setIsAnimating(true);
     // Navigate after animation completes - optimized timing
     setTimeout(() => {
-      navigate('/homepage');
+      navigate('/de/homepage');
     }, 3500);
   };
 
@@ -46,7 +46,7 @@ const Landing = () => {
       ref={containerRef}
       className="min-h-screen relative overflow-hidden flex items-center justify-center"
       style={{
-        background: `
+        backgroundImage: `
           radial-gradient(ellipse at ${mousePosition.x}px ${mousePosition.y}px, 
             rgba(255, 255, 255, 0.08) 0%, 
             transparent 40%),
@@ -58,6 +58,7 @@ const Landing = () => {
             #000000 100%)
         `,
         backgroundSize: '400% 400%',
+        backgroundColor: '#000000',
         animation: 'gradientShift 15s ease infinite'
       }}
     >
@@ -297,7 +298,7 @@ const Landing = () => {
                 <div 
                   className="w-full h-full"
                   style={{
-                    background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.8), rgba(255,255,255,1), rgba(255,255,255,0.8), transparent)',
+                    backgroundImage: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.8), rgba(255,255,255,1), rgba(255,255,255,0.8), transparent)',
                     backgroundSize: '200% 100%',
                     animation: 'shimmer 3s infinite linear',
                     boxShadow: '0 0 10px rgba(255,255,255,0.3)'
@@ -391,7 +392,7 @@ const Landing = () => {
                     fontFamily: "'Futura', sans-serif",
                     fontWeight: 200,
                     textShadow: '0 0 20px rgba(255, 255, 255, 0.5)',
-                    background: 'linear-gradient(90deg, rgba(255,255,255,0.8), rgba(255,255,255,1), rgba(255,255,255,0.8))',
+                    backgroundImage: 'linear-gradient(90deg, rgba(255,255,255,0.8), rgba(255,255,255,1), rgba(255,255,255,0.8))',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
                     backgroundSize: '200% auto',
@@ -515,7 +516,7 @@ const Landing = () => {
             <motion.div 
               className="absolute inset-0 opacity-0 group-hover:opacity-100"
               style={{
-                background: `
+                backgroundImage: `
                   linear-gradient(90deg, 
                     transparent, 
                     rgba(255, 255, 255, 0.6), 

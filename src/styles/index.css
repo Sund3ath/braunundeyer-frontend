@@ -6,6 +6,38 @@ body {
   cursor: none; /* Hide default cursor for custom cursor effect */
 }
 
+/* Show normal cursor on admin pages */
+body.admin-page {
+  cursor: auto !important;
+}
+
+body.admin-page * {
+  cursor: inherit !important;
+}
+
+body.admin-page button,
+body.admin-page a,
+body.admin-page input,
+body.admin-page textarea,
+body.admin-page select,
+body.admin-page label[for],
+body.admin-page [role="button"],
+body.admin-page .cursor-pointer {
+  cursor: pointer !important;
+}
+
+body.admin-page input[type="text"],
+body.admin-page input[type="email"],
+body.admin-page input[type="password"],
+body.admin-page textarea {
+  cursor: text !important;
+}
+
+body.admin-page .cursor-not-allowed,
+body.admin-page [disabled] {
+  cursor: not-allowed !important;
+}
+
 * {
   box-sizing: border-box;
   line-height: normal;
@@ -215,6 +247,11 @@ h6 {
 /* Custom cursor styles - enhanced monochrome */
 .custom-cursor {
   cursor: none;
+}
+
+/* Override cursor hiding for admin pages */
+body.admin-page .custom-cursor {
+  cursor: auto !important;
 }
 
 .cursor-dot {
