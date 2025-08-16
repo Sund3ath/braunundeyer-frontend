@@ -6,7 +6,7 @@
     "subtitle": "Lassen Sie uns gemeinsam Außergewöhnliches schaffen"
   },
   "info": {
-    "title": "Kontakt aufnehmen",
+    "title": "Büro",
     "address": {
       "label": "Büroadresse",
       "value": "Mainzerstrasse 29, 66111 Saarbrücken, Deutschland"
@@ -32,7 +32,7 @@
     "description": "Bleiben Sie über unsere neuesten Projekte und Architektur-Einblicke auf dem Laufenden."
   },
   "form": {
-    "title": "Nachricht senden",
+    "title": "Kontakt aufnehmen",
     "subtitle": "Nehmen Sie Kontakt auf für eine Projektanfrage",
     "fields": {
       "name": {
@@ -107,10 +107,6 @@
       {
         "question": "Wie lange dauert ein typisches Projekt?",
         "answer": "Die Projektdauer variiert je nach Umfang und Komplexität. Wohnbauprojekte dauern in der Regel 8-15 Monate von der ersten Beratung bis zur Fertigstellung. Gewerbliche Projekte können 15-30 Monate in Anspruch nehmen. Wir erstellen detaillierte Zeitpläne während der ersten Beratungsphase."
-      },
-      {
-        "question": "Wie sind Ihre Honorarstrukturen aufgebaut?",
-        "answer": "Unsere Honorare richten sich nach der HOAI (Honorarordnung für Architekten und Ingenieure) und werden je nach Projektumfang und Komplexität berechnet. Wir bieten sowohl prozentuale Honorare (typischerweise 10-15% der Baukosten) als auch Pauschalhonorar-Vereinbarungen an. Transparente Preisgestaltung erhalten Sie bereits im Erstberatungsgespräch."
       },
       {
         "question": "Übernehmen Sie Genehmigungen und Behördengänge?",

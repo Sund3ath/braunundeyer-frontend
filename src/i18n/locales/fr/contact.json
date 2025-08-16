@@ -6,7 +6,7 @@
     "subtitle": "Créons ensemble quelque chose d'extraordinaire"
   },
   "info": {
-    "title": "Contactez-nous",
+    "title": "Bureau",
     "address": {
       "label": "Adresse du Bureau",
       "value": "Mainzerstrasse 29, 66111 Sarrebruck, Allemagne"
@@ -32,7 +32,7 @@
     "description": "Restez informé de nos derniers projets et perspectives architecturales."
   },
   "form": {
-    "title": "Envoyer un Message",
+    "title": "Contactez-nous",
     "subtitle": "Contactez-nous pour une demande de projet",
     "fields": {
       "name": {
@@ -107,10 +107,6 @@
       {
         "question": "Combien de temps prend un projet typique?",
         "answer": "La durée du projet varie selon la portée et la complexité. Les projets résidentiels prennent généralement 8 à 15 mois de la consultation initiale à l'achèvement. Les projets commerciaux peuvent prendre 15 à 30 mois. Nous créons des calendriers détaillés pendant la phase de consultation initiale."
-      },
-      {
-        "question": "Comment sont structurés vos honoraires?",
-        "answer": "Nos honoraires sont basés sur le HOAI (Barème des honoraires pour architectes et ingénieurs) et sont calculés en fonction de la portée et de la complexité du projet. Nous offrons à la fois des honoraires basés sur un pourcentage (généralement 10-15% des coûts de construction) et des accords à honoraires fixes. Une tarification transparente est fournie lors de la consultation initiale."
       },
       {
         "question": "Gérez-vous les permis et les approbations réglementaires?",

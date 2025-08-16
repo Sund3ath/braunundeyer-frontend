@@ -6,7 +6,7 @@
     "subtitle": "Let's create something extraordinary together"
   },
   "info": {
-    "title": "Get in Touch",
+    "title": "Office",
     "address": {
       "label": "Office Address",
       "value": "Mainzerstrasse 29, 66111 Saarbrücken, Germany"
@@ -32,7 +32,7 @@
     "description": "Stay updated with our latest projects and architectural insights."
   },
   "form": {
-    "title": "Send Message",
+    "title": "Get in Touch",
     "subtitle": "Get in touch for a project inquiry",
     "fields": {
       "name": {
@@ -107,10 +107,6 @@
       {
         "question": "How long does a typical project take?",
         "answer": "Project duration varies depending on scope and complexity. Residential projects typically take 8-15 months from initial consultation to completion. Commercial projects can take 15-30 months. We create detailed schedules during the initial consultation phase."
-      },
-      {
-        "question": "How are your fee structures set up?",
-        "answer": "Our fees are based on the HOAI (Fee Schedule for Architects and Engineers) and are calculated according to project scope and complexity. We offer both percentage-based fees (typically 10-15% of construction costs) and fixed-fee agreements. Transparent pricing is provided during the initial consultation."
       },
       {
         "question": "Do you handle permits and regulatory approvals?",

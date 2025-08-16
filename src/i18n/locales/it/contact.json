@@ -6,7 +6,7 @@
     "subtitle": "Creiamo insieme qualcosa di straordinario"
   },
   "info": {
-    "title": "Contattaci",
+    "title": "Ufficio",
     "address": {
       "label": "Indirizzo Ufficio",
       "value": "Mainzerstrasse 29, 66111 Saarbrücken, Germania"
@@ -32,7 +32,7 @@
     "description": "Rimani aggiornato sui nostri ultimi progetti e approfondimenti architettonici."
   },
   "form": {
-    "title": "Invia Messaggio",
+    "title": "Contattaci",
     "subtitle": "Contattaci per una richiesta di progetto",
     "fields": {
       "name": {
@@ -107,10 +107,6 @@
       {
         "question": "Quanto tempo richiede un progetto tipico?",
         "answer": "La durata del progetto varia a seconda della portata e della complessità. I progetti residenziali richiedono tipicamente 8-15 mesi dalla consultazione iniziale al completamento. I progetti commerciali possono richiedere 15-30 mesi. Creiamo programmi dettagliati durante la fase di consultazione iniziale."
-      },
-      {
-        "question": "Come sono strutturati i vostri onorari?",
-        "answer": "I nostri onorari si basano sul HOAI (Tariffario per Architetti e Ingegneri) e sono calcolati in base alla portata e complessità del progetto. Offriamo sia onorari basati su percentuale (tipicamente 10-15% dei costi di costruzione) che accordi a tariffa fissa. Una tariffazione trasparente viene fornita durante la consultazione iniziale."
       },
       {
         "question": "Gestite i permessi e le approvazioni normative?",

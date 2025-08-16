@@ -4,6 +4,7 @@ import Header from 'components/ui/Header';
 import SEO from 'components/SEO';
 import CursorTrail from 'components/ui/CursorTrail';
 import BackgroundTypography from 'components/ui/BackgroundTypography';
+import Footer from 'components/Footer';
 import { generateBreadcrumbSchema } from 'utils/structuredData';
 
 const Impressum = () => {
@@ -186,6 +187,9 @@ const Impressum = () => {
         </div>
       </motion.div>
       <CursorTrail />
+      
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };

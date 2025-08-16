@@ -481,25 +481,6 @@ const Contact = () => {
                     )}
                   </div>
 
-                  {/* Budget Range */}
-                  <div>
-                    <label htmlFor="budgetRange" className="block text-sm font-body font-medium text-primary mb-2">
-                      {t('contact:form.fields.budget.label')}
-                    </label>
-                    <select
-                      id="budgetRange"
-                      name="budgetRange"
-                      value={formData.budgetRange}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 rounded-lg border border-border bg-background text-primary font-body transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent"
-                    >
-                      {budgetRanges.map((range) => (
-                        <option key={range.value} value={range.value}>
-                          {range.label}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
 
                   {/* Timeline */}
                   <div>

@@ -468,14 +468,9 @@ const Services = () => {
                     </div>
                   </div>
                   
-                  <p className="text-text-secondary font-body mb-4 leading-relaxed">
+                  <p className="text-text-secondary font-body leading-relaxed">
                     {step.description}
                   </p>
-                  
-                  <div className="flex items-center space-x-2 text-sm text-text-secondary">
-                    <Icon name="Clock" size={14} />
-                    <span>{step.duration}</span>
-                  </div>
                 </div>
                 
                 {index < processSteps.length - 1 && (
@@ -553,81 +548,6 @@ const Services = () => {
         </div>
       </section>
 
-      {/* Pricing Information */}
-      <section className="py-16 lg:py-24 bg-surface/95 backdrop-blur-sm relative z-base">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-heading font-light text-primary mb-4">
-              {t('services:pricing.title')}
-            </h2>
-            <p className="text-lg text-text-secondary font-body">
-              {t('services:pricing.subtitle')}
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-background rounded-lg p-8 border border-border">
-              <div className="flex items-center space-x-3 mb-6">
-                <Icon name="MessageCircle" size={24} className="text-accent" />
-                <h3 className="text-xl font-heading font-medium text-primary">
-                  {t('services:pricing.consultation.title')}
-                </h3>
-              </div>
-              
-              <div className="space-y-4">
-                <div className="flex justify-between items-center">
-                  <span className="text-text-secondary font-body">{t('services:pricing.consultation.items.initial')}</span>
-                  <span className="font-body font-semibold text-primary">{t('services:pricing.consultation.items.initialPrice')}</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-text-secondary font-body">{t('services:pricing.consultation.items.siteAnalysis')}</span>
-                  <span className="font-body font-semibold text-primary">{t('services:pricing.consultation.items.siteAnalysisPrice')}</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-text-secondary font-body">{t('services:pricing.consultation.items.feasibility')}</span>
-                  <span className="font-body font-semibold text-primary">{t('services:pricing.consultation.items.feasibilityPrice')}</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-background rounded-lg p-8 border border-border">
-              <div className="flex items-center space-x-3 mb-6">
-                <Icon name="FileText" size={24} className="text-accent" />
-                <h3 className="text-xl font-heading font-medium text-primary">
-                  {t('services:pricing.project.title')}
-                </h3>
-              </div>
-              
-              <div className="space-y-4">
-                <div className="flex justify-between items-center">
-                  <span className="text-text-secondary font-body">{t('services:pricing.project.items.residential')}</span>
-                  <span className="font-body font-semibold text-primary">{t('services:pricing.project.items.residentialPrice')}</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-text-secondary font-body">{t('services:pricing.project.items.commercial')}</span>
-                  <span className="font-body font-semibold text-primary">{t('services:pricing.project.items.commercialPrice')}</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-text-secondary font-body">{t('services:pricing.project.items.interior')}</span>
-                  <span className="font-body font-semibold text-primary">{t('services:pricing.project.items.interiorPrice')}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-8 p-6 bg-accent/5 rounded-lg border border-accent/20">
-            <div className="flex items-start space-x-3">
-              <Icon name="Info" size={20} className="text-accent mt-1" />
-              <div>
-                <h4 className="font-body font-semibold text-primary mb-2">{t('services:pricing.payment.title')}</h4>
-                <p className="text-text-secondary font-body text-sm leading-relaxed">
-                  {t('services:pricing.payment.description')}
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* FAQ Section */}
       <section className="py-16 lg:py-24 relative z-base">
