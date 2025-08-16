@@ -21,6 +21,9 @@ import enProjects from './locales/en/projects.json';
 // Import about translations
 import deAbout from './locales/de/about.json';
 import enAbout from './locales/en/about.json';
+import frAbout from './locales/fr/about.json';
+import itAbout from './locales/it/about.json';
+import esAbout from './locales/es/about.json';
 
 const resources = {
   de: { 
@@ -39,19 +42,19 @@ const resources = {
     translation: frTranslations,
     homepage: deHomepage, // Using German as fallback for now
     projects: deProjects, // Using German as fallback for now
-    about: deAbout // Using German as fallback for now
+    about: frAbout
   },
   it: { 
     translation: itTranslations,
     homepage: deHomepage, // Using German as fallback for now
     projects: deProjects, // Using German as fallback for now
-    about: deAbout // Using German as fallback for now
+    about: itAbout
   },
   es: { 
     translation: esTranslations,
     homepage: deHomepage, // Using German as fallback for now
     projects: deProjects, // Using German as fallback for now
-    about: deAbout // Using German as fallback for now
+    about: esAbout
   }
 };
 
