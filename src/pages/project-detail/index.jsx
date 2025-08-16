@@ -7,6 +7,7 @@ import ProjectNavigation from 'components/ui/ProjectNavigation';
 import Icon from 'components/AppIcon';
 import Image from 'components/AppImage';
 import CursorTrail from 'components/ui/CursorTrail';
+import Footer from 'components/Footer';
 import ProjectGallery from './components/ProjectGallery';
 import ProjectMetadata from './components/ProjectMetadata';
 import ProjectContent from './components/ProjectContent';
@@ -178,24 +179,46 @@ Wir implementierten ein zentrales Atrium-Design, das als Herzstück des Hauses d
         style={{ x: cursorXSpring, y: cursorYSpring }}
       />
       
-      {/* Breadcrumb */}
-      <div className="pt-20 lg:pt-24 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex items-center justify-between mb-6">
-            <Breadcrumb />
-            <button
-              onClick={() => navigate('/project-gallery')}
-              className="flex items-center space-x-2 text-text-secondary hover:text-accent transition-colors duration-200 font-body font-medium"
-            >
-              <Icon name="ArrowLeft" size={20} />
-              <span className="hidden sm:inline">Zurück zur Galerie</span>
-            </button>
-          </div>
-        </div>
-      </div>
-
       {/* Main Content */}
-      <div className="px-4 sm:px-6 lg:px-8 pb-16 relative" style={{ zIndex: 5 }}>
+      <main className="pt-20 lg:pt-24">
+        {/* Hero Section with Breadcrumb */}
+        <section className="bg-surface/95 backdrop-blur-sm border-b border-border relative z-base">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
+            <div className="flex items-center justify-between mb-6">
+              <Breadcrumb />
+              <button
+                onClick={() => navigate('/project-gallery')}
+                className="flex items-center space-x-2 text-text-secondary hover:text-accent transition-colors duration-200 font-body font-medium"
+              >
+                <Icon name="ArrowLeft" size={20} />
+                <span className="hidden sm:inline">Zurück zur Galerie</span>
+              </button>
+            </div>
+            {/* Project Title */}
+            <div className="space-y-4">
+              <h1 className="text-3xl lg:text-4xl xl:text-5xl font-heading font-light text-primary">
+                {currentProject.title}
+              </h1>
+              <div className="flex flex-wrap items-center gap-4 text-text-secondary font-body">
+                <div className="flex items-center space-x-2">
+                  <Icon name="MapPin" size={16} />
+                  <span>{currentProject.location}</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Icon name="Calendar" size={16} />
+                  <span>{currentProject.year}</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Icon name="Square" size={16} />
+                  <span>{currentProject.area}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Project Details Section */}
+        <section className="py-8 lg:py-12 relative" style={{ zIndex: 5 }}>
         {/* Background Typography for Project Detail */}
         <div className="absolute inset-0 w-full pointer-events-none" style={{ zIndex: 1 }}>
           <motion.div
@@ -232,33 +255,13 @@ Wir implementierten ein zentrales Atrium-Design, das als Herzstück des Hauses d
             konzept
           </motion.div>
         </div>
-        <div className="max-w-7xl mx-auto relative" style={{ zIndex: 2 }}>
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 lg:gap-12">
-            {/* Main Content Area */}
-            <div className="lg:col-span-3 space-y-8">
-              {/* Project Title */}
-              <div className="space-y-4">
-                <h1 className="text-3xl lg:text-4xl xl:text-5xl font-heading font-light text-primary">
-                  {currentProject.title}
-                </h1>
-                <div className="flex flex-wrap items-center gap-4 text-text-secondary font-body">
-                  <div className="flex items-center space-x-2">
-                    <Icon name="MapPin" size={16} />
-                    <span>{currentProject.location}</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Icon name="Calendar" size={16} />
-                    <span>{currentProject.year}</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Icon name="Square" size={16} />
-                    <span>{currentProject.area}</span>
-                  </div>
-                </div>
-              </div>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative" style={{ zIndex: 2 }}>
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 lg:gap-12">
+              {/* Main Content Area */}
+              <div className="lg:col-span-3 space-y-8">
 
-              {/* Image Gallery */}
-              <ProjectGallery
+                {/* Image Gallery */}
+                <ProjectGallery
                 images={currentProject.images}
                 currentIndex={currentImageIndex}
                 onImageChange={handleImageChange}
@@ -269,40 +272,44 @@ Wir implementierten ein zentrales Atrium-Design, das als Herzstück des Hauses d
                 projectTitle={currentProject.title}
               />
 
-              {/* Project Content */}
-              <ProjectContent project={currentProject} />
+                {/* Project Content */}
+                <ProjectContent project={currentProject} />
 
-              {/* Social Share */}
-              <SocialShare project={currentProject} />
+                {/* Social Share */}
+                <SocialShare project={currentProject} />
 
-              {/* Contact CTA */}
-              <ContactCTA />
+                {/* Contact CTA */}
+                <ContactCTA />
+              </div>
+
+              {/* Sidebar */}
+              <div className="lg:col-span-1 space-y-8">
+                {/* Project Metadata */}
+                <ProjectMetadata project={currentProject} />
+
+                {/* Project Navigation */}
+                <ProjectNavigation
+                  currentProjectId={projectId}
+                  totalProjects={projects.length}
+                  showBackToGallery={false}
+                />
+              </div>
             </div>
 
-            {/* Sidebar */}
-            <div className="lg:col-span-1 space-y-8">
-              {/* Project Metadata */}
-              <ProjectMetadata project={currentProject} />
-
-              {/* Project Navigation */}
-              <ProjectNavigation
+            {/* Related Projects */}
+            <div className="mt-16 lg:mt-24">
+              <RelatedProjects
                 currentProjectId={projectId}
-                totalProjects={projects.length}
-                showBackToGallery={false}
+                currentCategory={currentProject.category}
+                projects={projects}
               />
             </div>
           </div>
+        </section>
+      </main>
 
-          {/* Related Projects */}
-          <div className="mt-16 lg:mt-24">
-            <RelatedProjects
-              currentProjectId={projectId}
-              currentCategory={currentProject.category}
-              projects={projects}
-            />
-          </div>
-        </div>
-      </div>
+      {/* Footer */}
+      <Footer />
 
       {/* Mobile Bottom Navigation */}
       <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-background border-t border-border p-4 z-50">

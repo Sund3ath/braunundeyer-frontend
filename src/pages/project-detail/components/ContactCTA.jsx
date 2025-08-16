@@ -39,19 +39,14 @@ const ContactCTA = () => {
         </div>
         
         <div className="mt-6 pt-6 border-t border-white/20">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 text-sm text-white/80 font-body">
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2">
-                <Icon name="Phone" size={16} />
-                <span>(555) 123-4567</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Icon name="Mail" size={16} />
-                <span>hello@archstudio.com</span>
-              </div>
+          <div className="flex items-center space-x-4 text-sm text-white/80 font-body">
+            <div className="flex items-center space-x-2">
+              <Icon name="Phone" size={16} />
+              <span>+49 681 95417488</span>
             </div>
-            <div className="text-white/60">
-              Free consultation available
+            <div className="flex items-center space-x-2">
+              <Icon name="Mail" size={16} />
+              <span>info@braunundeyer.de</span>
             </div>
           </div>
         </div>
