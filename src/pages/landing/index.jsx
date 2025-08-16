@@ -258,10 +258,10 @@ const Landing = () => {
           <div className="text-center mb-12">
             <div className="relative inline-block group">
               <motion.h1 
-                className="text-2xl sm:text-3xl md:text-4xl font-thin text-white tracking-[0.3em] sm:tracking-[0.4em] mb-3 relative z-10"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-normal text-white tracking-[0.3em] sm:tracking-[0.4em] mb-1 relative z-10"
                 style={{
-                  fontFamily: "'Helvetica Neue', sans-serif",
-                  fontWeight: 100,
+                  fontFamily: "'Times New Roman', Times, serif",
+                  fontWeight: 400,
                   textShadow: '0 0 30px rgba(255,255,255,0.1)',
                 }}
               >
@@ -288,9 +288,14 @@ const Landing = () => {
                 ))}
               </motion.h1>
               
-              {/* Dynamic underline with gradient */}
+              {/* Dynamic underline with gradient - reduced gap */}
               <motion.div 
-                className="absolute -bottom-2 left-0 right-0 h-[2px] overflow-hidden"
+                className="absolute -bottom-0.5 h-[2px] overflow-hidden"
+                style={{
+                  left: '-10%',
+                  right: '-10%',
+                  width: '120%',
+                }}
                 initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}
                 transition={{ duration: 1, delay: 2.2, ease: "easeOut" }}
@@ -308,13 +313,14 @@ const Landing = () => {
             </div>
             
             <motion.p 
-              className="text-xl sm:text-2xl md:text-3xl font-thin text-white/90 tracking-[0.3em] sm:tracking-[0.4em] mt-8"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-normal text-white/90 tracking-[0.46em] sm:tracking-[0.52em] mt-2 relative"
               style={{
-                fontFamily: "'Helvetica Neue', sans-serif",
-                fontWeight: 100,
+                fontFamily: "'Times New Roman', Times, serif",
+                fontWeight: 400,
+                marginLeft: '0.2em',
               }}
               initial={{ opacity: 0, letterSpacing: '0.1em' }}
-              animate={{ opacity: 1, letterSpacing: '0.4em' }}
+              animate={{ opacity: 1, letterSpacing: '0.52em' }}
               transition={{ duration: 1, delay: 2.5 }}
             >
               architekten
@@ -344,10 +350,10 @@ const Landing = () => {
                 transition={{ duration: 0.3 }}
               >
                 <motion.span 
-                  className="text-lg sm:text-xl md:text-2xl font-thin text-white/80 tracking-[0.25em] relative z-10"
+                  className="text-lg sm:text-xl md:text-2xl font-normal text-white/80 tracking-[0.25em] relative z-10"
                   style={{
-                    fontFamily: "'Didot', serif",
-                    fontWeight: 300,
+                    fontFamily: "'Times New Roman', Times, serif",
+                    fontWeight: 400,
                   }}
                 >
                   architektur
@@ -387,16 +393,10 @@ const Landing = () => {
                 transition={{ duration: 0.3 }}
               >
                 <motion.span 
-                  className="text-lg sm:text-xl md:text-2xl font-thin text-white tracking-[0.25em] relative z-10"
+                  className="text-lg sm:text-xl md:text-2xl font-normal text-white/80 tracking-[0.25em] relative z-10"
                   style={{
-                    fontFamily: "'Futura', sans-serif",
-                    fontWeight: 200,
-                    textShadow: '0 0 20px rgba(255, 255, 255, 0.5)',
-                    backgroundImage: 'linear-gradient(90deg, rgba(255,255,255,0.8), rgba(255,255,255,1), rgba(255,255,255,0.8))',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    backgroundSize: '200% auto',
-                    animation: 'shimmer 3s linear infinite'
+                    fontFamily: "'Times New Roman', Times, serif",
+                    fontWeight: 400,
                   }}
                 >
                   design

@@ -80,16 +80,36 @@ const Header = () => {
               to={`/${currentLang}/homepage`} 
               className="group transition-smooth relative"
             >
-              <div className="bg-primary px-4 text-center relative z-10 mt-3 mb-3" style={{ paddingTop: '12px', paddingBottom: '18px', marginBottom: '-12px' }}>
+              <div className="bg-primary px-6 lg:px-8 text-center relative z-10 mt-3 mb-3" style={{ paddingTop: '12px', paddingBottom: '18px', marginBottom: '-12px' }}>
                 <div className="relative inline-block">
-                  <h1 className="text-sm lg:text-base font-thin text-white tracking-[0.2em] lg:tracking-[0.3em] mb-1">
-                    b r a u n   &   e y e r
+                  <h1 
+                    className="text-sm lg:text-base font-normal text-white tracking-[0.3em] lg:tracking-[0.4em] mb-0"
+                    style={{
+                      fontFamily: "'Times New Roman', Times, serif",
+                      fontWeight: 400,
+                    }}
+                  >
+                    braun & eyer
                   </h1>
-                  {/* Underline */}
-                  <div className="absolute -bottom-0.5 left-0 right-0 h-[1px] bg-white group-hover:bg-accent transition-colors duration-200"></div>
+                  {/* Underline - extended */}
+                  <div 
+                    className="absolute -bottom-0 h-[1px] bg-white group-hover:bg-accent transition-colors duration-200"
+                    style={{
+                      left: '-5%',
+                      right: '-5%',
+                      width: '110%',
+                    }}
+                  ></div>
                 </div>
-                <p className="text-sm lg:text-base font-thin text-white tracking-[0.2em] lg:tracking-[0.3em] group-hover:text-accent transition-colors duration-200">
-                  a r c h i t e k t e n
+                <p 
+                  className="text-sm lg:text-base font-normal text-white tracking-[0.38em] lg:tracking-[0.52em] mt-0 group-hover:text-accent transition-colors duration-200"
+                  style={{
+                    fontFamily: "'Times New Roman', Times, serif",
+                    fontWeight: 400,
+                    marginLeft: '0.2em',
+                  }}
+                >
+                  architekten
                 </p>
               </div>
             </Link>
