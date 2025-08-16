@@ -8,6 +8,7 @@ import Icon from '../../components/AppIcon';
 import Image from '../../components/AppImage';
 import CursorTrail from '../../components/ui/CursorTrail';
 import SEO from '../../components/SEO';
+import Footer from '../../components/Footer';
 import { generateBreadcrumbSchema, generatePersonSchema, combineSchemas } from '../../utils/structuredData';
 
 const AboutUs = () => {
@@ -789,40 +790,7 @@ const AboutUs = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-primary text-white py-12 relative z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <div className="flex items-center justify-center space-x-2 mb-4">
-              <div className="w-8 h-8 bg-accent rounded-full flex items-center justify-center">
-                <Icon name="Triangle" size={20} color="white" />
-              </div>
-              <div className="font-heading font-semibold text-xl">Braun & Eyer</div>
-            </div>
-            <p className="text-white/80 font-body text-sm mb-6">
-              {t('translation:footer.tagline')}
-            </p>
-            <div className="flex items-center justify-center space-x-6">
-              <Link to={`/${currentLang}/homepage`} className="text-white/80 hover:text-white transition-colors duration-200 font-body text-sm">
-                {t('translation:nav.home')}
-              </Link>
-              <Link to={`/${currentLang}/projekte`} className="text-white/80 hover:text-white transition-colors duration-200 font-body text-sm">
-                {t('translation:nav.projects')}
-              </Link>
-              <Link to={`/${currentLang}/leistungen`} className="text-white/80 hover:text-white transition-colors duration-200 font-body text-sm">
-                {t('translation:nav.services')}
-              </Link>
-              <Link to={`/${currentLang}/kontakt`} className="text-white/80 hover:text-white transition-colors duration-200 font-body text-sm">
-                {t('translation:nav.contact')}
-              </Link>
-            </div>
-            <div className="mt-8 pt-8 border-t border-white/20">
-              <p className="text-white/60 font-body text-xs">
-                © {new Date().getFullYear()} Braun & Eyer Architekturbüro Ingenieure. {t('translation:footer.rights')}.
-              </p>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };

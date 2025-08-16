@@ -8,6 +8,7 @@ import Icon from 'components/AppIcon';
 import Image from 'components/AppImage';
 import CursorTrail from 'components/ui/CursorTrail';
 import SEO from 'components/SEO';
+import Footer from 'components/Footer';
 import { generateServiceSchema, generateBreadcrumbSchema, generateFAQSchema, combineSchemas } from 'utils/structuredData';
 
 const Services = () => {
@@ -773,85 +774,7 @@ const Services = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-primary text-white py-12 lg:py-16 relative z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div>
-              <div className="flex items-center space-x-2 mb-6">
-                <div className="w-8 h-8 bg-accent rounded flex items-center justify-center">
-                  <Icon name="Triangle" size={20} color="white" />
-                </div>
-                <div className="font-heading font-semibold text-xl">Braun & Eyer</div>
-              </div>
-              <p className="text-white/80 font-body leading-relaxed">
-                Außergewöhnliche Architekturlösungen, die Innovation mit Funktionalität verbinden.
-              </p>
-            </div>
-            
-            <div>
-              <h4 className="font-heading font-semibold text-lg mb-4">Leistungen</h4>
-              <ul className="space-y-2">
-                {services.slice(0, 4).map((service) => (
-                  <li key={service.id}>
-                    <span className="text-white/80 hover:text-white transition-colors duration-200 font-body">
-                      {service.title}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="font-heading font-semibold text-lg mb-4">Schnellzugriff</h4>
-              <ul className="space-y-2">
-                <li>
-                  <Link to="/de/projekte" className="text-white/80 hover:text-white transition-colors duration-200 font-body">
-                    Portfolio
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/about-us" className="text-white/80 hover:text-white transition-colors duration-200 font-body">
-                    Über uns
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/contact" className="text-white/80 hover:text-white transition-colors duration-200 font-body">
-                    Kontakt
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="font-heading font-semibold text-lg mb-4">Kontakt</h4>
-              <div className="space-y-3">
-                <div className="flex items-center space-x-2">
-                  <Icon name="Phone" size={16} className="text-accent" />
-                  <span className="text-white/80 font-body">+49 (89) 123-4567</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Icon name="Mail" size={16} className="text-accent" />
-                  <span className="text-white/80 font-body">info@braun-eyer.de</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Icon name="MapPin" size={16} className="text-accent" />
-                  <span className="text-white/80 font-body">Maximilianstraße 35, München</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div className="border-t border-white/20 mt-12 pt-8 text-center">
-            <p 
-              className="text-white/60 font-body cursor-pointer select-none transition-colors duration-200 hover:text-white/80"
-              onClick={handleCopyrightClick}
-              style={{ userSelect: 'none' }}
-            >
-              © {new Date().getFullYear()} Braun & Eyer Architekturbüro Ingenieure. Alle Rechte vorbehalten.
-            </p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };

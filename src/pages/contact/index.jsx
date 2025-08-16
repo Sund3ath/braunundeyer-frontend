@@ -7,6 +7,7 @@ import Breadcrumb from '../../components/ui/Breadcrumb';
 import Icon from '../../components/AppIcon';
 import CursorTrail from '../../components/ui/CursorTrail';
 import SEO from '../../components/SEO';
+import Footer from '../../components/Footer';
 import { generateBreadcrumbSchema, generateLocalBusinessSchema, combineSchemas } from '../../utils/structuredData';
 
 const Contact = () => {
@@ -27,7 +28,6 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [expandedFaq, setExpandedFaq] = useState(null);
-  const [newsletterEmail, setNewsletterEmail] = useState('');
 
   // Custom cursor motion values
   const cursorX = useMotionValue(0);
@@ -149,13 +149,6 @@ const Contact = () => {
     }, 2000);
   };
 
-  const handleNewsletterSubmit = (e) => {
-    e.preventDefault();
-    if (newsletterEmail && /\S+@\S+\.\S+/.test(newsletterEmail)) {
-      setNewsletterEmail('');
-      // Handle newsletter subscription
-    }
-  };
 
   const toggleFaq = (id) => {
     setExpandedFaq(expandedFaq === id ? null : id);
@@ -619,38 +612,10 @@ const Contact = () => {
           </div>
         </section>
 
-        {/* Newsletter Section */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24 relative z-base">
-          <div className="bg-primary rounded-2xl p-8 lg:p-12 text-center">
-            <h2 className="text-2xl lg:text-3xl font-heading font-light text-white mb-4">
-              {t('contact:newsletter.title')}
-            </h2>
-            <p className="text-white/80 font-body mb-8 max-w-2xl mx-auto">
-              {t('contact:newsletter.description')}
-            </p>
-            
-            <form onSubmit={handleNewsletterSubmit} className="max-w-md mx-auto">
-              <div className="flex flex-col sm:flex-row gap-4">
-                <input
-                  type="email"
-                  value={newsletterEmail}
-                  onChange={(e) => setNewsletterEmail(e.target.value)}
-                  placeholder={t('contact:newsletter.placeholder')}
-                  className="flex-1 px-4 py-3 rounded-lg border-0 bg-white text-primary font-body focus:outline-none focus:ring-2 focus:ring-accent/20"
-                  required
-                />
-                <button
-                  type="submit"
-                  className="bg-accent text-white px-6 py-3 rounded-lg font-body font-medium transition-all duration-200 hover:bg-accent/90 hover:scale-102 flex items-center justify-center space-x-2"
-                >
-                  <Icon name="Mail" size={20} />
-                  <span>{t('contact:newsletter.button')}</span>
-                </button>
-              </div>
-            </form>
-          </div>
-        </section>
       </main>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };

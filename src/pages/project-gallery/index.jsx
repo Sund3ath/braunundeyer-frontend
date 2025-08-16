@@ -1,16 +1,19 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import Header from 'components/ui/Header';
 import Breadcrumb from 'components/ui/Breadcrumb';
 import Icon from 'components/AppIcon';
 import Image from 'components/AppImage';
 import CursorTrail from 'components/ui/CursorTrail';
 import SEO from 'components/SEO';
+import Footer from 'components/Footer';
 import { generateBreadcrumbSchema } from 'utils/structuredData';
 
 const ProjectGallery = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [selectedCategory, setSelectedCategory] = useState('Alle');
   const [sortBy, setSortBy] = useState('Neueste');
   const [viewMode, setViewMode] = useState('grid');
@@ -621,81 +624,7 @@ const ProjectGallery = () => {
       </main>
 
       {/* Footer */}
-      <footer className="bg-primary text-white mt-16 relative z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div>
-              <div className="flex items-center space-x-2 mb-6">
-                <div className="w-8 h-8 bg-accent rounded-minimal flex items-center justify-center">
-                  <Icon name="Triangle" size={20} color="white" />
-                </div>
-                <div className="font-heading font-semibold text-xl">
-                  Braun & Eyer
-                </div>
-              </div>
-              <p className="text-white/80 font-body mb-4">
-                Außergewöhnliche Architekturlösungen, die Innovation mit Funktionalität verbinden.
-              </p>
-            </div>
-            
-            <div>
-              <h4 className="font-heading font-medium text-lg mb-4">Schnellzugriff</h4>
-              <ul className="space-y-2">
-                <li>
-                  <Link to="/homepage" className="text-white/80 hover:text-accent transition-colors duration-200 font-body">
-                    Startseite
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/about-us" className="text-white/80 hover:text-accent transition-colors duration-200 font-body">
-                    Über uns
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/services" className="text-white/80 hover:text-accent transition-colors duration-200 font-body">
-                    Leistungen
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/contact" className="text-white/80 hover:text-accent transition-colors duration-200 font-body">
-                    Kontakt
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="font-heading font-medium text-lg mb-4">Leistungen</h4>
-              <ul className="space-y-2 text-white/80 font-body">
-                <li>Neubau</li>
-                <li>Altbausanierung</li>
-                <li>Innenarchitektur</li>
-                <li>Energieberatung</li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="font-heading font-medium text-lg mb-4">Kontakt</h4>
-              <div className="space-y-2 text-white/80 font-body">
-                <p>Maximilianstraße 35</p>
-                <p>66111 Saarbrücken</p>
-                <p>+49 (89) 123-4567</p>
-                <p>info@braun-eyer.de</p>
-              </div>
-            </div>
-          </div>
-          
-          <div className="border-t border-white/20 mt-8 pt-8 text-center">
-            <p 
-              className="text-white/60 font-body cursor-pointer select-none transition-colors duration-200 hover:text-white/80"
-              onClick={handleCopyrightClick}
-              style={{ userSelect: 'none' }}
-            >
-              © {new Date().getFullYear()} Braun & Eyer Architekturbüro Ingenieure. Alle Rechte vorbehalten.
-            </p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };

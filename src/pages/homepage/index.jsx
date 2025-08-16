@@ -11,6 +11,7 @@ import CursorTrail from 'components/ui/CursorTrail';
 import AnimatedText from 'components/ui/AnimatedText';
 import ContentBackgroundTypography from 'components/ui/ContentBackgroundTypography';
 import SEO from 'components/SEO';
+import Footer from 'components/Footer';
 import { combineSchemas, generateOrganizationSchema, generateWebsiteSchema, generateLocalBusinessSchema } from 'utils/structuredData';
 import { useEditMode } from '../../cms/contexts/EditModeContext';
 
@@ -1063,116 +1064,7 @@ const Homepage = () => {
       </motion.section>
 
       {/* Footer */}
-      <footer className="bg-primary text-white py-16 relative z-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-            <motion.div
-              initial={{ y: 30, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <div className="flex items-center space-x-2 mb-6">
-                <motion.div 
-                  className="w-8 h-8 bg-accent rounded flex items-center justify-center"
-                  whileHover={{ rotate: 360 }}
-                  transition={{ duration: 0.6 }}
-                >
-                  <Icon name="Triangle" size={20} color="white" />
-                </motion.div>
-                <div className="font-heading font-semibold text-xl">Braun & Eyer</div>
-              </div>
-              <p className="font-body text-white/80 mb-4">
-                {t('footer.description')}
-              </p>
-              <div className="flex space-x-4">
-                {['Facebook', 'Twitter', 'Instagram', 'Linkedin'].map((social) => (
-                  <motion.a 
-                    key={social}
-                    href="#" 
-                    className="text-white/60 hover:text-accent transition-colors duration-200"
-                    whileHover={{ scale: 1.2, y: -2 }}
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    <Icon name={social} size={20} />
-                  </motion.a>
-                ))}
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ y: 30, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-            >
-              <h3 className="font-heading font-medium text-lg mb-4">{t('footer.services')}</h3>
-              <ul className="space-y-2 font-body">
-                <li><Link to="/de/leistungen" className="text-white/80 hover:text-accent transition-colors duration-200">{t('services.items.service1.title')}</Link></li>
-                <li><Link to="/de/leistungen" className="text-white/80 hover:text-accent transition-colors duration-200">{t('services.items.service2.title')}</Link></li>
-                <li><Link to="/de/leistungen" className="text-white/80 hover:text-accent transition-colors duration-200">{t('services.items.service3.title')}</Link></li>
-                <li><Link to="/de/leistungen" className="text-white/80 hover:text-accent transition-colors duration-200">{t('services.items.service4.title')}</Link></li>
-              </ul>
-            </motion.div>
-
-            <motion.div
-              initial={{ y: 30, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <h3 className="font-heading font-medium text-lg mb-4">{t('footer.company')}</h3>
-              <ul className="space-y-2 font-body">
-                <li><Link to="/de/uber-uns" className="text-white/80 hover:text-accent transition-colors duration-200">{t('footer.links.about')}</Link></li>
-                <li><Link to="/de/projekte" className="text-white/80 hover:text-accent transition-colors duration-200">{t('footer.links.projects')}</Link></li>
-                <li><Link to="/de/kontakt" className="text-white/80 hover:text-accent transition-colors duration-200">{t('footer.contact')}</Link></li>
-                <li><a href="#" className="text-white/80 hover:text-accent transition-colors duration-200">{t('footer.links.career')}</a></li>
-                <li><Link to="/de/impressum" className="text-white/80 hover:text-accent transition-colors duration-200">{t('footer.links.imprint')}</Link></li>
-                <li><Link to="/de/datenschutz" className="text-white/80 hover:text-accent transition-colors duration-200">{t('footer.links.privacy')}</Link></li>
-              </ul>
-            </motion.div>
-
-            <motion.div
-              initial={{ y: 30, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-            >
-              <h3 className="font-heading font-medium text-lg mb-4">{t('footer.contact')}</h3>
-              <div className="space-y-3 font-body text-white/80">
-                <div className="flex items-start space-x-3">
-                  <Icon name="MapPin" size={16} className="mt-1 flex-shrink-0" />
-                  <span>{t('footer.address.company')}<br />{t('footer.address.country')}</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <Icon name="Phone" size={16} className="flex-shrink-0" />
-                  <span>{t('footer.address.phone')}</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <Icon name="Mail" size={16} className="flex-shrink-0" />
-                  <span>{t('footer.address.email')}</span>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-
-          <motion.div 
-            className="border-t border-white/20 pt-8 text-center"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-          >
-            <p 
-              className="font-body text-white/60 cursor-pointer select-none transition-colors duration-200 hover:text-white/80"
-              onClick={handleCopyrightClick}
-              style={{ userSelect: 'none' }}
-            >
-              {t('footer.copyright')}
-            </p>
-          </motion.div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };

@@ -444,39 +444,18 @@ const Landing = () => {
         >
           <motion.button
             onClick={handleEnterSite}
-            className="group relative overflow-hidden px-12 sm:px-16 py-4 sm:py-5 bg-transparent text-white text-sm sm:text-base tracking-[0.2em] sm:tracking-[0.3em] font-thin transition-all duration-700"
+            className="group relative px-20 sm:px-24 py-3 sm:py-4 bg-transparent text-white text-xs sm:text-sm tracking-[0.35em] sm:tracking-[0.4em] font-normal transition-all duration-700"
             style={{
-              border: '1px solid rgba(255,255,255,0.3)',
-              backdropFilter: 'blur(10px)',
-              background: `
-                linear-gradient(135deg, 
-                  rgba(255,255,255,0.05) 0%, 
-                  rgba(0,0,0,0.1) 50%,
-                  rgba(255,255,255,0.05) 100%),
-                repeating-linear-gradient(
-                  45deg,
-                  transparent,
-                  transparent 10px,
-                  rgba(255,255,255,0.02) 10px,
-                  rgba(255,255,255,0.02) 20px
-                )
-              `,
-              boxShadow: `
-                inset 0 0 30px rgba(255,255,255,0.1),
-                0 0 40px rgba(255,255,255,0.05),
-                0 10px 40px rgba(0,0,0,0.3)
-              `,
+              fontFamily: "'Times New Roman', Times, serif",
+              fontWeight: 400,
+              border: '1px solid rgba(255,255,255,0.4)',
+              background: 'transparent',
             }}
             whileHover={{ 
-              scale: 1.05,
-              boxShadow: `
-                inset 0 0 40px rgba(255,255,255,0.2),
-                0 0 60px rgba(255,255,255,0.15),
-                0 0 100px rgba(255,255,255,0.1),
-                0 20px 60px rgba(0,0,0,0.4)
-              `,
+              scale: 1.02,
+              borderColor: 'rgba(255,255,255,0.8)',
             }}
-            whileTap={{ scale: 0.95 }}
+            whileTap={{ scale: 0.98 }}
             onMouseEnter={(e) => {
               const rect = e.target.getBoundingClientRect();
               setMousePosition({ 
@@ -492,124 +471,36 @@ const Landing = () => {
               });
             }}
           >
-            {/* Liquid metal effect on hover */}
-            <motion.div
-              className="absolute pointer-events-none opacity-0 group-hover:opacity-100"
-              style={{
-                width: '200px',
-                height: '200px',
-                left: mousePosition.x - 100,
-                top: mousePosition.y - 100,
-                background: `
-                  radial-gradient(circle at center, 
-                    rgba(255, 255, 255, 0.5) 0%, 
-                    rgba(255, 255, 255, 0.25) 30%,
-                    transparent 70%)
-                `,
-                filter: 'blur(20px)',
-                mixBlendMode: 'screen',
-              }}
-              transition={{ type: "spring", damping: 15, stiffness: 150 }}
-            />
-            
-            {/* Animated border gradient */}
+            {/* Architectural grid lines on hover */}
             <motion.div 
-              className="absolute inset-0 opacity-0 group-hover:opacity-100"
-              style={{
-                backgroundImage: `
-                  linear-gradient(90deg, 
-                    transparent, 
-                    rgba(255, 255, 255, 0.6), 
-                    transparent)
-                `,
-                backgroundSize: '200% 100%',
-                boxShadow: '0 0 20px rgba(255,255,255,0.2)'
-              }}
-              animate={{
-                backgroundPosition: ['0% 0%', '200% 0%'],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: "linear"
-              }}
-            />
+              className="absolute inset-0 opacity-0 group-hover:opacity-20 pointer-events-none"
+              initial={{ opacity: 0 }}
+              whileHover={{ opacity: 0.2 }}
+              transition={{ duration: 0.3 }}
+            >
+              {/* Vertical lines */}
+              <div className="absolute left-4 top-0 bottom-0 w-[1px] bg-white/20" />
+              <div className="absolute right-4 top-0 bottom-0 w-[1px] bg-white/20" />
+              {/* Horizontal lines */}
+              <div className="absolute left-0 right-0 top-1/2 h-[1px] bg-white/10" />
+            </motion.div>
             
-            {/* Multi-layer text effect */}
-            <div className="relative z-10 overflow-hidden">
+            {/* Clean text with architectural line */}
+            <div className="relative z-10 flex items-center justify-center">
+              <span className="uppercase">ENTER</span>
               <motion.div 
-                className="flex items-center justify-center gap-3"
-                whileHover={{ letterSpacing: '0.4em' }}
-                transition={{ duration: 0.5 }}
-              >
-                <motion.span
-                  className="relative"
-                  style={{
-                    fontFamily: "'Helvetica Neue', sans-serif",
-                    fontWeight: 200,
-                  }}
-                >
-                  ENTER
-                </motion.span>
-                <motion.div 
-                  className="w-8 h-[1px] bg-white/60 group-hover:w-12 transition-all duration-500"
-                />
-                <motion.span
-                  className="relative"
-                  style={{
-                    fontFamily: "'Helvetica Neue', sans-serif",
-                    fontWeight: 200,
-                  }}
-                >
-                  SPACE
-                </motion.span>
-              </motion.div>
-              
-              {/* Glitch effect on hover */}
-              <motion.div 
-                className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100"
-                style={{
-                  color: 'rgba(255,255,255,0.9)',
-                  filter: 'blur(1px)',
-                  transform: 'translateX(2px)',
-                  textShadow: '0 0 10px rgba(255,255,255,0.5)'
-                }}
-              >
-                <span>ENTER</span>
-                <div className="w-8 h-[1px] bg-white/60 mx-3" />
-                <span>SPACE</span>
-              </motion.div>
+                className="mx-6 h-[1px] bg-white/60 transition-all duration-500"
+                initial={{ width: '40px' }}
+                whileHover={{ width: '60px' }}
+              />
+              <span className="uppercase">SPACE</span>
             </div>
             
-            {/* Animated corner brackets */}
-            {[['top-0 left-0', 'border-t border-l'],
-              ['top-0 right-0', 'border-t border-r'],
-              ['bottom-0 left-0', 'border-b border-l'],
-              ['bottom-0 right-0', 'border-b border-r']].map(([position, borders], i) => (
-              <motion.div
-                key={i}
-                className={`absolute ${position} w-6 h-6 ${borders} border-white/30 transition-all duration-500`}
-                whileHover={{
-                  width: '12px',
-                  height: '12px',
-                  borderColor: 'rgba(255, 255, 255, 0.8)',
-                  boxShadow: '0 0 10px rgba(255,255,255,0.4)'
-                }}
-              />
-            ))}
-            
-            {/* Scanning line effect */}
-            <motion.div 
-              className="absolute left-0 top-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-100"
-              animate={{
-                y: [0, 60, 0],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            />
+            {/* Minimal corner accents */}
+            <div className="absolute top-0 left-0 w-3 h-3 border-t border-l border-white/40 group-hover:border-white/60 transition-colors duration-300" />
+            <div className="absolute top-0 right-0 w-3 h-3 border-t border-r border-white/40 group-hover:border-white/60 transition-colors duration-300" />
+            <div className="absolute bottom-0 left-0 w-3 h-3 border-b border-l border-white/40 group-hover:border-white/60 transition-colors duration-300" />
+            <div className="absolute bottom-0 right-0 w-3 h-3 border-b border-r border-white/40 group-hover:border-white/60 transition-colors duration-300" />
           </motion.button>
         </motion.div>
 
@@ -660,16 +551,36 @@ const Landing = () => {
                         ease: "easeOut"
                       }}
                     >
-                      <div className="bg-black px-4 text-center relative z-10 mt-3 mb-3" style={{ paddingTop: '12px', paddingBottom: '18px', marginBottom: '-12px' }}>
+                      <div className="bg-black px-6 lg:px-8 text-center relative z-10 mt-3 mb-3" style={{ paddingTop: '12px', paddingBottom: '18px', marginBottom: '-12px' }}>
                         <div className="relative inline-block">
-                          <div className="text-sm lg:text-base font-thin text-white tracking-[0.2em] lg:tracking-[0.3em] mb-1">
-                            b r a u n   &   e y e r
+                          <div 
+                            className="text-sm lg:text-base font-normal text-white tracking-[0.3em] lg:tracking-[0.4em] mb-0"
+                            style={{
+                              fontFamily: "'Times New Roman', Times, serif",
+                              fontWeight: 400,
+                            }}
+                          >
+                            braun & eyer
                           </div>
-                          {/* Underline */}
-                          <div className="absolute -bottom-0.5 left-0 right-0 h-[1px] bg-white"></div>
+                          {/* Underline - extended */}
+                          <div 
+                            className="absolute -bottom-0 h-[1px] bg-white"
+                            style={{
+                              left: '-5%',
+                              right: '-5%',
+                              width: '110%',
+                            }}
+                          ></div>
                         </div>
-                        <div className="text-sm lg:text-base font-thin text-white tracking-[0.2em] lg:tracking-[0.3em]">
-                          a r c h i t e k t e n
+                        <div 
+                          className="text-sm lg:text-base font-normal text-white tracking-[0.38em] lg:tracking-[0.52em] mt-0"
+                          style={{
+                            fontFamily: "'Times New Roman', Times, serif",
+                            fontWeight: 400,
+                            marginLeft: '0.2em',
+                          }}
+                        >
+                          architekten
                         </div>
                       </div>
                     </motion.div>

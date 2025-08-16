@@ -8,6 +8,7 @@ import Icon from 'components/AppIcon';
 import Image from 'components/AppImage';
 import CursorTrail from 'components/ui/CursorTrail';
 import SEO from 'components/SEO';
+import Footer from 'components/Footer';
 import { generateBreadcrumbSchema } from 'utils/structuredData';
 import { projectsAPI } from '../../services/api';
 import useCMSStore from '../../cms/store/cmsStore';
@@ -646,81 +647,7 @@ const ProjectGalleryWithCMS = () => {
       </main>
 
       {/* Footer */}
-      <footer className="bg-primary text-white mt-16 relative z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div>
-              <div className="flex items-center space-x-2 mb-6">
-                <div className="w-8 h-8 bg-accent rounded-minimal flex items-center justify-center">
-                  <Icon name="Triangle" size={20} color="white" />
-                </div>
-                <div className="font-heading font-semibold text-xl">
-                  Braun & Eyer
-                </div>
-              </div>
-              <p className="text-white/80 font-body mb-4">
-                {t('translation:footer.description', { defaultValue: 'Außergewöhnliche Architekturlösungen, die Innovation mit Funktionalität verbinden.' })}
-              </p>
-            </div>
-            
-            <div>
-              <h4 className="font-heading font-medium text-lg mb-4">{t('translation:footer.company')}</h4>
-              <ul className="space-y-2">
-                <li>
-                  <Link to={`/${currentLang}/homepage`} className="text-white/80 hover:text-accent transition-colors duration-200 font-body">
-                    {t('translation:nav.home')}
-                  </Link>
-                </li>
-                <li>
-                  <Link to={`/${currentLang}/uber-uns`} className="text-white/80 hover:text-accent transition-colors duration-200 font-body">
-                    {t('translation:nav.about')}
-                  </Link>
-                </li>
-                <li>
-                  <Link to={`/${currentLang}/leistungen`} className="text-white/80 hover:text-accent transition-colors duration-200 font-body">
-                    {t('translation:nav.services')}
-                  </Link>
-                </li>
-                <li>
-                  <Link to={`/${currentLang}/kontakt`} className="text-white/80 hover:text-accent transition-colors duration-200 font-body">
-                    {t('translation:nav.contact')}
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="font-heading font-medium text-lg mb-4">{t('translation:footer.services')}</h4>
-              <ul className="space-y-2 text-white/80 font-body">
-                <li>{t('projects:categories.newBuilding')}</li>
-                <li>{t('projects:categories.renovation')}</li>
-                <li>{t('projects:categories.interior')}</li>
-                <li>{t('translation:services.consulting')}</li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="font-heading font-medium text-lg mb-4">{t('translation:contact.title')}</h4>
-              <div className="space-y-2 text-white/80 font-body">
-                <p>Maximilianstraße 35</p>
-                <p>66111 Saarbrücken</p>
-                <p>+49 (89) 123-4567</p>
-                <p>info@braun-eyer.de</p>
-              </div>
-            </div>
-          </div>
-          
-          <div className="border-t border-white/20 mt-8 pt-8 text-center">
-            <p 
-              className="text-white/60 font-body cursor-pointer select-none transition-colors duration-200 hover:text-white/80"
-              onClick={handleCopyrightClick}
-              style={{ userSelect: 'none' }}
-            >
-              © {new Date().getFullYear()} {t('translation:footer.rights', { defaultValue: 'Braun & Eyer Architekturbüro Ingenieure. Alle Rechte vorbehalten.' })}
-            </p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };
