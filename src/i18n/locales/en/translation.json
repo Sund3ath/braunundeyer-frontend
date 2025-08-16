@@ -27,6 +27,7 @@
       "category": "Category"
     }
   },
+  "step": "Step",
   "about": {
     "title": "About Us",
     "philosophy": "Our Philosophy",

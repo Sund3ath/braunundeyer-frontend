@@ -1,0 +1,141 @@
+{
+  "title": "Contact",
+  "subtitle": "Créons ensemble quelque chose d'extraordinaire",
+  "hero": {
+    "title": "Contact",
+    "subtitle": "Créons ensemble quelque chose d'extraordinaire"
+  },
+  "info": {
+    "title": "Contactez-nous",
+    "address": {
+      "label": "Adresse du Bureau",
+      "value": "Mainzerstrasse 29, 66111 Sarrebruck, Allemagne"
+    },
+    "phone": {
+      "label": "Téléphone",
+      "office": "0681 - 95 41 74 88",
+      "mobile": "+49 (0) 15127552242"
+    },
+    "email": {
+      "label": "Email",
+      "value": "info@braunundeyer.de"
+    },
+    "hours": {
+      "label": "Heures d'Ouverture",
+      "weekdays": "Lundi - Vendredi: 8h00 - 18h00",
+      "saturday": "Samedi: 9h00 - 14h00",
+      "sunday": "Dimanche: Fermé"
+    }
+  },
+  "social": {
+    "title": "Suivez-nous",
+    "description": "Restez informé de nos derniers projets et perspectives architecturales."
+  },
+  "form": {
+    "title": "Envoyer un Message",
+    "subtitle": "Contactez-nous pour une demande de projet",
+    "fields": {
+      "name": {
+        "label": "Nom Complet",
+        "placeholder": "Votre nom",
+        "error": "Le nom est requis"
+      },
+      "email": {
+        "label": "Adresse Email",
+        "placeholder": "votre@email.com",
+        "error": "L'email est requis",
+        "errorInvalid": "Veuillez entrer une adresse email valide"
+      },
+      "phone": {
+        "label": "Numéro de Téléphone",
+        "placeholder": "+49 (0) 123 456789",
+        "error": "Le numéro de téléphone est requis"
+      },
+      "projectType": {
+        "label": "Type de Projet",
+        "placeholder": "Sélectionner le type de projet",
+        "error": "Veuillez sélectionner un type de projet",
+        "options": {
+          "select": "Sélectionner le type de projet",
+          "newConstruction": "Construction Neuve",
+          "renovation": "Rénovation de Bâtiment",
+          "interior": "Design d'Intérieur",
+          "energy": "Conseil Énergétique",
+          "projectManagement": "Gestion de Projet",
+          "consulting": "Conseil en Architecture"
+        }
+      },
+      "budget": {
+        "label": "Gamme de Budget",
+        "placeholder": "Sélectionner la gamme de budget (Optionnel)",
+        "options": {
+          "select": "Sélectionner la gamme de budget (Optionnel)",
+          "under100k": "Moins de 100 000 €",
+          "100to250k": "100 000 € - 250 000 €",
+          "250to500k": "250 000 € - 500 000 €",
+          "500to1m": "500 000 € - 1 000 000 €",
+          "over1m": "Plus de 1 000 000 €",
+          "discuss": "Préfère discuter personnellement"
+        }
+      },
+      "timeline": {
+        "label": "Calendrier du Projet",
+        "placeholder": "p.ex., Début de construction prévu dans 6 mois"
+      },
+      "message": {
+        "label": "Votre Message",
+        "placeholder": "Parlez-nous de votre projet et de votre vision...",
+        "error": "Le message est requis",
+        "errorShort": "Le message doit comporter au moins 10 caractères"
+      }
+    },
+    "submit": "Envoyer la Demande",
+    "submitting": "Envoi en cours...",
+    "success": {
+      "title": "Merci pour votre message!",
+      "message": "Nous avons reçu votre demande et vous contacterons dans les 24 heures."
+    }
+  },
+  "faq": {
+    "title": "Questions Fréquemment Posées",
+    "subtitle": "Trouvez des réponses aux questions courantes sur nos services et processus.",
+    "items": [
+      {
+        "question": "Comment fonctionne votre processus de consultation?",
+        "answer": "Notre processus de consultation commence par une réunion initiale détaillée pour comprendre votre vision, vos exigences et votre budget. Nous effectuons ensuite une analyse du site, développons des concepts initiaux et travaillons avec vous pour affiner le design. Le processus comprend typiquement la conception préliminaire, la planification du design, la planification d'exécution et la supervision de la construction."
+      },
+      {
+        "question": "Combien de temps prend un projet typique?",
+        "answer": "La durée du projet varie selon la portée et la complexité. Les projets résidentiels prennent généralement 8 à 15 mois de la consultation initiale à l'achèvement. Les projets commerciaux peuvent prendre 15 à 30 mois. Nous créons des calendriers détaillés pendant la phase de consultation initiale."
+      },
+      {
+        "question": "Comment sont structurés vos honoraires?",
+        "answer": "Nos honoraires sont basés sur le HOAI (Barème des honoraires pour architectes et ingénieurs) et sont calculés en fonction de la portée et de la complexité du projet. Nous offrons à la fois des honoraires basés sur un pourcentage (généralement 10-15% des coûts de construction) et des accords à honoraires fixes. Une tarification transparente est fournie lors de la consultation initiale."
+      },
+      {
+        "question": "Gérez-vous les permis et les approbations réglementaires?",
+        "answer": "Oui, nous gérons l'ensemble du processus d'approbation, y compris les permis de construire, les exigences de protection du patrimoine et la coordination réglementaire. Notre équipe a une vaste expérience dans le traitement des réglementations de construction locales et des exigences pour une approbation de projet en douceur."
+      },
+      {
+        "question": "Pouvez-vous travailler avec mon entreprise de construction existante?",
+        "answer": "Absolument! Nous sommes heureux de travailler avec des entreprises de construction qualifiées et pouvons coopérer avec votre équipe de construction préférée. Nous entretenons également des relations avec des entreprises partenaires de confiance et pouvons faire des recommandations si nécessaire."
+      }
+    ]
+  },
+  "newsletter": {
+    "title": "S'abonner à la Newsletter",
+    "description": "Recevez des mises à jour mensuelles sur nos derniers projets, tendances architecturales et perspectives.",
+    "placeholder": "Votre adresse email",
+    "button": "S'abonner",
+    "privacy": "Nous respectons votre vie privée. Désinscription à tout moment."
+  },
+  "map": {
+    "title": "Nous Rendre Visite",
+    "directions": "Obtenir l'itinéraire"
+  },
+  "cta": {
+    "title": "Prêt à réaliser votre vision?",
+    "description": "Contactez-nous aujourd'hui pour une consultation initiale gratuite",
+    "button": "Demander maintenant"
+  }
+}

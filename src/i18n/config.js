@@ -25,36 +25,60 @@ import frAbout from './locales/fr/about.json';
 import itAbout from './locales/it/about.json';
 import esAbout from './locales/es/about.json';
 
+// Import services translations
+import deServices from './locales/de/services.json';
+import enServices from './locales/en/services.json';
+import frServices from './locales/fr/services.json';
+import itServices from './locales/it/services.json';
+import esServices from './locales/es/services.json';
+
+// Import contact translations
+import deContact from './locales/de/contact.json';
+import enContact from './locales/en/contact.json';
+import frContact from './locales/fr/contact.json';
+import itContact from './locales/it/contact.json';
+import esContact from './locales/es/contact.json';
+
 const resources = {
   de: { 
     translation: deTranslations,
     homepage: deHomepage,
     projects: deProjects,
-    about: deAbout
+    about: deAbout,
+    services: deServices,
+    contact: deContact
   },
   en: { 
     translation: enTranslations,
     homepage: enHomepage,
     projects: enProjects,
-    about: enAbout
+    about: enAbout,
+    services: enServices,
+    contact: enContact
   },
   fr: { 
     translation: frTranslations,
     homepage: deHomepage, // Using German as fallback for now
     projects: deProjects, // Using German as fallback for now
-    about: frAbout
+    about: frAbout,
+    services: frServices,
+    contact: frContact
   },
   it: { 
     translation: itTranslations,
     homepage: deHomepage, // Using German as fallback for now
     projects: deProjects, // Using German as fallback for now
-    about: itAbout
+    about: itAbout,
+    services: itServices,
+    contact: itContact
   },
   es: { 
     translation: esTranslations,
     homepage: deHomepage, // Using German as fallback for now
     projects: deProjects, // Using German as fallback for now
-    about: esAbout
+    about: esAbout,
+    services: esServices,
+    contact: esContact
   }
 };
 
@@ -67,7 +91,7 @@ i18n
     lng: 'de', // default language
     fallbackLng: 'de',
     defaultNS: 'translation',
-    ns: ['translation', 'homepage', 'projects', 'about'],
+    ns: ['translation', 'homepage', 'projects', 'about', 'services', 'contact'],
     debug: false,
     
     interpolation: {

@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
-import { useTranslation } from 'react-i18next';
 import Header from 'components/ui/Header';
 import Breadcrumb from 'components/ui/Breadcrumb';
 import Icon from 'components/AppIcon';
@@ -11,10 +10,7 @@ import SEO from 'components/SEO';
 import { generateServiceSchema, generateBreadcrumbSchema, generateFAQSchema, combineSchemas } from 'utils/structuredData';
 
 const Services = () => {
-  const { t, i18n } = useTranslation(['services', 'translation']);
-  const location = useLocation();
   const navigate = useNavigate();
-  const currentLang = location.pathname.split('/')[1] || i18n.language || 'de';
   const [expandedService, setExpandedService] = useState(null);
   const [expandedFaq, setExpandedFaq] = useState(null);
   const [selectedService, setSelectedService] = useState('');
@@ -54,152 +50,163 @@ const Services = () => {
   const services = [
     {
       id: 1,
-      key: 'newConstruction',
-      title: t('services:services.newConstruction.title'),
+      title: "Neubau",
       icon: "Home",
       image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&h=400&fit=crop",
-      description: t('services:services.newConstruction.description'),
-      timeline: t('services:services.newConstruction.timeline'),
-      deliverables: t('services:services.newConstruction.deliverables', { returnObjects: true }),
-      features: t('services:services.newConstruction.features', { returnObjects: true }),
-      startingPrice: t('services:services.newConstruction.startingPrice')
+      description: "Individuelle Neubauprojekte von Einfamilienhäusern bis zu Mehrfamilienhäusern und Geschäftsgebäuden. Moderne Architektur mit nachhaltigen Konzepten und energieeffizienten Lösungen.",
+      timeline: "6-12 Monate",
+      deliverables: ["Architekturpläne", "3D-Visualisierungen", "Materialspezifikationen", "Bauüberwachung"],
+      features: ["Standortanalyse", "Raumplanung", "Energieberatung", "Landschaftsintegration"],
+      startingPrice: "ab 8.000€"
     },
     {
       id: 2,
-      key: 'renovation',
-      title: t('services:services.renovation.title'),
+      title: "Altbausanierung",
       icon: "Building2",
       image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&h=400&fit=crop",
-      description: t('services:services.renovation.description'),
-      timeline: t('services:services.renovation.timeline'),
-      deliverables: t('services:services.renovation.deliverables', { returnObjects: true }),
-      features: t('services:services.renovation.features', { returnObjects: true }),
-      startingPrice: t('services:services.renovation.startingPrice')
+      description: "Fachgerechte Sanierung historischer Gebäude unter Berücksichtigung von Denkmalschutz, Bauphysik und modernen Wohnstandards. Erhaltung des ursprünglichen Charakters bei zeitgemäßer Funktionalität.",
+      timeline: "8-18 Monate",
+      deliverables: ["Bestandsaufnahme", "Sanierungskonzept", "Genehmigungsplanung", "Baubegleitung"],
+      features: ["Denkmalschutz", "Bauphysik", "Energetische Sanierung", "Barrierefreiheit"],
+      startingPrice: "ab 12.000€"
     },
     {
       id: 3,
-      key: 'interior',
-      title: t('services:services.interior.title'),
+      title: "Innenarchitektur",
       icon: "Palette",
       image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&h=400&fit=crop",
-      description: t('services:services.interior.description'),
-      timeline: t('services:services.interior.timeline'),
-      deliverables: t('services:services.interior.deliverables', { returnObjects: true }),
-      features: t('services:services.interior.features', { returnObjects: true }),
-      startingPrice: t('services:services.interior.startingPrice')
+      description: "Komplette Innenraumgestaltung von der Raumaufteilung bis zur Möblierung. Funktionale und ästhetische Lösungen für Wohn- und Geschäftsräume mit Fokus auf optimale Raumnutzung.",
+      timeline: "3-6 Monate",
+      deliverables: ["Raumkonzept", "Materialauswahl", "Möblierungsplan", "Lichtplanung"],
+      features: ["Farbberatung", "Möbelauswahl", "Lichtdesign", "Maßanfertigungen"],
+      startingPrice: "ab 5.000€"
     },
     {
       id: 4,
-      key: 'energy',
-      title: t('services:services.energy.title'),
+      title: "Energieberatung",
       icon: "Wrench",
       image: "https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?w=600&h=400&fit=crop",
-      description: t('services:services.energy.description'),
-      timeline: t('services:services.energy.timeline'),
-      deliverables: t('services:services.energy.deliverables', { returnObjects: true }),
-      features: t('services:services.energy.features', { returnObjects: true }),
-      startingPrice: t('services:services.energy.startingPrice')
+      description: "Professionelle Energieberatung für Neubau und Sanierung. Optimierung der Energieeffizienz, Beratung zu Fördermitteln und Erstellung von Energieausweisen nach aktuellen Standards.",
+      timeline: "2-4 Wochen",
+      deliverables: ["Energieausweis", "Sanierungsfahrplan", "Fördermittelberatung", "Wirtschaftlichkeitsanalyse"],
+      features: ["Thermografie", "Blower-Door-Test", "Fördermittelantrag", "KfW-Beratung"],
+      startingPrice: "ab 800€"
     },
     {
       id: 5,
-      key: 'projectManagement',
-      title: t('services:services.projectManagement.title'),
+      title: "Projektmanagement",
       icon: "ClipboardList",
       image: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=600&h=400&fit=crop",
-      description: t('services:services.projectManagement.description'),
-      timeline: t('services:services.projectManagement.timeline'),
-      deliverables: t('services:services.projectManagement.deliverables', { returnObjects: true }),
-      features: t('services:services.projectManagement.features', { returnObjects: true }),
-      startingPrice: t('services:services.projectManagement.startingPrice')
+      description: "Umfassende Projektbetreuung von der Planung bis zur Fertigstellung. Koordination aller Gewerke, Terminüberwachung und Qualitätskontrolle für einen reibungslosen Bauablauf.",
+      timeline: "Projektdauer",
+      deliverables: ["Terminpläne", "Qualitätsberichte", "Fortschrittsberichte", "Abnahmeprotokolle"],
+      features: ["Gewerkekoordination", "Qualitätskontrolle", "Terminmanagement", "Kostenüberwachung"],
+      startingPrice: "ab 3.000€"
     }
   ];
 
   const processSteps = [
     {
       step: 1,
-      key: 'consultation',
-      title: t('services:process.steps.consultation.title'),
-      description: t('services:process.steps.consultation.description'),
+      title: "Erstberatung",
+      description: "Wir besprechen Ihre Vorstellungen, Anforderungen und Projektziele in einem ausführlichen Beratungsgespräch.",
       icon: "MessageCircle",
-      duration: t('services:process.steps.consultation.duration')
+      duration: "1-2 Stunden"
     },
     {
       step: 2,
-      key: 'analysis',
-      title: t('services:process.steps.analysis.title'),
-      description: t('services:process.steps.analysis.description'),
+      title: "Standortanalyse",
+      description: "Umfassende Bewertung der örtlichen Gegebenheiten, Beschränkungen und Möglichkeiten des Baugrundstücks.",
       icon: "MapPin",
-      duration: t('services:process.steps.analysis.duration')
+      duration: "1-3 Tage"
     },
     {
       step: 3,
-      key: 'concept',
-      title: t('services:process.steps.concept.title'),
-      description: t('services:process.steps.concept.description'),
+      title: "Konzeptentwicklung",
+      description: "Erstellung erster Entwurfskonzepte und Erkundung verschiedener architektonischer Lösungsansätze.",
       icon: "Lightbulb",
-      duration: t('services:process.steps.concept.duration')
+      duration: "2-4 Wochen"
     },
     {
       step: 4,
-      key: 'design',
-      title: t('services:process.steps.design.title'),
-      description: t('services:process.steps.design.description'),
+      title: "Entwurfsplanung",
+      description: "Verfeinerung des gewählten Konzepts mit detaillierten Plänen und Spezifikationen.",
       icon: "Drafting",
-      duration: t('services:process.steps.design.duration')
+      duration: "4-8 Wochen"
     },
     {
       step: 5,
-      key: 'permits',
-      title: t('services:process.steps.permits.title'),
-      description: t('services:process.steps.permits.description'),
+      title: "Genehmigungsplanung",
+      description: "Erstellung der Bauunterlagen und Beantragung der erforderlichen Baugenehmigungen.",
       icon: "FileText",
-      duration: t('services:process.steps.permits.duration')
+      duration: "2-6 Wochen"
     },
     {
       step: 6,
-      key: 'construction',
-      title: t('services:process.steps.construction.title'),
-      description: t('services:process.steps.construction.description'),
+      title: "Baubegleitung",
+      description: "Kontinuierliche Betreuung während der Bauphase zur Sicherstellung der Planungsqualität.",
       icon: "HardHat",
-      duration: t('services:process.steps.construction.duration')
+      duration: "Bauzeit"
     }
   ];
 
   const caseStudies = [
     {
       id: 1,
-      service: t('services:services.newConstruction.title'),
-      title: t('services:caseStudies.projects.modernHome.title'),
-      location: t('services:caseStudies.projects.modernHome.location'),
+      service: "Neubau",
+      title: "Modernes Einfamilienhaus",
+      location: "München-Schwabing",
       beforeImage: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=300&h=200&fit=crop",
       afterImage: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=300&h=200&fit=crop",
-      outcome: t('services:caseStudies.projects.modernHome.outcome')
+      outcome: "Energieeffizienter Neubau mit 40% weniger Energieverbrauch als gesetzlich vorgeschrieben."
     },
     {
       id: 2,
-      service: t('services:services.renovation.title'),
-      title: t('services:caseStudies.projects.heritage.title'),
-      location: t('services:caseStudies.projects.heritage.location'),
+      service: "Altbausanierung",
+      title: "Denkmalgeschütztes Stadthaus",
+      location: "München-Altstadt",
       beforeImage: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=300&h=200&fit=crop",
       afterImage: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=300&h=200&fit=crop",
-      outcome: t('services:caseStudies.projects.heritage.outcome')
+      outcome: "Behutsame Sanierung unter Denkmalschutz mit Verbesserung der Energieeffizienz um 60%."
     },
     {
       id: 3,
-      service: t('services:services.interior.title'),
-      title: t('services:caseStudies.projects.penthouse.title'),
-      location: t('services:caseStudies.projects.penthouse.location'),
+      service: "Innenarchitektur",
+      title: "Penthouse Wohnung",
+      location: "München-Maxvorstadt",
       beforeImage: "https://images.unsplash.com/photo-1484154218962-a197022b5858?w=300&h=200&fit=crop",
       afterImage: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=300&h=200&fit=crop",
-      outcome: t('services:caseStudies.projects.penthouse.outcome')
+      outcome: "Optimale Raumnutzung mit 30% mehr Stauraum bei verbesserter Wohnqualität."
     }
   ];
 
-  const faqs = t('services:faq.items', { returnObjects: true }).map((item, index) => ({
-    id: index + 1,
-    question: item.question,
-    answer: item.answer
-  }));
+  const faqs = [
+    {
+      id: 1,
+      question: "Was ist in der Erstberatung enthalten?",
+      answer: `Unsere Erstberatung umfasst eine ausführliche Besprechung Ihrer Projektziele, eine Besichtigung vor Ort falls erforderlich, eine erste Machbarkeitsbewertung und einen Überblick über unser Planungsverfahren. Sie erhalten außerdem ein detailliertes Angebot mit Leistungsumfang, Zeitplan und Investitionsrahmen für Ihr Projekt.`
+    },
+    {
+      id: 2,
+      question: "Wie lange dauert ein typisches Wohnbauprojekt?",
+      answer: `Wohnbauprojekte dauern in der Regel 6-12 Monate von der ersten Planung bis zur Baufreigabe. Die Dauer kann je nach Projektgröße, Komplexität und Entscheidungsprozess variieren. Wir erstellen detaillierte Terminpläne bereits in der Angebotsphase.`
+    },
+    {
+      id: 3,
+      question: "Übernehmen Sie die Baugenehmigung?",
+      answer: `Ja, wir unterstützen Sie bei allen erforderlichen Genehmigungsverfahren und behördlichen Abstimmungen. Unser Team kennt die örtlichen Bauvorschriften und Genehmigungsverfahren und sorgt dafür, dass Ihr Projekt alle Compliance-Standards erfüllt.`
+    },
+    {
+      id: 4,
+      question: "Können Sie innerhalb eines bestimmten Budgets arbeiten?",
+      answer: `Selbstverständlich. Wir arbeiten eng mit unseren Kunden zusammen, um realistische Budgets zu erstellen und Lösungen zu entwickeln, die den größtmöglichen Wert innerhalb Ihrer Investitionsparameter bieten. Wir erstellen Kostenschätzungen während des gesamten Planungsprozesses.`
+    },
+    {
+      id: 5,
+      question: "Bieten Sie 3D-Visualisierungen an?",
+      answer: `Ja, 3D-Visualisierungen sind in den meisten unserer Planungspakete enthalten. Diese helfen unseren Kunden, das geplante Design besser zu verstehen und fundierte Entscheidungen über Materialien, Oberflächen und Raumaufteilung zu treffen, bevor die Bauarbeiten beginnen.`
+    }
+  ];
 
   const toggleService = (serviceId) => {
     setExpandedService(expandedService === serviceId ? null : serviceId);
@@ -241,9 +248,9 @@ const Services = () => {
   return (
     <div className="min-h-screen custom-cursor relative overflow-hidden bg-background">
       <SEO 
-        title={`${t('services:title')} | Braun & Eyer ${t('translation:hero.title')}`}
-        description={t('services:description')}
-        keywords={`${t('services:services.newConstruction.title')}, ${t('services:services.renovation.title')}, ${t('services:services.energy.title')}, ${t('services:services.projectManagement.title')}`}
+        title="Leistungen | Braun & Eyer Architekturbüro - Neubau, Sanierung & mehr"
+        description="Unsere Architekturleistungen: Neubauplanung, Altbausanierung, Energieberatung, Denkmalschutz. Individuelle Lösungen für Ihr Bauprojekt."
+        keywords="Architekturleistungen, Neubauplanung, Altbausanierung, Energieberatung, Denkmalschutz, Bauplanung Saarbrücken, Architekt Leistungen"
         structuredData={servicesSchema}
       />
       <Header />
@@ -265,25 +272,25 @@ const Services = () => {
           <Breadcrumb />
           <div className="mt-6">
             <h1 className="text-3xl lg:text-4xl xl:text-5xl font-heading font-light text-primary mb-4">
-              {t('services:title')}
+              Unsere Leistungen
             </h1>
             <p className="text-xl lg:text-2xl text-text-secondary font-body leading-relaxed mb-8">
-              {t('services:subtitle')}
+              Umfassende Architekturleistungen von Neubau bis Altbausanierung - maßgeschneidert für Ihre Vision mit Expertise, Kreativität und Präzision.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
-                to={`/${currentLang}/kontakt`}
+                to="/contact"
                 className="inline-flex items-center justify-center space-x-2 bg-accent text-white px-8 py-4 rounded transition-all duration-200 hover:scale-102 hover:shadow-lg font-body font-medium"
               >
                 <Icon name="Calendar" size={20} />
-                <span>{t('services:cta.button')}</span>
+                <span>Beratungstermin vereinbaren</span>
               </Link>
               <Link
-                to={`/${currentLang}/projekte`}
+                to="/de/projekte"
                 className="inline-flex items-center justify-center space-x-2 border border-border text-text-primary px-8 py-4 rounded transition-all duration-200 hover:bg-surface font-body font-medium"
               >
                 <Icon name="Eye" size={20} />
-                <span>{t('translation:projects.viewAll')}</span>
+                <span>Unsere Projekte ansehen</span>
               </Link>
             </div>
           </div>
@@ -331,10 +338,10 @@ const Services = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 section-content relative" style={{ zIndex: 2 }}>
           <div className="text-center mb-12 lg:mb-16 z-content">
             <h2 className="text-3xl lg:text-4xl font-heading font-light text-primary mb-4">
-              {t('services:title')}
+              Was wir anbieten
             </h2>
             <p className="text-lg text-text-secondary font-body max-w-2xl mx-auto">
-              {t('services:description')}
+              Von der Konzeption bis zur Fertigstellung bieten wir umfassende Architekturleistungen für Ihre individuellen Bedürfnisse.
             </p>
           </div>
 
@@ -369,13 +376,13 @@ const Services = () => {
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center space-x-2 text-sm text-text-secondary">
                       <Icon name="Clock" size={16} />
-                      <span>{t('services:services.labels.timeline')}: {service.timeline}</span>
+                      <span>Dauer: {service.timeline}</span>
                     </div>
                     <button
                       onClick={() => toggleService(service.id)}
                       className="flex items-center space-x-1 text-accent hover:text-accent/80 transition-colors duration-200 font-body font-medium"
                     >
-                      <span>{expandedService === service.id ? t('services:services.labels.lessInfo') : t('services:services.labels.learnMore')}</span>
+                      <span>{expandedService === service.id ? 'Weniger Details' : 'Mehr Details'}</span>
                       <Icon 
                         name={expandedService === service.id ? 'ChevronUp' : 'ChevronDown'} 
                         size={16} 
@@ -386,7 +393,7 @@ const Services = () => {
                   {expandedService === service.id && (
                     <div className="border-t border-border pt-4 space-y-4">
                       <div>
-                        <h4 className="font-body font-semibold text-primary mb-2">{t('services:services.labels.features')}:</h4>
+                        <h4 className="font-body font-semibold text-primary mb-2">Leistungsmerkmale:</h4>
                         <ul className="grid grid-cols-2 gap-2">
                           {service.features.map((feature, index) => (
                             <li key={index} className="flex items-center space-x-2 text-sm text-text-secondary">
@@ -398,7 +405,7 @@ const Services = () => {
                       </div>
                       
                       <div>
-                        <h4 className="font-body font-semibold text-primary mb-2">{t('services:services.labels.deliverables')}:</h4>
+                        <h4 className="font-body font-semibold text-primary mb-2">Leistungsumfang:</h4>
                         <ul className="space-y-1">
                           {service.deliverables.map((deliverable, index) => (
                             <li key={index} className="flex items-center space-x-2 text-sm text-text-secondary">
@@ -442,10 +449,10 @@ const Services = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative" style={{ zIndex: 2 }}>
           <div className="text-center mb-12 lg:mb-16">
             <h2 className="text-3xl lg:text-4xl font-heading font-light text-primary mb-4">
-              {t('services:process.title')}
+              Unser Planungsprozess
             </h2>
             <p className="text-lg text-text-secondary font-body max-w-2xl mx-auto">
-              {t('services:process.subtitle')}
+              Ein strukturierter Ansatz, der Qualitätsergebnisse und klare Kommunikation während Ihres gesamten Projekts gewährleistet.
             </p>
           </div>
 
@@ -459,7 +466,7 @@ const Services = () => {
                     </div>
                     <div>
                       <div className="text-sm text-accent font-body font-semibold">
-                        {t('translation:step')} {step.step}
+                        Schritt {step.step}
                       </div>
                       <h3 className="text-lg font-heading font-medium text-primary">
                         {step.title}
@@ -493,10 +500,10 @@ const Services = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 lg:mb-16">
             <h2 className="text-3xl lg:text-4xl font-heading font-light text-primary mb-4">
-              {t('services:caseStudies.title')}
+              Erfolgsgeschichten
             </h2>
             <p className="text-lg text-text-secondary font-body max-w-2xl mx-auto">
-              {t('services:caseStudies.subtitle')}
+              Reale Projekte, die die Wirkung unserer architektonischen Expertise demonstrieren.
             </p>
           </div>
 
@@ -521,7 +528,7 @@ const Services = () => {
                   
                   <div className="grid grid-cols-2 gap-4 mb-4">
                     <div>
-                      <div className="text-xs text-text-secondary mb-2 font-body font-medium">{t('services:caseStudies.before')}</div>
+                      <div className="text-xs text-text-secondary mb-2 font-body font-medium">Vorher</div>
                       <div className="relative h-24 overflow-hidden rounded">
                         <Image
                           src={study.beforeImage}
@@ -531,7 +538,7 @@ const Services = () => {
                       </div>
                     </div>
                     <div>
-                      <div className="text-xs text-text-secondary mb-2 font-body font-medium">{t('services:caseStudies.after')}</div>
+                      <div className="text-xs text-text-secondary mb-2 font-body font-medium">Nachher</div>
                       <div className="relative h-24 overflow-hidden rounded">
                         <Image
                           src={study.afterImage}
@@ -557,10 +564,10 @@ const Services = () => {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-4xl font-heading font-light text-primary mb-4">
-              {t('services:pricing.title')}
+              Investition & Honorare
             </h2>
             <p className="text-lg text-text-secondary font-body">
-              {t('services:pricing.subtitle')}
+              Transparente Honorarstruktur, die in jeder Phase Ihres Projekts Mehrwert bietet.
             </p>
           </div>
 
@@ -569,22 +576,22 @@ const Services = () => {
               <div className="flex items-center space-x-3 mb-6">
                 <Icon name="MessageCircle" size={24} className="text-accent" />
                 <h3 className="text-xl font-heading font-medium text-primary">
-                  {t('services:pricing.consultation.title')}
+                  Beratungsleistungen
                 </h3>
               </div>
               
               <div className="space-y-4">
                 <div className="flex justify-between items-center">
-                  <span className="text-text-secondary font-body">{t('services:pricing.consultation.items.initial')}</span>
-                  <span className="font-body font-semibold text-primary">{t('services:pricing.consultation.items.initialPrice')}</span>
+                  <span className="text-text-secondary font-body">Erstberatung</span>
+                  <span className="font-body font-semibold text-primary">150€/Stunde</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-text-secondary font-body">{t('services:pricing.consultation.items.siteAnalysis')}</span>
-                  <span className="font-body font-semibold text-primary">{t('services:pricing.consultation.items.siteAnalysisPrice')}</span>
+                  <span className="text-text-secondary font-body">Standortanalyse</span>
+                  <span className="font-body font-semibold text-primary">800€-2.500€</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-text-secondary font-body">{t('services:pricing.consultation.items.feasibility')}</span>
-                  <span className="font-body font-semibold text-primary">{t('services:pricing.consultation.items.feasibilityPrice')}</span>
+                  <span className="text-text-secondary font-body">Machbarkeitsstudie</span>
+                  <span className="font-body font-semibold text-primary">1.500€-4.000€</span>
                 </div>
               </div>
             </div>
@@ -593,22 +600,22 @@ const Services = () => {
               <div className="flex items-center space-x-3 mb-6">
                 <Icon name="FileText" size={24} className="text-accent" />
                 <h3 className="text-xl font-heading font-medium text-primary">
-                  {t('services:pricing.project.title')}
+                  Projekthonorare
                 </h3>
               </div>
               
               <div className="space-y-4">
                 <div className="flex justify-between items-center">
-                  <span className="text-text-secondary font-body">{t('services:pricing.project.items.residential')}</span>
-                  <span className="font-body font-semibold text-primary">{t('services:pricing.project.items.residentialPrice')}</span>
+                  <span className="text-text-secondary font-body">Wohnbauprojekte</span>
+                  <span className="font-body font-semibold text-primary">10-15% der Bausumme</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-text-secondary font-body">{t('services:pricing.project.items.commercial')}</span>
-                  <span className="font-body font-semibold text-primary">{t('services:pricing.project.items.commercialPrice')}</span>
+                  <span className="text-text-secondary font-body">Gewerbeprojekte</span>
+                  <span className="font-body font-semibold text-primary">8-12% der Bausumme</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-text-secondary font-body">{t('services:pricing.project.items.interior')}</span>
-                  <span className="font-body font-semibold text-primary">{t('services:pricing.project.items.interiorPrice')}</span>
+                  <span className="text-text-secondary font-body">Innenarchitektur</span>
+                  <span className="font-body font-semibold text-primary">200€-400€/m²</span>
                 </div>
               </div>
             </div>
@@ -618,9 +625,9 @@ const Services = () => {
             <div className="flex items-start space-x-3">
               <Icon name="Info" size={20} className="text-accent mt-1" />
               <div>
-                <h4 className="font-body font-semibold text-primary mb-2">{t('services:pricing.payment.title')}</h4>
+                <h4 className="font-body font-semibold text-primary mb-2">Zahlungsstruktur</h4>
                 <p className="text-text-secondary font-body text-sm leading-relaxed">
-                  {t('services:pricing.payment.description')}
+                  Projekte werden typischerweise mit 30% Anzahlung, 40% bei Abschluss der Entwurfsplanung und 30% bei Fertigstellung strukturiert. Wir bieten flexible Zahlungspläne für größere Projekte und stellen detaillierte Kostenaufschlüsselungen in der Angebotsphase zur Verfügung.
                 </p>
               </div>
             </div>
@@ -633,10 +640,10 @@ const Services = () => {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-4xl font-heading font-light text-primary mb-4">
-              {t('services:faq.title')}
+              Häufig gestellte Fragen
             </h2>
             <p className="text-lg text-text-secondary font-body">
-              {t('services:faq.subtitle')}
+              Häufige Fragen zu unseren Leistungen und unserem Planungsprozess.
             </p>
           </div>
 
@@ -675,10 +682,10 @@ const Services = () => {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-4xl font-heading font-light text-primary mb-4">
-              {t('services:cta.title')}
+              Bereit für Ihr Projekt?
             </h2>
             <p className="text-lg text-text-secondary font-body mb-8">
-              {t('services:cta.description')}
+              Vereinbaren Sie einen Beratungstermin, um Ihre architektonischen Bedürfnisse zu besprechen und zu erkunden, wie wir Ihre Vision verwirklichen können.
             </p>
           </div>
 
@@ -687,23 +694,23 @@ const Services = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-text-primary font-body font-medium mb-2">
-                    {t('services:contact.form.name')} *
+                    Vollständiger Name *
                   </label>
                   <input
                     type="text"
                     className="w-full px-4 py-3 border border-border rounded focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent transition-colors duration-200"
-                    placeholder={t('services:contact.form.name')}
+                    placeholder="Ihr vollständiger Name"
                   />
                 </div>
                 
                 <div>
                   <label className="block text-text-primary font-body font-medium mb-2">
-                    {t('services:contact.form.email')} *
+                    E-Mail-Adresse *
                   </label>
                   <input
                     type="email"
                     className="w-full px-4 py-3 border border-border rounded focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent transition-colors duration-200"
-                    placeholder={t('services:contact.form.email')}
+                    placeholder="Ihre E-Mail-Adresse"
                   />
                 </div>
               </div>
@@ -711,25 +718,25 @@ const Services = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-text-primary font-body font-medium mb-2">
-                    {t('services:contact.form.phone')}
+                    Telefonnummer
                   </label>
                   <input
                     type="tel"
                     className="w-full px-4 py-3 border border-border rounded focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent transition-colors duration-200"
-                    placeholder={t('services:contact.form.phone')}
+                    placeholder="Ihre Telefonnummer"
                   />
                 </div>
                 
                 <div>
                   <label className="block text-text-primary font-body font-medium mb-2">
-                    {t('services:contact.form.service')} *
+                    Gewünschte Leistung *
                   </label>
                   <select
                     value={selectedService}
                     onChange={(e) => setSelectedService(e.target.value)}
                     className="w-full px-4 py-3 border border-border rounded focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent transition-colors duration-200"
                   >
-                    <option value="">{t('services:contact.form.selectService')}</option>
+                    <option value="">Leistung auswählen</option>
                     {services.map((service) => (
                       <option key={service.id} value={service.title}>
                         {service.title}
@@ -741,12 +748,12 @@ const Services = () => {
 
               <div>
                 <label className="block text-text-primary font-body font-medium mb-2">
-                  {t('services:contact.form.projectDetails')}
+                  Projektbeschreibung
                 </label>
                 <textarea
                   rows={4}
                   className="w-full px-4 py-3 border border-border rounded focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent transition-colors duration-200 resize-vertical"
-                  placeholder={t('services:contact.form.projectPlaceholder')}
+                  placeholder="Erzählen Sie uns von Ihren Projektzielen, Zeitplan und spezifischen Anforderungen..."
                 />
               </div>
 
@@ -756,7 +763,7 @@ const Services = () => {
                   className="flex-1 bg-accent text-white px-8 py-4 rounded transition-all duration-200 hover:scale-102 hover:shadow-lg font-body font-medium flex items-center justify-center space-x-2"
                 >
                   <Icon name="Calendar" size={20} />
-                  <span>{t('services:cta.button')}</span>
+                  <span>Beratungstermin vereinbaren</span>
                 </button>
                 
                 <Link
@@ -764,7 +771,7 @@ const Services = () => {
                   className="flex-1 border border-border text-text-primary px-8 py-4 rounded transition-all duration-200 hover:bg-surface font-body font-medium flex items-center justify-center space-x-2"
                 >
                   <Icon name="MessageCircle" size={20} />
-                  <span>{t('translation:contact.title')}</span>
+                  <span>Allgemeine Anfrage</span>
                 </Link>
               </div>
             </form>

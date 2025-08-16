@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router-dom';
 import Header from '../../components/ui/Header';
 import Breadcrumb from '../../components/ui/Breadcrumb';
 import Icon from '../../components/AppIcon';
@@ -8,6 +10,10 @@ import SEO from '../../components/SEO';
 import { generateBreadcrumbSchema, generateLocalBusinessSchema, combineSchemas } from '../../utils/structuredData';
 
 const Contact = () => {
+  const { t, i18n } = useTranslation(['contact', 'translation']);
+  const location = useLocation();
+  const currentLang = location.pathname.split('/')[1] || i18n.language || 'de';
+  
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -31,31 +37,31 @@ const Contact = () => {
   const cursorYSpring = useSpring(cursorY, springConfig);
 
   const projectTypes = [
-    { value: '', label: 'Projekttyp auswählen' },
-    { value: 'neubau', label: 'Neubau' },
-    { value: 'altbausanierung', label: 'Altbausanierung' },
-    { value: 'innenarchitektur', label: 'Innenarchitektur' },
-    { value: 'energieberatung', label: 'Energieberatung' },
-    { value: 'projektmanagement', label: 'Projektmanagement' },
-    { value: 'beratung', label: 'Architekturberatung' }
+    { value: '', label: t('contact:form.fields.projectType.options.select') },
+    { value: 'neubau', label: t('contact:form.fields.projectType.options.newConstruction') },
+    { value: 'altbausanierung', label: t('contact:form.fields.projectType.options.renovation') },
+    { value: 'innenarchitektur', label: t('contact:form.fields.projectType.options.interior') },
+    { value: 'energieberatung', label: t('contact:form.fields.projectType.options.energy') },
+    { value: 'projektmanagement', label: t('contact:form.fields.projectType.options.projectManagement') },
+    { value: 'beratung', label: t('contact:form.fields.projectType.options.consulting') }
   ];
 
   const budgetRanges = [
-    { value: '', label: 'Budgetbereich auswählen (Optional)' },
-    { value: 'unter-100k', label: 'Unter 100.000 €' },
-    { value: '100k-250k', label: '100.000 € - 250.000 €' },
-    { value: '250k-500k', label: '250.000 € - 500.000 €' },
-    { value: '500k-1m', label: '500.000 € - 1.000.000 €' },
-    { value: 'ueber-1m', label: 'Über 1.000.000 €' },
-    { value: 'besprechen', label: 'Lieber persönlich besprechen' }
+    { value: '', label: t('contact:form.fields.budget.options.select') },
+    { value: 'unter-100k', label: t('contact:form.fields.budget.options.under100k') },
+    { value: '100k-250k', label: t('contact:form.fields.budget.options.100to250k') },
+    { value: '250k-500k', label: t('contact:form.fields.budget.options.250to500k') },
+    { value: '500k-1m', label: t('contact:form.fields.budget.options.500to1m') },
+    { value: 'ueber-1m', label: t('contact:form.fields.budget.options.over1m') },
+    { value: 'besprechen', label: t('contact:form.fields.budget.options.discuss') }
   ];
 
   const contactInfo = {
-    address: "Mainzerstrasse 29, 66111 Saarbrücken, Deutschland",
-    phone: "0681 - 95 41 74 88",
-    mobile: "+49 (0) 15127552242",
-    email: "info@braunundeyer.de",
-    businessHours: "Montag - Freitag: 8:00 - 18:00 Uhr\nSamstag: 9:00 - 14:00 Uhr\nSonntag: Geschlossen"
+    address: t('contact:info.address.value'),
+    phone: t('contact:info.phone.office'),
+    mobile: t('contact:info.phone.mobile'),
+    email: t('contact:info.email.value'),
+    businessHours: `${t('contact:info.hours.weekdays')}\n${t('contact:info.hours.saturday')}\n${t('contact:info.hours.sunday')}`
   };
 
   const socialLinks = [
@@ -65,59 +71,37 @@ const Contact = () => {
     { name: 'Twitter', icon: 'Twitter', url: '#' }
   ];
 
-  const faqData = [
-    {
-      id: 1,
-      question: "Wie läuft Ihr Beratungsprozess ab?",
-      answer: `Unser Beratungsprozess beginnt mit einem ausführlichen Erstgespräch, um Ihre Vision, Anforderungen und Ihr Budget zu verstehen. Anschließend führen wir eine Standortanalyse durch, entwickeln erste Konzepte und arbeiten gemeinsam mit Ihnen an der Verfeinerung des Entwurfs. Der Prozess umfasst typischerweise Vorentwurf, Entwurfsplanung, Ausführungsplanung und Bauüberwachung.`
-    },
-    {
-      id: 2,
-      question: "Wie lange dauert ein typisches Projekt?",
-      answer: `Die Projektdauer variiert je nach Umfang und Komplexität. Wohnbauprojekte dauern in der Regel 8-15 Monate von der ersten Beratung bis zur Fertigstellung. Gewerbliche Projekte können 15-30 Monate in Anspruch nehmen. Wir erstellen detaillierte Zeitpläne während der ersten Beratungsphase.`
-    },
-    {
-      id: 3,
-      question: "Wie sind Ihre Honorarstrukturen aufgebaut?",
-      answer: `Unsere Honorare richten sich nach der HOAI (Honorarordnung für Architekten und Ingenieure) und werden je nach Projektumfang und Komplexität berechnet. Wir bieten sowohl prozentuale Honorare (typischerweise 10-15% der Baukosten) als auch Pauschalhonorar-Vereinbarungen an. Transparente Preisgestaltung erhalten Sie bereits im Erstberatungsgespräch.`
-    },
-    {
-      id: 4,
-      question: "Übernehmen Sie Genehmigungen und Behördengänge?",
-      answer: `Ja, wir übernehmen den gesamten Genehmigungsprozess einschließlich Baugenehmigungen, Denkmalschutzauflagen und behördlicher Abstimmungen. Unser Team verfügt über umfangreiche Erfahrung im Umgang mit lokalen Bauvorschriften und Bestimmungen für eine reibungslose Projektgenehmigung.`
-    },
-    {
-      id: 5,
-      question: "Können Sie mit meinem bestehenden Bauunternehmen zusammenarbeiten?",
-      answer: `Selbstverständlich! Wir arbeiten gerne mit qualifizierten Bauunternehmen zusammen und können mit Ihrem bevorzugten Bauteam kooperieren. Wir pflegen auch Beziehungen zu vertrauenswürdigen Partnerbetrieben und können bei Bedarf Empfehlungen aussprechen.`
-    }
-  ];
+  const faqData = t('contact:faq.items', { returnObjects: true }).map((item, index) => ({
+    id: index + 1,
+    question: item.question,
+    answer: item.answer
+  }));
 
   const validateForm = () => {
     const newErrors = {};
 
     if (!formData.name.trim()) {
-      newErrors.name = 'Name ist erforderlich';
+      newErrors.name = t('contact:form.fields.name.error');
     }
 
     if (!formData.email.trim()) {
-      newErrors.email = 'E-Mail ist erforderlich';
+      newErrors.email = t('contact:form.fields.email.error');
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Bitte geben Sie eine gültige E-Mail-Adresse ein';
+      newErrors.email = t('contact:form.fields.email.errorInvalid');
     }
 
     if (!formData.phone.trim()) {
-      newErrors.phone = 'Telefonnummer ist erforderlich';
+      newErrors.phone = t('contact:form.fields.phone.error');
     }
 
     if (!formData.projectType) {
-      newErrors.projectType = 'Bitte wählen Sie einen Projekttyp aus';
+      newErrors.projectType = t('contact:form.fields.projectType.error');
     }
 
     if (!formData.message.trim()) {
-      newErrors.message = 'Nachricht ist erforderlich';
+      newErrors.message = t('contact:form.fields.message.error');
     } else if (formData.message.trim().length < 10) {
-      newErrors.message = 'Nachricht muss mindestens 10 Zeichen lang sein';
+      newErrors.message = t('contact:form.fields.message.errorShort');
     }
 
     setErrors(newErrors);
@@ -203,9 +187,9 @@ const Contact = () => {
   return (
     <div className="min-h-screen custom-cursor relative overflow-hidden bg-background">
       <SEO 
-        title="Kontakt | Braun & Eyer Architekturbüro - Jetzt Beratung anfragen"
-        description="Kontaktieren Sie Braun & Eyer Architekturbüro für Ihr Bauprojekt. Kostenlose Erstberatung für Neubau und Sanierung. Saarbrücken und Umgebung."
-        keywords="Architekt Kontakt Saarbrücken, Architekturbüro anfragen, Bauberatung, Erstberatung Architektur, Braun Eyer Kontakt"
+        title={`${t('contact:title')} | Braun & Eyer ${t('translation:hero.title')}`}
+        description={t('contact:subtitle')}
+        keywords={`${t('contact:title')}, ${t('contact:form.title')}, ${t('contact:info.title')}`}
         structuredData={contactSchema}
       />
       <Header />
@@ -228,10 +212,10 @@ const Contact = () => {
             <Breadcrumb />
             <div className="mt-6">
               <h1 className="text-3xl lg:text-4xl xl:text-5xl font-heading font-light text-primary mb-4">
-                Kontakt
+                {t('contact:title')}
               </h1>
               <p className="text-xl lg:text-2xl text-text-secondary font-body leading-relaxed">
-                Lassen Sie uns gemeinsam Außergewöhnliches schaffen
+                {t('contact:subtitle')}
               </p>
             </div>
           </div>
@@ -283,7 +267,7 @@ const Contact = () => {
               {/* Contact Details */}
               <div className="card-elevated rounded-lg p-6 lg:p-8">
                 <h2 className="text-2xl font-heading font-light text-primary mb-6">
-                  Kontakt aufnehmen
+                  {t('contact:info.title')}
                 </h2>
                 
                 <div className="space-y-6">
@@ -293,7 +277,7 @@ const Contact = () => {
                       <Icon name="MapPin" size={24} className="text-accent" />
                     </div>
                     <div>
-                      <h3 className="font-body font-medium text-primary mb-1">Büroadresse</h3>
+                      <h3 className="font-body font-medium text-primary mb-1">{t('contact:info.address.label')}</h3>
                       <p className="text-text-secondary font-body">{contactInfo.address}</p>
                     </div>
                   </div>
@@ -304,7 +288,7 @@ const Contact = () => {
                       <Icon name="Phone" size={24} className="text-accent" />
                     </div>
                     <div>
-                      <h3 className="font-body font-medium text-primary mb-1">Telefon</h3>
+                      <h3 className="font-body font-medium text-primary mb-1">{t('contact:info.phone.label')}</h3>
                       <div className="space-y-1">
                         <a
                           href={`tel:${contactInfo.phone}`}
@@ -344,7 +328,7 @@ const Contact = () => {
                       <Icon name="Clock" size={24} className="text-accent" />
                     </div>
                     <div>
-                      <h3 className="font-body font-medium text-primary mb-1">Öffnungszeiten</h3>
+                      <h3 className="font-body font-medium text-primary mb-1">{t('contact:info.hours.label')}</h3>
                       <div className="text-text-secondary font-body whitespace-pre-line">
                         {contactInfo.businessHours}
                       </div>
@@ -354,14 +338,14 @@ const Contact = () => {
 
                 {/* Social Media */}
                 <div className="mt-8 pt-6 border-t border-border">
-                  <h3 className="font-body font-medium text-primary mb-4">Folgen Sie uns</h3>
+                  <h3 className="font-body font-medium text-primary mb-4">{t('contact:social.title')}</h3>
                   <div className="flex space-x-4">
                     {socialLinks.map((social) => (
                       <a
                         key={social.name}
                         href={social.url}
                         className="w-10 h-10 bg-background rounded-lg flex items-center justify-center text-text-secondary hover:text-accent hover:bg-accent/10 transition-all duration-200"
-                        aria-label={`Folgen Sie uns auf ${social.name}`}
+                        aria-label={`${t('contact:social.title')} ${social.name}`}
                       >
                         <Icon name={social.icon} size={20} />
                       </a>
@@ -389,7 +373,7 @@ const Contact = () => {
             {/* Contact Form */}
             <div className="bg-surface rounded-lg p-6 lg:p-8 border border-border">
               <h2 className="text-2xl font-heading font-light text-primary mb-6">
-                Starten Sie Ihr Projekt
+                {t('contact:form.title')}
               </h2>
 
               {isSubmitted ? (
@@ -398,16 +382,16 @@ const Contact = () => {
                     <Icon name="CheckCircle" size={32} className="text-success" />
                   </div>
                   <h3 className="text-xl font-heading font-light text-primary mb-2">
-                    Vielen Dank!
+                    {t('contact:form.success.title')}
                   </h3>
                   <p className="text-text-secondary font-body mb-4">
-                    Ihre Nachricht wurde erfolgreich gesendet. Wir melden uns innerhalb von 24 Stunden bei Ihnen.
+                    {t('contact:form.success.message')}
                   </p>
                   <button
                     onClick={() => setIsSubmitted(false)}
                     className="text-accent hover:text-primary transition-colors duration-200 font-body font-medium"
                   >
-                    Weitere Nachricht senden
+                    {t('contact:form.title')}
                   </button>
                 </div>
               ) : (
@@ -415,7 +399,7 @@ const Contact = () => {
                   {/* Name */}
                   <div>
                     <label htmlFor="name" className="block text-sm font-body font-medium text-primary mb-2">
-                      Vollständiger Name *
+                      {t('contact:form.fields.name.label')} *
                     </label>
                     <input
                       type="text"
@@ -427,7 +411,7 @@ const Contact = () => {
                         errors.name 
                           ? 'border-error bg-error/5 text-error' :'border-border bg-background text-primary focus:border-accent'
                       }`}
-                      placeholder="Geben Sie Ihren vollständigen Namen ein"
+                      placeholder={t('contact:form.fields.name.placeholder')}
                     />
                     {errors.name && (
                       <p className="mt-1 text-sm text-error font-body">{errors.name}</p>
@@ -437,7 +421,7 @@ const Contact = () => {
                   {/* Email */}
                   <div>
                     <label htmlFor="email" className="block text-sm font-body font-medium text-primary mb-2">
-                      E-Mail-Adresse *
+                      {t('contact:form.fields.email.label')} *
                     </label>
                     <input
                       type="email"
@@ -449,7 +433,7 @@ const Contact = () => {
                         errors.email 
                           ? 'border-error bg-error/5 text-error' :'border-border bg-background text-primary focus:border-accent'
                       }`}
-                      placeholder="Geben Sie Ihre E-Mail-Adresse ein"
+                      placeholder={t('contact:form.fields.email.placeholder')}
                     />
                     {errors.email && (
                       <p className="mt-1 text-sm text-error font-body">{errors.email}</p>
@@ -459,7 +443,7 @@ const Contact = () => {
                   {/* Phone */}
                   <div>
                     <label htmlFor="phone" className="block text-sm font-body font-medium text-primary mb-2">
-                      Telefonnummer *
+                      {t('contact:form.fields.phone.label')} *
                     </label>
                     <input
                       type="tel"
@@ -471,7 +455,7 @@ const Contact = () => {
                         errors.phone 
                           ? 'border-error bg-error/5 text-error' :'border-border bg-background text-primary focus:border-accent'
                       }`}
-                      placeholder="Geben Sie Ihre Telefonnummer ein"
+                      placeholder={t('contact:form.fields.phone.placeholder')}
                     />
                     {errors.phone && (
                       <p className="mt-1 text-sm text-error font-body">{errors.phone}</p>
@@ -481,7 +465,7 @@ const Contact = () => {
                   {/* Project Type */}
                   <div>
                     <label htmlFor="projectType" className="block text-sm font-body font-medium text-primary mb-2">
-                      Projekttyp *
+                      {t('contact:form.fields.projectType.label')} *
                     </label>
                     <select
                       id="projectType"
@@ -507,7 +491,7 @@ const Contact = () => {
                   {/* Budget Range */}
                   <div>
                     <label htmlFor="budgetRange" className="block text-sm font-body font-medium text-primary mb-2">
-                      Budgetbereich
+                      {t('contact:form.fields.budget.label')}
                     </label>
                     <select
                       id="budgetRange"
@@ -527,7 +511,7 @@ const Contact = () => {
                   {/* Timeline */}
                   <div>
                     <label htmlFor="timeline" className="block text-sm font-body font-medium text-primary mb-2">
-                      Projektzeitplan
+                      {t('contact:form.fields.timeline.label')}
                     </label>
                     <input
                       type="text"
@@ -536,14 +520,14 @@ const Contact = () => {
                       value={formData.timeline}
                       onChange={handleInputChange}
                       className="w-full px-4 py-3 rounded-lg border border-border bg-background text-primary font-body transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent"
-                      placeholder="z.B. Sofort, 3-6 Monate, flexibel"
+                      placeholder={t('contact:form.fields.timeline.placeholder')}
                     />
                   </div>
 
                   {/* Message */}
                   <div>
                     <label htmlFor="message" className="block text-sm font-body font-medium text-primary mb-2">
-                      Projektdetails *
+                      {t('contact:form.fields.message.label')} *
                     </label>
                     <textarea
                       id="message"
@@ -555,7 +539,7 @@ const Contact = () => {
                         errors.message 
                           ? 'border-error bg-error/5 text-error' :'border-border bg-background text-primary focus:border-accent'
                       }`}
-                      placeholder="Erzählen Sie uns von Ihrem Projekt, Ihrer Vision, Ihren Anforderungen und allen spezifischen Details, die Sie gerne teilen möchten..."
+                      placeholder={t('contact:form.fields.message.placeholder')}
                     />
                     {errors.message && (
                       <p className="mt-1 text-sm text-error font-body">{errors.message}</p>
@@ -571,18 +555,18 @@ const Contact = () => {
                     {isSubmitting ? (
                       <>
                         <Icon name="Loader2" size={20} className="animate-spin" />
-                        <span>Nachricht wird gesendet...</span>
+                        <span>{t('contact:form.submitting')}</span>
                       </>
                     ) : (
                       <>
                         <Icon name="Send" size={20} />
-                        <span>Nachricht senden</span>
+                        <span>{t('contact:form.submit')}</span>
                       </>
                     )}
                   </button>
 
                   <p className="text-sm text-text-secondary font-body text-center">
-                    Wir antworten normalerweise innerhalb von 24 Stunden an Werktagen.
+                    {t('contact:form.success.message')}
                   </p>
                 </form>
               )}
@@ -596,10 +580,10 @@ const Contact = () => {
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="text-3xl lg:text-4xl font-heading font-light text-primary mb-4">
-                Häufig gestellte Fragen
+                {t('contact:faq.title')}
               </h2>
               <p className="text-lg text-text-secondary font-body">
-                Antworten auf häufige Fragen zu unseren Leistungen und unserem Prozess
+                {t('contact:faq.subtitle')}
               </p>
             </div>
 
@@ -639,11 +623,10 @@ const Contact = () => {
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24 relative z-base">
           <div className="bg-primary rounded-2xl p-8 lg:p-12 text-center">
             <h2 className="text-2xl lg:text-3xl font-heading font-light text-white mb-4">
-              Bleiben Sie über unsere neuesten Projekte informiert
+              {t('contact:newsletter.title')}
             </h2>
             <p className="text-white/80 font-body mb-8 max-w-2xl mx-auto">
-              Abonnieren Sie unseren Newsletter und seien Sie die Ersten, die unsere neuesten architektonischen 
-              Kreationen, Design-Einblicke und Branchentrends sehen.
+              {t('contact:newsletter.description')}
             </p>
             
             <form onSubmit={handleNewsletterSubmit} className="max-w-md mx-auto">
@@ -652,7 +635,7 @@ const Contact = () => {
                   type="email"
                   value={newsletterEmail}
                   onChange={(e) => setNewsletterEmail(e.target.value)}
-                  placeholder="Geben Sie Ihre E-Mail-Adresse ein"
+                  placeholder={t('contact:newsletter.placeholder')}
                   className="flex-1 px-4 py-3 rounded-lg border-0 bg-white text-primary font-body focus:outline-none focus:ring-2 focus:ring-accent/20"
                   required
                 />
@@ -661,7 +644,7 @@ const Contact = () => {
                   className="bg-accent text-white px-6 py-3 rounded-lg font-body font-medium transition-all duration-200 hover:bg-accent/90 hover:scale-102 flex items-center justify-center space-x-2"
                 >
                   <Icon name="Mail" size={20} />
-                  <span>Abonnieren</span>
+                  <span>{t('contact:newsletter.button')}</span>
                 </button>
               </div>
             </form>
