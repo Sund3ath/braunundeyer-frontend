@@ -1,23 +1,26 @@
-// src/pages/homepage/index.jsx
+// src/pages/homepage/EditableHomepage.jsx
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import Header from 'components/ui/Header';
 import Icon from 'components/AppIcon';
-import Image from 'components/AppImage';
 import WaterEffect from 'components/ui/WaterEffect';
 import CursorTrail from 'components/ui/CursorTrail';
 import AnimatedText from 'components/ui/AnimatedText';
 import ContentBackgroundTypography from 'components/ui/ContentBackgroundTypography';
-import SEO from 'components/SEO';
-import { combineSchemas, generateOrganizationSchema, generateWebsiteSchema, generateLocalBusinessSchema } from 'utils/structuredData';
+import MultiLanguageSEO from 'components/MultiLanguageSEO';
+import EditableText from '../../cms/components/EditableText';
+import EditableImage from '../../cms/components/EditableImage';
 import { useEditMode } from '../../cms/contexts/EditModeContext';
+import { combineSchemas, generateOrganizationSchema, generateWebsiteSchema, generateLocalBusinessSchema } from 'utils/structuredData';
 
-const Homepage = () => {
-  const { t } = useTranslation('homepage');
+const EditableHomepage = () => {
+  const { t, i18n } = useTranslation();
   const { isAuthenticated } = useEditMode();
   const navigate = useNavigate();
+  const currentLang = i18n.language || 'de';
+  
   const [currentSlide, setCurrentSlide] = useState(0);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -31,138 +34,147 @@ const Homepage = () => {
   const cursorXSpring = useSpring(cursorX, springConfig);
   const cursorYSpring = useSpring(cursorY, springConfig);
 
+  // Generate language-specific content keys
+  const getLangKey = (base) => `${base}_${currentLang}`;
+
+  // Hero slides with editable content
   const heroSlides = [
     {
       id: 1,
-      image: "/assets/images/alt_neu_ungestaltung.png",
-      video: "/assets/images/hero_modernbuilding_video.mp4",
-      title: t('hero.slide1.title'),
-      subtitle: t('hero.slide1.subtitle'),
-      description: t('hero.slide1.description')
+      imageKey: getLangKey('homepage_hero_slide1_image'),
+      titleKey: getLangKey('homepage_hero_slide1_title'),
+      subtitleKey: getLangKey('homepage_hero_slide1_subtitle'),
+      descriptionKey: getLangKey('homepage_hero_slide1_description'),
+      hasVideo: true,
+      videoKey: getLangKey('homepage_hero_slide1_video'),
     },
     {
       id: 2,
-      image: "/assets/images/ferienvilla.png",
-      title: t('hero.slide2.title'),
-      subtitle: t('hero.slide2.subtitle'),
-      description: t('hero.slide2.description')
+      imageKey: getLangKey('homepage_hero_slide2_image'),
+      titleKey: getLangKey('homepage_hero_slide2_title'),
+      subtitleKey: getLangKey('homepage_hero_slide2_subtitle'),
+      descriptionKey: getLangKey('homepage_hero_slide2_description'),
     },
     {
       id: 3,
-      image: "/assets/images/innenarchitektur.png",
-      title: t('hero.slide3.title'),
-      subtitle: t('hero.slide3.subtitle'),
-      description: t('hero.slide3.description')
+      imageKey: getLangKey('homepage_hero_slide3_image'),
+      titleKey: getLangKey('homepage_hero_slide3_title'),
+      subtitleKey: getLangKey('homepage_hero_slide3_subtitle'),
+      descriptionKey: getLangKey('homepage_hero_slide3_description'),
     }
   ];
 
+  // Featured projects with editable content
   const featuredProjects = [
     {
       id: 1,
-      title: t('projects.items.project1.title'),
-      type: t('projects.items.project1.type'),
-      location: t('projects.items.project1.location'),
-      image: "/assets/images/ferienvilla.png",
-      year: "2024"
+      titleKey: getLangKey('homepage_project1_title'),
+      typeKey: getLangKey('homepage_project1_type'),
+      locationKey: getLangKey('homepage_project1_location'),
+      imageKey: getLangKey('homepage_project1_image'),
+      yearKey: getLangKey('homepage_project1_year'),
     },
     {
       id: 2,
-      title: t('projects.items.project2.title'),
-      type: t('projects.items.project2.type'),
-      location: t('projects.items.project2.location'),
-      image: "/assets/images/sarnierung_alt_neu.png",
-      year: "2023"
+      titleKey: getLangKey('homepage_project2_title'),
+      typeKey: getLangKey('homepage_project2_type'),
+      locationKey: getLangKey('homepage_project2_location'),
+      imageKey: getLangKey('homepage_project2_image'),
+      yearKey: getLangKey('homepage_project2_year'),
     },
     {
       id: 3,
-      title: t('projects.items.project3.title'),
-      type: t('projects.items.project3.type'),
-      location: t('projects.items.project3.location'),
-      image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80",
-      year: "2024"
+      titleKey: getLangKey('homepage_project3_title'),
+      typeKey: getLangKey('homepage_project3_type'),
+      locationKey: getLangKey('homepage_project3_location'),
+      imageKey: getLangKey('homepage_project3_image'),
+      yearKey: getLangKey('homepage_project3_year'),
     },
     {
       id: 4,
-      title: t('projects.items.project4.title'),
-      type: t('projects.items.project4.type'),
-      location: t('projects.items.project4.location'),
-      image: "/assets/images/alt_neu_ungestaltung.png",
-      year: "2023"
+      titleKey: getLangKey('homepage_project4_title'),
+      typeKey: getLangKey('homepage_project4_type'),
+      locationKey: getLangKey('homepage_project4_location'),
+      imageKey: getLangKey('homepage_project4_image'),
+      yearKey: getLangKey('homepage_project4_year'),
     },
     {
       id: 5,
-      title: t('projects.items.project5.title'),
-      type: t('projects.items.project5.type'),
-      location: t('projects.items.project5.location'),
-      image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80",
-      year: "2024"
+      titleKey: getLangKey('homepage_project5_title'),
+      typeKey: getLangKey('homepage_project5_type'),
+      locationKey: getLangKey('homepage_project5_location'),
+      imageKey: getLangKey('homepage_project5_image'),
+      yearKey: getLangKey('homepage_project5_year'),
     },
     {
       id: 6,
-      title: t('projects.items.project6.title'),
-      type: t('projects.items.project6.type'),
-      location: t('projects.items.project6.location'),
-      image: "/assets/images/innenarchitektur.png",
-      year: "2023"
+      titleKey: getLangKey('homepage_project6_title'),
+      typeKey: getLangKey('homepage_project6_type'),
+      locationKey: getLangKey('homepage_project6_location'),
+      imageKey: getLangKey('homepage_project6_image'),
+      yearKey: getLangKey('homepage_project6_year'),
     }
   ];
 
+  // Services with editable content
   const services = [
     {
       id: 1,
       icon: "Home",
-      title: t('services.items.service1.title'),
-      description: t('services.items.service1.description')
+      titleKey: getLangKey('homepage_service1_title'),
+      descriptionKey: getLangKey('homepage_service1_description'),
     },
     {
       id: 2,
       icon: "Building2",
-      title: t('services.items.service2.title'),
-      description: t('services.items.service2.description')
+      titleKey: getLangKey('homepage_service2_title'),
+      descriptionKey: getLangKey('homepage_service2_description'),
     },
     {
       id: 3,
       icon: "Palette",
-      title: t('services.items.service3.title'),
-      description: t('services.items.service3.description')
+      titleKey: getLangKey('homepage_service3_title'),
+      descriptionKey: getLangKey('homepage_service3_description'),
     },
     {
       id: 4,
       icon: "TreePine",
-      title: t('services.items.service4.title'),
-      description: t('services.items.service4.description')
+      titleKey: getLangKey('homepage_service4_title'),
+      descriptionKey: getLangKey('homepage_service4_description'),
     }
   ];
 
+  // Testimonials with editable content
   const testimonials = [
     {
       id: 1,
-      name: t('testimonials.items.testimonial1.name'),
-      role: t('testimonials.items.testimonial1.role'),
-      content: t('testimonials.items.testimonial1.content'),
-      avatar: "/assets/images/no_image.png"
+      nameKey: getLangKey('homepage_testimonial1_name'),
+      roleKey: getLangKey('homepage_testimonial1_role'),
+      contentKey: getLangKey('homepage_testimonial1_content'),
+      avatarKey: getLangKey('homepage_testimonial1_avatar'),
     },
     {
       id: 2,
-      name: t('testimonials.items.testimonial2.name'),
-      role: t('testimonials.items.testimonial2.role'),
-      content: t('testimonials.items.testimonial2.content'),
-      avatar: "/assets/images/no_image.png"
+      nameKey: getLangKey('homepage_testimonial2_name'),
+      roleKey: getLangKey('homepage_testimonial2_role'),
+      contentKey: getLangKey('homepage_testimonial2_content'),
+      avatarKey: getLangKey('homepage_testimonial2_avatar'),
     },
     {
       id: 3,
-      name: t('testimonials.items.testimonial3.name'),
-      role: t('testimonials.items.testimonial3.role'),
-      content: t('testimonials.items.testimonial3.content'),
-      avatar: "/assets/images/no_image.png"
+      nameKey: getLangKey('homepage_testimonial3_name'),
+      roleKey: getLangKey('homepage_testimonial3_role'),
+      contentKey: getLangKey('homepage_testimonial3_content'),
+      avatarKey: getLangKey('homepage_testimonial3_avatar'),
     }
   ];
 
+  // Client logos with editable content
   const clientLogos = [
-    { id: 1, name: "TechCorp", logo: "/assets/images/no_image.png" },
-    { id: 2, name: "GreenBuild", logo: "/assets/images/no_image.png" },
-    { id: 3, name: "UrbanDev", logo: "/assets/images/no_image.png" },
-    { id: 4, name: "ModernLiving", logo: "/assets/images/no_image.png" }
+    { id: 1, nameKey: getLangKey('homepage_client1_name'), logoKey: getLangKey('homepage_client1_logo') },
+    { id: 2, nameKey: getLangKey('homepage_client2_name'), logoKey: getLangKey('homepage_client2_logo') },
+    { id: 3, nameKey: getLangKey('homepage_client3_name'), logoKey: getLangKey('homepage_client3_logo') },
+    { id: 4, nameKey: getLangKey('homepage_client4_name'), logoKey: getLangKey('homepage_client4_logo') }
   ];
 
   // Custom cursor tracking
@@ -203,7 +215,6 @@ const Homepage = () => {
 
   // Handle triple-click on footer copyright
   const handleCopyrightClick = () => {
-    // Clear previous timeout
     if (clickTimeoutRef.current) {
       clearTimeout(clickTimeoutRef.current);
     }
@@ -211,20 +222,18 @@ const Homepage = () => {
     const newClickCount = clickCount + 1;
     setClickCount(newClickCount);
     
-    // Navigate to admin on triple-click (3rd click)
     if (newClickCount === 3) {
-      navigate('/de/admin');
+      navigate(`/${currentLang}/admin`);
       setClickCount(0);
       return;
     }
     
-    // Reset click count after 500ms
     clickTimeoutRef.current = setTimeout(() => {
       setClickCount(0);
     }, 500);
   };
 
-  // Floating background text words from flyer
+  // Floating background text words
   const floatingWords = [
     { text: "individuell", size: "text-6xl", opacity: "opacity-10", delay: 0 },
     { text: "ökologisch", size: "text-5xl", opacity: "opacity-15", delay: 2 },
@@ -243,17 +252,15 @@ const Homepage = () => {
   return (
     <div className="min-h-screen custom-cursor relative overflow-hidden bg-background">
       
-      {/* Background typography is now placed within content sections only */}
-      
-      <SEO 
-        title="Braun & Eyer Architekturbüro | Neubau und Altbausanierung in Saarbrücken"
-        description="Führendes Architekturbüro in Saarbrücken für innovative Neubauprojekte und fachgerechte Altbausanierung. Über 30 Jahre Erfahrung in nachhaltiger Architektur und Denkmalschutz."
-        keywords="Architekt Saarbrücken, Architekturbüro, Neubau, Altbausanierung, Bauplanung, nachhaltige Architektur, Energieeffizienz, Denkmalschutz, Braun Eyer"
+      <MultiLanguageSEO 
+        titleKey="homepage_meta_title"
+        descriptionKey="homepage_meta_description"
+        keywordsKey="homepage_meta_keywords"
         structuredData={homepageSchema}
       />
+      
       <Header />
       <CursorTrail />
-      
       
       {/* Custom Cursor */}
       <motion.div
@@ -287,23 +294,13 @@ const Homepage = () => {
                 }}
                 transition={{ duration: 5, ease: "linear" }}
               >
-                {slide.video && index === 0 ? (
-                  <video
-                    src={slide.video}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    className="w-full h-full object-cover shimmer-effect"
-                    poster={slide.image}
-                  />
-                ) : (
-                  <Image
-                    src={slide.image}
-                    alt={slide.title}
-                    className="w-full h-full object-cover shimmer-effect"
-                  />
-                )}
+                <EditableImage
+                  contentKey={slide.imageKey}
+                  defaultSrc="/assets/images/alt_neu_ungestaltung.png"
+                  alt="Hero background"
+                  className="w-full h-full object-cover shimmer-effect"
+                  containerClassName="w-full h-full"
+                />
                 <div className="absolute inset-0 bg-black/50" />
                 
                 {/* Animated water waves overlay */}
@@ -336,23 +333,24 @@ const Homepage = () => {
           <div className="relative z-10 h-full flex items-center">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
               <div className="max-w-3xl">
-                <AnimatedText
-                  text={heroSlides[currentSlide].title}
+                <EditableText
+                  contentKey={heroSlides[currentSlide].titleKey}
+                  defaultValue="Architekturbüro Ingenieure"
+                  tag="h1"
                   className="text-4xl sm:text-5xl lg:text-6xl font-heading font-light text-white mb-6 leading-tight"
-                  variant="wave"
-                  delay={0.2}
                 />
-                <AnimatedText
-                  text={heroSlides[currentSlide].subtitle}
+                <EditableText
+                  contentKey={heroSlides[currentSlide].subtitleKey}
+                  defaultValue="Neubau und Altbausanierung mit Expertise"
+                  tag="h2"
                   className="text-xl sm:text-2xl font-body text-white/90 mb-4"
-                  variant="slide"
-                  delay={0.5}
                 />
-                <AnimatedText
-                  text={heroSlides[currentSlide].description}
+                <EditableText
+                  contentKey={heroSlides[currentSlide].descriptionKey}
+                  defaultValue="Wir entwickeln innovative Architekturlösungen, die moderne Bauweise mit nachhaltiger Sanierung historischer Gebäude verbinden."
+                  tag="p"
                   className="text-lg font-body text-white/80 mb-8 max-w-2xl"
-                  variant="float"
-                  delay={0.8}
+                  multiline
                 />
                 
                 <motion.div 
@@ -369,10 +367,14 @@ const Homepage = () => {
                     whileTap={{ scale: 0.95 }}
                   >
                     <Link
-                      to="/de/projekte"
+                      to={`/${currentLang}/projekte`}
                       className="inline-flex items-center justify-center space-x-2 bg-accent text-black px-8 py-4 rounded transition-all duration-200 hover:scale-102 hover:shadow-lg font-body font-medium"
                     >
-                      <span>{t('hero.cta.projects')}</span>
+                      <EditableText
+                        contentKey={getLangKey('homepage_hero_cta1')}
+                        defaultValue="Unsere Arbeiten"
+                        tag="span"
+                      />
                       <Icon name="ArrowRight" size={20} />
                     </Link>
                   </motion.div>
@@ -385,10 +387,14 @@ const Homepage = () => {
                     whileTap={{ scale: 0.95 }}
                   >
                     <Link
-                      to="/de/kontakt"
+                      to={`/${currentLang}/kontakt`}
                       className="inline-flex items-center justify-center space-x-2 border-2 border-white text-white px-8 py-4 rounded transition-all duration-200 hover:bg-white hover:text-black font-body font-medium"
                     >
-                      <span>{t('hero.cta.start')}</span>
+                      <EditableText
+                        contentKey={getLangKey('homepage_hero_cta2')}
+                        defaultValue="Projekt Starten"
+                        tag="span"
+                      />
                       <Icon name="Mail" size={20} />
                     </Link>
                   </motion.div>
@@ -453,7 +459,6 @@ const Homepage = () => {
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
       >
-        {/* Content Background Typography - Only in this section */}
         <ContentBackgroundTypography 
           words={[
             { 
@@ -490,12 +495,19 @@ const Homepage = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-light text-primary mb-6">
-              {t('projects.title')}
-            </h2>
-            <p className="text-lg font-body text-text-secondary max-w-3xl mx-auto">
-              {t('projects.subtitle')}
-            </p>
+            <EditableText
+              contentKey={getLangKey('homepage_projects_title')}
+              defaultValue="Ausgewählte Projekte"
+              tag="h2"
+              className="text-3xl sm:text-4xl lg:text-5xl font-heading font-light text-primary mb-6"
+            />
+            <EditableText
+              contentKey={getLangKey('homepage_projects_subtitle')}
+              defaultValue="Entdecken Sie unsere neuesten Architekturprojekte, die Innovation, Nachhaltigkeit und Designexzellenz in Neubau und Altbausanierung vereinen."
+              tag="p"
+              className="text-lg font-body text-text-secondary max-w-3xl mx-auto"
+              multiline
+            />
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12 relative" style={{ zIndex: 3 }}>
@@ -513,18 +525,21 @@ const Homepage = () => {
                 }}
               >
                 <Link
-                  to={`/de/projekte/${project.id}`}
+                  to={`/${currentLang}/projekte/${project.id}`}
                   className="group bg-surface rounded border border-border overflow-hidden hover:shadow-lg transition-all duration-300 hover:transform hover:scale-105 block"
                 >
                   <div className="relative h-64 overflow-hidden">
                     <motion.div
                       whileHover={{ scale: 1.1 }}
                       transition={{ duration: 0.4 }}
+                      className="w-full h-full"
                     >
-                      <Image
-                        src={project.image}
-                        alt={project.title}
+                      <EditableImage
+                        contentKey={project.imageKey}
+                        defaultSrc="/assets/images/ferienvilla.png"
+                        alt="Project image"
                         className="w-full h-full object-cover"
+                        containerClassName="w-full h-full"
                       />
                     </motion.div>
                     <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/20 transition-colors duration-300" />
@@ -533,22 +548,37 @@ const Homepage = () => {
                         className="bg-accent text-white px-3 py-1 rounded text-sm font-body font-medium"
                         whileHover={{ scale: 1.05 }}
                       >
-                        {project.type}
+                        <EditableText
+                          contentKey={project.typeKey}
+                          defaultValue="Neubau"
+                          tag="span"
+                        />
                       </motion.span>
                     </div>
                     <div className="absolute bottom-4 right-4">
                       <span className="bg-white/90 text-primary px-3 py-1 rounded text-sm font-body font-medium">
-                        {project.year}
+                        <EditableText
+                          contentKey={project.yearKey}
+                          defaultValue="2024"
+                          tag="span"
+                        />
                       </span>
                     </div>
                   </div>
                   <div className="p-6">
-                    <h3 className="text-xl font-heading font-medium text-primary mb-2 group-hover:text-accent transition-colors duration-200">
-                      {project.title}
-                    </h3>
+                    <EditableText
+                      contentKey={project.titleKey}
+                      defaultValue="Modernes Einfamilienhaus"
+                      tag="h3"
+                      className="text-xl font-heading font-medium text-primary mb-2 group-hover:text-accent transition-colors duration-200"
+                    />
                     <p className="text-text-secondary font-body flex items-center">
                       <Icon name="MapPin" size={16} className="mr-2" />
-                      {project.location}
+                      <EditableText
+                        contentKey={project.locationKey}
+                        defaultValue="Wohngebiet"
+                        tag="span"
+                      />
                     </p>
                   </div>
                 </Link>
@@ -568,10 +598,14 @@ const Homepage = () => {
               whileTap={{ scale: 0.95 }}
             >
               <Link
-                to="/de/projekte"
+                to={`/${currentLang}/projekte`}
                 className="inline-flex items-center space-x-2 bg-accent text-black px-8 py-4 rounded transition-all duration-200 hover:scale-102 hover:shadow-lg font-body font-medium"
               >
-                <span>{t('projects.viewAll')}</span>
+                <EditableText
+                  contentKey={getLangKey('homepage_projects_cta')}
+                  defaultValue="Alle Projekte Ansehen"
+                  tag="span"
+                />
                 <Icon name="ArrowRight" size={20} />
               </Link>
             </motion.div>
@@ -588,7 +622,6 @@ const Homepage = () => {
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
       >
-        {/* Content Background Typography - Only in this section */}
         <ContentBackgroundTypography 
           words={[
             { 
@@ -625,12 +658,19 @@ const Homepage = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-light text-primary mb-6">
-              {t('services.title')}
-            </h2>
-            <p className="text-lg font-body text-text-secondary max-w-3xl mx-auto">
-              {t('services.subtitle')}
-            </p>
+            <EditableText
+              contentKey={getLangKey('homepage_services_title')}
+              defaultValue="Unsere Leistungen"
+              tag="h2"
+              className="text-3xl sm:text-4xl lg:text-5xl font-heading font-light text-primary mb-6"
+            />
+            <EditableText
+              contentKey={getLangKey('homepage_services_subtitle')}
+              defaultValue="Von der ersten Idee bis zur Fertigstellung bieten wir umfassende Architektur- und Ingenieurleistungen für Neubau und Altbausanierung."
+              tag="p"
+              className="text-lg font-body text-text-secondary max-w-3xl mx-auto"
+              multiline
+            />
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12 relative" style={{ zIndex: 2 }}>
@@ -658,12 +698,19 @@ const Homepage = () => {
                 >
                   <Icon name={service.icon} size={32} className="text-accent group-hover:text-white" />
                 </motion.div>
-                <h3 className="text-xl font-heading font-medium text-primary mb-4">
-                  {service.title}
-                </h3>
-                <p className="text-text-secondary font-body">
-                  {service.description}
-                </p>
+                <EditableText
+                  contentKey={service.titleKey}
+                  defaultValue="Service Title"
+                  tag="h3"
+                  className="text-xl font-heading font-medium text-primary mb-4"
+                />
+                <EditableText
+                  contentKey={service.descriptionKey}
+                  defaultValue="Service description goes here"
+                  tag="p"
+                  className="text-text-secondary font-body"
+                  multiline
+                />
               </motion.div>
             ))}
           </div>
@@ -680,10 +727,14 @@ const Homepage = () => {
               whileTap={{ scale: 0.95 }}
             >
               <Link
-                to="/de/leistungen"
+                to={`/${currentLang}/leistungen`}
                 className="inline-flex items-center space-x-2 border-2 border-accent text-accent px-8 py-4 rounded transition-all duration-200 hover:bg-accent hover:text-black font-body font-medium"
               >
-                <span>{t('services.viewMore')}</span>
+                <EditableText
+                  contentKey={getLangKey('homepage_services_cta')}
+                  defaultValue="Mehr Erfahren"
+                  tag="span"
+                />
                 <Icon name="ArrowRight" size={20} />
               </Link>
             </motion.div>
@@ -700,77 +751,32 @@ const Homepage = () => {
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
       >
-        {/* Full-width floating text container for about */}
         <div className="absolute inset-0 w-full pointer-events-none" style={{ zIndex: 1 }}>
-          <motion.div
-            className="absolute text-8xl opacity-[0.18] text-gray-400 font-thin select-none whitespace-nowrap"
-            style={{ left: "-8%", top: "15%" }}
-            animate={{
-              x: [0, 35, -18, 0],
-              y: [0, -22, 16, 0],
-              rotate: [0, 1.2, -0.9, 0],
-            }}
-            transition={{
-              duration: 24,
-              repeat: Infinity,
-              delay: 2,
-              ease: "linear"
-            }}
-          >
-            modern
-          </motion.div>
-          <motion.div
-            className="absolute text-[13rem] opacity-[0.12] text-gray-400 font-thin select-none whitespace-nowrap"
-            style={{ right: "-15%", top: "50%" }}
-            animate={{
-              x: [0, -35, 22, 0],
-              y: [0, 10, -18, 0],
-              rotate: [0, -1.5, 0.8, 0],
-            }}
-            transition={{
-              duration: 30,
-              repeat: Infinity,
-              delay: 6,
-              ease: "linear"
-            }}
-          >
-            innovativ
-          </motion.div>
-          <motion.div
-            className="absolute text-6xl opacity-[0.22] text-gray-400 font-thin select-none whitespace-nowrap"
-            style={{ right: "90%", top: "80%" }}
-            animate={{
-              x: [0, 28, -15, 0],
-              y: [0, -18, 22, 0],
-              rotate: [0, 0.9, -1.1, 0],
-            }}
-            transition={{
-              duration: 32,
-              repeat: Infinity,
-              delay: 10,
-              ease: "linear"
-            }}
-          >
-            visionär
-          </motion.div>
-          <motion.div
-            className="absolute text-10xl opacity-[0.10] text-gray-400 font-thin select-none whitespace-nowrap"
-            style={{ left: "95%", top: "25%" }}
-            animate={{
-              x: [0, -40, 20, 0],
-              y: [0, 25, -15, 0],
-              rotate: [0, -1.8, 1.3, 0],
-            }}
-            transition={{
-              duration: 28,
-              repeat: Infinity,
-              delay: 12,
-              ease: "linear"
-            }}
-          >
-            zukunftsorientiert
-          </motion.div>
+          {floatingWords.map((word, index) => (
+            <motion.div
+              key={index}
+              className={`absolute ${word.size} ${word.opacity} text-gray-400 font-thin select-none whitespace-nowrap`}
+              style={{ 
+                left: `${Math.random() * 100}%`, 
+                top: `${Math.random() * 100}%` 
+              }}
+              animate={{
+                x: [0, Math.random() * 60 - 30, Math.random() * -40 + 20, 0],
+                y: [0, Math.random() * -30 + 15, Math.random() * 40 - 20, 0],
+                rotate: [0, Math.random() * 3 - 1.5, Math.random() * -2 + 1, 0],
+              }}
+              transition={{
+                duration: 20 + word.delay * 2,
+                repeat: Infinity,
+                delay: word.delay,
+                ease: "linear"
+              }}
+            >
+              {word.text}
+            </motion.div>
+          ))}
         </div>
+        
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center relative" style={{ zIndex: 2 }}>
             <motion.div
@@ -781,24 +787,39 @@ const Homepage = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-light text-primary mb-6">
-                {t('philosophy.title')}
-              </h2>
-              <p className="text-lg font-body text-text-secondary mb-6">
-                {t('philosophy.text1')}
-              </p>
-              <p className="text-lg font-body text-text-secondary mb-8">
-                {t('philosophy.text2')}
-              </p>
+              <EditableText
+                contentKey={getLangKey('homepage_philosophy_title')}
+                defaultValue="Unsere Philosophie"
+                tag="h2"
+                className="text-3xl sm:text-4xl lg:text-5xl font-heading font-light text-primary mb-6"
+              />
+              <EditableText
+                contentKey={getLangKey('homepage_philosophy_text1')}
+                defaultValue="Bei Braun & Eyer verstehen wir Architektur als die perfekte Balance zwischen Form, Funktion und Nachhaltigkeit. Unser Ansatz verbindet innovative Planungskonzepte mit bewährten Bautechniken, um Räume zu schaffen, die sowohl inspirieren als auch einen positiven Beitrag zur Gemeinschaft leisten."
+                tag="p"
+                className="text-lg font-body text-text-secondary mb-6"
+                multiline
+              />
+              <EditableText
+                contentKey={getLangKey('homepage_philosophy_text2')}
+                defaultValue="Mit langjähriger Erfahrung in Neubau und Altbausanierung haben wir uns einen Namen für außergewöhnliche Architekturlösungen gemacht, die den Test der Zeit bestehen und gleichzeitig die Grenzen zeitgemäßer Planung erweitern."
+                tag="p"
+                className="text-lg font-body text-text-secondary mb-8"
+                multiline
+              />
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
                 <Link
-                  to="/de/uber-uns"
+                  to={`/${currentLang}/uber-uns`}
                   className="inline-flex items-center space-x-2 bg-accent text-black px-8 py-4 rounded transition-all duration-200 hover:scale-102 hover:shadow-lg font-body font-medium"
                 >
-                  <span>{t('philosophy.cta')}</span>
+                  <EditableText
+                    contentKey={getLangKey('homepage_philosophy_cta')}
+                    defaultValue="Über Unser Team"
+                    tag="span"
+                  />
                   <Icon name="ArrowRight" size={20} />
                 </Link>
               </motion.div>
@@ -815,11 +836,14 @@ const Homepage = () => {
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.4 }}
+                className="relative"
               >
-                <Image
-                  src="/assets/images/howtolook.jpg"
+                <EditableImage
+                  contentKey={getLangKey('homepage_philosophy_image')}
+                  defaultSrc="/assets/images/howtolook.jpg"
                   alt="Architectural design process"
                   className="w-full h-96 lg:h-[500px] object-cover rounded"
+                  containerClassName="w-full"
                 />
               </motion.div>
               <motion.div 
@@ -858,7 +882,6 @@ const Homepage = () => {
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
       >
-        {/* Content Background Typography - Only in this section */}
         <ContentBackgroundTypography 
           words={[
             { 
@@ -896,12 +919,19 @@ const Homepage = () => {
             transition={{ duration: 0.6 }}
             style={{ zIndex: 4 }}
           >
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-light text-primary mb-6">
-              {t('testimonials.title')}
-            </h2>
-            <p className="text-lg font-body text-text-secondary max-w-3xl mx-auto">
-              {t('testimonials.subtitle')}
-            </p>
+            <EditableText
+              contentKey={getLangKey('homepage_testimonials_title')}
+              defaultValue="Was Unsere Kunden Sagen"
+              tag="h2"
+              className="text-3xl sm:text-4xl lg:text-5xl font-heading font-light text-primary mb-6"
+            />
+            <EditableText
+              contentKey={getLangKey('homepage_testimonials_subtitle')}
+              defaultValue="Vertrauen Sie nicht nur unserem Wort. Hier erfahren Sie, was unsere Kunden über die Zusammenarbeit mit Braun & Eyer sagen."
+              tag="p"
+              className="text-lg font-body text-text-secondary max-w-3xl mx-auto"
+              multiline
+            />
           </motion.div>
 
           <div className="relative max-w-4xl mx-auto" style={{ zIndex: 5 }}>
@@ -927,22 +957,35 @@ const Homepage = () => {
                       whileHover={{ scale: 1.1 }}
                       transition={{ duration: 0.3 }}
                     >
-                      <Image
-                        src={testimonial.avatar}
-                        alt={testimonial.name}
+                      <EditableImage
+                        contentKey={testimonial.avatarKey}
+                        defaultSrc="/assets/images/no_image.png"
+                        alt="Testimonial avatar"
                         className="w-full h-full object-cover"
+                        containerClassName="w-full h-full"
                       />
                     </motion.div>
                     <blockquote className="text-xl lg:text-2xl font-body text-text-primary mb-6 italic">
-                      "{testimonial.content}"
+                      "<EditableText
+                        contentKey={testimonial.contentKey}
+                        defaultValue="Testimonial content goes here"
+                        tag="span"
+                        multiline
+                      />"
                     </blockquote>
                     <div>
-                      <div className="font-heading font-medium text-primary text-lg">
-                        {testimonial.name}
-                      </div>
-                      <div className="font-body text-text-secondary">
-                        {testimonial.role}
-                      </div>
+                      <EditableText
+                        contentKey={testimonial.nameKey}
+                        defaultValue="Customer Name"
+                        tag="div"
+                        className="font-heading font-medium text-primary text-lg"
+                      />
+                      <EditableText
+                        contentKey={testimonial.roleKey}
+                        defaultValue="Customer Role"
+                        tag="div"
+                        className="font-body text-text-secondary"
+                      />
                     </div>
                   </div>
                 </motion.div>
@@ -984,7 +1027,12 @@ const Homepage = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <p className="text-text-secondary font-body">Trusted by leading organizations</p>
+            <EditableText
+              contentKey={getLangKey('homepage_clients_title')}
+              defaultValue="Trusted by leading organizations"
+              tag="p"
+              className="text-text-secondary font-body"
+            />
           </motion.div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-items-center opacity-60">
             {clientLogos.map((client, index) => (
@@ -1003,10 +1051,12 @@ const Homepage = () => {
                   opacity: 1
                 }}
               >
-                <Image
-                  src={client.logo}
-                  alt={client.name}
+                <EditableImage
+                  contentKey={client.logoKey}
+                  defaultSrc="/assets/images/no_image.png"
+                  alt={`Client logo ${client.id}`}
                   className="h-12 w-auto"
+                  containerClassName="h-12"
                 />
               </motion.div>
             ))}
@@ -1031,12 +1081,19 @@ const Homepage = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl sm:text-4xl font-heading font-light text-white mb-6">
-              {t('newsletter.title')}
-            </h2>
-            <p className="text-lg font-body text-white/80 mb-8">
-              {t('newsletter.subtitle')}
-            </p>
+            <EditableText
+              contentKey={getLangKey('homepage_newsletter_title')}
+              defaultValue="Bleiben Sie Informiert"
+              tag="h2"
+              className="text-3xl sm:text-4xl font-heading font-light text-white mb-6"
+            />
+            <EditableText
+              contentKey={getLangKey('homepage_newsletter_subtitle')}
+              defaultValue="Abonnieren Sie unseren Newsletter für Updates zu aktuellen Projekten, Planungseinblicke und Architekturtrends."
+              tag="p"
+              className="text-lg font-body text-white/80 mb-8"
+              multiline
+            />
             <motion.div 
               className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto"
               initial={{ y: 30, opacity: 0 }}
@@ -1046,7 +1103,7 @@ const Homepage = () => {
             >
               <motion.input
                 type="email"
-                placeholder={t('newsletter.placeholder')}
+                placeholder={t('homepage_newsletter_placeholder', 'Ihre E-Mail-Adresse')}
                 className="flex-1 px-4 py-3 rounded border border-white/20 bg-white/10 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-accent font-body"
                 whileFocus={{ scale: 1.02 }}
               />
@@ -1055,7 +1112,11 @@ const Homepage = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                {t('newsletter.button')}
+                <EditableText
+                  contentKey={getLangKey('homepage_newsletter_button')}
+                  defaultValue="Abonnieren"
+                  tag="span"
+                />
               </motion.button>
             </motion.div>
           </motion.div>
@@ -1082,9 +1143,13 @@ const Homepage = () => {
                 </motion.div>
                 <div className="font-heading font-semibold text-xl">Braun & Eyer</div>
               </div>
-              <p className="font-body text-white/80 mb-4">
-                {t('footer.description')}
-              </p>
+              <EditableText
+                contentKey={getLangKey('homepage_footer_description')}
+                defaultValue="Architekturbüro Ingenieure - Spezialisiert auf Neubau und Altbausanierung mit innovativen und nachhaltigen Lösungen."
+                tag="p"
+                className="font-body text-white/80 mb-4"
+                multiline
+              />
               <div className="flex space-x-4">
                 {['Facebook', 'Twitter', 'Instagram', 'Linkedin'].map((social) => (
                   <motion.a 
@@ -1106,12 +1171,49 @@ const Homepage = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              <h3 className="font-heading font-medium text-lg mb-4">{t('footer.services')}</h3>
+              <EditableText
+                contentKey={getLangKey('homepage_footer_services_title')}
+                defaultValue="Leistungen"
+                tag="h3"
+                className="font-heading font-medium text-lg mb-4"
+              />
               <ul className="space-y-2 font-body">
-                <li><Link to="/de/leistungen" className="text-white/80 hover:text-accent transition-colors duration-200">{t('services.items.service1.title')}</Link></li>
-                <li><Link to="/de/leistungen" className="text-white/80 hover:text-accent transition-colors duration-200">{t('services.items.service2.title')}</Link></li>
-                <li><Link to="/de/leistungen" className="text-white/80 hover:text-accent transition-colors duration-200">{t('services.items.service3.title')}</Link></li>
-                <li><Link to="/de/leistungen" className="text-white/80 hover:text-accent transition-colors duration-200">{t('services.items.service4.title')}</Link></li>
+                <li>
+                  <Link to={`/${currentLang}/leistungen`} className="text-white/80 hover:text-accent transition-colors duration-200">
+                    <EditableText
+                      contentKey={getLangKey('homepage_footer_service1')}
+                      defaultValue="Neubau"
+                      tag="span"
+                    />
+                  </Link>
+                </li>
+                <li>
+                  <Link to={`/${currentLang}/leistungen`} className="text-white/80 hover:text-accent transition-colors duration-200">
+                    <EditableText
+                      contentKey={getLangKey('homepage_footer_service2')}
+                      defaultValue="Altbausanierung"
+                      tag="span"
+                    />
+                  </Link>
+                </li>
+                <li>
+                  <Link to={`/${currentLang}/leistungen`} className="text-white/80 hover:text-accent transition-colors duration-200">
+                    <EditableText
+                      contentKey={getLangKey('homepage_footer_service3')}
+                      defaultValue="Ingenieursleistungen"
+                      tag="span"
+                    />
+                  </Link>
+                </li>
+                <li>
+                  <Link to={`/${currentLang}/leistungen`} className="text-white/80 hover:text-accent transition-colors duration-200">
+                    <EditableText
+                      contentKey={getLangKey('homepage_footer_service4')}
+                      defaultValue="Energieberatung"
+                      tag="span"
+                    />
+                  </Link>
+                </li>
               </ul>
             </motion.div>
 
@@ -1121,14 +1223,67 @@ const Homepage = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <h3 className="font-heading font-medium text-lg mb-4">{t('footer.company')}</h3>
+              <EditableText
+                contentKey={getLangKey('homepage_footer_company_title')}
+                defaultValue="Unternehmen"
+                tag="h3"
+                className="font-heading font-medium text-lg mb-4"
+              />
               <ul className="space-y-2 font-body">
-                <li><Link to="/de/uber-uns" className="text-white/80 hover:text-accent transition-colors duration-200">{t('footer.links.about')}</Link></li>
-                <li><Link to="/de/projekte" className="text-white/80 hover:text-accent transition-colors duration-200">{t('footer.links.projects')}</Link></li>
-                <li><Link to="/de/kontakt" className="text-white/80 hover:text-accent transition-colors duration-200">{t('footer.contact')}</Link></li>
-                <li><a href="#" className="text-white/80 hover:text-accent transition-colors duration-200">{t('footer.links.career')}</a></li>
-                <li><Link to="/de/impressum" className="text-white/80 hover:text-accent transition-colors duration-200">{t('footer.links.imprint')}</Link></li>
-                <li><Link to="/de/datenschutz" className="text-white/80 hover:text-accent transition-colors duration-200">{t('footer.links.privacy')}</Link></li>
+                <li>
+                  <Link to={`/${currentLang}/uber-uns`} className="text-white/80 hover:text-accent transition-colors duration-200">
+                    <EditableText
+                      contentKey={getLangKey('homepage_footer_about')}
+                      defaultValue="Über Uns"
+                      tag="span"
+                    />
+                  </Link>
+                </li>
+                <li>
+                  <Link to={`/${currentLang}/projekte`} className="text-white/80 hover:text-accent transition-colors duration-200">
+                    <EditableText
+                      contentKey={getLangKey('homepage_footer_projects')}
+                      defaultValue="Projekte"
+                      tag="span"
+                    />
+                  </Link>
+                </li>
+                <li>
+                  <Link to={`/${currentLang}/kontakt`} className="text-white/80 hover:text-accent transition-colors duration-200">
+                    <EditableText
+                      contentKey={getLangKey('homepage_footer_contact')}
+                      defaultValue="Kontakt"
+                      tag="span"
+                    />
+                  </Link>
+                </li>
+                <li>
+                  <a href="#" className="text-white/80 hover:text-accent transition-colors duration-200">
+                    <EditableText
+                      contentKey={getLangKey('homepage_footer_career')}
+                      defaultValue="Karriere"
+                      tag="span"
+                    />
+                  </a>
+                </li>
+                <li>
+                  <Link to={`/${currentLang}/impressum`} className="text-white/80 hover:text-accent transition-colors duration-200">
+                    <EditableText
+                      contentKey={getLangKey('homepage_footer_imprint')}
+                      defaultValue="Impressum"
+                      tag="span"
+                    />
+                  </Link>
+                </li>
+                <li>
+                  <Link to={`/${currentLang}/datenschutz`} className="text-white/80 hover:text-accent transition-colors duration-200">
+                    <EditableText
+                      contentKey={getLangKey('homepage_footer_privacy')}
+                      defaultValue="Datenschutz"
+                      tag="span"
+                    />
+                  </Link>
+                </li>
               </ul>
             </motion.div>
 
@@ -1138,19 +1293,38 @@ const Homepage = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              <h3 className="font-heading font-medium text-lg mb-4">{t('footer.contact')}</h3>
+              <EditableText
+                contentKey={getLangKey('homepage_footer_contact_title')}
+                defaultValue="Kontakt"
+                tag="h3"
+                className="font-heading font-medium text-lg mb-4"
+              />
               <div className="space-y-3 font-body text-white/80">
                 <div className="flex items-start space-x-3">
                   <Icon name="MapPin" size={16} className="mt-1 flex-shrink-0" />
-                  <span>{t('footer.address.company')}<br />{t('footer.address.country')}</span>
+                  <EditableText
+                    contentKey={getLangKey('homepage_footer_address')}
+                    defaultValue="Architekturbüro Braun & Eyer
+Deutschland"
+                    tag="span"
+                    multiline
+                  />
                 </div>
                 <div className="flex items-center space-x-3">
                   <Icon name="Phone" size={16} className="flex-shrink-0" />
-                  <span>{t('footer.address.phone')}</span>
+                  <EditableText
+                    contentKey={getLangKey('homepage_footer_phone')}
+                    defaultValue="+49 (0) 123 456789"
+                    tag="span"
+                  />
                 </div>
                 <div className="flex items-center space-x-3">
                   <Icon name="Mail" size={16} className="flex-shrink-0" />
-                  <span>{t('footer.address.email')}</span>
+                  <EditableText
+                    contentKey={getLangKey('homepage_footer_email')}
+                    defaultValue="info@braunundeyer.de"
+                    tag="span"
+                  />
                 </div>
               </div>
             </motion.div>
@@ -1168,7 +1342,11 @@ const Homepage = () => {
               onClick={handleCopyrightClick}
               style={{ userSelect: 'none' }}
             >
-              {t('footer.copyright')}
+              © {new Date().getFullYear()} <EditableText
+                contentKey={getLangKey('homepage_footer_copyright')}
+                defaultValue="Braun & Eyer Architekturbüro Ingenieure. Alle Rechte vorbehalten."
+                tag="span"
+              />
             </p>
           </motion.div>
         </div>
@@ -1177,4 +1355,4 @@ const Homepage = () => {
   );
 };
 
-export default Homepage;
+export default EditableHomepage;

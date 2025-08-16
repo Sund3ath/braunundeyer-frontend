@@ -286,7 +286,7 @@ const Services = () => {
                 <span>Beratungstermin vereinbaren</span>
               </Link>
               <Link
-                to="/project-gallery"
+                to="/de/projekte"
                 className="inline-flex items-center justify-center space-x-2 border border-border text-text-primary px-8 py-4 rounded transition-all duration-200 hover:bg-surface font-body font-medium"
               >
                 <Icon name="Eye" size={20} />
@@ -812,7 +812,7 @@ const Services = () => {
               <h4 className="font-heading font-semibold text-lg mb-4">Schnellzugriff</h4>
               <ul className="space-y-2">
                 <li>
-                  <Link to="/project-gallery" className="text-white/80 hover:text-white transition-colors duration-200 font-body">
+                  <Link to="/de/projekte" className="text-white/80 hover:text-white transition-colors duration-200 font-body">
                     Portfolio
                   </Link>
                 </li>

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://braunundeyer.de/fr/homepage</loc>
+    <lastmod>2025-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://braunundeyer.de/de/homepage"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://braunundeyer.de/en/homepage"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://braunundeyer.de/fr/homepage"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://braunundeyer.de/it/homepage"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://braunundeyer.de/es/homepage"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://braunundeyer.de/de/homepage"/>
+  </url>
+  <url>
+    <loc>https://braunundeyer.de/fr/projekte</loc>
+    <lastmod>2025-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://braunundeyer.de/de/projekte"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://braunundeyer.de/en/projekte"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://braunundeyer.de/fr/projekte"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://braunundeyer.de/it/projekte"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://braunundeyer.de/es/projekte"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://braunundeyer.de/de/projekte"/>
+  </url>
+  <url>
+    <loc>https://braunundeyer.de/fr/uber-uns</loc>
+    <lastmod>2025-08-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://braunundeyer.de/de/uber-uns"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://braunundeyer.de/en/uber-uns"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://braunundeyer.de/fr/uber-uns"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://braunundeyer.de/it/uber-uns"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://braunundeyer.de/es/uber-uns"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://braunundeyer.de/de/uber-uns"/>
+  </url>
+  <url>
+    <loc>https://braunundeyer.de/fr/leistungen</loc>
+    <lastmod>2025-08-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://braunundeyer.de/de/leistungen"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://braunundeyer.de/en/leistungen"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://braunundeyer.de/fr/leistungen"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://braunundeyer.de/it/leistungen"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://braunundeyer.de/es/leistungen"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://braunundeyer.de/de/leistungen"/>
+  </url>
+  <url>
+    <loc>https://braunundeyer.de/fr/kontakt</loc>
+    <lastmod>2025-08-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://braunundeyer.de/de/kontakt"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://braunundeyer.de/en/kontakt"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://braunundeyer.de/fr/kontakt"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://braunundeyer.de/it/kontakt"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://braunundeyer.de/es/kontakt"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://braunundeyer.de/de/kontakt"/>
+  </url>
+  <url>
+    <loc>https://braunundeyer.de/fr/impressum</loc>
+    <lastmod>2025-08-16</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://braunundeyer.de/de/impressum"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://braunundeyer.de/en/impressum"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://braunundeyer.de/fr/impressum"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://braunundeyer.de/it/impressum"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://braunundeyer.de/es/impressum"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://braunundeyer.de/de/impressum"/>
+  </url>
+  <url>
+    <loc>https://braunundeyer.de/fr/datenschutz</loc>
+    <lastmod>2025-08-16</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://braunundeyer.de/de/datenschutz"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://braunundeyer.de/en/datenschutz"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://braunundeyer.de/fr/datenschutz"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://braunundeyer.de/it/datenschutz"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://braunundeyer.de/es/datenschutz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://braunundeyer.de/de/datenschutz"/>
+  </url>
+  <url>
+    <loc>https://braunundeyer.de/fr/projekte/1</loc>
+    <lastmod>2025-08-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://braunundeyer.de/de/projekte/1"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://braunundeyer.de/en/projekte/1"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://braunundeyer.de/fr/projekte/1"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://braunundeyer.de/it/projekte/1"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://braunundeyer.de/es/projekte/1"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://braunundeyer.de/de/projekte/1"/>
+  </url>
+  <url>
+    <loc>https://braunundeyer.de/fr/projekte/2</loc>
+    <lastmod>2025-08-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://braunundeyer.de/de/projekte/2"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://braunundeyer.de/en/projekte/2"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://braunundeyer.de/fr/projekte/2"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://braunundeyer.de/it/projekte/2"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://braunundeyer.de/es/projekte/2"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://braunundeyer.de/de/projekte/2"/>
+  </url>
+  <url>
+    <loc>https://braunundeyer.de/fr/projekte/3</loc>
+    <lastmod>2025-08-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://braunundeyer.de/de/projekte/3"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://braunundeyer.de/en/projekte/3"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://braunundeyer.de/fr/projekte/3"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://braunundeyer.de/it/projekte/3"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://braunundeyer.de/es/projekte/3"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://braunundeyer.de/de/projekte/3"/>
+  </url>
+  <url>
+    <loc>https://braunundeyer.de/fr/projekte/4</loc>
+    <lastmod>2025-08-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://braunundeyer.de/de/projekte/4"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://braunundeyer.de/en/projekte/4"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://braunundeyer.de/fr/projekte/4"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://braunundeyer.de/it/projekte/4"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://braunundeyer.de/es/projekte/4"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://braunundeyer.de/de/projekte/4"/>
+  </url>
+  <url>
+    <loc>https://braunundeyer.de/fr/projekte/5</loc>
+    <lastmod>2025-08-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://braunundeyer.de/de/projekte/5"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://braunundeyer.de/en/projekte/5"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://braunundeyer.de/fr/projekte/5"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://braunundeyer.de/it/projekte/5"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://braunundeyer.de/es/projekte/5"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://braunundeyer.de/de/projekte/5"/>
+  </url>
+  <url>
+    <loc>https://braunundeyer.de/fr/projekte/6</loc>
+    <lastmod>2025-08-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://braunundeyer.de/de/projekte/6"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://braunundeyer.de/en/projekte/6"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://braunundeyer.de/fr/projekte/6"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://braunundeyer.de/it/projekte/6"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://braunundeyer.de/es/projekte/6"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://braunundeyer.de/de/projekte/6"/>
+  </url>
+</urlset>

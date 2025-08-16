@@ -44,9 +44,10 @@
   },
   "scripts": {
     "start": "vite",
-    "build": "node generate-sitemap.js && vite build --sourcemap",
+    "build": "node generate-multilingual-sitemap.js && vite build --sourcemap",
     "serve": "vite preview",
     "generate-sitemap": "node generate-sitemap.js",
+    "generate-multilingual-sitemap": "node generate-multilingual-sitemap.js",
     "test:seo": "node test-seo.js"
   },
   "eslintConfig": {

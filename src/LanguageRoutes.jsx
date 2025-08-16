@@ -10,7 +10,7 @@ import { useEditMode } from './cms/contexts/EditModeContext';
 // Import pages
 import Landing from 'pages/landing';
 import Homepage from 'pages/homepage';
-import ProjectGallery from 'pages/project-gallery';
+import ProjectGallery from 'pages/project-gallery/ProjectGalleryWithCMS';
 import ProjectDetail from 'pages/project-detail';
 import AboutUs from 'pages/about-us';
 import Contact from 'pages/contact';

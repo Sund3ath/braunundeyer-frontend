@@ -1,43 +1,20 @@
-# Braun & Eyer Architekturbüro Robots.txt
-# https://www.robotstxt.org/robotstxt.html
+# Robots.txt for Braun & Eyer Architekturbüro
+# Generated: 2025-08-16T09:49:11.033Z
 
-# Allow all crawlers
 User-agent: *
 Allow: /
+Disallow: /admin
 Disallow: /api/
-Disallow: /admin/
-Disallow: /private/
 Disallow: /*.json$
-Disallow: /*?*
-Allow: /assets/images/
-Allow: /*.css$
-Allow: /*.js$
+Disallow: /private/
 
-# Specific crawler rules
-User-agent: Googlebot
-Allow: /
-Crawl-delay: 0
-
-User-agent: Bingbot
-Allow: /
-Crawl-delay: 1
-
-User-agent: Slurp
-Allow: /
-Crawl-delay: 1
-
-# Block bad bots
-User-agent: AhrefsBot
-Disallow: /
-
-User-agent: SemrushBot
-Disallow: /
-
-User-agent: DotBot
-Disallow: /
-
-User-agent: MJ12bot
-Disallow: /
-
-# Sitemap location
 Sitemap: https://braunundeyer.de/sitemap.xml
+Sitemap: https://braunundeyer.de/sitemap-main.xml
+Sitemap: https://braunundeyer.de/sitemap-de.xml
+Sitemap: https://braunundeyer.de/sitemap-en.xml
+Sitemap: https://braunundeyer.de/sitemap-fr.xml
+Sitemap: https://braunundeyer.de/sitemap-it.xml
+Sitemap: https://braunundeyer.de/sitemap-es.xml
+
+# Crawl delay
+Crawl-delay: 1

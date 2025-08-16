@@ -3,24 +3,25 @@ import { Link, useLocation, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Icon from '../AppIcon';
 import { useEditMode } from '../../cms/contexts/EditModeContext';
+import LanguageSwitcher from '../LanguageSwitcher';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { isAuthenticated } = useEditMode();
   
   // Get current language from URL or i18n
   const currentLang = location.pathname.split('/')[1] || i18n.language || 'de';
   
-  // Language-aware navigation items using the actual routes from LanguageRoutes.jsx
+  // Language-aware navigation items using translations
   const navigationItems = [
-    { label: 'Startseite', path: `/${currentLang}/homepage`, icon: 'Home' },
-    { label: 'Projekte', path: `/${currentLang}/projekte`, icon: 'Building2' },
-    { label: 'Über uns', path: `/${currentLang}/uber-uns`, icon: 'Users' },
-    { label: 'Leistungen', path: `/${currentLang}/leistungen`, icon: 'Settings' },
-    { label: 'Kontakt', path: `/${currentLang}/kontakt`, icon: 'Mail' },
+    { label: t('nav.home'), path: `/${currentLang}/homepage`, icon: 'Home' },
+    { label: t('nav.projects'), path: `/${currentLang}/projekte`, icon: 'Building2' },
+    { label: t('nav.about'), path: `/${currentLang}/uber-uns`, icon: 'Users' },
+    { label: t('nav.services'), path: `/${currentLang}/leistungen`, icon: 'Settings' },
+    { label: t('nav.contact'), path: `/${currentLang}/kontakt`, icon: 'Mail' },
   ];
 
   useEffect(() => {
@@ -94,20 +95,25 @@ const Header = () => {
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center space-x-8">
-              {navigationItems.map((item) => (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  className={`font-body font-medium text-sm xl:text-base transition-colors duration-200 hover:text-accent ${
-                    isActivePath(item.path)
-                      ? 'text-accent border-b-2 border-accent pb-1' :'text-text-secondary'
-                  }`}
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </nav>
+            <div className="hidden lg:flex items-center space-x-8">
+              <nav className="flex items-center space-x-8">
+                {navigationItems.map((item) => (
+                  <Link
+                    key={item.path}
+                    to={item.path}
+                    className={`font-body font-medium text-sm xl:text-base transition-colors duration-200 hover:text-accent ${
+                      isActivePath(item.path)
+                        ? 'text-accent border-b-2 border-accent pb-1' :'text-text-secondary'
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </nav>
+              
+              {/* Language Switcher */}
+              <LanguageSwitcher className="ml-4" />
+            </div>
 
             {/* Mobile Menu Button */}
             <button

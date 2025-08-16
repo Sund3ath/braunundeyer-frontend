@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import Header from '../../components/ui/Header';
 import Breadcrumb from '../../components/ui/Breadcrumb';
 import Icon from '../../components/AppIcon';
@@ -10,6 +11,10 @@ import SEO from '../../components/SEO';
 import { generateBreadcrumbSchema, generatePersonSchema, combineSchemas } from '../../utils/structuredData';
 
 const AboutUs = () => {
+  const { t, i18n } = useTranslation(['about', 'translation']);
+  const location = useLocation();
+  const currentLang = location.pathname.split('/')[1] || i18n.language || 'de';
+  
   const [expandedMember, setExpandedMember] = useState(null);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
@@ -22,8 +27,8 @@ const AboutUs = () => {
 
   // Braun & Eyer Daten
   const officePhilosophy = {
-    title: "Architektur mit Leidenschaft und Präzision",
-    description: `Bei Braun & Eyer Architekturbüro Ingenieure verstehen wir Architektur als die Kunst, Räume zu schaffen, die Menschen inspirieren und Gemeinschaften verbinden. Unsere Philosophie basiert auf der perfekten Balance zwischen innovativem Design, nachhaltiger Bauweise und zeitloser Eleganz. Wir verbinden moderne Technologien mit bewährtem handwerklichem Können, um Räume zu entwickeln, die nicht nur heutigen Anforderungen gerecht werden, sondern auch zukünftige Möglichkeiten antizipieren.`,
+    title: t('about:subtitle'),
+    description: `${t('about:philosophy.text1')} ${t('about:philosophy.text2')}`,
     backgroundImage: "https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
   };
 
@@ -31,152 +36,152 @@ const AboutUs = () => {
     {
       id: 1,
       name: "Dipl.-Ing. Christian F. Braun",
-      title: "Geschäftsführender Architekt",
+      title: currentLang === 'de' ? "Geschäftsführender Architekt" : "Managing Architect",
       image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-      bio: "Führt das Architekturbüro mit über 20 Jahren Erfahrung in Neubau und Altbausanierung. Spezialist für nachhaltige Architektur und energieeffizientes Bauen.",
-      education: "Diplom-Ingenieur Architektur, Universität des Saarlandes",
-      certifications: "Architektenkammer Saarland, Energieberater",
-      specializations: ["Neubau", "Altbausanierung", "Energieberatung"],
-      notableProjects: ["Wohnanlage Saarbrücken", "Sanierung Denkmalschutz", "Einfamilienhaus Modern"]
+      bio: currentLang === 'de' ? "Führt das Architekturbüro mit über 20 Jahren Erfahrung in Neubau und Altbausanierung. Spezialist für nachhaltige Architektur und energieeffizientes Bauen." : "Leading the architecture office with over 20 years of experience in new construction and building renovation. Specialist in sustainable architecture and energy-efficient construction.",
+      education: currentLang === 'de' ? "Diplom-Ingenieur Architektur, Universität des Saarlandes" : "Diploma in Architecture Engineering, University of Saarland",
+      certifications: currentLang === 'de' ? "Architektenkammer Saarland, Energieberater" : "Saarland Chamber of Architects, Energy Consultant",
+      specializations: currentLang === 'de' ? ["Neubau", "Altbausanierung", "Energieberatung"] : ["New Construction", "Building Renovation", "Energy Consulting"],
+      notableProjects: currentLang === 'de' ? ["Wohnanlage Saarbrücken", "Sanierung Denkmalschutz", "Einfamilienhaus Modern"] : ["Saarbrücken Residential Complex", "Heritage Building Renovation", "Modern Single-Family Home"]
     },
     {
       id: 2,
       name: "Dipl.-Ing. Patric Eyer",
-      title: "Partner & Architekt",
+      title: currentLang === 'de' ? "Partner & Architekt" : "Partner & Architect",
       image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-      bio: "Experte für Innenarchitektur und Raumplanung mit Fokus auf funktionale und ästhetische Lösungen für Wohn- und Geschäftsräume.",
-      education: "Diplom-Ingenieur Architektur, Universität des Saarlandes",
-      certifications: "Architektenkammer Saarland, DGNB Auditor",
-      specializations: ["Innenarchitektur", "Raumplanung", "Nachhaltiges Bauen"],
-      notableProjects: ["Bürogebäude Saarbrücken", "Penthouse Sanierung", "Mehrfamilienhaus Neubau"]
+      bio: currentLang === 'de' ? "Experte für Innenarchitektur und Raumplanung mit Fokus auf funktionale und ästhetische Lösungen für Wohn- und Geschäftsräume." : "Expert in interior design and space planning with focus on functional and aesthetic solutions for residential and commercial spaces.",
+      education: currentLang === 'de' ? "Diplom-Ingenieur Architektur, Universität des Saarlandes" : "Diploma in Architecture Engineering, University of Saarland",
+      certifications: currentLang === 'de' ? "Architektenkammer Saarland, DGNB Auditor" : "Saarland Chamber of Architects, DGNB Auditor",
+      specializations: currentLang === 'de' ? ["Innenarchitektur", "Raumplanung", "Nachhaltiges Bauen"] : ["Interior Design", "Space Planning", "Sustainable Construction"],
+      notableProjects: currentLang === 'de' ? ["Bürogebäude Saarbrücken", "Penthouse Sanierung", "Mehrfamilienhaus Neubau"] : ["Saarbrücken Office Building", "Penthouse Renovation", "Multi-Family New Construction"]
     },
     {
       id: 3,
       name: "M.Sc. Thomas Weber",
-      title: "Projektleiter Neubau",
+      title: currentLang === 'de' ? "Projektleiter Neubau" : "New Construction Project Manager",
       image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-      bio: "Verantwortlich für die Projektabwicklung von Neubauprojekten von der Planung bis zur Fertigstellung mit Fokus auf termingerechte Umsetzung.",
-      education: "Master of Science Architektur, RWTH Aachen",
-      certifications: "Projektmanagement Zertifikat, BIM Manager",
-      specializations: ["Projektmanagement", "BIM-Planung", "Bauüberwachung"],
-      notableProjects: ["Wohnkomplex Schwabing", "Geschäftshaus Zentrum", "Studentenwohnheim"]
+      bio: currentLang === 'de' ? "Verantwortlich für die Projektabwicklung von Neubauprojekten von der Planung bis zur Fertigstellung mit Fokus auf termingerechte Umsetzung." : "Responsible for project management of new construction projects from planning to completion with focus on timely implementation.",
+      education: currentLang === 'de' ? "Master of Science Architektur, RWTH Aachen" : "Master of Science Architecture, RWTH Aachen",
+      certifications: currentLang === 'de' ? "Projektmanagement Zertifikat, BIM Manager" : "Project Management Certificate, BIM Manager",
+      specializations: currentLang === 'de' ? ["Projektmanagement", "BIM-Planung", "Bauüberwachung"] : ["Project Management", "BIM Planning", "Construction Supervision"],
+      notableProjects: currentLang === 'de' ? ["Wohnkomplex Schwabing", "Geschäftshaus Zentrum", "Studentenwohnheim"] : ["Schwabing Residential Complex", "Center Business Building", "Student Housing"]
     },
     {
       id: 4,
       name: "Dipl.-Ing. (FH) Sandra Klein",
-      title: "Spezialistin Altbausanierung",
+      title: currentLang === 'de' ? "Spezialistin Altbausanierung" : "Building Renovation Specialist",
       image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-      bio: "Expertin für die Sanierung historischer Gebäude und Denkmalschutz mit umfassendem Wissen über traditionelle Bautechniken.",
-      education: "Diplom-Ingenieur (FH) Architektur, HS München",
-      certifications: "Sachverständige Altbau, Denkmalschutz Zertifikat",
-      specializations: ["Altbausanierung", "Denkmalschutz", "Bauphysik"],
-      notableProjects: ["Villa Jugendstil", "Altstadt Sanierung", "Historisches Stadthaus"]
+      bio: currentLang === 'de' ? "Expertin für die Sanierung historischer Gebäude und Denkmalschutz mit umfassendem Wissen über traditionelle Bautechniken." : "Expert in renovation of historic buildings and monument protection with comprehensive knowledge of traditional construction techniques.",
+      education: currentLang === 'de' ? "Diplom-Ingenieur (FH) Architektur, HS München" : "Diploma in Architecture Engineering (FH), Munich University",
+      certifications: currentLang === 'de' ? "Sachverständige Altbau, Denkmalschutz Zertifikat" : "Old Building Expert, Heritage Protection Certificate",
+      specializations: currentLang === 'de' ? ["Altbausanierung", "Denkmalschutz", "Bauphysik"] : ["Building Renovation", "Heritage Protection", "Building Physics"],
+      notableProjects: currentLang === 'de' ? ["Villa Jugendstil", "Altstadt Sanierung", "Historisches Stadthaus"] : ["Art Nouveau Villa", "Old Town Renovation", "Historic Townhouse"]
     }
   ];
 
   const milestones = [
     {
-      year: "2005",
-      title: "Bürogründung",
-      description: "Braun & Eyer Architekturbüro wird mit der Vision gegründet, innovative und nachhaltige Architekturlösungen zu schaffen."
+      year: t('about:milestones.items.founding.year'),
+      title: t('about:milestones.items.founding.title'),
+      description: t('about:milestones.items.founding.description')
     },
     {
-      year: "2008",
-      title: "Erste Auszeichnung",
-      description: "Erhalt des Bayerischen Architekturpreises für herausragende Leistungen in der Altbausanierung."
+      year: t('about:milestones.items.firstAward.year'),
+      title: t('about:milestones.items.firstAward.title'),
+      description: t('about:milestones.items.firstAward.description')
     },
     {
-      year: "2012",
-      title: "Nachhaltigkeitsfokus",
-      description: "Zertifizierung als Energieberater und Spezialisierung auf nachhaltiges und energieeffizientes Bauen."
+      year: t('about:milestones.items.sustainability.year'),
+      title: t('about:milestones.items.sustainability.title'),
+      description: t('about:milestones.items.sustainability.description')
     },
     {
-      year: "2016",
-      title: "Digitale Innovation",
-      description: "Einführung von BIM-Technologie und 3D-Visualisierung für präzise Planungsprozesse."
+      year: t('about:milestones.items.digital.year'),
+      title: t('about:milestones.items.digital.title'),
+      description: t('about:milestones.items.digital.description')
     },
     {
-      year: "2020",
-      title: "Pandemie-Anpassung",
-      description: "Erfolgreiche Umstellung auf digitale Beratung und virtuelle Projektpräsentationen."
+      year: t('about:milestones.items.pandemic.year'),
+      title: t('about:milestones.items.pandemic.title'),
+      description: t('about:milestones.items.pandemic.description')
     },
     {
-      year: "2024",
-      title: "100+ Projekte",
-      description: "Erfolgreich über 100 Projekte in den Bereichen Neubau und Altbausanierung realisiert."
+      year: t('about:milestones.items.expansion.year'),
+      title: t('about:milestones.items.expansion.title'),
+      description: t('about:milestones.items.expansion.description')
     }
   ];
 
   const services = [
     {
       icon: "Home",
-      title: "Neubau",
-      description: "Individuelle Wohnhäuser, Mehrfamilienhäuser und Geschäftsgebäude nach Ihren Vorstellungen und Bedürfnissen."
+      title: t('about:services.items.newConstruction.title'),
+      description: t('about:services.items.newConstruction.description')
     },
     {
       icon: "Building2",
-      title: "Altbausanierung",
-      description: "Fachgerechte Sanierung historischer Gebäude unter Berücksichtigung von Denkmalschutz und modernen Standards."
+      title: t('about:services.items.renovation.title'),
+      description: t('about:services.items.renovation.description')
     },
     {
       icon: "Palette",
-      title: "Innenarchitektur",
-      description: "Komplette Innenraumgestaltung von der Raumplanung bis zur Möblierung für optimale Funktionalität."
+      title: t('about:services.items.interior.title'),
+      description: t('about:services.items.interior.description')
     },
     {
       icon: "Users",
-      title: "Beratungsleistungen",
-      description: "Expertenberatung für Bauplanung, Genehmigungsverfahren und energetische Optimierung."
+      title: t('about:services.items.consulting.title'),
+      description: t('about:services.items.consulting.description')
     }
   ];
 
   const testimonials = [
     {
       id: 1,
-      client: "Familie Müller",
-      company: "Privatkunden",
-      quote: "Braun & Eyer haben unser Traumhaus Wirklichkeit werden lassen. Die Betreuung war von der ersten Beratung bis zur Schlüsselübergabe perfekt.",
-      project: "Einfamilienhaus Neubau",
+      client: t('about:testimonials.items.0.client'),
+      company: t('about:testimonials.items.0.company'),
+      quote: t('about:testimonials.items.0.quote'),
+      project: t('about:testimonials.items.0.project'),
       image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
     },
     {
       id: 2,
-      client: "Dr. Schmidt",
-      company: "Denkmalschutz Projekt",
-      quote: "Die Sanierung unseres historischen Stadthauses wurde mit größter Sorgfalt und Fachkenntnis durchgeführt. Ein hervorragendes Ergebnis.",
-      project: "Altbausanierung Denkmalschutz",
+      client: t('about:testimonials.items.1.client'),
+      company: t('about:testimonials.items.1.company'),
+      quote: t('about:testimonials.items.1.quote'),
+      project: t('about:testimonials.items.1.project'),
       image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
     },
     {
       id: 3,
-      client: "Immobilien AG München",
-      company: "Gewerblicher Bauherr",
-      quote: "Professionell, kreativ und zuverlässig. Das Wohnbauprojekt wurde termingerecht und im Budget realisiert.",
-      project: "Mehrfamilienhaus Komplex",
+      client: t('about:testimonials.items.2.client'),
+      company: t('about:testimonials.items.2.company'),
+      quote: t('about:testimonials.items.2.quote'),
+      project: t('about:testimonials.items.2.project'),
       image: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
     }
   ];
 
   const awards = [
     {
-      title: "Bayerischer Architekturpreis",
+      title: t('about:awards.items.architecture'),
       year: "2023",
-      category: "Altbausanierung"
+      category: currentLang === 'de' ? "Altbausanierung" : "Building Renovation"
     },
     {
-      title: "Nachhaltigkeitspreis Bayern",
+      title: t('about:awards.items.sustainability'),
       year: "2022",
-      category: "Energieeffizientes Bauen"
+      category: currentLang === 'de' ? "Energieeffizientes Bauen" : "Energy-Efficient Construction"
     },
     {
-      title: "Deutscher Bauherrenpreis",
+      title: t('about:awards.items.innovation'),
       year: "2021",
-      category: "Wohnungsbau"
+      category: currentLang === 'de' ? "Wohnungsbau" : "Residential Construction"
     },
     {
-      title: "Denkmalschutz Auszeichnung",
+      title: t('about:awards.items.heritage'),
       year: "2020",
-      category: "Historische Sanierung"
+      category: currentLang === 'de' ? "Historische Sanierung" : "Historic Renovation"
     }
   ];
 
@@ -204,8 +209,8 @@ const AboutUs = () => {
   }, [cursorX, cursorY]);
 
   const breadcrumbs = [
-    { name: 'Home', url: 'https://braunundeyer.de' },
-    { name: 'Über uns', url: 'https://braunundeyer.de/ueber-uns' }
+    { name: t('translation:nav.home'), url: `https://braunundeyer.de/${currentLang}` },
+    { name: t('about:title'), url: `https://braunundeyer.de/${currentLang}/uber-uns` }
   ];
 
   const teamSchema = combineSchemas(
@@ -219,9 +224,9 @@ const AboutUs = () => {
   return (
     <div className="min-h-screen custom-cursor relative overflow-hidden bg-background">
       <SEO 
-        title="Über uns | Braun & Eyer Architekturbüro - Ihre Experten für Architektur"
-        description="Lernen Sie das Team von Braun & Eyer kennen. Über 30 Jahre Erfahrung in Architektur, Neubau und Altbausanierung. Unsere Vision, Mission und Werte."
-        keywords="Architekturbüro Team, Braun Eyer Geschichte, Architekten Saarbrücken, Unternehmensphilosophie, Architektur Expertise"
+        title={`${t('about:title')} | Braun & Eyer ${currentLang === 'de' ? 'Architekturbüro - Ihre Experten für Architektur' : 'Architecture - Your Architecture Experts'}`}
+        description={t('about:description')}
+        keywords={currentLang === 'de' ? 'Architekturbüro Team, Braun Eyer Geschichte, Architekten Saarbrücken, Unternehmensphilosophie, Architektur Expertise' : 'Architecture Team, Braun Eyer History, Architects Saarbrücken, Company Philosophy, Architecture Expertise'}
         structuredData={teamSchema}
       />
       <Header />
@@ -243,7 +248,7 @@ const AboutUs = () => {
           <Breadcrumb />
           <div className="mt-6">
             <h1 className="text-3xl lg:text-4xl xl:text-5xl font-heading font-light text-primary mb-4">
-              Über uns
+              {t('about:title')}
             </h1>
             <p className="text-xl lg:text-2xl text-text-secondary font-body leading-relaxed">
               {officePhilosophy.title}
@@ -314,10 +319,10 @@ const AboutUs = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 section-content relative" style={{ zIndex: 2 }}>
           <div className="text-center mb-16 z-content">
             <h2 className="text-3xl lg:text-4xl font-heading font-light text-primary mb-4">
-              Unser Team
+              {t('about:team.title')}
             </h2>
             <p className="text-lg text-text-secondary font-body max-w-2xl mx-auto">
-              Unser erfahrenes Team aus Architekten, Ingenieuren und Spezialisten vereint jahrzehntelange Expertise und innovatives Denken.
+              {t('about:team.subtitle')}
             </p>
           </div>
 
@@ -346,7 +351,7 @@ const AboutUs = () => {
                     onClick={() => toggleMemberDetails(member.id)}
                     className="flex items-center space-x-2 text-accent hover:text-primary transition-colors duration-200 font-body font-medium text-sm"
                   >
-                    <span>{expandedMember === member.id ? 'Weniger anzeigen' : 'Mehr anzeigen'}</span>
+                    <span>{expandedMember === member.id ? t('about:team.viewLess') : t('about:team.viewMore')}</span>
                     <Icon 
                       name={expandedMember === member.id ? 'ChevronUp' : 'ChevronDown'} 
                       size={16} 
@@ -356,15 +361,15 @@ const AboutUs = () => {
                   {expandedMember === member.id && (
                     <div className="mt-4 pt-4 border-t border-border space-y-3">
                       <div>
-                        <h4 className="font-body font-medium text-primary text-sm mb-1">Ausbildung</h4>
+                        <h4 className="font-body font-medium text-primary text-sm mb-1">{t('about:team.education')}</h4>
                         <p className="text-text-secondary text-sm">{member.education}</p>
                       </div>
                       <div>
-                        <h4 className="font-body font-medium text-primary text-sm mb-1">Zertifizierungen</h4>
+                        <h4 className="font-body font-medium text-primary text-sm mb-1">{t('about:team.certifications')}</h4>
                         <p className="text-text-secondary text-sm">{member.certifications}</p>
                       </div>
                       <div>
-                        <h4 className="font-body font-medium text-primary text-sm mb-1">Spezialisierungen</h4>
+                        <h4 className="font-body font-medium text-primary text-sm mb-1">{t('about:team.specializations')}</h4>
                         <div className="flex flex-wrap gap-2">
                           {member.specializations.map((spec, index) => (
                             <span
@@ -377,7 +382,7 @@ const AboutUs = () => {
                         </div>
                       </div>
                       <div>
-                        <h4 className="font-body font-medium text-primary text-sm mb-1">Bedeutende Projekte</h4>
+                        <h4 className="font-body font-medium text-primary text-sm mb-1">{t('about:team.notableProjects')}</h4>
                         <ul className="text-text-secondary text-sm space-y-1">
                           {member.notableProjects.map((project, index) => (
                             <li key={index} className="flex items-center space-x-2">
@@ -438,10 +443,10 @@ const AboutUs = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 section-content relative" style={{ zIndex: 2 }}>
           <div className="text-center mb-16 z-content">
             <h2 className="text-3xl lg:text-4xl font-heading font-light text-primary mb-4">
-              Unsere Geschichte
+              {t('about:milestones.title')}
             </h2>
             <p className="text-lg text-text-secondary font-body max-w-2xl mx-auto">
-              Von bescheidenen Anfängen zur Branchenanerkennung - entdecken Sie die Meilensteine unserer Architekturpraxis.
+              {t('about:milestones.subtitle')}
             </p>
           </div>
 
@@ -528,10 +533,10 @@ const AboutUs = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative" style={{ zIndex: 2 }}>
           <div className="text-center mb-16 relative" style={{ zIndex: 3 }}>
             <h2 className="text-3xl lg:text-4xl font-heading font-light text-primary mb-4">
-              Unsere Leistungen
+              {t('about:services.title')}
             </h2>
             <p className="text-lg text-text-secondary font-body max-w-2xl mx-auto">
-              Umfassende Architekturleistungen, maßgeschneidert um Ihre Vision mit Expertise und Innovation zum Leben zu erwecken.
+              {t('about:services.subtitle')}
             </p>
           </div>
 
@@ -557,10 +562,10 @@ const AboutUs = () => {
 
           <div className="text-center mt-12">
             <Link
-              to="/services"
+              to={`/${currentLang}/leistungen`}
               className="inline-flex items-center space-x-2 bg-accent text-white px-8 py-3 rounded transition-all duration-200 hover:scale-102 hover:shadow-lg font-body font-medium"
             >
-              <span>Alle Leistungen entdecken</span>
+              <span>{t('about:services.viewAll')}</span>
               <Icon name="ArrowRight" size={20} />
             </Link>
           </div>
@@ -592,10 +597,10 @@ const AboutUs = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative" style={{ zIndex: 2 }}>
           <div className="text-center mb-16 relative" style={{ zIndex: 3 }}>
             <h2 className="text-3xl lg:text-4xl font-heading font-light text-primary mb-4">
-              Kundenstimmen
+              {t('about:testimonials.title')}
             </h2>
             <p className="text-lg text-text-secondary font-body max-w-2xl mx-auto">
-              Erfahren Sie von unseren zufriedenen Kunden über ihre Erfahrungen mit Braun & Eyer.
+              {t('about:testimonials.subtitle')}
             </p>
           </div>
 
@@ -634,7 +639,7 @@ const AboutUs = () => {
               <button
                 onClick={prevTestimonial}
                 className="w-12 h-12 bg-background border border-border rounded-full flex items-center justify-center text-text-secondary hover:text-accent hover:border-accent transition-colors duration-200"
-                aria-label="Vorheriges Testimonial"
+                aria-label={t('about:testimonials.previous')}
               >
                 <Icon name="ChevronLeft" size={20} />
               </button>
@@ -647,7 +652,7 @@ const AboutUs = () => {
                     className={`w-3 h-3 rounded-full transition-colors duration-200 ${
                       index === currentTestimonial ? 'bg-accent' : 'bg-border hover:bg-accent/50'
                     }`}
-                    aria-label={`Zu Testimonial ${index + 1}`}
+                    aria-label={`${t('about:testimonials.goTo')} ${index + 1}`}
                   />
                 ))}
               </div>
@@ -655,7 +660,7 @@ const AboutUs = () => {
               <button
                 onClick={nextTestimonial}
                 className="w-12 h-12 bg-background border border-border rounded-full flex items-center justify-center text-text-secondary hover:text-accent hover:border-accent transition-colors duration-200"
-                aria-label="Nächstes Testimonial"
+                aria-label={t('about:testimonials.next')}
               >
                 <Icon name="ChevronRight" size={20} />
               </button>
@@ -689,10 +694,10 @@ const AboutUs = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative" style={{ zIndex: 2 }}>
           <div className="text-center mb-16 relative" style={{ zIndex: 3 }}>
             <h2 className="text-3xl lg:text-4xl font-heading font-light text-primary mb-4">
-              Auszeichnungen & Anerkennung
+              {t('about:awards.title')}
             </h2>
             <p className="text-lg text-text-secondary font-body max-w-2xl mx-auto">
-              Unser Engagement für Exzellenz wurde von Branchenführern und Fachorganisationen anerkannt.
+              {t('about:awards.subtitle')}
             </p>
           </div>
 
@@ -729,10 +734,10 @@ const AboutUs = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative" style={{ zIndex: 2 }}>
           <div className="text-center mb-16 relative" style={{ zIndex: 3 }}>
             <h2 className="text-3xl lg:text-4xl font-heading font-light text-primary mb-4">
-              Kontakt aufnehmen
+              {t('about:contact.title')}
             </h2>
             <p className="text-lg text-text-secondary font-body max-w-2xl mx-auto">
-              Bereit für Ihr Architekturprojekt? Kontaktieren Sie unser Team für eine persönliche Beratung.
+              {t('about:contact.subtitle')}
             </p>
           </div>
 
@@ -741,10 +746,10 @@ const AboutUs = () => {
               <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Icon name="MapPin" size={32} className="text-accent" />
               </div>
-              <h3 className="font-heading font-medium text-primary mb-2">Bürostandort</h3>
+              <h3 className="font-heading font-medium text-primary mb-2">{t('about:contact.office.title')}</h3>
               <p className="text-text-secondary font-body text-sm">
-                Mainzerstrasse 29<br />
-                66111 Saarbrücken, Saarland
+                {t('about:contact.office.address')}<br />
+                {t('about:contact.office.city')}
               </p>
             </div>
 
@@ -752,10 +757,10 @@ const AboutUs = () => {
               <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Icon name="Clock" size={32} className="text-accent" />
               </div>
-              <h3 className="font-heading font-medium text-primary mb-2">Bürozeiten</h3>
+              <h3 className="font-heading font-medium text-primary mb-2">{t('about:contact.hours.title')}</h3>
               <p className="text-text-secondary font-body text-sm">
-                Montag - Freitag: 9:00 - 18:00 Uhr<br />
-                Samstag: 10:00 - 16:00 Uhr
+                {t('about:contact.hours.weekdays')}<br />
+                {t('about:contact.hours.saturday')}
               </p>
             </div>
 
@@ -763,21 +768,21 @@ const AboutUs = () => {
               <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Icon name="Users" size={32} className="text-accent" />
               </div>
-              <h3 className="font-heading font-medium text-primary mb-2">Beratungstermine</h3>
+              <h3 className="font-heading font-medium text-primary mb-2">{t('about:contact.consultation.title')}</h3>
               <p className="text-text-secondary font-body text-sm">
-                Beratung nach Terminvereinbarung<br />
-                Notfallbetreuung verfügbar
+                {t('about:contact.consultation.appointment')}<br />
+                {t('about:contact.consultation.emergency')}
               </p>
             </div>
           </div>
 
           <div className="text-center mt-12">
             <Link
-              to="/contact"
+              to={`/${currentLang}/kontakt`}
               className="inline-flex items-center space-x-2 bg-accent text-white px-8 py-3 rounded transition-all duration-200 hover:scale-102 hover:shadow-lg font-body font-medium"
             >
               <Icon name="Mail" size={20} />
-              <span>Jetzt Kontakt aufnehmen</span>
+              <span>{t('about:cta.button')}</span>
             </Link>
           </div>
         </div>
@@ -794,25 +799,25 @@ const AboutUs = () => {
               <div className="font-heading font-semibold text-xl">Braun & Eyer</div>
             </div>
             <p className="text-white/80 font-body text-sm mb-6">
-              Architektonische Exzellenz seit 2005
+              {t('translation:footer.tagline')}
             </p>
             <div className="flex items-center justify-center space-x-6">
-              <Link to="/homepage" className="text-white/80 hover:text-white transition-colors duration-200 font-body text-sm">
-                Startseite
+              <Link to={`/${currentLang}/homepage`} className="text-white/80 hover:text-white transition-colors duration-200 font-body text-sm">
+                {t('translation:nav.home')}
               </Link>
-              <Link to="/project-gallery" className="text-white/80 hover:text-white transition-colors duration-200 font-body text-sm">
-                Projekte
+              <Link to={`/${currentLang}/projekte`} className="text-white/80 hover:text-white transition-colors duration-200 font-body text-sm">
+                {t('translation:nav.projects')}
               </Link>
-              <Link to="/services" className="text-white/80 hover:text-white transition-colors duration-200 font-body text-sm">
-                Leistungen
+              <Link to={`/${currentLang}/leistungen`} className="text-white/80 hover:text-white transition-colors duration-200 font-body text-sm">
+                {t('translation:nav.services')}
               </Link>
-              <Link to="/contact" className="text-white/80 hover:text-white transition-colors duration-200 font-body text-sm">
-                Kontakt
+              <Link to={`/${currentLang}/kontakt`} className="text-white/80 hover:text-white transition-colors duration-200 font-body text-sm">
+                {t('translation:nav.contact')}
               </Link>
             </div>
             <div className="mt-8 pt-8 border-t border-white/20">
               <p className="text-white/60 font-body text-xs">
-                © {new Date().getFullYear()} Braun & Eyer Architekturbüro Ingenieure. Alle Rechte vorbehalten.
+                © {new Date().getFullYear()} Braun & Eyer Architekturbüro Ingenieure. {t('translation:footer.rights')}.
               </p>
             </div>
           </div>
