@@ -32,7 +32,7 @@ export default function Footer({ dict, lang, onCopyrightClick }) {
         // Check if we're on localhost for development
         const isLocalhost = window.location.hostname === 'localhost';
         const cmsUrl = isLocalhost 
-          ? 'http://localhost:4028/de/admin'  // Vite admin panel in development
+          ? 'http://localhost:5173/admin'  // Separate admin panel in development
           : 'https://cms.braunundeyer.de';     // Production CMS subdomain
         
         // Try different methods to ensure navigation works

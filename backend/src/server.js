@@ -17,9 +17,16 @@ import projectRoutes from './routes/projects.routes.js';
 import contentRoutes from './routes/content.routes.js';
 import mediaRoutes from './routes/media.routes.v2.js';
 import settingsRoutes from './routes/settings.routes.js';
+import translateRoutes from './routes/translate.routes.js';
+import testRoutes from './routes/test.routes.js';
+import aiOptimizeRoutes from './routes/ai-optimize.routes.js';
+import analyticsRoutes from './routes/analytics.routes.js';
 
 // Import database
 import db from './config/db-simple.js';
+
+// Import configurations
+import corsOptions from './config/cors.config.js';
 
 // Import utils
 import logger from './utils/logger.js';
@@ -33,35 +40,15 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// CORS configuration
-const corsOptions = {
-  origin: function (origin, callback) {
-    const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || ['http://localhost:4028'];
-    // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
-    
-    if (allowedOrigins.indexOf(origin) !== -1 || allowedOrigins.includes('*')) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
-  exposedHeaders: ['X-Total-Count', 'X-Page-Count'],
-  maxAge: 86400 // 24 hours
-};
-
-// Apply middleware
+// Apply CORS middleware with imported configuration
 app.use(cors(corsOptions));
 app.use(helmet({
   crossOriginResourcePolicy: { policy: "cross-origin" },
   contentSecurityPolicy: false // Disable for development, configure properly for production
 }));
 app.use(compression());
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+app.use(express.json({ limit: '100mb' }));
+app.use(express.urlencoded({ extended: true, limit: '100mb' }));
 
 // Request logging
 if (process.env.NODE_ENV === 'development') {
@@ -79,11 +66,43 @@ const limiter = rateLimit({
   legacyHeaders: false,
 });
 
-// Apply rate limiting to API routes
-app.use('/api/', limiter);
+// Special rate limiter for translation endpoints (more lenient)
+const translationLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 500, // Allow more requests for translations
+  message: 'Too many translation requests, please try again later.',
+  standardHeaders: true,
+  legacyHeaders: false,
+});
 
-// Serve uploaded files
-app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
+// Special rate limiter for analytics endpoints (very lenient)
+const analyticsLimiter = rateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 1000, // Allow many requests for analytics
+  message: 'Too many analytics requests, please try again later.',
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+// Apply rate limiting to API routes
+app.use('/api/translate', translationLimiter); // Apply translation limiter
+app.use('/api/analytics', analyticsLimiter); // Apply analytics limiter
+app.use('/api/', limiter); // Then apply general limiter to other routes
+
+// Serve uploaded files with caching headers for better performance
+app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads'), {
+  maxAge: '1d', // Cache images for 1 day
+  etag: true,
+  lastModified: true,
+  setHeaders: (res, filepath) => {
+    // Set caching headers based on file type
+    if (filepath.endsWith('.jpg') || filepath.endsWith('.jpeg') || filepath.endsWith('.png') || filepath.endsWith('.webp')) {
+      res.setHeader('Cache-Control', 'public, max-age=86400, immutable'); // 1 day
+    } else if (filepath.endsWith('.mp4') || filepath.endsWith('.webm')) {
+      res.setHeader('Cache-Control', 'public, max-age=604800, immutable'); // 7 days
+    }
+  }
+}));
 
 // Health check endpoint
 app.get('/health', (req, res) => {
@@ -101,6 +120,10 @@ app.use('/api/projects', projectRoutes);
 app.use('/api/content', contentRoutes);
 app.use('/api/media', mediaRoutes);
 app.use('/api/settings', settingsRoutes);
+app.use('/api/translate', translateRoutes);
+app.use('/api/ai', aiOptimizeRoutes);
+app.use('/api/analytics', analyticsRoutes);
+app.use('/api/test', testRoutes);
 
 // 404 handler
 app.use((req, res) => {

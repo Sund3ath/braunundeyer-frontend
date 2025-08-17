@@ -14,6 +14,7 @@ export default function ContactPage() {
   const router = useRouter();
   const lang = params.lang || 'de';
   const [dict, setDict] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -38,11 +39,16 @@ export default function ContactPage() {
 
   // Load translations
   useEffect(() => {
-    import(`@/lib/locales/${lang}/contact.json`).then(module => {
-      setDict(module.default);
-    });
-    import(`@/lib/locales/${lang}/translation.json`).then(module => {
-      setDict(prev => ({ ...prev, translation: module.default }));
+    setIsLoading(true);
+    Promise.all([
+      import(`@/lib/locales/${lang}/contact.json`),
+      import(`@/lib/locales/${lang}/translation.json`)
+    ]).then(([contactModule, translationModule]) => {
+      setDict({
+        ...contactModule.default,
+        translation: translationModule.default
+      });
+      setIsLoading(false);
     });
   }, [lang]);
 
@@ -206,6 +212,14 @@ export default function ContactPage() {
     { label: dict?.title || 'Kontakt' }
   ];
 
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent"></div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen custom-cursor relative overflow-hidden bg-background">
       <style jsx global>{`
@@ -238,7 +252,7 @@ export default function ContactPage() {
         }
       `}</style>
 
-      <Header dict={dict.translation} lang={lang} />
+      <Header dict={dict.translation || {}} lang={lang} />
 
       {/* Custom Cursor */}
       <motion.div

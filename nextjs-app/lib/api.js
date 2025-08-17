@@ -114,6 +114,67 @@ export const contentAPI = {
   // Get SEO metadata
   async getSEOData(page, lang = 'de') {
     return fetchAPI(`/seo/${page}?lang=${lang}`);
+  },
+
+  // Get content by key
+  async getByKey(key, lang = 'de') {
+    try {
+      return await fetchAPI(`/content/${key}?language=${lang}`);
+    } catch (error) {
+      console.error(`Failed to fetch content for ${key}:`, error);
+      return null;
+    }
+  },
+
+  // Get all content for a language
+  async getAll(lang = 'de') {
+    try {
+      const response = await fetchAPI(`/content?language=${lang}`);
+      return response.content || {};
+    } catch (error) {
+      console.error('Failed to fetch all content:', error);
+      return {};
+    }
+  }
+};
+
+// Homepage API
+export const homepageAPI = {
+  // Get homepage configuration (hero slides and featured projects)
+  async getConfig() {
+    try {
+      const response = await fetchAPI('/content/homepage');
+      // Parse the value if it's a JSON string
+      let config = response.value || response;
+      if (typeof config === 'string') {
+        try {
+          config = JSON.parse(config);
+        } catch (e) {
+          console.error('Failed to parse homepage config:', e);
+          config = { heroSlides: [], featuredProjects: [] };
+        }
+      }
+      return config || {
+        heroSlides: [],
+        featuredProjects: []
+      };
+    } catch (error) {
+      console.error('Failed to fetch homepage config:', error);
+      // Return fallback data
+      return {
+        heroSlides: [
+          {
+            id: '1',
+            image: '',
+            title: 'Modern Architecture',
+            subtitle: 'Innovative Design',
+            description: 'Creating spaces that inspire and endure',
+            order: 0
+          }
+        ],
+        featuredProjects: []
+      };
+    }
   }
 };
 
@@ -242,6 +303,7 @@ export default {
   team: teamAPI,
   contact: contactAPI,
   content: contentAPI,
+  homepage: homepageAPI,
   media: mediaAPI,
   settings: settingsAPI,
   auth: authAPI,

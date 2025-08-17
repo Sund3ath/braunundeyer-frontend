@@ -38,7 +38,19 @@
       "WebFetch(domain:braunundeyer.de)",
       "WebSearch",
       "Bash(touch:*)",
-      "Bash(cd:*)"
+      "Bash(cd:*)",
+      "Bash(npm create:*)",
+      "Bash(npx tailwindcss init:*)",
+      "Bash(npx vite:*)",
+      "mcp__playwright__browser_console_messages",
+      "Bash(npm uninstall:*)",
+      "Bash(kill:*)",
+      "mcp__playwright__browser_handle_dialog",
+      "mcp__playwright__browser_tab_new",
+      "Bash(NODE_ENV=development npm start)",
+      "Bash(source .env)",
+      "Bash(NODE_ENV=development DEEPSEEK_API_KEY=sk-374a85178de1439d8b7438c2ac56be77 npm start)",
+      "mcp__playwright__browser_tab_select"
     ],
     "deny": [],
     "additionalDirectories": [

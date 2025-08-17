@@ -39,14 +39,22 @@ const localStorage = multer.diskStorage({
 
 // File filter for both local and S3
 const fileFilter = (req, file, cb) => {
-  const allowedTypes = /jpeg|jpg|png|gif|webp|svg|pdf/;
-  const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
-  const mimetype = allowedTypes.test(file.mimetype);
+  // Allow images, videos, and PDFs
+  const allowedImageTypes = /jpeg|jpg|png|gif|webp|svg|pdf/;
+  const allowedVideoTypes = /mp4|webm|ogg|mov|avi|mkv/;
+  
+  const ext = path.extname(file.originalname).toLowerCase().substring(1);
+  const isImage = allowedImageTypes.test(ext);
+  const isVideo = allowedVideoTypes.test(ext);
+  
+  // Also check mimetype
+  const isImageMime = file.mimetype.startsWith('image/') || file.mimetype === 'application/pdf';
+  const isVideoMime = file.mimetype.startsWith('video/');
 
-  if (mimetype && extname) {
+  if ((isImage && isImageMime) || (isVideo && isVideoMime)) {
     return cb(null, true);
   } else {
-    cb(new Error('Only image files and PDFs are allowed'));
+    cb(new Error('Only image files, videos, and PDFs are allowed'));
   }
 };
 
@@ -56,7 +64,7 @@ const upload = useS3
   : multer({
       storage: localStorage,
       limits: {
-        fileSize: parseInt(process.env.MAX_FILE_SIZE) || 10485760 // 10MB default
+        fileSize: parseInt(process.env.MAX_FILE_SIZE) || 104857600 // 100MB default (increased for videos)
       },
       fileFilter: fileFilter
     });

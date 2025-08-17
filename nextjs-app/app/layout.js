@@ -1,5 +1,7 @@
 import { Inter, Source_Sans_3 } from 'next/font/google';
 import './globals.css';
+import CookieConsent from '@/components/CookieConsent';
+import Analytics from '@/components/Analytics';
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -164,6 +166,8 @@ export default function RootLayout({ children }) {
       </head>
       <body className={`${inter.variable} ${sourceSans.variable} font-body`}>
         {children}
+        <Analytics />
+        <CookieConsent />
       </body>
     </html>
   );

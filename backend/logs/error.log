@@ -18,3 +18,43 @@
 2025-08-09 15:43:22:4322 [31merror[39m: [31mDatabase run error: SQLITE_CONSTRAINT: UNIQUE constraint failed: content.key, content.language[39m
 2025-08-09 15:43:22:4322 [31merror[39m: [31mUpdate content error: SQLITE_CONSTRAINT: UNIQUE constraint failed: content.key, content.language[39m
 2025-08-09 16:45:37:4537 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 16:57:40:5740 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 16:57:40:5740 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 16:57:40:5740 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 16:57:49:5749 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 16:57:49:5749 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 16:57:50:5750 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 16:58:47:5847 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 16:59:15:5915 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 17:00:30:030 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 17:00:30:030 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 17:00:30:030 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 17:01:59:159 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 17:37:58:3758 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 17:54:41:5441 [31merror[39m: [31mError: Only image files and PDFs are allowed[39m
+2025-08-17 17:57:15:5715 [31merror[39m: [31mError: Only image files and PDFs are allowed[39m
+2025-08-17 18:28:10:2810 [31merror[39m: [31mError: Only image files and PDFs are allowed[39m
+2025-08-17 18:28:28:2828 [31merror[39m: [31mError: request entity too large[39m
+2025-08-17 18:50:20:5020 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 18:52:19:5219 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 18:52:19:5219 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 18:52:19:5219 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 18:52:34:5234 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 18:52:34:5234 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 18:52:34:5234 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 18:52:34:5234 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 18:52:34:5234 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 18:52:34:5234 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 18:52:34:5234 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 18:52:34:5234 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 18:52:39:5239 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 18:52:39:5239 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 18:52:40:5240 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 20:10:37:1037 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 20:41:42:4142 [31merror[39m: [31mAuthentication error: invalid signature[39m
+2025-08-17 20:42:11:4211 [31merror[39m: [31mError: Bad escaped character in JSON at position 59 (line 1 column 60)[39m
+2025-08-17 20:42:26:4226 [31merror[39m: [31mError: Bad escaped character in JSON at position 59 (line 1 column 60)[39m
+2025-08-17 20:53:26:5326 [31merror[39m: [31mFailed to initialize analytics tables: db.exec is not a function[39m
+2025-08-17 20:54:31:5431 [31merror[39m: [31mDatabase get error: SQLITE_ERROR: no such column: visitor_id[39m
+2025-08-17 20:57:18:5718 [31merror[39m: [31mDatabase get error: SQLITE_ERROR: no such column: visitor_id[39m
+2025-08-17 21:00:09:09 [31merror[39m: [31mDatabase run error: SQLITE_CONSTRAINT: FOREIGN KEY constraint failed[39m

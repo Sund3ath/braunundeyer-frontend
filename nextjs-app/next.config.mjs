@@ -2,12 +2,23 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['localhost', 'braunundeyer.de', 'cms.braunundeyer.de', 'images.unsplash.com'],
+    domains: ['localhost', 'braunundeyer.de', 'cms.braunundeyer.de', 'api.braunundeyer.de', 'images.unsplash.com'],
     remotePatterns: [
       {
         protocol: 'http',
         hostname: 'localhost',
         port: '3001',
+        pathname: '/uploads/**',
+      },
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '3001',
+        pathname: '/assets/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'api.braunundeyer.de',
         pathname: '/uploads/**',
       },
       {
@@ -20,6 +31,9 @@ const nextConfig = {
         pathname: '/**',
       },
     ],
+    // Enable image optimization
+    minimumCacheTTL: 60 * 60 * 24, // 24 hours
+    formats: ['image/webp'],
   },
   async rewrites() {
     return [

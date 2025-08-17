@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;500&display=swap');
+
+/* Root styles */
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Custom CSS Variables */
+:root {
+  --color-primary: #000000;
+  --color-secondary: #404040;
+  --color-accent: #C0C0C0;
+  --color-background: #FFFFFF;
+  --color-surface: #F8F8F8;
+  --color-text-primary: #000000;
+  --color-text-secondary: #666666;
+  --color-border: #E0E0E0;
+}
+
+/* Base styles */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Source Sans Pro', sans-serif;
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  line-height: 1.2;
+}
+
+.font-heading {
+  font-family: 'Inter', sans-serif;
+}
+
+.font-body {
+  font-family: 'Source Sans Pro', sans-serif;
+}

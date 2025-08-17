@@ -11,20 +11,65 @@
       "static/chunks/main-app.js",
       "static/chunks/app/[lang]/layout.js"
     ],
+    "/[lang]/homepage/error": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/[lang]/homepage/error.js"
+    ],
+    "/[lang]/homepage/loading": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/[lang]/homepage/loading.js"
+    ],
     "/[lang]/homepage/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/[lang]/homepage/page.js"
+    ],
+    "/api/analytics/pageview/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/analytics/pageview/route.js"
+    ],
+    "/api/analytics/session/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/analytics/session/route.js"
+    ],
+    "/[lang]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/[lang]/page.js"
     ],
     "/[lang]/projekte/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/[lang]/projekte/page.js"
     ],
-    "/[lang]/projekte/[id]/page": [
+    "/[lang]/uber-uns/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/[lang]/projekte/[id]/page.js"
+      "static/chunks/app/[lang]/uber-uns/page.js"
+    ],
+    "/[lang]/leistungen/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/[lang]/leistungen/page.js"
+    ],
+    "/[lang]/kontakt/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/[lang]/kontakt/page.js"
+    ],
+    "/[lang]/impressum/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/[lang]/impressum/page.js"
+    ],
+    "/[lang]/datenschutz/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/[lang]/datenschutz/page.js"
     ],
     "/_not-found/page": [
       "static/chunks/webpack.js",

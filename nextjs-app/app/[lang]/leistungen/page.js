@@ -17,6 +17,7 @@ export default function ServicesPage() {
   const [expandedService, setExpandedService] = useState(null);
   const [expandedFaq, setExpandedFaq] = useState(null);
   const [dict, setDict] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
   const [clickCount, setClickCount] = useState(0);
   const clickTimeoutRef = useRef(null);
 
@@ -29,11 +30,16 @@ export default function ServicesPage() {
 
   // Load translations
   useEffect(() => {
-    import(`@/lib/locales/${lang}/services.json`).then(module => {
-      setDict(module.default);
-    });
-    import(`@/lib/locales/${lang}/translation.json`).then(module => {
-      setDict(prev => ({ ...prev, translation: module.default }));
+    setIsLoading(true);
+    Promise.all([
+      import(`@/lib/locales/${lang}/services.json`),
+      import(`@/lib/locales/${lang}/translation.json`)
+    ]).then(([servicesModule, translationModule]) => {
+      setDict({
+        ...servicesModule.default,
+        translation: translationModule.default
+      });
+      setIsLoading(false);
     });
   }, [lang]);
 
@@ -215,6 +221,14 @@ export default function ServicesPage() {
     { label: dict?.title || 'Leistungen' }
   ];
 
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent"></div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen custom-cursor relative overflow-hidden bg-background">
       <style jsx global>{`
@@ -247,7 +261,7 @@ export default function ServicesPage() {
         }
       `}</style>
 
-      <Header dict={dict.translation} lang={lang} />
+      <Header dict={dict.translation || {}} lang={lang} />
 
       {/* Custom Cursor */}
       <motion.div

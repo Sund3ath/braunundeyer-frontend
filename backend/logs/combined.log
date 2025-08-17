@@ -249,3 +249,254 @@
 2025-08-17 13:51:43:5143 [32minfo[39m: [32mConnected to SQLite database[39m
 2025-08-17 13:51:43:5143 [32minfo[39m: [32mDatabase tables created/verified[39m
 2025-08-17 13:51:43:5143 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-17 16:27:07:277 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-17 16:27:07:277 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-17 16:27:07:277 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-17 16:30:32:3032 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-17 16:30:32:3032 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-17 16:30:32:3032 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-17 16:30:32:3032 [32minfo[39m: [32mServer running on port 3001[39m
+2025-08-17 16:30:32:3032 [32minfo[39m: [32mEnvironment: development[39m
+2025-08-17 16:30:32:3032 [32minfo[39m: [32mCORS enabled for: http://localhost:4028,http://localhost:5173,http://localhost:3000[39m
+2025-08-17 16:30:32:3032 [32minfo[39m: [32mAPI available at: http://localhost:3001/api[39m
+2025-08-17 16:31:58:3158 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-17 16:31:58:3158 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-17 16:31:58:3158 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-17 16:31:58:3158 [32minfo[39m: [32mServer running on port 3001[39m
+2025-08-17 16:31:58:3158 [32minfo[39m: [32mEnvironment: development[39m
+2025-08-17 16:31:58:3158 [32minfo[39m: [32mCORS enabled for: http://localhost:4028,http://localhost:5173,http://localhost:3000,http://localhost:4029[39m
+2025-08-17 16:31:58:3158 [32minfo[39m: [32mAPI available at: http://localhost:3001/api[39m
+2025-08-17 16:32:50:3250 [32minfo[39m: [32mUser logged in: admin@braunundeyer.de[39m
+2025-08-17 16:52:58:5258 [32minfo[39m: [32mUser logged in: admin@braunundeyer.de[39m
+2025-08-17 16:57:40:5740 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 16:57:40:5740 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 16:57:40:5740 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 16:57:49:5749 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 16:57:49:5749 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 16:57:50:5750 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 16:58:47:5847 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 16:59:15:5915 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 16:59:37:5937 [32minfo[39m: [32mUser logged in: admin@braunundeyer.de[39m
+2025-08-17 17:00:30:030 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 17:00:30:030 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 17:00:30:030 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 17:01:59:159 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 17:02:03:23 [32minfo[39m: [32mUser logged in: admin@braunundeyer.de[39m
+2025-08-17 17:14:46:1446 [32minfo[39m: [32mContent updated: homepage (de) by admin@braunundeyer.de[39m
+2025-08-17 17:31:28:3128 [32minfo[39m: [32mContent updated: homepage (de) by admin@braunundeyer.de[39m
+2025-08-17 17:37:58:3758 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 17:38:33:3833 [32minfo[39m: [32mContent updated: homepage (de) by admin@braunundeyer.de[39m
+2025-08-17 17:45:22:4522 [32minfo[39m: [32mContent updated: homepage (de) by admin@braunundeyer.de[39m
+2025-08-17 17:54:41:5441 [31merror[39m: [31mError: Only image files and PDFs are allowed[39m
+2025-08-17 17:55:25:5525 [32minfo[39m: [32mContent updated: homepage (de) by admin@braunundeyer.de[39m
+2025-08-17 17:57:15:5715 [31merror[39m: [31mError: Only image files and PDFs are allowed[39m
+2025-08-17 17:57:19:5719 [32minfo[39m: [32mContent updated: homepage (de) by admin@braunundeyer.de[39m
+2025-08-17 17:57:33:5733 [32minfo[39m: [32mImage uploaded: image-1755446253266-604105647.png by admin@braunundeyer.de[39m
+2025-08-17 17:57:38:5738 [32minfo[39m: [32mContent updated: homepage (de) by admin@braunundeyer.de[39m
+2025-08-17 18:00:04:04 [32minfo[39m: [32mContent updated: homepage (de) by admin@braunundeyer.de[39m
+2025-08-17 18:05:05:55 [32minfo[39m: [32mContent updated: homepage (de) by admin@braunundeyer.de[39m
+2025-08-17 18:28:10:2810 [31merror[39m: [31mError: Only image files and PDFs are allowed[39m
+2025-08-17 18:28:28:2828 [31merror[39m: [31mError: request entity too large[39m
+2025-08-17 18:30:22:3022 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-17 18:30:22:3022 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-17 18:30:22:3022 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-17 18:30:22:3022 [32minfo[39m: [32mServer running on port 3001[39m
+2025-08-17 18:30:22:3022 [32minfo[39m: [32mEnvironment: development[39m
+2025-08-17 18:30:22:3022 [32minfo[39m: [32mCORS enabled for: http://localhost:4028,http://localhost:5173,http://localhost:3000,http://localhost:4029[39m
+2025-08-17 18:30:22:3022 [32minfo[39m: [32mAPI available at: http://localhost:3001/api[39m
+2025-08-17 18:32:22:3222 [32minfo[39m: [32mImage uploaded: image-1755448342386-696562673.mp4 by admin@braunundeyer.de[39m
+2025-08-17 18:32:38:3238 [32minfo[39m: [32mContent updated: homepage (de) by admin@braunundeyer.de[39m
+2025-08-17 18:38:49:3849 [32minfo[39m: [32mContent updated: homepage (de) by admin@braunundeyer.de[39m
+2025-08-17 18:44:48:4448 [32minfo[39m: [32mContent updated: homepage (en) by admin@braunundeyer.de[39m
+2025-08-17 18:49:51:4951 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-17 18:49:51:4951 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-17 18:49:51:4951 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-17 18:50:04:504 [32minfo[39m: [32mSIGTERM signal received: closing HTTP server[39m
+2025-08-17 18:50:04:504 [32minfo[39m: [32mDatabase connection closed[39m
+2025-08-17 18:50:09:509 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-17 18:50:09:509 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-17 18:50:09:509 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-17 18:50:09:509 [32minfo[39m: [32mServer running on port 3001[39m
+2025-08-17 18:50:09:509 [32minfo[39m: [32mEnvironment: development[39m
+2025-08-17 18:50:09:509 [32minfo[39m: [32mCORS enabled for: http://localhost:4028,http://localhost:5173,http://localhost:3000,http://localhost:4029[39m
+2025-08-17 18:50:09:509 [32minfo[39m: [32mAPI available at: http://localhost:3001/api[39m
+2025-08-17 18:50:20:5020 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 18:52:19:5219 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 18:52:19:5219 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 18:52:19:5219 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 18:52:34:5234 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 18:52:34:5234 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 18:52:34:5234 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 18:52:34:5234 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 18:52:34:5234 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 18:52:34:5234 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 18:52:34:5234 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 18:52:34:5234 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 18:52:39:5239 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 18:52:39:5239 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 18:52:40:5240 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 18:54:29:5429 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-17 18:54:29:5429 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-17 18:54:29:5429 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-17 18:54:29:5429 [32minfo[39m: [32mServer running on port 3001[39m
+2025-08-17 18:54:29:5429 [32minfo[39m: [32mEnvironment: development[39m
+2025-08-17 18:54:29:5429 [32minfo[39m: [32mCORS enabled for: http://localhost:4028,http://localhost:5173,http://localhost:3000,http://localhost:4029[39m
+2025-08-17 18:54:29:5429 [32minfo[39m: [32mAPI available at: http://localhost:3001/api[39m
+2025-08-17 18:55:06:556 [32minfo[39m: [32mWould translate "{"heroSlides":[{"id":"1755446360959","image":"http://localhost:3001/images/innenarchitektur.png","title":"Innovative Architecture Solutions","subtitle":"Modern Design Excellence","description":"Transforming spaces with innovative architectural solutions that blend form and function","order":0},{"id":"1","image":"","title":"Modern Architecture","subtitle":"Innovative Design","description":"Creating spaces that inspire and endure","order":1},{"id":"1755448337720","image":"","title":"New Slide","subtitle":"Subtitle","description":"Description","order":2,"video":"http://localhost:3001/uploads/image-1755448342386-696562673.mp4"}],"featuredProjects":[{"id":6,"title":"Villa Moderne am See","type":"Neubau","location":"Saarbrücken","image":"","year":2024},{"id":7,"title":"Sanierung Gründerzeitvilla","type":"Altbausanierung","location":"Saarlouis","image":"","year":2023},{"id":8,"title":"Mehrfamilienhaus Stadtmitte","type":"Neubau","location":"Homburg","image":"","year":2024},{"id":9,"title":"Bürogebäude Innovation Campus","type":"Gewerbebau","location":"Saarbrücken","image":"","year":2023},{"id":10,"title":"Einfamilienhaus mit Atrium","type":"Neubau","location":"St. Wendel","image":"","year":2024},{"id":11,"title":"Denkmalschutz Rathaus","type":"Altbausanierung","location":"Ottweiler","image":"","year":2023}]}" from de to en using API[39m
+2025-08-17 18:55:06:556 [32minfo[39m: [32mContent updated: homepage (en) by admin@braunundeyer.de[39m
+2025-08-17 18:58:04:584 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-17 18:58:04:584 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-17 18:58:04:584 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-17 18:58:04:584 [32minfo[39m: [32mServer running on port 3001[39m
+2025-08-17 18:58:04:584 [32minfo[39m: [32mEnvironment: development[39m
+2025-08-17 18:58:04:584 [32minfo[39m: [32mCORS enabled for: http://localhost:4028,http://localhost:5173,http://localhost:3000,http://localhost:4029[39m
+2025-08-17 18:58:04:584 [32minfo[39m: [32mAPI available at: http://localhost:3001/api[39m
+2025-08-17 18:58:15:5815 [37mdebug[39m: [37mUsing mock translation for: Moderne Architektur mit innovativen Lösungen...[39m
+2025-08-17 18:59:59:5959 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-17 18:59:59:5959 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-17 18:59:59:5959 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-17 18:59:59:5959 [32minfo[39m: [32mServer running on port 3001[39m
+2025-08-17 18:59:59:5959 [32minfo[39m: [32mEnvironment: development[39m
+2025-08-17 18:59:59:5959 [32minfo[39m: [32mCORS enabled for: http://localhost:4028,http://localhost:5173,http://localhost:3000,http://localhost:4029[39m
+2025-08-17 18:59:59:5959 [32minfo[39m: [32mAPI available at: http://localhost:3001/api[39m
+2025-08-17 19:00:17:017 [32minfo[39m: [32mTranslating with DeepSeek API: "Moderne Architektur mit innovativen Lösungen für n..." from de to en[39m
+2025-08-17 19:00:21:021 [32minfo[39m: [32mDeepSeek translation successful[39m
+2025-08-17 19:00:36:036 [32minfo[39m: [32mTranslating with DeepSeek API: "Wir bietten profesionelle Architekturleistungen mi..." from de to en[39m
+2025-08-17 19:00:41:041 [32minfo[39m: [32mDeepSeek translation successful[39m
+2025-08-17 19:05:21:521 [32minfo[39m: [32mTranslating with DeepSeek API: "Projekte entdecken..." from de to en[39m
+2025-08-17 19:05:25:525 [32minfo[39m: [32mDeepSeek translation successful[39m
+2025-08-17 19:05:25:525 [32minfo[39m: [32mTranslating with DeepSeek API: "Wir gestalten Räume, die inspirieren und Bestand h..." from de to en[39m
+2025-08-17 19:05:25:525 [32minfo[39m: [32mContent updated: hero_cta_text (en) by admin@braunundeyer.de[39m
+2025-08-17 19:05:29:529 [32minfo[39m: [32mDeepSeek translation successful[39m
+2025-08-17 19:05:29:529 [32minfo[39m: [32mTranslating with DeepSeek API: "Über 30 Jahre Erfahrung in Neubau und Altbausanier..." from de to en[39m
+2025-08-17 19:05:29:529 [32minfo[39m: [32mContent updated: hero_description (en) by admin@braunundeyer.de[39m
+2025-08-17 19:05:33:533 [32minfo[39m: [32mDeepSeek translation successful[39m
+2025-08-17 19:05:33:533 [32minfo[39m: [32mTranslating with DeepSeek API: "Innovative Architektur für moderne Lebensräume..." from de to en[39m
+2025-08-17 19:05:33:533 [32minfo[39m: [32mContent updated: hero_subtitle (en) by admin@braunundeyer.de[39m
+2025-08-17 19:05:37:537 [32minfo[39m: [32mDeepSeek translation successful[39m
+2025-08-17 19:05:37:537 [32minfo[39m: [32mTranslating with DeepSeek API: "{"heroSlides":[{"id":"1755446360959","image":"http..." from de to en[39m
+2025-08-17 19:05:37:537 [32minfo[39m: [32mContent updated: hero_title (en) by admin@braunundeyer.de[39m
+2025-08-17 19:06:07:67 [32minfo[39m: [32mContent updated: homepage (en) by admin@braunundeyer.de[39m
+2025-08-17 19:06:11:611 [32minfo[39m: [32mDeepSeek translation successful[39m
+2025-08-17 19:07:19:719 [32minfo[39m: [32mImage uploaded: image-1755450439793-523964766.png by admin@braunundeyer.de[39m
+2025-08-17 19:07:24:724 [32minfo[39m: [32mContent updated: homepage (de) by admin@braunundeyer.de[39m
+2025-08-17 19:43:07:437 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-17 19:43:07:437 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-17 19:43:07:437 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-17 19:43:07:437 [32minfo[39m: [32mServer running on port 3001[39m
+2025-08-17 19:43:07:437 [32minfo[39m: [32mEnvironment: development[39m
+2025-08-17 19:43:07:437 [32minfo[39m: [32mCORS enabled for: http://localhost:4028,http://localhost:5173,http://localhost:3000,http://localhost:4029[39m
+2025-08-17 19:43:07:437 [32minfo[39m: [32mAPI available at: http://localhost:3001/api[39m
+2025-08-17 19:44:13:4413 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-17 19:44:13:4413 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-17 19:44:13:4413 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-17 19:44:13:4413 [32minfo[39m: [32mServer running on port 3001[39m
+2025-08-17 19:44:13:4413 [32minfo[39m: [32mEnvironment: development[39m
+2025-08-17 19:44:13:4413 [32minfo[39m: [32mCORS enabled for: http://localhost:4028,http://localhost:5173,http://localhost:3000,http://localhost:4029[39m
+2025-08-17 19:44:13:4413 [32minfo[39m: [32mAPI available at: http://localhost:3001/api[39m
+2025-08-17 19:59:53:5953 [32minfo[39m: [32mImage uploaded: image-1755453593383-284064708.png by admin@braunundeyer.de[39m
+2025-08-17 20:00:08:08 [32minfo[39m: [32mImage uploaded: image-1755453608301-863291859.png by admin@braunundeyer.de[39m
+2025-08-17 20:00:13:013 [32minfo[39m: [32mImage uploaded: image-1755453613281-137286987.png by admin@braunundeyer.de[39m
+2025-08-17 20:00:20:020 [32minfo[39m: [32mProject updated: 6 by admin@braunundeyer.de[39m
+2025-08-17 20:09:28:928 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-17 20:09:28:928 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-17 20:09:28:928 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-17 20:09:28:928 [32minfo[39m: [32mServer running on port 3001[39m
+2025-08-17 20:09:28:928 [32minfo[39m: [32mEnvironment: development[39m
+2025-08-17 20:09:28:928 [32minfo[39m: [32mCORS enabled for: http://localhost:4028,http://localhost:5173,http://localhost:3000,http://localhost:4029[39m
+2025-08-17 20:09:28:928 [32minfo[39m: [32mAPI available at: http://localhost:3001/api[39m
+2025-08-17 20:10:37:1037 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-17 20:10:37:1037 [32minfo[39m: [32mOptimizing text with DeepSeek API (extend): "Diese moderne Villa verbindet luxuriöses Wohnen mi..." in de[39m
+2025-08-17 20:11:03:113 [32minfo[39m: [32mDeepSeek optimization successful[39m
+2025-08-17 20:11:03:113 [32minfo[39m: [32mText optimized (extend) by admin@braunundeyer.de[39m
+2025-08-17 20:11:42:1142 [32minfo[39m: [32mOptimizing text with DeepSeek API (extend): "Diese moderne Villa verbindet luxuriöses Wohnen mi..." in de[39m
+2025-08-17 20:12:14:1214 [32minfo[39m: [32mDeepSeek optimization successful[39m
+2025-08-17 20:12:14:1214 [32minfo[39m: [32mText optimized (extend) by admin@braunundeyer.de[39m
+2025-08-17 20:15:02:152 [32minfo[39m: [32mOptimizing text with DeepSeek API (optimize): "Luxuriöse Villa mit nachhaltiger Bauweise und Pano..." in de[39m
+2025-08-17 20:15:14:1514 [32minfo[39m: [32mDeepSeek optimization successful[39m
+2025-08-17 20:15:14:1514 [32minfo[39m: [32mText optimized (optimize) by admin@braunundeyer.de[39m
+2025-08-17 20:15:41:1541 [32minfo[39m: [32mOptimizing text with DeepSeek API (extend): "Diese moderne Villa verbindet luxuriöses Wohnen mi..." in de[39m
+2025-08-17 20:16:08:168 [32minfo[39m: [32mDeepSeek optimization successful[39m
+2025-08-17 20:16:08:168 [32minfo[39m: [32mText optimized (extend) by admin@braunundeyer.de[39m
+2025-08-17 20:19:27:1927 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-17 20:19:27:1927 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-17 20:19:27:1927 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-17 20:19:27:1927 [32minfo[39m: [32mServer running on port 3001[39m
+2025-08-17 20:19:27:1927 [32minfo[39m: [32mEnvironment: development[39m
+2025-08-17 20:19:27:1927 [32minfo[39m: [32mCORS enabled for: http://localhost:4028,http://localhost:5173,http://localhost:3000,http://localhost:4029[39m
+2025-08-17 20:19:27:1927 [32minfo[39m: [32mAPI available at: http://localhost:3001/api[39m
+2025-08-17 20:19:58:1958 [32minfo[39m: [32mOptimizing text with DeepSeek API (optimize): "Luxuriöse Villa mit nachhaltiger Bauweise und Pano..." in de[39m
+2025-08-17 20:20:03:203 [32minfo[39m: [32mDeepSeek optimization successful[39m
+2025-08-17 20:20:03:203 [32minfo[39m: [32mText optimized (optimize) by admin@braunundeyer.de[39m
+2025-08-17 20:20:14:2014 [32minfo[39m: [32mOptimizing text with DeepSeek API (extend): "Exklusive Villa in nachhaltiger Bauweise mit atemb..." in de[39m
+2025-08-17 20:20:39:2039 [32minfo[39m: [32mOptimizing text with DeepSeek API (extend): "Diese moderne Villa verbindet luxuriöses Wohnen mi..." in de[39m
+2025-08-17 20:20:43:2043 [32minfo[39m: [32mDeepSeek optimization successful[39m
+2025-08-17 20:20:43:2043 [32minfo[39m: [32mText optimized (extend) by admin@braunundeyer.de[39m
+2025-08-17 20:21:03:213 [32minfo[39m: [32mDeepSeek optimization successful[39m
+2025-08-17 20:21:03:213 [32minfo[39m: [32mText optimized (extend) by admin@braunundeyer.de[39m
+2025-08-17 20:21:16:2116 [32minfo[39m: [32mProject updated: 6 by admin@braunundeyer.de[39m
+2025-08-17 20:21:55:2155 [32minfo[39m: [32mContent updated: homepage (de) by admin@braunundeyer.de[39m
+2025-08-17 20:23:10:2310 [32minfo[39m: [32mImage uploaded: image-1755454990301-640082791.mp4 by admin@braunundeyer.de[39m
+2025-08-17 20:23:18:2318 [32minfo[39m: [32mContent updated: homepage (de) by admin@braunundeyer.de[39m
+2025-08-17 20:25:22:2522 [32minfo[39m: [32mContent updated: homepage (de) by admin@braunundeyer.de[39m
+2025-08-17 20:25:56:2556 [32minfo[39m: [32mContent updated: homepage (de) by admin@braunundeyer.de[39m
+2025-08-17 20:26:09:269 [32minfo[39m: [32mContent updated: homepage (de) by admin@braunundeyer.de[39m
+2025-08-17 20:31:17:3117 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-17 20:31:17:3117 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-17 20:31:17:3117 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-17 20:33:50:3350 [32minfo[39m: [32mContent updated: homepage (de) by admin@braunundeyer.de[39m
+2025-08-17 20:41:42:4142 [31merror[39m: [31mAuthentication error: invalid signature[39m
+2025-08-17 20:42:11:4211 [31merror[39m: [31mError: Bad escaped character in JSON at position 59 (line 1 column 60)[39m
+2025-08-17 20:42:26:4226 [31merror[39m: [31mError: Bad escaped character in JSON at position 59 (line 1 column 60)[39m
+2025-08-17 20:43:37:4337 [32minfo[39m: [32mContent updated: homepage (de) by admin@braunundeyer.de[39m
+2025-08-17 20:53:26:5326 [31merror[39m: [31mFailed to initialize analytics tables: db.exec is not a function[39m
+2025-08-17 20:53:26:5326 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-17 20:53:26:5326 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-17 20:53:26:5326 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-17 20:53:26:5326 [32minfo[39m: [32mServer running on port 3001[39m
+2025-08-17 20:53:26:5326 [32minfo[39m: [32mEnvironment: development[39m
+2025-08-17 20:53:26:5326 [32minfo[39m: [32mCORS enabled for: http://localhost:4028,http://localhost:5173,http://localhost:3000,http://localhost:4029[39m
+2025-08-17 20:53:26:5326 [32minfo[39m: [32mAPI available at: http://localhost:3001/api[39m
+2025-08-17 20:54:31:5431 [31merror[39m: [31mDatabase get error: SQLITE_ERROR: no such column: visitor_id[39m
+2025-08-17 20:56:43:5643 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-17 20:56:43:5643 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-17 20:56:43:5643 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-17 20:56:43:5643 [32minfo[39m: [32mServer running on port 3001[39m
+2025-08-17 20:56:43:5643 [32minfo[39m: [32mEnvironment: development[39m
+2025-08-17 20:56:43:5643 [32minfo[39m: [32mCORS enabled for: http://localhost:4028,http://localhost:5173,http://localhost:3000,http://localhost:4029[39m
+2025-08-17 20:56:43:5643 [32minfo[39m: [32mAPI available at: http://localhost:3001/api[39m
+2025-08-17 20:56:44:5644 [32minfo[39m: [32mAnalytics tables initialized[39m
+2025-08-17 20:57:18:5718 [31merror[39m: [31mDatabase get error: SQLITE_ERROR: no such column: visitor_id[39m
+2025-08-17 20:59:44:5944 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-17 20:59:44:5944 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-17 20:59:44:5944 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-17 20:59:44:5944 [32minfo[39m: [32mServer running on port 3001[39m
+2025-08-17 20:59:44:5944 [32minfo[39m: [32mEnvironment: development[39m
+2025-08-17 20:59:44:5944 [32minfo[39m: [32mCORS enabled for: http://localhost:4028,http://localhost:5173,http://localhost:3000,http://localhost:4029[39m
+2025-08-17 20:59:44:5944 [32minfo[39m: [32mAPI available at: http://localhost:3001/api[39m
+2025-08-17 20:59:45:5945 [32minfo[39m: [32mAnalytics tables initialized[39m
+2025-08-17 21:00:09:09 [31merror[39m: [31mDatabase run error: SQLITE_CONSTRAINT: FOREIGN KEY constraint failed[39m
+2025-08-17 21:01:04:14 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-17 21:01:04:14 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-17 21:01:04:14 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-17 21:01:04:14 [32minfo[39m: [32mServer running on port 3001[39m
+2025-08-17 21:01:04:14 [32minfo[39m: [32mEnvironment: development[39m
+2025-08-17 21:01:04:14 [32minfo[39m: [32mCORS enabled for: http://localhost:4028,http://localhost:5173,http://localhost:3000,http://localhost:4029[39m
+2025-08-17 21:01:04:14 [32minfo[39m: [32mAPI available at: http://localhost:3001/api[39m
+2025-08-17 21:01:05:15 [32minfo[39m: [32mAnalytics tables initialized[39m
+2025-08-17 21:09:25:925 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-17 21:09:25:925 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-17 21:09:25:925 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-17 21:09:25:925 [32minfo[39m: [32mServer running on port 3001[39m
+2025-08-17 21:09:25:925 [32minfo[39m: [32mEnvironment: development[39m
+2025-08-17 21:09:25:925 [32minfo[39m: [32mCORS enabled for: http://localhost:4028,http://localhost:5173,http://localhost:3000,http://localhost:4029[39m
+2025-08-17 21:09:25:925 [32minfo[39m: [32mAPI available at: http://localhost:3001/api[39m
+2025-08-17 21:09:26:926 [32minfo[39m: [32mAnalytics tables initialized[39m
+2025-08-17 21:22:39:2239 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-17 21:22:39:2239 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-17 21:22:39:2239 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-17 21:22:39:2239 [32minfo[39m: [32mServer running on port 3001[39m
+2025-08-17 21:22:39:2239 [32minfo[39m: [32mEnvironment: development[39m
+2025-08-17 21:22:39:2239 [32minfo[39m: [32mCORS enabled for: http://localhost:4028,http://localhost:5173,http://localhost:3000,http://localhost:4029[39m
+2025-08-17 21:22:39:2239 [32minfo[39m: [32mAPI available at: http://localhost:3001/api[39m
+2025-08-17 21:22:40:2240 [32minfo[39m: [32mAnalytics tables initialized[39m
