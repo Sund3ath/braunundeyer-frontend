@@ -13,28 +13,52 @@ export default function Footer({ dict, lang, onCopyrightClick }) {
   const clickTimeoutRef = useRef(null);
   const currentYear = new Date().getFullYear();
   
-  // Handle triple-click on footer copyright for admin access
+  // Handle triple-click on footer copyright for CMS access
   const handleCopyrightClick = () => {
     // Clear previous timeout
     if (clickTimeoutRef.current) {
       clearTimeout(clickTimeoutRef.current);
     }
     
-    setClickCount(prev => prev + 1);
-    
-    if (clickCount >= 2) { // Triple click
-      if (onCopyrightClick) {
-        onCopyrightClick();
-      } else {
-        router.push('/admin/login');
-      }
-      setClickCount(0);
-    } else {
-      // Reset count after 1 second
-      clickTimeoutRef.current = setTimeout(() => {
+    // Use functional update to ensure we get the latest state
+    setClickCount(prevCount => {
+      const newClickCount = prevCount + 1;
+      
+      if (newClickCount >= 3) { // Triple click (3 clicks)
+        // Reset count immediately
         setClickCount(0);
-      }, 1000);
-    }
+        
+        // Redirect to CMS/Admin panel
+        // Check if we're on localhost for development
+        const isLocalhost = window.location.hostname === 'localhost';
+        const cmsUrl = isLocalhost 
+          ? 'http://localhost:4028/de/admin'  // Vite admin panel in development
+          : 'https://cms.braunundeyer.de';     // Production CMS subdomain
+        
+        // Try different methods to ensure navigation works
+        try {
+          // Method 1: Direct assignment
+          window.location.href = cmsUrl;
+        } catch (e) {
+          // Method 2: Create and click a link as fallback
+          const link = document.createElement('a');
+          link.href = cmsUrl;
+          link.target = '_self';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        }
+        
+        return 0; // Reset count
+      } else {
+        // Reset count after 1 second
+        clickTimeoutRef.current = setTimeout(() => {
+          setClickCount(0);
+        }, 1000);
+        
+        return newClickCount;
+      }
+    });
   };
 
   const socialLinks = [

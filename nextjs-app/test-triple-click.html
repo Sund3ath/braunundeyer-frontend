@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Triple-Click Test - CMS Access</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-area {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .copyright {
+            padding: 20px;
+            background: #1a1a1a;
+            color: #999;
+            border-radius: 4px;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.3s;
+            margin: 20px 0;
+        }
+        .copyright:hover {
+            color: #fff;
+            background: #333;
+        }
+        .copyright.clicking {
+            background: #4CAF50;
+            color: white;
+        }
+        .status {
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+            font-weight: 500;
+        }
+        .status.info { background: #e3f2fd; color: #1976d2; }
+        .status.success { background: #e8f5e9; color: #388e3c; }
+        .status.warning { background: #fff3e0; color: #f57c00; }
+        .counter {
+            font-size: 48px;
+            font-weight: bold;
+            text-align: center;
+            padding: 20px;
+            color: #333;
+        }
+        .instructions {
+            background: #f0f7ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px 20px;
+            margin: 20px 0;
+        }
+        .instructions h3 {
+            margin-top: 0;
+            color: #1976d2;
+        }
+        .instructions ol {
+            margin: 10px 0;
+        }
+        .instructions li {
+            margin: 8px 0;
+        }
+        .test-results {
+            margin-top: 30px;
+            padding: 20px;
+            background: #fafafa;
+            border-radius: 4px;
+        }
+        .test-results h4 {
+            margin-top: 0;
+            color: #555;
+        }
+        #clickLog {
+            background: #000;
+            color: #0f0;
+            font-family: 'Courier New', monospace;
+            padding: 15px;
+            border-radius: 4px;
+            max-height: 200px;
+            overflow-y: auto;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-area">
+        <h1>🔧 Triple-Click CMS Access Test</h1>
+        
+        <div class="instructions">
+            <h3>📋 Test Instructions:</h3>
+            <ol>
+                <li>Click quickly 3 times on the copyright text below</li>
+                <li>The counter will show your click count</li>
+                <li>After 3 clicks, you should be redirected to: <strong>https://cms.braunundeyer.de</strong></li>
+                <li>If you pause too long between clicks (>1 second), the counter resets</li>
+            </ol>
+        </div>
+
+        <div class="status info" id="status">
+            Ready to test. Click on the copyright text below.
+        </div>
+
+        <div class="counter" id="counter">0</div>
+
+        <div class="copyright" id="copyright">
+            © 2024 Braun & Eyer Architekturbüro. Alle Rechte vorbehalten.
+        </div>
+
+        <div class="test-results">
+            <h4>🔍 Click Event Log:</h4>
+            <div id="clickLog"></div>
+        </div>
+
+        <div style="margin-top: 30px; padding: 20px; background: #fffde7; border-radius: 4px;">
+            <h3 style="margin-top: 0; color: #f57f17;">💡 Implementation Details:</h3>
+            <ul style="color: #666;">
+                <li><strong>CMS URL:</strong> https://cms.braunundeyer.de</li>
+                <li><strong>Click Timeout:</strong> 1000ms (1 second)</li>
+                <li><strong>Required Clicks:</strong> 3 consecutive clicks</li>
+                <li><strong>Reset Condition:</strong> Pause > 1 second between clicks</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        let clickCount = 0;
+        let clickTimeout = null;
+        const CMS_URL = 'https://cms.braunundeyer.de';
+        
+        const copyrightEl = document.getElementById('copyright');
+        const counterEl = document.getElementById('counter');
+        const statusEl = document.getElementById('status');
+        const logEl = document.getElementById('clickLog');
+        
+        function logEvent(message) {
+            const timestamp = new Date().toISOString().substr(11, 12);
+            logEl.innerHTML = `[${timestamp}] ${message}<br>` + logEl.innerHTML;
+        }
+        
+        copyrightEl.addEventListener('click', function() {
+            // Clear previous timeout
+            if (clickTimeout) {
+                clearTimeout(clickTimeout);
+                logEvent(`Timeout cleared`);
+            }
+            
+            clickCount++;
+            counterEl.textContent = clickCount;
+            copyrightEl.classList.add('clicking');
+            
+            logEvent(`Click detected! Count: ${clickCount}`);
+            
+            if (clickCount === 1) {
+                statusEl.className = 'status warning';
+                statusEl.textContent = 'First click detected. Keep clicking quickly!';
+            } else if (clickCount === 2) {
+                statusEl.className = 'status warning';
+                statusEl.textContent = 'Second click detected. One more click!';
+            }
+            
+            if (clickCount >= 3) {
+                // Triple click detected!
+                statusEl.className = 'status success';
+                statusEl.textContent = `✅ Triple-click detected! Redirecting to ${CMS_URL}...`;
+                logEvent(`🎯 TRIPLE CLICK SUCCESS! Redirecting to CMS...`);
+                
+                // Show redirect for 1.5 seconds then redirect
+                setTimeout(() => {
+                    // In production, this would be:
+                    // window.location.href = CMS_URL;
+                    
+                    // For testing, we'll just show a message
+                    alert(`SUCCESS! In production, you would now be redirected to:\n\n${CMS_URL}\n\n(Not redirecting in test mode)`);
+                    
+                    // Reset after alert
+                    clickCount = 0;
+                    counterEl.textContent = '0';
+                    statusEl.className = 'status info';
+                    statusEl.textContent = 'Test completed! Try again if you want.';
+                    copyrightEl.classList.remove('clicking');
+                }, 1500);
+            } else {
+                // Set timeout to reset counter
+                clickTimeout = setTimeout(() => {
+                    logEvent(`⏱️ Timeout reached - resetting counter from ${clickCount} to 0`);
+                    clickCount = 0;
+                    counterEl.textContent = '0';
+                    statusEl.className = 'status info';
+                    statusEl.textContent = 'Click counter reset. Try again!';
+                    copyrightEl.classList.remove('clicking');
+                }, 1000);
+            }
+            
+            // Remove visual feedback after a short delay
+            setTimeout(() => {
+                if (clickCount < 3) {
+                    copyrightEl.classList.remove('clicking');
+                }
+            }, 200);
+        });
+        
+        // Log initial state
+        logEvent('Test page loaded and ready');
+    </script>
+</body>
+</html>

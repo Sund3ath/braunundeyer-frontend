@@ -1,8 +1,6 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
-  "/[lang]/uber-uns/page": "app/[lang]/uber-uns/page.js",
+  "/[lang]/homepage/page": "app/[lang]/homepage/page.js",
   "/[lang]/projekte/[id]/page": "app/[lang]/projekte/[id]/page.js",
-  "/[lang]/leistungen/page": "app/[lang]/leistungen/page.js",
-  "/[lang]/page": "app/[lang]/page.js",
-  "/[lang]/homepage/page": "app/[lang]/homepage/page.js"
+  "/[lang]/projekte/page": "app/[lang]/projekte/page.js"
 }

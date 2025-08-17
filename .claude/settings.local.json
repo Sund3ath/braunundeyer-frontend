@@ -36,7 +36,9 @@
       "Bash(cp:*)",
       "Bash(lsof:*)",
       "WebFetch(domain:braunundeyer.de)",
-      "WebSearch"
+      "WebSearch",
+      "Bash(touch:*)",
+      "Bash(cd:*)"
     ],
     "deny": [],
     "additionalDirectories": [
