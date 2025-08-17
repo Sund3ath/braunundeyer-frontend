@@ -31,8 +31,17 @@
       "Bash(pkill:*)",
       "Bash(true)",
       "mcp__ide__executeCode",
-      "Bash(npx playwright codegen:*)"
+      "Bash(npx playwright codegen:*)",
+      "Bash(npx create-next-app:*)",
+      "Bash(cp:*)",
+      "Bash(lsof:*)",
+      "WebFetch(domain:braunundeyer.de)",
+      "WebSearch"
     ],
-    "deny": []
+    "deny": [],
+    "additionalDirectories": [
+      "/Users/taymac/Freelancer Work/braunundeyer architekturbüro/backend",
+      "/Users/taymac/Freelancer Work/braunundeyer architekturbüro/nextjs-app"
+    ]
   }
 }

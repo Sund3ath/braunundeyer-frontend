@@ -1,0 +1,137 @@
+{
+  "title": "Contacto",
+  "subtitle": "Creemos algo extraordinario juntos",
+  "hero": {
+    "title": "Contacto",
+    "subtitle": "Creemos algo extraordinario juntos"
+  },
+  "info": {
+    "title": "Oficina",
+    "address": {
+      "label": "Dirección de la Oficina",
+      "value": "Mainzerstrasse 29, 66111 Saarbrücken, Alemania"
+    },
+    "phone": {
+      "label": "Teléfono",
+      "office": "0681 - 95 41 74 88",
+      "mobile": "+49 (0) 15127552242"
+    },
+    "email": {
+      "label": "Correo Electrónico",
+      "value": "info@braunundeyer.de"
+    },
+    "hours": {
+      "label": "Horario de Atención",
+      "weekdays": "Lunes - Viernes: 8:00 - 18:00",
+      "saturday": "Sábado: 9:00 - 14:00",
+      "sunday": "Domingo: Cerrado"
+    }
+  },
+  "social": {
+    "title": "Síguenos",
+    "description": "Mantente actualizado con nuestros últimos proyectos y perspectivas arquitectónicas."
+  },
+  "form": {
+    "title": "Contáctanos",
+    "subtitle": "Contáctanos para una consulta de proyecto",
+    "fields": {
+      "name": {
+        "label": "Nombre Completo",
+        "placeholder": "Tu nombre",
+        "error": "El nombre es requerido"
+      },
+      "email": {
+        "label": "Dirección de Correo",
+        "placeholder": "tu@email.com",
+        "error": "El correo es requerido",
+        "errorInvalid": "Por favor ingresa una dirección de correo válida"
+      },
+      "phone": {
+        "label": "Número de Teléfono",
+        "placeholder": "+49 (0) 123 456789",
+        "error": "El número de teléfono es requerido"
+      },
+      "projectType": {
+        "label": "Tipo de Proyecto",
+        "placeholder": "Seleccionar tipo de proyecto",
+        "error": "Por favor selecciona un tipo de proyecto",
+        "options": {
+          "select": "Seleccionar tipo de proyecto",
+          "newConstruction": "Nueva Construcción",
+          "renovation": "Renovación de Edificios",
+          "interior": "Diseño de Interiores",
+          "energy": "Consultoría Energética",
+          "projectManagement": "Gestión de Proyectos",
+          "consulting": "Consultoría Arquitectónica"
+        }
+      },
+      "budget": {
+        "label": "Rango de Presupuesto",
+        "placeholder": "Seleccionar rango de presupuesto (Opcional)",
+        "options": {
+          "select": "Seleccionar rango de presupuesto (Opcional)",
+          "under100k": "Menos de €100.000",
+          "100to250k": "€100.000 - €250.000",
+          "250to500k": "€250.000 - €500.000",
+          "500to1m": "€500.000 - €1.000.000",
+          "over1m": "Más de €1.000.000",
+          "discuss": "Prefiero discutirlo personalmente"
+        }
+      },
+      "timeline": {
+        "label": "Cronograma del Proyecto",
+        "placeholder": "ej., Inicio de construcción previsto en 6 meses"
+      },
+      "message": {
+        "label": "Tu Mensaje",
+        "placeholder": "Cuéntanos sobre tu proyecto y visión...",
+        "error": "El mensaje es requerido",
+        "errorShort": "El mensaje debe tener al menos 10 caracteres"
+      }
+    },
+    "submit": "Enviar Solicitud",
+    "submitting": "Enviando...",
+    "success": {
+      "title": "¡Gracias por tu mensaje!",
+      "message": "Hemos recibido tu solicitud y te contactaremos en 24 horas."
+    }
+  },
+  "faq": {
+    "title": "Preguntas Frecuentes",
+    "subtitle": "Encuentra respuestas a preguntas comunes sobre nuestros servicios y procesos.",
+    "items": [
+      {
+        "question": "¿Cómo funciona su proceso de consulta?",
+        "answer": "Nuestro proceso de consulta comienza con una reunión inicial detallada para entender tu visión, requisitos y presupuesto. Luego realizamos un análisis del sitio, desarrollamos conceptos iniciales y trabajamos contigo para refinar el diseño. El proceso típicamente incluye diseño preliminar, planificación del diseño, planificación de ejecución y supervisión de la construcción."
+      },
+      {
+        "question": "¿Cuánto tiempo toma un proyecto típico?",
+        "answer": "La duración del proyecto varía según el alcance y la complejidad. Los proyectos residenciales típicamente toman 8-15 meses desde la consulta inicial hasta la finalización. Los proyectos comerciales pueden tomar 15-30 meses. Creamos cronogramas detallados durante la fase de consulta inicial."
+      },
+      {
+        "question": "¿Manejan los permisos y aprobaciones regulatorias?",
+        "answer": "Sí, manejamos todo el proceso de aprobación incluyendo permisos de construcción, requisitos de protección del patrimonio y coordinación regulatoria. Nuestro equipo tiene amplia experiencia en el manejo de regulaciones de construcción locales y requisitos para una aprobación fluida del proyecto."
+      },
+      {
+        "question": "¿Pueden trabajar con mi empresa constructora existente?",
+        "answer": "¡Absolutamente! Estamos felices de trabajar con empresas constructoras calificadas y podemos cooperar con tu equipo de construcción preferido. También mantenemos relaciones con empresas asociadas de confianza y podemos hacer recomendaciones si es necesario."
+      }
+    ]
+  },
+  "newsletter": {
+    "title": "Suscríbete al Newsletter",
+    "description": "Recibe actualizaciones mensuales sobre nuestros últimos proyectos, tendencias arquitectónicas y perspectivas.",
+    "placeholder": "Tu dirección de correo",
+    "button": "Suscribirse",
+    "privacy": "Respetamos tu privacidad. Cancela en cualquier momento."
+  },
+  "map": {
+    "title": "Visítanos",
+    "directions": "Obtener direcciones"
+  },
+  "cta": {
+    "title": "¿Listo para realizar tu visión?",
+    "description": "Contáctanos hoy para una consulta inicial gratuita",
+    "button": "Consultar ahora"
+  }
+}

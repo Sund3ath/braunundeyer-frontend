@@ -243,3 +243,6 @@
 2025-08-10 11:35:00:350 [32minfo[39m: [32mUser logged out: admin@braunundeyer.de[39m
 2025-08-10 11:35:35:3535 [32minfo[39m: [32mUser logged in: admin@braunundeyer.de[39m
 2025-08-10 11:55:51:5551 [32minfo[39m: [32mUser logged out: admin@braunundeyer.de[39m
+2025-08-16 18:29:19:2919 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-16 18:29:19:2919 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-16 18:29:19:2919 [32minfo[39m: [32mDatabase initialized successfully[39m

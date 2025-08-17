@@ -1,0 +1,161 @@
+{
+  "title": "About Us",
+  "subtitle": "Architecture with Passion and Precision",
+  "description": "At Braun & Eyer Architecture & Engineering, we understand architecture as the art of creating spaces that inspire people and connect communities.",
+  "philosophy": {
+    "title": "Our Philosophy",
+    "text1": "Our philosophy is based on the perfect balance between innovative design, sustainable construction and timeless elegance.",
+    "text2": "We combine modern technologies with proven craftsmanship to develop spaces that not only meet today's requirements but also anticipate future possibilities."
+  },
+  "team": {
+    "title": "Our Team",
+    "subtitle": "Meet the experts behind our exceptional projects",
+    "viewMore": "Learn more",
+    "viewLess": "Show less",
+    "education": "Education",
+    "certifications": "Certifications",
+    "specializations": "Specializations",
+    "notableProjects": "Notable Projects"
+  },
+  "milestones": {
+    "title": "Our History",
+    "subtitle": "Milestones of our development",
+    "items": {
+      "founding": {
+        "year": "2005",
+        "title": "Office Founding",
+        "description": "Braun & Eyer Architecture Office is founded with the vision to create innovative and sustainable architectural solutions."
+      },
+      "firstAward": {
+        "year": "2008",
+        "title": "First Award",
+        "description": "Received the Saarland Architecture Prize for outstanding achievements in building renovation."
+      },
+      "sustainability": {
+        "year": "2012",
+        "title": "Sustainability Focus",
+        "description": "Certification as energy consultant and specialization in sustainable and energy-efficient construction."
+      },
+      "digital": {
+        "year": "2016",
+        "title": "Digital Innovation",
+        "description": "Introduction of BIM technology and 3D visualization for precise planning processes."
+      },
+      "pandemic": {
+        "year": "2020",
+        "title": "Pandemic Adaptation",
+        "description": "Flexible work models and increased focus on healthy and safe living."
+      },
+      "expansion": {
+        "year": "2023",
+        "title": "Expansion",
+        "description": "Team reinforcement and expansion of our portfolio to sustainable urban development."
+      }
+    }
+  },
+  "values": {
+    "title": "Our Values",
+    "items": {
+      "innovation": {
+        "title": "Innovation",
+        "description": "We use cutting-edge technologies and creative approaches to create exceptional spaces."
+      },
+      "sustainability": {
+        "title": "Sustainability",
+        "description": "Environmental protection and resource efficiency are central components of our planning philosophy."
+      },
+      "excellence": {
+        "title": "Excellence",
+        "description": "We strive for the highest quality and attention to detail in every project."
+      },
+      "collaboration": {
+        "title": "Collaboration",
+        "description": "Successful projects emerge through open communication and partnership cooperation."
+      }
+    }
+  },
+  "awards": {
+    "title": "Awards & Recognition",
+    "subtitle": "Recognition for our work",
+    "items": {
+      "architecture": "Saarland Architecture Prize",
+      "sustainability": "DGNB Gold Certification",
+      "innovation": "BIM Award for Digital Planning",
+      "heritage": "Heritage Protection Award"
+    }
+  },
+  "services": {
+    "title": "Our Services",
+    "subtitle": "Comprehensive architectural services, tailored to bring your vision to life with expertise and innovation.",
+    "viewAll": "Discover All Services",
+    "items": {
+      "newConstruction": {
+        "title": "New Construction",
+        "description": "Individual homes, multi-family houses and commercial buildings according to your ideas and needs."
+      },
+      "renovation": {
+        "title": "Building Renovation",
+        "description": "Professional renovation of historic buildings with consideration for heritage protection and modern standards."
+      },
+      "interior": {
+        "title": "Interior Design",
+        "description": "Complete interior design from space planning to furnishing for optimal functionality."
+      },
+      "consulting": {
+        "title": "Consulting Services",
+        "description": "Expert consultation for construction planning, permit procedures and energy optimization."
+      }
+    }
+  },
+  "testimonials": {
+    "title": "Client Testimonials",
+    "subtitle": "Learn from our satisfied clients about their experiences with Braun & Eyer.",
+    "previous": "Previous Testimonial",
+    "next": "Next Testimonial",
+    "goTo": "Go to Testimonial",
+    "items": [
+      {
+        "client": "The Müller Family",
+        "company": "Private Clients",
+        "quote": "Braun & Eyer made our dream home a reality. The support was perfect from the first consultation to the key handover.",
+        "project": "Single-Family Home Construction"
+      },
+      {
+        "client": "Dr. Schmidt",
+        "company": "Heritage Protection Project",
+        "quote": "The renovation of our historic townhouse was carried out with the utmost care and expertise. An outstanding result.",
+        "project": "Heritage Building Renovation"
+      },
+      {
+        "client": "Real Estate AG Munich",
+        "company": "Commercial Developer",
+        "quote": "Professional, creative and reliable. The residential project was completed on time and within budget.",
+        "project": "Multi-Family Complex"
+      }
+    ]
+  },
+  "contact": {
+    "title": "Get in Touch",
+    "subtitle": "Ready for your architecture project? Contact our team for a personal consultation.",
+    "office": {
+      "title": "Office Location",
+      "address": "Mainzerstrasse 29",
+      "city": "66111 Saarbrücken, Germany"
+    },
+    "hours": {
+      "title": "Office Hours",
+      "weekdays": "Monday - Friday: 9:00 AM - 6:00 PM",
+      "saturday": "Saturday: 10:00 AM - 4:00 PM"
+    },
+    "consultation": {
+      "title": "Consultation Appointments",
+      "appointment": "Consultation by appointment",
+      "emergency": "Emergency support available"
+    }
+  },
+  "cta": {
+    "title": "Let's Realize Your Project",
+    "description": "Ready to turn your vision into reality? Our team looks forward to working with you.",
+    "button": "Start Project"
+  }
+}
