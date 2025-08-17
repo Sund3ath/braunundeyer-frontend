@@ -10,6 +10,7 @@ import useCMSStore from '../store/cmsStore';
 import EditableText from './EditableText';
 import EditableImage from './EditableImage';
 import Icon from 'components/AppIcon';
+import ProjectTranslations from './ProjectTranslations';
 
 // Sortable Project Card
 const SortableProjectCard = ({ project, onEdit, onDelete }) => {
@@ -96,6 +97,13 @@ const SortableProjectCard = ({ project, onEdit, onDelete }) => {
                   title={t('cms.edit')}
                 >
                   <Icon name="Edit2" size={16} />
+                </button>
+                <button
+                  onClick={() => window.dispatchEvent(new CustomEvent('openProjectTranslations', { detail: project }))}
+                  className="p-1 hover:bg-blue-100 rounded text-blue-600"
+                  title="Translate"
+                >
+                  <Icon name="Globe" size={16} />
                 </button>
                 <button
                   onClick={() => onDelete(project.id)}
@@ -567,6 +575,8 @@ const ProjectManager = () => {
   
   const [showEditor, setShowEditor] = useState(false);
   const [editingProject, setEditingProject] = useState(null);
+  const [showTranslations, setShowTranslations] = useState(false);
+  const [translatingProject, setTranslatingProject] = useState(null);
   const [filterCategory, setFilterCategory] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
   
@@ -576,6 +586,17 @@ const ProjectManager = () => {
       coordinateGetter: sortableKeyboardCoordinates
     })
   );
+
+  // Listen for translation event
+  useEffect(() => {
+    const handleOpenTranslations = (event) => {
+      setTranslatingProject(event.detail);
+      setShowTranslations(true);
+    };
+
+    window.addEventListener('openProjectTranslations', handleOpenTranslations);
+    return () => window.removeEventListener('openProjectTranslations', handleOpenTranslations);
+  }, []);
   
   // Filter projects
   const filteredProjects = projects.filter(project => {
@@ -714,6 +735,21 @@ const ProjectManager = () => {
             setEditingProject(null);
           }}
           onSave={handleSave}
+        />
+      )}
+      
+      {/* Translation Modal */}
+      {showTranslations && translatingProject && (
+        <ProjectTranslations
+          project={translatingProject}
+          onClose={() => {
+            setShowTranslations(false);
+            setTranslatingProject(null);
+          }}
+          onSave={() => {
+            setShowTranslations(false);
+            setTranslatingProject(null);
+          }}
         />
       )}
     </div>

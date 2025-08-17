@@ -9,11 +9,11 @@ export default async function ProjectDetailPage({ params }) {
   let relatedProjects = [];
   
   try {
-    // Fetch the specific project
-    project = await getProjectById(id);
+    // Fetch the specific project with language support
+    project = await getProjectById(id, lang);
     
-    // Fetch all projects to find related ones
-    const allProjects = await getAllProjects();
+    // Fetch all projects to find related ones with language support
+    const allProjects = await getAllProjects(lang);
     
     // Filter related projects (same category, excluding current project)
     if (project && allProjects.length > 0) {

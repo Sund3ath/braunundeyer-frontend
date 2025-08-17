@@ -16,11 +16,16 @@ const processImageUrl = (url) => {
 };
 
 /**
- * Fetch all projects from the API
+ * Fetch all projects from the API with optional language support
  */
-export async function getAllProjects() {
+export async function getAllProjects(language = 'de') {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/projects`, {
+    // Use the translation endpoint for non-German languages
+    const endpoint = language && language !== 'de' 
+      ? `${API_BASE_URL}/api/project-translations/language/${language}`
+      : `${API_BASE_URL}/api/projects`;
+      
+    const response = await fetch(endpoint, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -38,12 +43,33 @@ export async function getAllProjects() {
     const data = await response.json();
     
     // Process image URLs for all projects
-    const processedProjects = data.projects?.map(project => ({
-      ...project,
-      image: processImageUrl(project.image),
-      images: project.images?.map(img => processImageUrl(img)),
-      thumbnail: processImageUrl(project.thumbnail),
-    })) || [];
+    const processedProjects = data.projects?.map(project => {
+      // Combine main image, gallery and images arrays
+      const processedImages = [];
+      
+      // Add main image first if it exists
+      if (project.image) {
+        processedImages.push(processImageUrl(project.image));
+      }
+      
+      // Add images from the gallery field
+      if (project.gallery && Array.isArray(project.gallery)) {
+        processedImages.push(...project.gallery.map(img => processImageUrl(img)));
+      }
+      
+      // Add images from the images field
+      if (project.images && Array.isArray(project.images)) {
+        processedImages.push(...project.images.map(img => processImageUrl(img)));
+      }
+      
+      return {
+        ...project,
+        image: processImageUrl(project.image),
+        images: processedImages,
+        gallery: project.gallery?.map(img => processImageUrl(img)),
+        thumbnail: processImageUrl(project.thumbnail),
+      };
+    }) || [];
 
     return processedProjects;
   } catch (error) {
@@ -53,10 +79,11 @@ export async function getAllProjects() {
 }
 
 /**
- * Fetch a single project by ID
+ * Fetch a single project by ID with optional language support
  */
-export async function getProjectById(id) {
+export async function getProjectById(id, language = 'de') {
   try {
+    // First fetch the base project
     const response = await fetch(`${API_BASE_URL}/api/projects/${id}`, {
       method: 'GET',
       headers: {
@@ -72,11 +99,62 @@ export async function getProjectById(id) {
 
     const project = await response.json();
     
-    // Process image URLs
+    // If a different language is requested, fetch the translation
+    if (language && language !== 'de') {
+      try {
+        const translationResponse = await fetch(
+          `${API_BASE_URL}/api/project-translations/project/${id}/${language}`,
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            cache: 'no-store',
+          }
+        );
+        
+        if (translationResponse.ok) {
+          const translation = await translationResponse.json();
+          // Merge translation with base project data
+          if (translation) {
+            project.title = translation.title || project.title;
+            project.description = translation.description || project.description;
+            project.location = translation.location || project.location;
+            project.area = translation.area || project.area;
+            if (translation.details) {
+              project.details = translation.details;
+            }
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching project translation:', error);
+        // Continue with untranslated project
+      }
+    }
+    
+    // Process image URLs - combine main image, gallery and images arrays
+    const processedImages = [];
+    
+    // Add main image first if it exists
+    if (project.image) {
+      processedImages.push(processImageUrl(project.image));
+    }
+    
+    // Add images from the gallery field
+    if (project.gallery && Array.isArray(project.gallery)) {
+      processedImages.push(...project.gallery.map(img => processImageUrl(img)));
+    }
+    
+    // Add images from the images field
+    if (project.images && Array.isArray(project.images)) {
+      processedImages.push(...project.images.map(img => processImageUrl(img)));
+    }
+    
     return {
       ...project,
       image: processImageUrl(project.image),
-      images: project.images?.map(img => processImageUrl(img)),
+      images: processedImages,
+      gallery: project.gallery?.map(img => processImageUrl(img)),
       thumbnail: processImageUrl(project.thumbnail),
     };
   } catch (error) {

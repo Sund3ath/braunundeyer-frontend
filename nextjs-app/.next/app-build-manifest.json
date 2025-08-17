@@ -71,6 +71,11 @@
       "static/chunks/main-app.js",
       "static/chunks/app/[lang]/datenschutz/page.js"
     ],
+    "/[lang]/projekte/[id]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/[lang]/projekte/[id]/page.js"
+    ],
     "/_not-found/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",

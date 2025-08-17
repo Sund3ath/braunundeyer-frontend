@@ -4,10 +4,10 @@ import { getAllProjects } from '@/lib/api/projects';
 export default async function ProjectsPage({ params }) {
   const { lang = 'de' } = await params;
   
-  // Fetch projects from API
+  // Fetch projects from API with language support
   let projects = [];
   try {
-    projects = await getAllProjects();
+    projects = await getAllProjects(lang);
   } catch (error) {
     console.error('Failed to fetch projects:', error);
     // Will use fallback data in client component

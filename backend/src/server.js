@@ -21,6 +21,7 @@ import translateRoutes from './routes/translate.routes.js';
 import testRoutes from './routes/test.routes.js';
 import aiOptimizeRoutes from './routes/ai-optimize.routes.js';
 import analyticsRoutes from './routes/analytics.routes.js';
+import projectTranslationsRoutes from './routes/project-translations.routes.js';
 
 // Import database
 import db from './config/db-simple.js';
@@ -117,6 +118,7 @@ app.get('/health', (req, res) => {
 // API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/projects', projectRoutes);
+app.use('/api/project-translations', projectTranslationsRoutes);
 app.use('/api/content', contentRoutes);
 app.use('/api/media', mediaRoutes);
 app.use('/api/settings', settingsRoutes);
