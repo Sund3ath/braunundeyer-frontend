@@ -10,6 +10,7 @@ import TranslationManager from '../components/TranslationManager';
 import LoginModal from '../components/LoginModal';
 import HomepageEditor from '../components/HomepageEditor';
 import AnalyticsDashboardSimple from '../components/AnalyticsDashboardSimple';
+import TeamManager from '../components/TeamManager';
 import Icon from 'components/AppIcon';
 import MultiLanguageSEO from 'components/MultiLanguageSEO';
 import '../styles/admin.css';
@@ -162,6 +163,7 @@ const AdminDashboard = () => {
     { id: 'overview', name: 'Overview', icon: 'LayoutDashboard' },
     { id: 'homepage', name: 'Homepage', icon: 'Home' },
     { id: 'projects', name: 'Projects', icon: 'Folder' },
+    { id: 'team', name: 'Team', icon: 'Users' },
     { id: 'content', name: 'Content', icon: 'FileText' },
     { id: 'media', name: 'Media', icon: 'Image' },
     { id: 'translations', name: 'Translations', icon: 'Languages' },
@@ -522,6 +524,9 @@ const AdminDashboard = () => {
         
         {/* Projects Tab */}
         {activeTab === 'projects' && <ProjectManager />}
+        
+        {/* Team Tab */}
+        {activeTab === 'team' && <TeamManager />}
         
         {/* Content Tab */}
         {activeTab === 'content' && <ContentEditor />}

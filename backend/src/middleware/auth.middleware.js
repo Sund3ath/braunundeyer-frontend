@@ -48,16 +48,24 @@ export const authenticate = async (req, res, next) => {
   }
 };
 
-export const authorize = (...roles) => {
+export const authorize = (roles) => {
   return (req, res, next) => {
     if (!req.user) {
+      logger.error('Authorization failed: No user in request');
       return res.status(401).json({ error: 'Authentication required' });
     }
     
-    if (!roles.includes(req.user.role)) {
+    // Ensure roles is an array
+    const requiredRoles = Array.isArray(roles) ? roles : [roles];
+    
+    logger.info(`Authorization check: User role="${req.user.role}", Required roles=[${requiredRoles.join(',')}]`);
+    
+    if (!requiredRoles.includes(req.user.role)) {
+      logger.error(`Authorization failed: User role '${req.user.role}' not in required roles [${requiredRoles.join(',')}]`);
       return res.status(403).json({ error: 'Insufficient permissions' });
     }
     
+    logger.info('Authorization successful');
     next();
   };
 };

@@ -58,3 +58,210 @@
 2025-08-17 20:54:31:5431 [31merror[39m: [31mDatabase get error: SQLITE_ERROR: no such column: visitor_id[39m
 2025-08-17 20:57:18:5718 [31merror[39m: [31mDatabase get error: SQLITE_ERROR: no such column: visitor_id[39m
 2025-08-17 21:00:09:09 [31merror[39m: [31mDatabase run error: SQLITE_CONSTRAINT: FOREIGN KEY constraint failed[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:51:02:512 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:57:37:5737 [31merror[39m: [31mDatabase run error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:57:37:5737 [31merror[39m: [31mError creating team member: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:58:06:586 [31merror[39m: [31mDatabase all error: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 09:58:06:586 [31merror[39m: [31mError fetching team members: SQLITE_ERROR: no such table: team_members[39m
+2025-08-18 10:05:36:536 [31merror[39m: [31mError: Bad escaped character in JSON at position 54 (line 1 column 55)[39m
+2025-08-18 10:05:58:558 [31merror[39m: [31mError: Bad escaped character in JSON at position 54 (line 1 column 55)[39m
+2025-08-18 10:15:23:1523 [31merror[39m: [31mAuthorization failed: User role 'admin' not in required roles [admin,editor][39m

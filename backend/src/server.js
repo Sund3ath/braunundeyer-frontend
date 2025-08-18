@@ -22,6 +22,7 @@ import testRoutes from './routes/test.routes.js';
 import aiOptimizeRoutes from './routes/ai-optimize.routes.js';
 import analyticsRoutes from './routes/analytics.routes.js';
 import projectTranslationsRoutes from './routes/project-translations.routes.js';
+import teamRoutes from './routes/team.routes.js';
 
 // Import database
 import db from './config/db-simple.js';
@@ -61,7 +62,7 @@ if (process.env.NODE_ENV === 'development') {
 // Rate limiting
 const limiter = rateLimit({
   windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS) || 15 * 60 * 1000, // 15 minutes
-  max: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS) || 100,
+  max: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS) || (process.env.NODE_ENV === 'development' ? 1000 : 100),
   message: 'Too many requests from this IP, please try again later.',
   standardHeaders: true,
   legacyHeaders: false,
@@ -91,7 +92,7 @@ app.use('/api/analytics', analyticsLimiter); // Apply analytics limiter
 app.use('/api/', limiter); // Then apply general limiter to other routes
 
 // Serve uploaded files with caching headers for better performance
-app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads'), {
+app.use('/uploads', express.static(path.join(__dirname, '..', 'public', 'uploads'), {
   maxAge: '1d', // Cache images for 1 day
   etag: true,
   lastModified: true,
@@ -101,6 +102,18 @@ app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads'), {
       res.setHeader('Cache-Control', 'public, max-age=86400, immutable'); // 1 day
     } else if (filepath.endsWith('.mp4') || filepath.endsWith('.webm')) {
       res.setHeader('Cache-Control', 'public, max-age=604800, immutable'); // 7 days
+    }
+  }
+}));
+
+// Serve images from public/images directory
+app.use('/images', express.static(path.join(__dirname, '..', 'public', 'images'), {
+  maxAge: '1d',
+  etag: true,
+  lastModified: true,
+  setHeaders: (res, filepath) => {
+    if (filepath.endsWith('.jpg') || filepath.endsWith('.jpeg') || filepath.endsWith('.png') || filepath.endsWith('.webp')) {
+      res.setHeader('Cache-Control', 'public, max-age=86400, immutable');
     }
   }
 }));
@@ -126,6 +139,7 @@ app.use('/api/translate', translateRoutes);
 app.use('/api/ai', aiOptimizeRoutes);
 app.use('/api/analytics', analyticsRoutes);
 app.use('/api/test', testRoutes);
+app.use('/api/team', teamRoutes);
 
 // 404 handler
 app.use((req, res) => {

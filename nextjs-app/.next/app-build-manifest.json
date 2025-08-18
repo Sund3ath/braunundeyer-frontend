@@ -11,6 +11,21 @@
       "static/chunks/main-app.js",
       "static/chunks/app/[lang]/layout.js"
     ],
+    "/[lang]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/[lang]/page.js"
+    ],
+    "/api/analytics/pageview/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/analytics/pageview/route.js"
+    ],
+    "/api/analytics/session/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/analytics/session/route.js"
+    ],
     "/[lang]/homepage/error": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -26,30 +41,10 @@
       "static/chunks/main-app.js",
       "static/chunks/app/[lang]/homepage/page.js"
     ],
-    "/api/analytics/pageview/route": [
+    "/api/analytics/visitor/route": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/api/analytics/pageview/route.js"
-    ],
-    "/api/analytics/session/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/analytics/session/route.js"
-    ],
-    "/[lang]/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/[lang]/page.js"
-    ],
-    "/[lang]/projekte/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/[lang]/projekte/page.js"
-    ],
-    "/[lang]/uber-uns/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/[lang]/uber-uns/page.js"
+      "static/chunks/app/api/analytics/visitor/route.js"
     ],
     "/[lang]/leistungen/page": [
       "static/chunks/webpack.js",
@@ -60,26 +55,6 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/[lang]/kontakt/page.js"
-    ],
-    "/[lang]/impressum/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/[lang]/impressum/page.js"
-    ],
-    "/[lang]/datenschutz/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/[lang]/datenschutz/page.js"
-    ],
-    "/[lang]/projekte/[id]/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/[lang]/projekte/[id]/page.js"
-    ],
-    "/_not-found/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/_not-found/page.js"
     ]
   }
 }

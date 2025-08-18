@@ -10,7 +10,7 @@ const ContentEditor = () => {
   const { t, i18n } = useTranslation();
   const { isEditMode } = useEditMode();
   const { content, setContent, uploadMedia, media } = useCMSStore();
-  const [activeSection, setActiveSection] = useState('hero');
+  const [activeSection, setActiveSection] = useState('about');
   const [loading, setLoading] = useState(false);
   const [showMediaLibrary, setShowMediaLibrary] = useState(false);
   const [selectedField, setSelectedField] = useState(null);
@@ -19,18 +19,6 @@ const ContentEditor = () => {
   
   // Content sections structure
   const contentSections = {
-    hero: {
-      title: 'Hero Section',
-      icon: 'Layout',
-      fields: [
-        { key: 'hero_title', label: 'Main Title', type: 'text' },
-        { key: 'hero_subtitle', label: 'Subtitle', type: 'text' },
-        { key: 'hero_description', label: 'Description', type: 'textarea' },
-        { key: 'hero_image', label: 'Background Image', type: 'image' },
-        { key: 'hero_cta_text', label: 'CTA Button Text', type: 'text' },
-        { key: 'hero_cta_link', label: 'CTA Button Link', type: 'text' }
-      ]
-    },
     about: {
       title: 'About Section',
       icon: 'Info',

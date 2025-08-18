@@ -296,7 +296,7 @@ export default function HomepageEnhanced({
                 }}
                 transition={{ duration: 5, ease: "linear" }}
               >
-                {slide.video && index === 0 ? (
+                {slide.video ? (
                   <video
                     src={slide.video}
                     autoPlay
