@@ -93,7 +93,8 @@ app.use('/api/analytics', analyticsLimiter); // Apply analytics limiter
 app.use('/api/', limiter); // Then apply general limiter to other routes
 
 // Serve uploaded files with caching headers for better performance
-app.use('/uploads', express.static(path.join(__dirname, '..', 'public', 'uploads'), {
+// First try the uploads directory directly (where files are actually stored)
+app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads'), {
   maxAge: '1d', // Cache images for 1 day
   etag: true,
   lastModified: true,
@@ -103,6 +104,20 @@ app.use('/uploads', express.static(path.join(__dirname, '..', 'public', 'uploads
       res.setHeader('Cache-Control', 'public, max-age=86400, immutable'); // 1 day
     } else if (filepath.endsWith('.mp4') || filepath.endsWith('.webm')) {
       res.setHeader('Cache-Control', 'public, max-age=604800, immutable'); // 7 days
+    }
+  }
+}));
+
+// Fallback to public/uploads if needed
+app.use('/uploads', express.static(path.join(__dirname, '..', 'public', 'uploads'), {
+  maxAge: '1d',
+  etag: true,
+  lastModified: true,
+  setHeaders: (res, filepath) => {
+    if (filepath.endsWith('.jpg') || filepath.endsWith('.jpeg') || filepath.endsWith('.png') || filepath.endsWith('.webp')) {
+      res.setHeader('Cache-Control', 'public, max-age=86400, immutable');
+    } else if (filepath.endsWith('.mp4') || filepath.endsWith('.webm')) {
+      res.setHeader('Cache-Control', 'public, max-age=604800, immutable');
     }
   }
 }));

@@ -4,7 +4,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a React-based architecture portfolio website for Braun & Eyer Architekturbüro built with Vite as the build tool. The application uses modern React patterns with a focus on SEO optimization, internationalization, and performance.
+Multi-application architecture portfolio system for Braun & Eyer Architekturbüro with three main applications:
+1. **React App** (Vite) - Original portfolio website on port 4028
+2. **Next.js App** - Modern migration with SSR/ISR on port 3000  
+3. **Admin Panel** (React/Vite) - Full-featured CMS on port 4029
+4. **Backend API** (Express/SQLite) - RESTful API on port 3001
 
 ## Tech Stack
 
@@ -19,19 +23,36 @@ This is a React-based architecture portfolio website for Braun & Eyer Architektu
 
 ## Commands
 
+### React App (Original)
 ```bash
-# Development
-npm start          # Start dev server on port 4028
+cd /                    # Root directory
+npm start              # Start dev server on port 4028
+npm run build          # Build with sitemap generation to /build
+npm run generate-sitemap
+npm run test:seo
+```
 
-# Build
-npm run build      # Generate sitemap and build with sourcemaps to /build directory
+### Next.js App
+```bash
+cd nextjs-app
+npm run dev            # Start dev server on port 3000
+npm run build          # Production build
+npm run start          # Production server
+```
 
-# Preview build
-npm run serve      # Preview production build
+### Admin Panel
+```bash
+cd admin-panel
+npm run dev            # Start dev server on port 4029
+npm run build          # Production build
+```
 
-# SEO & Sitemap
-npm run generate-sitemap  # Generate sitemap.xml
-npm run test:seo         # Run SEO tests
+### Backend API
+```bash
+cd backend
+npm start              # Production server on port 3001
+npm run dev            # Development with nodemon
+npm run migrate        # Run database migrations
 ```
 
 ## Architecture
@@ -218,3 +239,94 @@ const schema = generateBreadcrumbSchema([...]);
 - Include alt text for all images
 - Maintain sufficient color contrast ratios
 - Support keyboard navigation throughout the application
+
+## Multi-App Architecture Details
+
+### Database Schema (SQLite)
+- **projects**: Main project data with hero_slide references
+- **project_translations**: Multi-language project content  
+- **hero_slides**: Homepage carousel with video support
+- **team_members**: Employee profiles with multilingual fields
+- **media**: File management with categories and alt text
+- **content**: Key-value store for page content
+- **users**: Admin authentication
+- **analytics_***: Multiple tables for visitor tracking
+
+### API Endpoints
+```
+/api/auth          - Authentication (login, verify)
+/api/projects      - Projects CRUD with translations
+/api/team          - Team members management
+/api/media         - File upload/management with bulk support
+/api/content       - CMS content (services, footer, navigation)
+/api/analytics     - Dashboard metrics and tracking
+/api/translate     - DeepSeek AI translation service
+```
+
+### CMS Components (Admin Panel)
+Key components in `admin-panel/src/cms/components/`:
+- **ProjectManager**: Project CRUD with gallery management
+- **TeamManager**: Employee profiles with image upload
+- **ServicesEditor**: Service categories and process steps
+- **ContactSettings**: Office info, hours, form configuration
+- **NavigationManager**: Multi-level menu with drag-and-drop
+- **SEOManager**: Meta tags, sitemap, robots.txt
+- **LegalPagesEditor**: WYSIWYG editor with version history
+- **FooterManager**: Links, social media, newsletter
+- **MediaLibraryEnhanced**: Bulk upload, categories, alt text
+- **AnalyticsDashboardEnhanced**: Comprehensive metrics
+
+### Next.js App Router Structure
+```
+app/
+  [lang]/              # Language routing parameter
+    homepage/          # Main landing page
+    projekte/          # Projects gallery
+      [id]/            # Project detail pages
+    leistungen/        # Services page
+    uber-uns/          # About page
+    kontakt/           # Contact page
+    impressum/         # Legal information
+    datenschutz/       # Privacy policy
+```
+
+### Critical Implementation Patterns
+
+#### API Client Pattern
+```javascript
+// nextjs-app/lib/api-client.js usage
+const token = localStorage.getItem('token');
+const headers = token ? { Authorization: `Bearer ${token}` } : {};
+```
+
+#### Image Optimization
+- Backend generates: `thumb-{filename}`, `medium-{filename}`
+- Next.js uses native Image component with blur placeholders
+- Static files served from `backend/public/uploads/`
+
+#### Authentication Middleware
+```javascript
+// Use single parameter, not spread operator
+export const authorize = (roles) => { /* ... */ }
+```
+
+#### Database Migrations
+```javascript
+// Use db.exec() for CREATE TABLE
+db.exec(`CREATE TABLE IF NOT EXISTS table_name ...`)
+```
+
+### Environment Variables
+Required in `backend/.env`:
+- `DATABASE_PATH` - SQLite database location
+- `JWT_SECRET` - Authentication secret
+- `DEEPSEEK_API_KEY` - AI translation service
+- `PORT` - API server port (default: 3001)
+- `ALLOWED_ORIGINS` - CORS configuration
+
+### Common Issues & Solutions
+- **React 19 Compatibility**: Use React 18.3.1 with recharts 2.x
+- **Auth Token**: Required for most admin endpoints
+- **File Uploads**: Max size in multer config, auto-thumbnails for images
+- **CORS**: Configured for ports 3000, 3001, 4028, 4029
+- **Static Files**: Served at `/uploads/*` and `/images/*`

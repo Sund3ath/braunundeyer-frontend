@@ -43,7 +43,9 @@ const MediaLibraryEnhanced = () => {
       const response = await axios.get('http://localhost:3001/api/media', { headers });
       
       if (response.data) {
-        const files = response.data.map(file => ({
+        // Handle paginated response structure
+        const mediaArray = response.data.media || response.data || [];
+        const files = (Array.isArray(mediaArray) ? mediaArray : []).map(file => ({
           ...file,
           category: file.category || detectCategory(file),
           tags: file.tags || [],

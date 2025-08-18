@@ -1,9 +1,0 @@
-{
-  "/api/analytics/pageview/route": "app/api/analytics/pageview/route.js",
-  "/api/analytics/session/route": "app/api/analytics/session/route.js",
-  "/[lang]/homepage/page": "app/[lang]/homepage/page.js",
-  "/[lang]/page": "app/[lang]/page.js",
-  "/[lang]/projekte/[id]/page": "app/[lang]/projekte/[id]/page.js",
-  "/[lang]/impressum/page": "app/[lang]/impressum/page.js",
-  "/[lang]/datenschutz/page": "app/[lang]/datenschutz/page.js"
-}

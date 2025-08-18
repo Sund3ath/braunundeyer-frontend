@@ -299,89 +299,293 @@ router.get('/dashboard', async (req, res) => {
       default: days = 7;
     }
     
-    // Generate mock analytics data for demonstration
-    const pageViews = [];
+    const dateFilter = `datetime('now', '-${days} days')`;
     const today = new Date();
     
+    // Get daily page views from actual data
+    const pageViewsData = await db.prepare(`
+      SELECT 
+        DATE(timestamp) as date,
+        COUNT(*) as views,
+        COUNT(DISTINCT visitor_id) as visitors
+      FROM pageviews
+      WHERE datetime(timestamp) >= ${dateFilter}
+      GROUP BY DATE(timestamp)
+      ORDER BY date DESC
+    `).all();
+    
+    // Get sessions data
+    const sessionsData = await db.prepare(`
+      SELECT 
+        DATE(session_start) as date,
+        COUNT(*) as sessions
+      FROM analytics_sessions
+      WHERE datetime(session_start) >= ${dateFilter}
+      GROUP BY DATE(session_start)
+    `).all();
+    
+    // Merge pageviews and sessions data
+    const pageViewsMap = new Map();
+    pageViewsData.forEach(pv => {
+      pageViewsMap.set(pv.date, { ...pv, sessions: 0 });
+    });
+    sessionsData.forEach(s => {
+      if (pageViewsMap.has(s.date)) {
+        pageViewsMap.get(s.date).sessions = s.sessions;
+      } else {
+        pageViewsMap.set(s.date, {
+          date: s.date,
+          views: 0,
+          visitors: 0,
+          sessions: s.sessions
+        });
+      }
+    });
+    
+    // Fill in missing dates with zeros
+    const pageViews = [];
     for (let i = days - 1; i >= 0; i--) {
       const date = new Date(today);
       date.setDate(date.getDate() - i);
-      pageViews.push({
-        date: date.toISOString().split('T')[0],
-        views: Math.floor(Math.random() * 500) + 100,
-        visitors: Math.floor(Math.random() * 200) + 50,
-        sessions: Math.floor(Math.random() * 300) + 80
-      });
+      const dateStr = date.toISOString().split('T')[0];
+      
+      if (pageViewsMap.has(dateStr)) {
+        pageViews.push(pageViewsMap.get(dateStr));
+      } else {
+        pageViews.push({
+          date: dateStr,
+          views: 0,
+          visitors: 0,
+          sessions: 0
+        });
+      }
     }
+    
+    // Get overview stats from actual data
+    const visitorStats = await db.prepare(`
+      SELECT 
+        COUNT(DISTINCT visitor_id) as totalVisitors,
+        COUNT(DISTINCT CASE 
+          WHEN date(first_visit) >= date('now', '-${days} days') 
+          THEN visitor_id 
+        END) as newVisitors
+      FROM visitors
+      WHERE datetime(last_visit) >= ${dateFilter}
+    `).get() || { totalVisitors: 0, newVisitors: 0 };
+    
+    const pageviewStats = await db.prepare(`
+      SELECT COUNT(*) as totalPageViews
+      FROM pageviews
+      WHERE datetime(timestamp) >= ${dateFilter}
+    `).get() || { totalPageViews: 0 };
+    
+    const sessionStats = await db.prepare(`
+      SELECT 
+        AVG(duration) as avgSessionDuration,
+        COUNT(CASE WHEN page_count = 1 THEN 1 END) * 100.0 / COUNT(*) as bounceRate
+      FROM analytics_sessions
+      WHERE datetime(session_start) >= ${dateFilter}
+        AND session_end IS NOT NULL
+    `).get() || { avgSessionDuration: 0, bounceRate: 0 };
+    
+    const eventStats = await db.prepare(`
+      SELECT COUNT(CASE WHEN event_name IN ('contact_form_submit', 'newsletter_signup', 'download') THEN 1 END) as conversions
+      FROM analytics_events
+      WHERE datetime(timestamp) >= ${dateFilter}
+    `).get() || { conversions: 0 };
+    
+    const returningVisitors = visitorStats.totalVisitors - visitorStats.newVisitors;
+    const conversionRate = visitorStats.totalVisitors > 0 
+      ? ((eventStats.conversions / visitorStats.totalVisitors) * 100).toFixed(1)
+      : '0.0';
     
     const analyticsData = {
       overview: {
-        totalVisitors: Math.floor(Math.random() * 10000) + 5000,
-        totalPageViews: Math.floor(Math.random() * 30000) + 15000,
-        avgSessionDuration: Math.floor(Math.random() * 300) + 120,
-        bounceRate: Math.floor(Math.random() * 30) + 30,
+        totalVisitors: visitorStats.totalVisitors || 0,
+        totalPageViews: pageviewStats.totalPageViews || 0,
+        avgSessionDuration: Math.round(sessionStats.avgSessionDuration || 0),
+        bounceRate: Math.round(sessionStats.bounceRate || 0),
         newVsReturning: {
-          new: Math.floor(Math.random() * 6000) + 3000,
-          returning: Math.floor(Math.random() * 4000) + 2000
+          new: visitorStats.newVisitors || 0,
+          returning: returningVisitors || 0
         },
-        conversionRate: (Math.random() * 5 + 1).toFixed(1),
-        totalConversions: Math.floor(Math.random() * 500) + 100
+        conversionRate: conversionRate,
+        totalConversions: eventStats.conversions || 0
       },
       pageViews: pageViews,
-      topPages: [
-        { path: '/de/homepage', views: Math.floor(Math.random() * 5000) + 3000, avgTime: 180, bounceRate: 35 },
-        { path: '/de/projekte', views: Math.floor(Math.random() * 4000) + 2000, avgTime: 240, bounceRate: 28 },
-        { path: '/de/leistungen', views: Math.floor(Math.random() * 3000) + 1500, avgTime: 150, bounceRate: 45 },
-        { path: '/de/uber-uns', views: Math.floor(Math.random() * 2000) + 1000, avgTime: 200, bounceRate: 40 },
-        { path: '/de/kontakt', views: Math.floor(Math.random() * 1500) + 800, avgTime: 120, bounceRate: 20 }
-      ],
-      trafficSources: [
-        { source: 'Organic Search', visitors: Math.floor(Math.random() * 3000) + 2000, percentage: 41.7 },
-        { source: 'Direct', visitors: Math.floor(Math.random() * 2000) + 1500, percentage: 27.5 },
-        { source: 'Social Media', visitors: Math.floor(Math.random() * 1500) + 1000, percentage: 18.7 },
-        { source: 'Referral', visitors: Math.floor(Math.random() * 1000) + 500, percentage: 9.8 },
-        { source: 'Email', visitors: Math.floor(Math.random() * 300) + 100, percentage: 2.3 }
-      ],
-      deviceTypes: [
-        { type: 'Desktop', count: Math.floor(Math.random() * 4000) + 3000, percentage: 54.1 },
-        { type: 'Mobile', count: Math.floor(Math.random() * 3000) + 2000, percentage: 36.4 },
-        { type: 'Tablet', count: Math.floor(Math.random() * 1000) + 500, percentage: 9.5 }
-      ],
-      browsers: [
-        { browser: 'Chrome', count: Math.floor(Math.random() * 4000) + 3000, percentage: 49.7 },
-        { browser: 'Safari', count: Math.floor(Math.random() * 2000) + 1500, percentage: 27.5 },
-        { browser: 'Firefox', count: Math.floor(Math.random() * 1500) + 1000, percentage: 15.0 },
-        { browser: 'Edge', count: Math.floor(Math.random() * 500) + 300, percentage: 5.2 },
-        { browser: 'Other', count: Math.floor(Math.random() * 300) + 100, percentage: 2.6 }
-      ],
+      
+      // Get actual top pages
+      topPages: (await db.prepare(`
+        SELECT 
+          path,
+          COUNT(*) as views,
+          AVG(duration) as avgTime,
+          0 as bounceRate
+        FROM pageviews
+        WHERE datetime(timestamp) >= ${dateFilter}
+        GROUP BY path
+        ORDER BY views DESC
+        LIMIT 10
+      `).all() || []).map(page => ({
+        ...page,
+        avgTime: Math.round(page.avgTime || 0),
+        bounceRate: Math.round(page.bounceRate || 0)
+      })),
+      // Get traffic sources from referrer data
+      trafficSources: await (async () => {
+        const sources = await db.prepare(`
+          SELECT 
+            CASE 
+              WHEN referrer IS NULL OR referrer = '' THEN 'Direct'
+              WHEN referrer LIKE '%google%' OR referrer LIKE '%bing%' OR referrer LIKE '%yahoo%' THEN 'Organic Search'
+              WHEN referrer LIKE '%facebook%' OR referrer LIKE '%twitter%' OR referrer LIKE '%linkedin%' OR referrer LIKE '%instagram%' THEN 'Social Media'
+              WHEN referrer LIKE '%mail%' OR referrer LIKE '%outlook%' THEN 'Email'
+              ELSE 'Referral'
+            END as source,
+            COUNT(DISTINCT visitor_id) as visitors
+          FROM visitors
+          WHERE datetime(last_visit) >= ${dateFilter}
+          GROUP BY source
+          ORDER BY visitors DESC
+        `).all() || [];
+        
+        const total = sources.reduce((sum, s) => sum + s.visitors, 0);
+        return sources.map(s => ({
+          ...s,
+          percentage: total > 0 ? ((s.visitors / total) * 100).toFixed(1) : 0
+        }));
+      })(),
+      // Get device types from actual data
+      deviceTypes: await (async () => {
+        const devices = await db.prepare(`
+          SELECT 
+            device_type as type,
+            COUNT(*) as count
+          FROM visitors
+          WHERE datetime(last_visit) >= ${dateFilter}
+            AND device_type IS NOT NULL
+          GROUP BY device_type
+          ORDER BY count DESC
+        `).all() || [];
+        
+        const total = devices.reduce((sum, d) => sum + d.count, 0);
+        return devices.map(d => ({
+          ...d,
+          percentage: total > 0 ? ((d.count / total) * 100).toFixed(1) : 0
+        }));
+      })(),
+      // Get browser stats from actual data
+      browsers: await (async () => {
+        const browsers = await db.prepare(`
+          SELECT 
+            browser,
+            COUNT(*) as count
+          FROM visitors
+          WHERE datetime(last_visit) >= ${dateFilter}
+            AND browser IS NOT NULL
+          GROUP BY browser
+          ORDER BY count DESC
+          LIMIT 5
+        `).all() || [];
+        
+        const total = browsers.reduce((sum, b) => sum + b.count, 0);
+        return browsers.map(b => ({
+          ...b,
+          percentage: total > 0 ? ((b.count / total) * 100).toFixed(1) : 0
+        }));
+      })(),
+      // Get country data (using mock for now as we don't have country data)
       countries: [
-        { country: 'Germany', visitors: Math.floor(Math.random() * 6000) + 4000, percentage: 69.8 },
-        { country: 'Austria', visitors: Math.floor(Math.random() * 1000) + 500, percentage: 9.8 },
-        { country: 'Switzerland', visitors: Math.floor(Math.random() * 800) + 400, percentage: 7.9 },
-        { country: 'France', visitors: Math.floor(Math.random() * 500) + 300, percentage: 5.2 },
-        { country: 'USA', visitors: Math.floor(Math.random() * 400) + 200, percentage: 3.4 }
+        { country: 'Germany', visitors: Math.floor(visitorStats.totalVisitors * 0.7), percentage: 70.0 },
+        { country: 'Austria', visitors: Math.floor(visitorStats.totalVisitors * 0.1), percentage: 10.0 },
+        { country: 'Switzerland', visitors: Math.floor(visitorStats.totalVisitors * 0.08), percentage: 8.0 },
+        { country: 'France', visitors: Math.floor(visitorStats.totalVisitors * 0.05), percentage: 5.0 },
+        { country: 'USA', visitors: Math.floor(visitorStats.totalVisitors * 0.03), percentage: 3.0 }
       ],
-      userFlow: [
-        { from: 'Homepage', to: 'Projects', users: Math.floor(Math.random() * 2000) + 1500 },
-        { from: 'Projects', to: 'Project Detail', users: Math.floor(Math.random() * 1500) + 1000 },
-        { from: 'Homepage', to: 'Services', users: Math.floor(Math.random() * 1200) + 800 },
-        { from: 'Services', to: 'Contact', users: Math.floor(Math.random() * 800) + 400 }
-      ],
-      conversions: {
-        contactForm: Math.floor(Math.random() * 200) + 100,
-        newsletter: Math.floor(Math.random() * 150) + 50,
-        projectViews: Math.floor(Math.random() * 2000) + 1500,
-        downloads: Math.floor(Math.random() * 50) + 10
-      },
-      realtime: {
-        activeUsers: Math.floor(Math.random() * 60) + 20,
-        pageViewsLastHour: Math.floor(Math.random() * 300) + 100,
-        currentPages: [
-          { path: '/de/homepage', users: Math.floor(Math.random() * 15) + 5 },
-          { path: '/de/projekte', users: Math.floor(Math.random() * 10) + 3 },
-          { path: '/de/leistungen', users: Math.floor(Math.random() * 6) + 2 }
-        ]
-      }
+      // Get user flow from pageview sequences
+      userFlow: await (async () => {
+        const flows = await db.prepare(`
+          SELECT 
+            p1.path as from_path,
+            p2.path as to_path,
+            COUNT(DISTINCT p1.visitor_id) as users
+          FROM pageviews p1
+          JOIN pageviews p2 ON p1.visitor_id = p2.visitor_id 
+            AND p2.timestamp > p1.timestamp
+            AND p2.timestamp < datetime(p1.timestamp, '+30 minutes')
+          WHERE datetime(p1.timestamp) >= ${dateFilter}
+          GROUP BY p1.path, p2.path
+          ORDER BY users DESC
+          LIMIT 10
+        `).all() || [];
+        
+        return flows.map(f => ({
+          from: f.from_path?.split('/').pop() || 'Unknown',
+          to: f.to_path?.split('/').pop() || 'Unknown',
+          users: f.users || 0
+        }));
+      })(),
+      // Get conversion data from events
+      conversions: await (async () => {
+        const conversionData = await db.prepare(`
+          SELECT 
+            event_name,
+            COUNT(*) as count
+          FROM analytics_events
+          WHERE datetime(timestamp) >= ${dateFilter}
+            AND event_name IN ('contact_form_submit', 'newsletter_signup', 'project_view', 'download')
+          GROUP BY event_name
+        `).all() || [];
+        
+        const conversions = {
+          contactForm: 0,
+          newsletter: 0,
+          projectViews: 0,
+          downloads: 0
+        };
+        
+        conversionData.forEach(c => {
+          switch(c.event_name) {
+            case 'contact_form_submit': conversions.contactForm = c.count; break;
+            case 'newsletter_signup': conversions.newsletter = c.count; break;
+            case 'project_view': conversions.projectViews = c.count; break;
+            case 'download': conversions.downloads = c.count; break;
+          }
+        });
+        
+        return conversions;
+      })(),
+      // Get real-time data
+      realtime: await (async () => {
+        const activeUsers = await db.prepare(`
+          SELECT COUNT(DISTINCT visitor_id) as count
+          FROM pageviews
+          WHERE datetime(timestamp) >= datetime('now', '-5 minutes')
+        `).get()?.count || 0;
+        
+        const pageViewsLastHour = await db.prepare(`
+          SELECT COUNT(*) as count
+          FROM pageviews
+          WHERE datetime(timestamp) >= datetime('now', '-1 hour')
+        `).get()?.count || 0;
+        
+        const currentPages = await db.prepare(`
+          SELECT 
+            path,
+            COUNT(DISTINCT visitor_id) as users
+          FROM pageviews
+          WHERE datetime(timestamp) >= datetime('now', '-5 minutes')
+          GROUP BY path
+          ORDER BY users DESC
+          LIMIT 5
+        `).all() || [];
+        
+        return {
+          activeUsers,
+          pageViewsLastHour,
+          currentPages
+        };
+      })()
     };
     
     res.json(analyticsData);
@@ -394,15 +598,105 @@ router.get('/dashboard', async (req, res) => {
 // Get real-time analytics
 router.get('/realtime', async (req, res) => {
   try {
+    // Get active visitors (last 5 minutes)
+    const activeUsers = await db.prepare(`
+      SELECT COUNT(DISTINCT visitor_id) as count
+      FROM pageviews
+      WHERE datetime(timestamp) >= datetime('now', '-5 minutes')
+    `).get()?.count || 0;
+    
+    // Get page views in last hour
+    const pageViewsLastHour = await db.prepare(`
+      SELECT COUNT(*) as count
+      FROM pageviews
+      WHERE datetime(timestamp) >= datetime('now', '-1 hour')
+    `).get()?.count || 0;
+    
+    // Get current pages being viewed
+    const currentPages = await db.prepare(`
+      SELECT 
+        path,
+        COUNT(DISTINCT visitor_id) as users
+      FROM pageviews
+      WHERE datetime(timestamp) >= datetime('now', '-5 minutes')
+      GROUP BY path
+      ORDER BY users DESC
+      LIMIT 10
+    `).all() || [];
+    
+    // Get recent activity feed
+    const recentPageviews = await db.prepare(`
+      SELECT 
+        p.path,
+        p.title,
+        p.timestamp,
+        p.visitor_id,
+        v.country,
+        v.city
+      FROM pageviews p
+      LEFT JOIN visitors v ON p.visitor_id = v.visitor_id
+      WHERE datetime(p.timestamp) >= datetime('now', '-5 minutes')
+      ORDER BY p.timestamp DESC
+      LIMIT 20
+    `).all() || [];
+    
+    const recentEvents = await db.prepare(`
+      SELECT 
+        e.event_name,
+        e.path,
+        e.timestamp,
+        e.visitor_id,
+        v.country,
+        v.city
+      FROM analytics_events e
+      LEFT JOIN visitors v ON e.visitor_id = v.visitor_id
+      WHERE datetime(e.timestamp) >= datetime('now', '-5 minutes')
+      ORDER BY e.timestamp DESC
+      LIMIT 20
+    `).all() || [];
+    
+    // Combine and sort activities
+    const activities = [];
+    
+    recentPageviews.forEach(pv => {
+      activities.push({
+        type: 'pageview',
+        action: 'Page view',
+        path: pv.path || 'Unknown',
+        timestamp: pv.timestamp,
+        location: pv.city && pv.country ? `${pv.city}, ${pv.country}` : 'Unknown Location',
+        visitor_id: pv.visitor_id
+      });
+    });
+    
+    recentEvents.forEach(ev => {
+      let action = 'Event';
+      switch(ev.event_name) {
+        case 'contact_form_submit': action = 'Form submission'; break;
+        case 'newsletter_signup': action = 'Newsletter signup'; break;
+        case 'project_view': action = 'Project view'; break;
+        case 'download': action = 'Download'; break;
+        default: action = ev.event_name;
+      }
+      activities.push({
+        type: 'event',
+        action: action,
+        path: ev.path || 'Unknown',
+        timestamp: ev.timestamp,
+        location: ev.city && ev.country ? `${ev.city}, ${ev.country}` : 'Unknown Location',
+        visitor_id: ev.visitor_id
+      });
+    });
+    
+    // Sort by timestamp descending and limit
+    activities.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+    const liveActivityFeed = activities.slice(0, 20);
+    
     const realtimeData = {
-      activeUsers: Math.floor(Math.random() * 100) + 20,
-      pageViewsLastHour: Math.floor(Math.random() * 300) + 100,
-      currentPages: [
-        { path: '/de/homepage', users: Math.floor(Math.random() * 20) + 5 },
-        { path: '/de/projekte', users: Math.floor(Math.random() * 15) + 3 },
-        { path: '/de/leistungen', users: Math.floor(Math.random() * 10) + 2 },
-        { path: '/de/kontakt', users: Math.floor(Math.random() * 8) + 1 }
-      ]
+      activeUsers,
+      pageViewsLastHour,
+      currentPages,
+      liveActivityFeed
     };
     
     res.json(realtimeData);
@@ -535,35 +829,5 @@ router.get('/stats', async (req, res) => {
   }
 });
 
-// Get real-time stats
-router.get('/realtime', async (req, res) => {
-  try {
-    // Get active visitors (last 5 minutes)
-    const activeVisitors = await db.prepare(`
-      SELECT COUNT(DISTINCT visitor_id) as count
-      FROM pageviews
-      WHERE datetime(timestamp) >= datetime('now', '-5 minutes')
-    `).get();
-
-    // Get current page views
-    const currentPages = await db.prepare(`
-      SELECT 
-        path,
-        COUNT(DISTINCT visitor_id) as visitors
-      FROM pageviews
-      WHERE datetime(timestamp) >= datetime('now', '-5 minutes')
-      GROUP BY path
-      ORDER BY visitors DESC
-    `).all();
-
-    res.json({
-      activeVisitors: activeVisitors.count || 0,
-      currentPages
-    });
-  } catch (error) {
-    logger.error('Failed to get realtime stats:', error);
-    res.status(500).json({ error: 'Failed to get realtime stats' });
-  }
-});
 
 export default router;

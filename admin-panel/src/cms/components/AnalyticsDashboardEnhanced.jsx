@@ -633,6 +633,20 @@ const AnalyticsDashboardEnhanced = () => {
     </div>
   );
 
+  const formatTimeAgo = (timestamp) => {
+    if (!timestamp) return 'Just now';
+    const now = new Date();
+    const then = new Date(timestamp);
+    const seconds = Math.floor((now - then) / 1000);
+    
+    if (seconds < 5) return 'Just now';
+    if (seconds < 60) return `${seconds} seconds ago`;
+    if (seconds < 120) return '1 minute ago';
+    if (seconds < 3600) return `${Math.floor(seconds / 60)} minutes ago`;
+    if (seconds < 7200) return '1 hour ago';
+    return `${Math.floor(seconds / 3600)} hours ago`;
+  };
+
   const renderRealtime = () => (
     <div className="space-y-6">
       {/* Realtime Stats */}
@@ -683,26 +697,30 @@ const AnalyticsDashboardEnhanced = () => {
           <h3 className="text-lg font-medium">Active Pages Right Now</h3>
         </div>
         <div className="p-4">
-          <div className="space-y-3">
-            {analyticsData.realtime.currentPages.map((page, index) => (
-              <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded">
-                <div className="flex items-center">
-                  <div className="relative mr-3">
-                    <Icon name="FileText" size={20} className="text-gray-600" />
-                    <span className="absolute -top-1 -right-1 flex h-2 w-2">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-                    </span>
+          {analyticsData.realtime.currentPages && analyticsData.realtime.currentPages.length > 0 ? (
+            <div className="space-y-3">
+              {analyticsData.realtime.currentPages.map((page, index) => (
+                <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded">
+                  <div className="flex items-center">
+                    <div className="relative mr-3">
+                      <Icon name="FileText" size={20} className="text-gray-600" />
+                      <span className="absolute -top-1 -right-1 flex h-2 w-2">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                      </span>
+                    </div>
+                    <span className="font-medium">{page.path || 'Unknown Page'}</span>
                   </div>
-                  <span className="font-medium">{page.path}</span>
+                  <div className="flex items-center">
+                    <Icon name="Users" size={16} className="mr-1 text-gray-500" />
+                    <span className="text-sm font-medium">{page.users || 0} users</span>
+                  </div>
                 </div>
-                <div className="flex items-center">
-                  <Icon name="Users" size={16} className="mr-1 text-gray-500" />
-                  <span className="text-sm font-medium">{page.users} users</span>
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <p className="text-gray-500 text-center py-4">No active users in the last 5 minutes</p>
+          )}
         </div>
       </div>
 
@@ -712,24 +730,22 @@ const AnalyticsDashboardEnhanced = () => {
           <h3 className="text-lg font-medium">Live Activity Feed</h3>
         </div>
         <div className="p-4">
-          <div className="space-y-2">
-            {[
-              { time: '2 seconds ago', action: 'Page view', page: '/de/projekte', location: 'Berlin, Germany' },
-              { time: '15 seconds ago', action: 'Form submission', page: '/de/kontakt', location: 'Munich, Germany' },
-              { time: '32 seconds ago', action: 'Page view', page: '/de/homepage', location: 'Vienna, Austria' },
-              { time: '45 seconds ago', action: 'Project view', page: '/de/projekte/villa-modern', location: 'Zurich, Switzerland' },
-              { time: '1 minute ago', action: 'Newsletter signup', page: '/de/homepage', location: 'Frankfurt, Germany' }
-            ].map((activity, index) => (
-              <div key={index} className="flex items-center justify-between py-2 border-b last:border-0">
-                <div className="flex items-center">
-                  <span className="text-xs text-gray-500 w-24">{activity.time}</span>
-                  <span className="text-sm font-medium mx-3">{activity.action}</span>
-                  <span className="text-sm text-gray-600">{activity.page}</span>
+          {analyticsData.realtime.liveActivityFeed && analyticsData.realtime.liveActivityFeed.length > 0 ? (
+            <div className="space-y-2">
+              {analyticsData.realtime.liveActivityFeed.map((activity, index) => (
+                <div key={index} className="flex items-center justify-between py-2 border-b last:border-0">
+                  <div className="flex items-center">
+                    <span className="text-xs text-gray-500 w-24">{formatTimeAgo(activity.timestamp)}</span>
+                    <span className="text-sm font-medium mx-3">{activity.action}</span>
+                    <span className="text-sm text-gray-600">{activity.path}</span>
+                  </div>
+                  <span className="text-xs text-gray-500">{activity.location}</span>
                 </div>
-                <span className="text-xs text-gray-500">{activity.location}</span>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <p className="text-gray-500 text-center py-4">No recent activity in the last 5 minutes</p>
+          )}
         </div>
       </div>
     </div>

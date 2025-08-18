@@ -11,7 +11,6 @@ import LoginModal from '../components/LoginModal';
 import HomepageEditor from '../components/HomepageEditor';
 import AnalyticsDashboardEnhanced from '../components/AnalyticsDashboardEnhanced';
 import TeamManager from '../components/TeamManager';
-import ServicesEditor from '../components/ServicesEditor';
 import ContactSettings from '../components/ContactSettings';
 import NavigationManager from '../components/NavigationManager';
 import SEOManager from '../components/SEOManager';
@@ -171,7 +170,6 @@ const AdminDashboard = () => {
     { id: 'homepage', name: 'Homepage', icon: 'Home' },
     { id: 'projects', name: 'Projects', icon: 'Folder' },
     { id: 'team', name: 'Team', icon: 'Users' },
-    { id: 'services', name: 'Services', icon: 'Briefcase' },
     { id: 'contact', name: 'Contact', icon: 'Mail' },
     { id: 'navigation', name: 'Navigation', icon: 'Menu' },
     { id: 'seo', name: 'SEO', icon: 'Search' },
@@ -243,19 +241,15 @@ const AdminDashboard = () => {
   }
   
   return (
-    <div className={`min-h-screen transition-all duration-300 ${
-      isEditMode 
-        ? 'bg-gradient-to-br from-blue-50 via-white to-indigo-50' 
-        : 'bg-gray-50'
-    }`}>
+    <div className="min-h-screen bg-gray-50 flex">
       <MultiLanguageSEO
-        title="Admin Dashboard | Braun & Eyer CMS"
+        title="Admin Dashboard | Braun & Eyer CMS | Admin Panel"
         description="Content Management System Dashboard"
         noindex={true}
       />
       
       {/* Floating Mode Indicator */}
-      <div className={`fixed top-20 right-4 z-50 transition-all duration-300 ${
+      <div className={`fixed top-4 right-4 z-50 transition-all duration-300 ${
         isEditMode ? 'translate-x-0' : 'translate-x-full'
       }`}>
         <div className="bg-blue-600 text-white px-4 py-2 rounded-l-full shadow-xl flex items-center">
@@ -264,107 +258,93 @@ const AdminDashboard = () => {
         </div>
       </div>
       
-      {/* Header */}
-      <header className={`shadow-sm border-b transition-all duration-300 ${
+      {/* Sidebar */}
+      <aside className={`w-64 bg-white shadow-lg flex flex-col h-screen sticky top-0 transition-all duration-300 ${
         isEditMode 
-          ? 'bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-300' 
-          : 'bg-white border-gray-200'
+          ? 'bg-gradient-to-b from-blue-50 to-white' 
+          : 'bg-white'
       }`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center space-x-4">
-              <h1 className="text-2xl font-heading font-light text-primary">
-                CMS Dashboard
-              </h1>
+        <div className="p-6 border-b border-gray-200">
+          <h1 className="text-2xl font-heading font-light text-primary">
+            CMS Dashboard
+          </h1>
               
-              {/* Mode Indicator Badge */}
-              <div className={`flex items-center px-4 py-2 rounded-full font-medium transition-all ${
-                isEditMode 
-                  ? 'bg-blue-600 text-white shadow-lg animate-pulse' 
-                  : 'bg-gray-200 text-gray-600'
-              }`}>
-                <Icon 
-                  name={isEditMode ? 'Edit3' : 'Eye'} 
-                  size={16} 
-                  className="mr-2"
-                />
-                <span className="text-sm font-semibold">
-                  {isEditMode ? 'EDIT MODE' : 'VIEW MODE'}
-                </span>
-              </div>
-            </div>
-            
-            <div className="flex items-center space-x-4">
-              {/* Mode Toggle Button */}
-              <button
-                onClick={toggleEditMode}
-                className={`px-4 py-2 rounded-lg font-medium transition-all transform hover:scale-105 ${
-                  isEditMode 
-                    ? 'bg-gray-600 text-white hover:bg-gray-700 shadow-md' 
-                    : 'bg-blue-600 text-white hover:bg-blue-700 shadow-md'
-                }`}
-              >
-                <Icon 
-                  name={isEditMode ? 'Eye' : 'Edit3'} 
-                  size={20} 
-                  className="inline mr-2" 
-                />
-                {isEditMode ? 'Switch to View' : 'Switch to Edit'}
-              </button>
-              
-              <div className="h-8 w-px bg-gray-300"></div>
-              <button
-                onClick={() => navigate(`/${currentLanguage || 'de'}/homepage`)}
-                className="px-4 py-2 text-gray-600 hover:text-gray-900"
-              >
-                <Icon name="Eye" size={20} className="inline mr-2" />
-                View Site
-              </button>
-              {isEditMode && (
-                <button
-                  onClick={handleSaveAll}
-                  className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 shadow-md animate-fadeIn save-button-glow"
-                >
-                  <Icon name="Save" size={20} className="inline mr-2" />
-                  Save All
-                </button>
-              )}
-              <button
-                onClick={logout}
-                className="px-4 py-2 text-red-600 hover:text-red-700"
-              >
-                <Icon name="LogOut" size={20} className="inline mr-2" />
-                Logout
-              </button>
-            </div>
+          <div className={`mt-3 inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${
+            isEditMode 
+              ? 'bg-blue-100 text-blue-700' 
+              : 'bg-gray-100 text-gray-600'
+          }`}>
+            <Icon 
+              name={isEditMode ? 'Edit3' : 'Eye'} 
+              size={12} 
+              className="mr-1"
+            />
+            {isEditMode ? 'EDIT MODE' : 'VIEW MODE'}
           </div>
         </div>
-      </header>
-      
-      {/* Tabs */}
-      <div className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex space-x-8">
+            
+        {/* Navigation */}
+        <nav className="flex-1 px-3 py-4 overflow-y-auto">
+          <div className="space-y-1">
             {tabs.map(tab => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
+                className={`w-full flex items-center px-3 py-2.5 text-sm font-medium rounded-lg transition-all duration-200 ${
                   activeTab === tab.id
-                    ? 'border-blue-500 text-blue-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                    ? 'bg-blue-50 text-blue-700 shadow-sm'
+                    : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
                 }`}
               >
-                <Icon name={tab.icon} size={20} className="inline mr-2" />
-                {tab.name}
+                <Icon name={tab.icon} size={18} className="mr-3 flex-shrink-0" />
+                <span>{tab.name}</span>
+                {activeTab === tab.id && (
+                  <div className="ml-auto w-1 h-5 bg-blue-600 rounded-full"></div>
+                )}
               </button>
             ))}
           </div>
-        </div>
-      </div>
+        </nav>
       
-      {/* Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Sidebar Actions */}
+        <div className="p-4 border-t border-gray-200 bg-white space-y-2">
+          <button
+            onClick={toggleEditMode}
+            className={`w-full px-3 py-2 rounded-lg font-medium text-sm transition-all ${
+              isEditMode 
+                ? 'bg-gray-600 text-white hover:bg-gray-700' 
+                : 'bg-blue-600 text-white hover:bg-blue-700'
+            }`}
+          >
+            <Icon 
+              name={isEditMode ? 'Eye' : 'Edit3'} 
+              size={16} 
+              className="inline mr-2" 
+            />
+            {isEditMode ? 'Switch to View' : 'Switch to Edit'}
+          </button>
+          
+          <button
+            onClick={() => navigate(`/${currentLanguage || 'de'}/homepage`)}
+            className="w-full px-3 py-2 text-gray-600 hover:bg-gray-50 border border-gray-300 rounded-lg text-sm transition-all"
+          >
+            <Icon name="Eye" size={16} className="inline mr-2" />
+            View Site
+          </button>
+          
+          <button
+            onClick={logout}
+            className="w-full px-3 py-2 text-red-600 hover:bg-red-50 border border-red-200 rounded-lg text-sm transition-all"
+          >
+            <Icon name="LogOut" size={16} className="inline mr-2" />
+            Logout
+          </button>
+        </div>
+      </aside>
+      
+      {/* Main Content */}
+      <main className="flex-1 overflow-y-auto">
+        <div className="p-8">
         {/* Overview Tab */}
         {activeTab === 'overview' && (
           <div className="space-y-6">
@@ -541,8 +521,6 @@ const AdminDashboard = () => {
         {/* Team Tab */}
         {activeTab === 'team' && <TeamManager />}
         
-        {/* Services Tab */}
-        {activeTab === 'services' && <ServicesEditor />}
         
         {/* Contact Tab */}
         {activeTab === 'contact' && <ContactSettings />}
@@ -699,6 +677,7 @@ const AdminDashboard = () => {
             </div>
           </div>
         )}
+        </div>
       </main>
       
       {/* Translation Manager Modal */}
