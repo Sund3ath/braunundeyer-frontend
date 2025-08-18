@@ -285,6 +285,133 @@ router.post('/event', async (req, res) => {
   }
 });
 
+// Get analytics dashboard data
+router.get('/dashboard', async (req, res) => {
+  try {
+    const { range = '7d' } = req.query;
+    
+    // Calculate date range
+    let days = 7;
+    switch (range) {
+      case '30d': days = 30; break;
+      case '90d': days = 90; break;
+      case '1y': days = 365; break;
+      default: days = 7;
+    }
+    
+    // Generate mock analytics data for demonstration
+    const pageViews = [];
+    const today = new Date();
+    
+    for (let i = days - 1; i >= 0; i--) {
+      const date = new Date(today);
+      date.setDate(date.getDate() - i);
+      pageViews.push({
+        date: date.toISOString().split('T')[0],
+        views: Math.floor(Math.random() * 500) + 100,
+        visitors: Math.floor(Math.random() * 200) + 50,
+        sessions: Math.floor(Math.random() * 300) + 80
+      });
+    }
+    
+    const analyticsData = {
+      overview: {
+        totalVisitors: Math.floor(Math.random() * 10000) + 5000,
+        totalPageViews: Math.floor(Math.random() * 30000) + 15000,
+        avgSessionDuration: Math.floor(Math.random() * 300) + 120,
+        bounceRate: Math.floor(Math.random() * 30) + 30,
+        newVsReturning: {
+          new: Math.floor(Math.random() * 6000) + 3000,
+          returning: Math.floor(Math.random() * 4000) + 2000
+        },
+        conversionRate: (Math.random() * 5 + 1).toFixed(1),
+        totalConversions: Math.floor(Math.random() * 500) + 100
+      },
+      pageViews: pageViews,
+      topPages: [
+        { path: '/de/homepage', views: Math.floor(Math.random() * 5000) + 3000, avgTime: 180, bounceRate: 35 },
+        { path: '/de/projekte', views: Math.floor(Math.random() * 4000) + 2000, avgTime: 240, bounceRate: 28 },
+        { path: '/de/leistungen', views: Math.floor(Math.random() * 3000) + 1500, avgTime: 150, bounceRate: 45 },
+        { path: '/de/uber-uns', views: Math.floor(Math.random() * 2000) + 1000, avgTime: 200, bounceRate: 40 },
+        { path: '/de/kontakt', views: Math.floor(Math.random() * 1500) + 800, avgTime: 120, bounceRate: 20 }
+      ],
+      trafficSources: [
+        { source: 'Organic Search', visitors: Math.floor(Math.random() * 3000) + 2000, percentage: 41.7 },
+        { source: 'Direct', visitors: Math.floor(Math.random() * 2000) + 1500, percentage: 27.5 },
+        { source: 'Social Media', visitors: Math.floor(Math.random() * 1500) + 1000, percentage: 18.7 },
+        { source: 'Referral', visitors: Math.floor(Math.random() * 1000) + 500, percentage: 9.8 },
+        { source: 'Email', visitors: Math.floor(Math.random() * 300) + 100, percentage: 2.3 }
+      ],
+      deviceTypes: [
+        { type: 'Desktop', count: Math.floor(Math.random() * 4000) + 3000, percentage: 54.1 },
+        { type: 'Mobile', count: Math.floor(Math.random() * 3000) + 2000, percentage: 36.4 },
+        { type: 'Tablet', count: Math.floor(Math.random() * 1000) + 500, percentage: 9.5 }
+      ],
+      browsers: [
+        { browser: 'Chrome', count: Math.floor(Math.random() * 4000) + 3000, percentage: 49.7 },
+        { browser: 'Safari', count: Math.floor(Math.random() * 2000) + 1500, percentage: 27.5 },
+        { browser: 'Firefox', count: Math.floor(Math.random() * 1500) + 1000, percentage: 15.0 },
+        { browser: 'Edge', count: Math.floor(Math.random() * 500) + 300, percentage: 5.2 },
+        { browser: 'Other', count: Math.floor(Math.random() * 300) + 100, percentage: 2.6 }
+      ],
+      countries: [
+        { country: 'Germany', visitors: Math.floor(Math.random() * 6000) + 4000, percentage: 69.8 },
+        { country: 'Austria', visitors: Math.floor(Math.random() * 1000) + 500, percentage: 9.8 },
+        { country: 'Switzerland', visitors: Math.floor(Math.random() * 800) + 400, percentage: 7.9 },
+        { country: 'France', visitors: Math.floor(Math.random() * 500) + 300, percentage: 5.2 },
+        { country: 'USA', visitors: Math.floor(Math.random() * 400) + 200, percentage: 3.4 }
+      ],
+      userFlow: [
+        { from: 'Homepage', to: 'Projects', users: Math.floor(Math.random() * 2000) + 1500 },
+        { from: 'Projects', to: 'Project Detail', users: Math.floor(Math.random() * 1500) + 1000 },
+        { from: 'Homepage', to: 'Services', users: Math.floor(Math.random() * 1200) + 800 },
+        { from: 'Services', to: 'Contact', users: Math.floor(Math.random() * 800) + 400 }
+      ],
+      conversions: {
+        contactForm: Math.floor(Math.random() * 200) + 100,
+        newsletter: Math.floor(Math.random() * 150) + 50,
+        projectViews: Math.floor(Math.random() * 2000) + 1500,
+        downloads: Math.floor(Math.random() * 50) + 10
+      },
+      realtime: {
+        activeUsers: Math.floor(Math.random() * 60) + 20,
+        pageViewsLastHour: Math.floor(Math.random() * 300) + 100,
+        currentPages: [
+          { path: '/de/homepage', users: Math.floor(Math.random() * 15) + 5 },
+          { path: '/de/projekte', users: Math.floor(Math.random() * 10) + 3 },
+          { path: '/de/leistungen', users: Math.floor(Math.random() * 6) + 2 }
+        ]
+      }
+    };
+    
+    res.json(analyticsData);
+  } catch (error) {
+    logger.error('Error fetching analytics dashboard:', error);
+    res.status(500).json({ error: 'Failed to fetch analytics data' });
+  }
+});
+
+// Get real-time analytics
+router.get('/realtime', async (req, res) => {
+  try {
+    const realtimeData = {
+      activeUsers: Math.floor(Math.random() * 100) + 20,
+      pageViewsLastHour: Math.floor(Math.random() * 300) + 100,
+      currentPages: [
+        { path: '/de/homepage', users: Math.floor(Math.random() * 20) + 5 },
+        { path: '/de/projekte', users: Math.floor(Math.random() * 15) + 3 },
+        { path: '/de/leistungen', users: Math.floor(Math.random() * 10) + 2 },
+        { path: '/de/kontakt', users: Math.floor(Math.random() * 8) + 1 }
+      ]
+    };
+    
+    res.json(realtimeData);
+  } catch (error) {
+    logger.error('Error fetching realtime analytics:', error);
+    res.status(500).json({ error: 'Failed to fetch realtime data' });
+  }
+});
+
 // Get analytics stats for admin panel
 router.get('/stats', async (req, res) => {
   try {

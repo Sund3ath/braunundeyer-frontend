@@ -9,8 +9,15 @@ import ContentEditor from '../components/ContentEditor';
 import TranslationManager from '../components/TranslationManager';
 import LoginModal from '../components/LoginModal';
 import HomepageEditor from '../components/HomepageEditor';
-import AnalyticsDashboardSimple from '../components/AnalyticsDashboardSimple';
+import AnalyticsDashboardEnhanced from '../components/AnalyticsDashboardEnhanced';
 import TeamManager from '../components/TeamManager';
+import ServicesEditor from '../components/ServicesEditor';
+import ContactSettings from '../components/ContactSettings';
+import NavigationManager from '../components/NavigationManager';
+import SEOManager from '../components/SEOManager';
+import LegalPagesEditor from '../components/LegalPagesEditor';
+import FooterManager from '../components/FooterManager';
+import MediaLibraryEnhanced from '../components/MediaLibraryEnhanced';
 import Icon from 'components/AppIcon';
 import MultiLanguageSEO from 'components/MultiLanguageSEO';
 import '../styles/admin.css';
@@ -164,6 +171,12 @@ const AdminDashboard = () => {
     { id: 'homepage', name: 'Homepage', icon: 'Home' },
     { id: 'projects', name: 'Projects', icon: 'Folder' },
     { id: 'team', name: 'Team', icon: 'Users' },
+    { id: 'services', name: 'Services', icon: 'Briefcase' },
+    { id: 'contact', name: 'Contact', icon: 'Mail' },
+    { id: 'navigation', name: 'Navigation', icon: 'Menu' },
+    { id: 'seo', name: 'SEO', icon: 'Search' },
+    { id: 'legal', name: 'Legal Pages', icon: 'FileText' },
+    { id: 'footer', name: 'Footer', icon: 'Layout' },
     { id: 'content', name: 'Content', icon: 'FileText' },
     { id: 'media', name: 'Media', icon: 'Image' },
     { id: 'translations', name: 'Translations', icon: 'Languages' },
@@ -528,6 +541,24 @@ const AdminDashboard = () => {
         {/* Team Tab */}
         {activeTab === 'team' && <TeamManager />}
         
+        {/* Services Tab */}
+        {activeTab === 'services' && <ServicesEditor />}
+        
+        {/* Contact Tab */}
+        {activeTab === 'contact' && <ContactSettings />}
+        
+        {/* Navigation Tab */}
+        {activeTab === 'navigation' && <NavigationManager />}
+        
+        {/* SEO Tab */}
+        {activeTab === 'seo' && <SEOManager />}
+        
+        {/* Legal Pages Tab */}
+        {activeTab === 'legal' && <LegalPagesEditor />}
+        
+        {/* Footer Tab */}
+        {activeTab === 'footer' && <FooterManager />}
+        
         {/* Content Tab */}
         {activeTab === 'content' && <ContentEditor />}
         
@@ -567,39 +598,7 @@ const AdminDashboard = () => {
         )}
         
         {/* Media Tab */}
-        {activeTab === 'media' && (
-          <div className="bg-white rounded-lg shadow p-6">
-            <h2 className="text-lg font-medium mb-4">Media Library</h2>
-            
-            {media.length === 0 ? (
-              <div className="text-center py-12">
-                <Icon name="Image" size={48} className="mx-auto text-gray-400 mb-4" />
-                <p className="text-gray-500">No media files uploaded yet</p>
-                <p className="text-sm text-gray-400 mt-2">
-                  Upload images by editing image content on pages
-                </p>
-              </div>
-            ) : (
-              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                {media.map(item => (
-                  <div key={item.id} className="relative group">
-                    <img
-                      src={item.url}
-                      alt={item.name}
-                      className="w-full h-32 object-cover rounded-lg"
-                    />
-                    <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
-                      <button className="p-2 bg-white rounded-lg">
-                        <Icon name="Eye" size={16} />
-                      </button>
-                    </div>
-                    <p className="text-xs text-gray-600 mt-1 truncate">{item.name}</p>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        )}
+        {activeTab === 'media' && <MediaLibraryEnhanced />}
         
         {/* Translations Tab */}
         {activeTab === 'translations' && (
@@ -646,7 +645,7 @@ const AdminDashboard = () => {
         
         {/* Analytics Tab */}
         {activeTab === 'analytics' && (
-          <AnalyticsDashboardSimple />
+          <AnalyticsDashboardEnhanced />
         )}
         
         {/* Settings Tab */}

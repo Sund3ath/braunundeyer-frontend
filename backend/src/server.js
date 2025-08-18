@@ -23,6 +23,7 @@ import aiOptimizeRoutes from './routes/ai-optimize.routes.js';
 import analyticsRoutes from './routes/analytics.routes.js';
 import projectTranslationsRoutes from './routes/project-translations.routes.js';
 import teamRoutes from './routes/team.routes.js';
+import servicesRoutes from './routes/services.routes.js';
 
 // Import database
 import db from './config/db-simple.js';
@@ -140,6 +141,7 @@ app.use('/api/ai', aiOptimizeRoutes);
 app.use('/api/analytics', analyticsRoutes);
 app.use('/api/test', testRoutes);
 app.use('/api/team', teamRoutes);
+app.use('/api', servicesRoutes); // Services and contact settings routes
 
 // 404 handler
 app.use((req, res) => {

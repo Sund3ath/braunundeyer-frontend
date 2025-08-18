@@ -341,6 +341,147 @@ router.post('/upload-multiple',
   }
 );
 
+// Bulk upload with metadata support
+router.post('/upload/bulk',
+  authenticate,
+  authorize('admin', 'editor'),
+  upload.array('files', 50), // Allow up to 50 files
+  async (req, res) => {
+    try {
+      if (!req.files || req.files.length === 0) {
+        return res.status(400).json({ error: 'No files uploaded' });
+      }
+
+      const uploadedFiles = [];
+      const { category = 'images', tags = '', altText = '{}' } = req.body;
+      
+      for (const file of req.files) {
+        let mediaData = {};
+
+        if (useS3) {
+          const fileUrl = await getFileUrl(file.key);
+          mediaData = {
+            filename: file.key,
+            original_name: file.originalname,
+            mimetype: file.mimetype,
+            size: file.size,
+            path: fileUrl,
+            url: fileUrl,
+            thumbnail: fileUrl,
+            medium: fileUrl,
+            storage_type: 's3',
+            category,
+            tags,
+            alt_text: altText
+          };
+        } else {
+          // Generate thumbnails for images
+          if (file.mimetype && file.mimetype.startsWith('image/')) {
+            try {
+              const uploadDir = path.join(__dirname, '../..', 'uploads');
+              const inputPath = path.join(uploadDir, file.filename);
+              
+              // Create thumbnail
+              await sharp(inputPath)
+                .resize(200, 200, { fit: 'cover' })
+                .toFile(path.join(uploadDir, 'thumb-' + file.filename));
+              
+              // Create medium size
+              await sharp(inputPath)
+                .resize(800, 800, { fit: 'inside', withoutEnlargement: true })
+                .toFile(path.join(uploadDir, 'medium-' + file.filename));
+            } catch (err) {
+              logger.error('Failed to create thumbnails:', err);
+            }
+          }
+
+          mediaData = {
+            filename: file.filename,
+            original_name: file.originalname,
+            mimetype: file.mimetype,
+            size: file.size,
+            path: `/uploads/${file.filename}`,
+            url: `/uploads/${file.filename}`,
+            thumbnail: `/uploads/thumb-${file.filename}`,
+            medium: `/uploads/medium-${file.filename}`,
+            storage_type: 'local',
+            category,
+            tags,
+            alt_text: altText
+          };
+        }
+
+        // Save to database with extended metadata
+        const result = await db.prepare(`
+          INSERT INTO media (
+            filename, original_name, mimetype, size, path, 
+            uploaded_by, storage_type, s3_key, category, tags, alt_text
+          )
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        `).run(
+          mediaData.filename,
+          mediaData.original_name,
+          mediaData.mimetype,
+          mediaData.size,
+          mediaData.path,
+          req.user.id,
+          mediaData.storage_type,
+          useS3 ? file.key : null,
+          mediaData.category,
+          mediaData.tags,
+          mediaData.alt_text
+        );
+
+        uploadedFiles.push({
+          id: result.lastInsertRowid,
+          ...mediaData
+        });
+      }
+
+      logger.info(`Bulk upload: ${req.files.length} files uploaded by ${req.user.email}`);
+
+      res.json({
+        success: true,
+        media: uploadedFiles,
+        count: uploadedFiles.length
+      });
+    } catch (error) {
+      logger.error('Bulk upload error:', error);
+      res.status(500).json({ error: 'Failed to upload files' });
+    }
+  }
+);
+
+// Update media metadata
+router.put('/:id',
+  authenticate,
+  authorize('admin', 'editor'),
+  async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { filename, altText, category, tags } = req.body;
+      
+      // Update media record
+      await db.prepare(`
+        UPDATE media 
+        SET filename = ?, alt_text = ?, category = ?, tags = ?, updated_at = datetime('now')
+        WHERE id = ?
+      `).run(
+        filename || '',
+        JSON.stringify(altText || {}),
+        category || 'images',
+        Array.isArray(tags) ? tags.join(',') : (tags || ''),
+        id
+      );
+
+      res.json({ success: true });
+    } catch (error) {
+      logger.error('Update media error:', error);
+      res.status(500).json({ error: 'Failed to update media' });
+    }
+  }
+);
+
 // Get all media
 router.get('/',
   authenticate,
