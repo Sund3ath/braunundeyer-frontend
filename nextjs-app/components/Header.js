@@ -2,9 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { Menu, X, Home, Building2, Users, Settings, Mail } from 'lucide-react';
+import { Menu, X, Home, Building2, Users, Settings, Mail, Images } from 'lucide-react';
 import LanguageSwitcher from './LanguageSwitcher';
 
 export default function Header({ dict, lang }) {
@@ -43,6 +42,7 @@ export default function Header({ dict, lang }) {
   const navItems = [
     { href: `/${lang}/homepage`, label: dict?.nav?.home || 'Startseite', icon: Home },
     { href: `/${lang}/projekte`, label: dict?.nav?.projects || 'Projekte', icon: Building2 },
+    { href: `/${lang}/gallery`, label: dict?.nav?.gallery || 'Galerie', icon: Images },
     { href: `/${lang}/uber-uns`, label: dict?.nav?.about || 'Über Uns', icon: Users },
     { href: `/${lang}/leistungen`, label: dict?.nav?.services || 'Leistungen', icon: Settings },
     { href: `/${lang}/kontakt`, label: dict?.nav?.contact || 'Kontakt', icon: Mail },

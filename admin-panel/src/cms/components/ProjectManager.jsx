@@ -11,6 +11,7 @@ import EditableText from './EditableText';
 import EditableImage from './EditableImage';
 import Icon from 'components/AppIcon';
 import ProjectTranslations from './ProjectTranslations';
+import { projectsAPI } from '../../services/api';
 
 // Sortable Project Card
 const SortableProjectCard = ({ project, onEdit, onDelete }) => {
@@ -570,7 +571,7 @@ const ProjectEditorModal = ({ project, isOpen, onClose, onSave }) => {
 // Main Project Manager Component
 const ProjectManager = () => {
   const { t } = useTranslation();
-  const { isEditMode } = useEditMode();
+  const { isEditMode, isAuthenticated } = useEditMode();
   const { projects, setProjects, addProject, updateProject, deleteProject } = useCMSStore();
   
   const [showEditor, setShowEditor] = useState(false);
@@ -579,6 +580,7 @@ const ProjectManager = () => {
   const [translatingProject, setTranslatingProject] = useState(null);
   const [filterCategory, setFilterCategory] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -586,6 +588,30 @@ const ProjectManager = () => {
       coordinateGetter: sortableKeyboardCoordinates
     })
   );
+
+  // Fetch fresh projects when component mounts
+  useEffect(() => {
+    const fetchProjects = async () => {
+      if (isAuthenticated) {
+        setIsLoading(true);
+        try {
+          console.log('Fetching projects from API...');
+          const response = await projectsAPI.getAll();
+          if (response && response.projects) {
+            console.log(`Fetched ${response.projects.length} projects from API`);
+            setProjects(response.projects);
+          }
+        } catch (error) {
+          console.error('Failed to fetch projects:', error);
+          // Projects from store will be used as fallback
+        } finally {
+          setIsLoading(false);
+        }
+      }
+    };
+
+    fetchProjects();
+  }, [isAuthenticated, setProjects]);
 
   // Listen for translation event
   useEffect(() => {
@@ -637,6 +663,22 @@ const ProjectManager = () => {
     setEditingProject(null);
   };
   
+  const handleRefresh = async () => {
+    setIsLoading(true);
+    try {
+      console.log('Refreshing projects from API...');
+      const response = await projectsAPI.getAll();
+      if (response && response.projects) {
+        console.log(`Refreshed ${response.projects.length} projects from API`);
+        setProjects(response.projects);
+      }
+    } catch (error) {
+      console.error('Failed to refresh projects:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Header */}
@@ -644,18 +686,30 @@ const ProjectManager = () => {
         <h2 className="text-2xl font-heading font-light text-primary">
           {isEditMode ? 'Project Management' : 'Projects'}
         </h2>
-        {isEditMode && (
+        <div className="flex items-center space-x-2">
           <button
-            onClick={() => {
-              setEditingProject(null);
-              setShowEditor(true);
-            }}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center space-x-2"
+            onClick={handleRefresh}
+            disabled={isLoading}
+            className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+            title="Refresh projects"
           >
-            <Icon name="Plus" size={20} />
-            <span>{t('cms.addProject')}</span>
+            <Icon name={isLoading ? "Loader2" : "RefreshCw"} 
+                  size={20} 
+                  className={isLoading ? "animate-spin" : ""} />
           </button>
-        )}
+          {isEditMode && (
+            <button
+              onClick={() => {
+                setEditingProject(null);
+                setShowEditor(true);
+              }}
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center space-x-2"
+            >
+              <Icon name="Plus" size={20} />
+              <span>{t('cms.addProject')}</span>
+            </button>
+          )}
+        </div>
       </div>
       
       {/* Filters */}
@@ -682,40 +736,52 @@ const ProjectManager = () => {
       </div>
       
       {/* Projects List */}
-      {isEditMode ? (
-        <DndContext
-          sensors={sensors}
-          collisionDetection={closestCenter}
-          onDragEnd={handleDragEnd}
-        >
-          <SortableContext
-            items={filteredProjects.map(p => p.id)}
-            strategy={verticalListSortingStrategy}
-          >
-            <div className="space-y-4">
-              {filteredProjects.map(project => (
-                <SortableProjectCard
-                  key={project.id}
-                  project={project}
-                  onEdit={handleEdit}
-                  onDelete={handleDelete}
-                />
-              ))}
+      <div className="relative">
+        {/* Loading Overlay */}
+        {isLoading && (
+          <div className="absolute inset-0 bg-white/50 flex items-center justify-center z-10">
+            <div className="flex items-center space-x-2">
+              <Icon name="Loader2" size={24} className="animate-spin text-blue-600" />
+              <span className="text-gray-600">Loading projects...</span>
             </div>
-          </SortableContext>
-        </DndContext>
-      ) : (
-        <div className="space-y-4">
-          {filteredProjects.map(project => (
-            <SortableProjectCard
-              key={project.id}
-              project={project}
-              onEdit={() => {}}
-              onDelete={() => {}}
-            />
-          ))}
-        </div>
-      )}
+          </div>
+        )}
+        
+        {isEditMode ? (
+          <DndContext
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragEnd={handleDragEnd}
+          >
+            <SortableContext
+              items={filteredProjects.map(p => p.id)}
+              strategy={verticalListSortingStrategy}
+            >
+              <div className="space-y-4">
+                {filteredProjects.map(project => (
+                  <SortableProjectCard
+                    key={project.id}
+                    project={project}
+                    onEdit={handleEdit}
+                    onDelete={handleDelete}
+                  />
+                ))}
+              </div>
+            </SortableContext>
+          </DndContext>
+        ) : (
+          <div className="space-y-4">
+            {filteredProjects.map(project => (
+              <SortableProjectCard
+                key={project.id}
+                project={project}
+                onEdit={() => {}}
+                onDelete={() => {}}
+              />
+            ))}
+          </div>
+        )}
+      </div>
       
       {/* Empty State */}
       {filteredProjects.length === 0 && (

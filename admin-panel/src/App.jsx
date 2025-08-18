@@ -101,20 +101,23 @@ function LoginPage() {
             </button>
           </form>
           
-          <div className="mt-6 pt-6 border-t border-gray-200">
-            <p className="text-sm text-gray-600 mb-2">Demo credentials:</p>
-            <button
-              type="button"
-              onClick={handleDemoLogin}
-              className="text-sm text-blue-600 hover:text-blue-700 font-medium"
-            >
-              Use demo account
-            </button>
-            <p className="text-xs text-gray-500 mt-1">
-              Email: admin@braunundeyer.de<br />
-              Password: admin123
-            </p>
-          </div>
+          {/* Only show demo credentials in development mode */}
+          {import.meta.env.DEV && (
+            <div className="mt-6 pt-6 border-t border-gray-200">
+              <p className="text-sm text-gray-600 mb-2">Demo credentials:</p>
+              <button
+                type="button"
+                onClick={handleDemoLogin}
+                className="text-sm text-blue-600 hover:text-blue-700 font-medium"
+              >
+                Use demo account
+              </button>
+              <p className="text-xs text-gray-500 mt-1">
+                Email: admin@braunundeyer.de<br />
+                Password: admin123
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </div>

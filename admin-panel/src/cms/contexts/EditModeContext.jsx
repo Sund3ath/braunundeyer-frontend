@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { authAPI } from '../../services/api';
+import useCMSStore from '../store/cmsStore';
 
 const EditModeContext = createContext();
 
@@ -134,6 +135,12 @@ export const EditModeProvider = ({ children }) => {
     localStorage.removeItem('refreshToken');
     localStorage.removeItem('user');
     Cookies.remove('cms_token'); // Remove old cookie if exists
+    
+    // Reset the CMS store
+    const { resetStore } = useCMSStore.getState();
+    if (resetStore) {
+      resetStore();
+    }
     
     setUser(null);
     setIsAuthenticated(false);

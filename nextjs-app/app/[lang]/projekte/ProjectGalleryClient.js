@@ -12,7 +12,8 @@ import Breadcrumb from '@/components/ui/Breadcrumb';
 
 export default function ProjectGalleryClient({ initialProjects = [], lang = 'de', apiError = null }) {
   const router = useRouter();
-  const [projects, setProjects] = useState(initialProjects);
+  // Ensure projects is always an array
+  const [projects, setProjects] = useState(Array.isArray(initialProjects) ? initialProjects : []);
   const [selectedCategory, setSelectedCategory] = useState('Alle');
   const [sortBy, setSortBy] = useState('Neueste');
   const [viewMode, setViewMode] = useState('grid');
@@ -66,17 +67,25 @@ export default function ProjectGalleryClient({ initialProjects = [], lang = 'de'
 
   // Extract unique categories from projects
   const categories = useMemo(() => {
-    const cats = ['Alle', ...new Set(projects.map(p => p.category))];
+    if (!Array.isArray(projects) || projects.length === 0) {
+      return ['Alle'];
+    }
+    const cats = ['Alle', ...new Set(projects.map(p => p.category).filter(Boolean))];
     return cats;
   }, [projects]);
 
   // Filter and sort projects
   const filteredAndSortedProjects = useMemo(() => {
+    if (!Array.isArray(projects)) {
+      return [];
+    }
     let filtered = projects.filter(project => {
       const matchesCategory = selectedCategory === 'Alle' || project.category === selectedCategory;
-      const matchesSearch = project.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                           project.location?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                           project.description?.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesSearch = 
+        (project.name?.toLowerCase().includes(searchQuery.toLowerCase()) || false) ||
+        (project.title?.toLowerCase().includes(searchQuery.toLowerCase()) || false) ||
+        (project.location?.toLowerCase().includes(searchQuery.toLowerCase()) || false) ||
+        (project.description?.toLowerCase().includes(searchQuery.toLowerCase()) || false);
       return matchesCategory && matchesSearch;
     });
 
@@ -89,7 +98,11 @@ export default function ProjectGalleryClient({ initialProjects = [], lang = 'de'
         filtered.sort((a, b) => (a.year || 0) - (b.year || 0));
         break;
       case 'Name':
-        filtered.sort((a, b) => a.name.localeCompare(b.name));
+        filtered.sort((a, b) => {
+          const nameA = a.name || a.title || '';
+          const nameB = b.name || b.title || '';
+          return nameA.localeCompare(nameB);
+        });
         break;
       case 'Größe':
         filtered.sort((a, b) => {
@@ -169,40 +182,39 @@ export default function ProjectGalleryClient({ initialProjects = [], lang = 'de'
         style={{ x: cursorXSpring, y: cursorYSpring }}
       />
       
-      <main className="pt-20 lg:pt-24">
-        {/* Hero Section */}
-        <section className="bg-surface/95 backdrop-blur-sm border-b border-border">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
-            <Breadcrumb items={breadcrumbItems} />
-            <div className="mt-6">
-              <h1 className="text-3xl lg:text-4xl xl:text-5xl font-heading font-light text-primary mb-4">
-                {dict?.projects?.title || 'Unsere Projekte'}
-              </h1>
-              <p className="text-lg lg:text-xl text-text-secondary font-body max-w-3xl">
-                {dict?.projects?.subtitle || 'Entdecken Sie unsere realisierten Projekte aus den Bereichen Neubau, Altbausanierung und Innenarchitektur'}
-              </p>
-            </div>
-
-            {/* API Error Message */}
-            {apiError && (
-              <motion.div 
-                className="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg flex items-start space-x-3"
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-              >
-                <AlertCircle className="text-yellow-600 mt-0.5" size={20} />
-                <div>
-                  <p className="text-yellow-800 font-medium">CMS-Verbindung nicht verfügbar</p>
-                  <p className="text-yellow-700 text-sm mt-1">Zeige Demo-Projekte. Die Live-Daten werden geladen, sobald die Verbindung wiederhergestellt ist.</p>
-                </div>
-              </motion.div>
-            )}
+      {/* Hero Section with Breadcrumb */}
+      <section className="pt-20 lg:pt-24 bg-surface/95 backdrop-blur-sm border-b border-border relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
+          <Breadcrumb items={breadcrumbItems} />
+          <div className="mt-6">
+            <h1 className="text-3xl lg:text-4xl xl:text-5xl font-heading font-light text-primary mb-4">
+              {dict?.projects?.title || 'Unsere Projekte'}
+            </h1>
+            <p className="text-lg lg:text-xl text-text-secondary font-body max-w-3xl">
+              {dict?.projects?.subtitle || 'Entdecken Sie unsere realisierten Projekte aus den Bereichen Neubau, Altbausanierung und Innenarchitektur'}
+            </p>
           </div>
-        </section>
 
-        {/* Filters and Controls */}
-        <section className="py-6 lg:py-8 border-b border-border bg-background/95 backdrop-blur-sm sticky top-16 lg:top-20 z-40">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* API Error Message */}
+          {apiError && (
+            <motion.div 
+              className="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg flex items-start space-x-3"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+            >
+              <AlertCircle className="text-yellow-600 mt-0.5" size={20} />
+              <div>
+                <p className="text-yellow-800 font-medium">CMS-Verbindung nicht verfügbar</p>
+                <p className="text-yellow-700 text-sm mt-1">Zeige Demo-Projekte. Die Live-Daten werden geladen, sobald die Verbindung wiederhergestellt ist.</p>
+              </div>
+            </motion.div>
+          )}
+        </div>
+      </section>
+
+      {/* Filters and Controls */}
+      <section className="py-6 lg:py-8 border-b border-border bg-background/95 backdrop-blur-sm sticky top-[64px] lg:top-[80px] z-40">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
               {/* Search Bar */}
               <div className="relative flex-1 max-w-md">
@@ -290,9 +302,9 @@ export default function ProjectGalleryClient({ initialProjects = [], lang = 'de'
           </div>
         </section>
 
-        {/* Projects Grid/List */}
-        <section className="py-12 lg:py-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Projects Grid/List */}
+      <section className="py-12 lg:py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {isLoading ? (
               <div className="flex justify-center items-center h-64">
                 <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent"></div>
@@ -325,8 +337,8 @@ export default function ProjectGalleryClient({ initialProjects = [], lang = 'de'
                         >
                           <div className="aspect-[4/3] overflow-hidden bg-gray-100">
                             <Image
-                              src={project.image || '/placeholder.jpg'}
-                              alt={project.name}
+                              src={project.image ? `${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3001'}${project.image}` : '/placeholder.jpg'}
+                              alt={project.name || project.title || 'Project image'}
                               width={800}
                               height={600}
                               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
@@ -342,7 +354,7 @@ export default function ProjectGalleryClient({ initialProjects = [], lang = 'de'
                               </span>
                             </div>
                             <h3 className="text-lg font-heading font-medium text-primary mb-2 group-hover:text-accent transition-colors duration-200">
-                              {project.name}
+                              {project.name || project.title}
                             </h3>
                             <div className="flex items-center text-sm text-text-secondary font-body mb-3">
                               <MapPin size={14} className="mr-1" />
@@ -369,8 +381,8 @@ export default function ProjectGalleryClient({ initialProjects = [], lang = 'de'
                         >
                           <div className="lg:w-1/3 aspect-[4/3] lg:aspect-auto overflow-hidden bg-gray-100">
                             <Image
-                              src={project.image || '/placeholder.jpg'}
-                              alt={project.name}
+                              src={project.image ? `${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3001'}${project.image}` : '/placeholder.jpg'}
+                              alt={project.name || project.title || 'Project image'}
                               width={400}
                               height={300}
                               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
@@ -386,7 +398,7 @@ export default function ProjectGalleryClient({ initialProjects = [], lang = 'de'
                               </span>
                             </div>
                             <h3 className="text-xl lg:text-2xl font-heading font-medium text-primary mb-2 group-hover:text-accent transition-colors duration-200">
-                              {project.name}
+                              {project.name || project.title}
                             </h3>
                             <div className="flex items-center text-sm text-text-secondary font-body mb-4">
                               <MapPin size={16} className="mr-2" />
@@ -430,7 +442,6 @@ export default function ProjectGalleryClient({ initialProjects = [], lang = 'de'
             )}
           </div>
         </section>
-      </main>
 
       <Footer dict={dict.translation} lang={lang} onCopyrightClick={handleCopyrightClick} />
     </div>

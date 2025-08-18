@@ -269,3 +269,6 @@
 2025-08-18 20:51:55:5155 [31merror[39m: [31mError fetching analytics dashboard: pageViewsData.forEach is not a function[39m
 2025-08-18 20:53:10:5310 [31merror[39m: [31mError fetching analytics dashboard: db.prepare(...).all(...).map is not a function[39m
 2025-08-18 21:00:03:03 [31merror[39m: [31mAuthentication error: jwt malformed[39m
+2025-08-18 21:03:52:352 [31merror[39m: [31mDatabase close error: SQLITE_MISUSE: Database handle is closed[39m
+2025-08-18 21:07:38:738 [31merror[39m: [31mDatabase close error: SQLITE_MISUSE: Database handle is closed[39m
+2025-08-18 22:10:51:1051 [31merror[39m: [31mDatabase close error: SQLITE_MISUSE: Database handle is closed[39m

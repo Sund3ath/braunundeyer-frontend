@@ -2,6 +2,9 @@ import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 import { projectsAPI, contentAPI, mediaAPI } from '../../services/api';
 
+// Track initialization promise to prevent concurrent calls
+let initializationPromise = null;
+
 const useCMSStore = create(
   devtools(
     persist(
@@ -26,60 +29,80 @@ const useCMSStore = create(
         isLoading: false,
         error: null,
 
-        initializeStore: async () => {
-          if (get().initialized) return;
+        initializeStore: async (forceRefresh = false) => {
+          // If already initialized and not forcing refresh, return immediately
+          if (get().initialized && !forceRefresh) {
+            console.log('Store already initialized, skipping...');
+            return;
+          }
           
-          set({ isLoading: true, error: null });
+          // If initialization is already in progress, return the existing promise
+          if (initializationPromise && !forceRefresh) {
+            console.log('Initialization already in progress, waiting...');
+            return initializationPromise;
+          }
+          
+          // Create new initialization promise
+          initializationPromise = (async () => {
+            set({ isLoading: true, error: null });
           
           // First, load from localStorage as fallback
           const localProjects = JSON.parse(localStorage.getItem('cms_projects') || '[]');
           const localMedia = JSON.parse(localStorage.getItem('cms_media') || '[]');
           const localContent = JSON.parse(localStorage.getItem('cms_content') || '{}');
           
-          // Set local data immediately for offline functionality
-          set({
-            projects: localProjects,
-            media: localMedia,
-            content: localContent,
-            initialized: true,
-            isLoading: false
-          });
+          // Check if we have authentication
+          const token = localStorage.getItem('token');
           
-          // Then try to fetch from API (non-blocking)
+          if (!token) {
+            // No auth, just use local data
+            set({
+              projects: localProjects,
+              media: localMedia,
+              content: localContent,
+              initialized: true,
+              isLoading: false
+            });
+            return;
+          }
+          
+          // We have auth, try to fetch fresh data from API
           try {
+            console.log('Fetching fresh data from API...');
+            
             // Use Promise.allSettled to handle individual failures gracefully
             const [projectsResult, mediaResult, contentResult] = await Promise.allSettled([
-              projectsAPI.getAll().catch(err => {
-                console.log('Projects API unavailable, using local storage');
-                return { projects: localProjects };
-              }),
-              mediaAPI.getAll().catch(err => {
-                console.log('Media API unavailable, using local storage');
-                return { media: localMedia };
-              }),
-              contentAPI.getAll({ language: get().currentLanguage }).catch(err => {
-                console.log('Content API unavailable, using local storage');
-                return { content: localContent };
-              })
+              projectsAPI.getAll(),
+              mediaAPI.getAll(),
+              contentAPI.getAll({ language: get().currentLanguage })
             ]);
             
-            const projects = projectsResult.status === 'fulfilled' ? 
-              (projectsResult.value?.projects || localProjects) : localProjects;
+            const projects = projectsResult.status === 'fulfilled' && projectsResult.value?.projects ? 
+              projectsResult.value.projects : localProjects;
             
             // Process media URLs to use backend server
-            let media = mediaResult.status === 'fulfilled' ? 
-              (mediaResult.value?.media || localMedia) : localMedia;
+            let media = mediaResult.status === 'fulfilled' && mediaResult.value?.media ? 
+              mediaResult.value.media : localMedia;
+            
+            console.log('API Response - Projects:', projectsResult.status, projects?.length);
+            console.log('API Response - Media:', mediaResult.status, media?.length);
+            console.log('API Response - Content:', contentResult.status, contentResult.value);
             
             // Fix media URLs to point to backend server
-            const API_BASE = 'http://localhost:3001';
+            const API_BASE = import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:3001';
             media = media.map(item => ({
               ...item,
               url: item.url?.startsWith('http') ? item.url : `${API_BASE}${item.url?.startsWith('/') ? '' : '/'}${item.url}`,
               thumbnail: item.thumbnail?.startsWith('http') ? item.thumbnail : `${API_BASE}${item.thumbnail?.startsWith('/') ? '' : '/'}${item.thumbnail}`
             }));
             
-            const content = contentResult.status === 'fulfilled' ? 
-              (contentResult.value?.content || localContent) : localContent;
+            const content = contentResult.status === 'fulfilled' && contentResult.value?.content ? 
+              contentResult.value.content : localContent;
+            
+            // Save to local storage for offline use
+            localStorage.setItem('cms_projects', JSON.stringify(projects));
+            localStorage.setItem('cms_media', JSON.stringify(media));
+            localStorage.setItem('cms_content', JSON.stringify(content));
             
             set({
               projects,
@@ -88,10 +111,31 @@ const useCMSStore = create(
               initialized: true,
               isLoading: false
             });
+            
+            console.log('Store initialized with API data');
           } catch (error) {
-            console.log('Using local storage fallback for CMS data');
-            // Already set local data above, so no action needed
+            console.error('Failed to fetch from API, using local storage:', error);
+            
+            // Use local data as fallback
+            set({
+              projects: localProjects,
+              media: localMedia,
+              content: localContent,
+              initialized: true,
+              isLoading: false
+            });
           }
+          })();
+          
+          // Wait for initialization to complete
+          try {
+            await initializationPromise;
+          } finally {
+            // Clear the promise when done
+            initializationPromise = null;
+          }
+          
+          return initializationPromise;
         },
 
         // Actions
@@ -384,12 +428,44 @@ const useCMSStore = create(
           
           localStorage.setItem('cms_content', JSON.stringify(dataToSave));
           return { success: true };
+        },
+        
+        // Reset store (useful for logout)
+        resetStore: () => {
+          // Clear any pending initialization
+          initializationPromise = null;
+          
+          set({
+            content: {},
+            projects: [],
+            sections: {},
+            media: [],
+            editingItem: null,
+            editHistory: [],
+            historyIndex: -1,
+            initialized: false,
+            isLoading: false,
+            error: null
+          });
+          
+          // Clear local storage
+          localStorage.removeItem('cms_projects');
+          localStorage.removeItem('cms_media');
+          localStorage.removeItem('cms_content');
+          
+          // Clear the persisted store data
+          localStorage.removeItem('cms-store');
         }
       }),
       {
         name: 'cms-store',
         partialize: (state) => ({
-          currentLanguage: state.currentLanguage
+          currentLanguage: state.currentLanguage,
+          content: state.content,
+          projects: state.projects,
+          media: state.media,
+          sections: state.sections,
+          initialized: state.initialized
         })
       }
     )

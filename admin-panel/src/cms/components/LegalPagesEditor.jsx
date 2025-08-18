@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Icon from 'components/AppIcon';
-import axios from 'axios';
+import { contentAPI } from '../../services/api';
 
 const LegalPagesEditor = () => {
   const [loading, setLoading] = useState(false);
@@ -144,17 +144,34 @@ Data processing on this website is carried out by the website operator. You can 
   const fetchLegalContent = async () => {
     try {
       setLoading(true);
-      const token = localStorage.getItem('token');
-      const headers = token ? { Authorization: `Bearer ${token}` } : {};
       
-      const response = await axios.get('http://localhost:3001/api/content/legal', { headers });
+      // Try to fetch impressum and datenschutz content from the content API
+      const impressumResponse = await contentAPI.getByKey('legal_impressum', 'de').catch(() => null);
+      const datenschutzResponse = await contentAPI.getByKey('legal_datenschutz', 'de').catch(() => null);
       
-      if (response.data && response.data.value) {
-        const data = JSON.parse(response.data.value);
-        setContent(data);
-      } else {
-        setContent(defaultContent);
+      let loadedContent = { ...defaultContent };
+      
+      if (impressumResponse && impressumResponse.value) {
+        try {
+          const impressumData = JSON.parse(impressumResponse.value);
+          loadedContent.impressum = { ...defaultContent.impressum, ...impressumData };
+        } catch (e) {
+          // If not JSON, treat as HTML for de language
+          loadedContent.impressum.de = impressumResponse.value;
+        }
       }
+      
+      if (datenschutzResponse && datenschutzResponse.value) {
+        try {
+          const datenschutzData = JSON.parse(datenschutzResponse.value);
+          loadedContent.datenschutz = { ...defaultContent.datenschutz, ...datenschutzData };
+        } catch (e) {
+          // If not JSON, treat as HTML for de language
+          loadedContent.datenschutz.de = datenschutzResponse.value;
+        }
+      }
+      
+      setContent(loadedContent);
     } catch (error) {
       console.error('Error fetching legal content:', error);
       setContent(defaultContent);
@@ -164,14 +181,12 @@ Data processing on this website is carried out by the website operator. You can 
   };
 
   const fetchVersionHistory = async () => {
+    // Version history is not implemented in the backend yet
+    // For now, we'll just use local storage
     try {
-      const token = localStorage.getItem('token');
-      const headers = token ? { Authorization: `Bearer ${token}` } : {};
-      
-      const response = await axios.get('http://localhost:3001/api/content/legal/versions', { headers });
-      
-      if (response.data) {
-        setVersions(response.data);
+      const storedVersions = localStorage.getItem('legal_versions');
+      if (storedVersions) {
+        setVersions(JSON.parse(storedVersions));
       }
     } catch (error) {
       console.error('Error fetching version history:', error);
@@ -181,7 +196,6 @@ Data processing on this website is carried out by the website operator. You can 
   const saveLegalContent = async () => {
     try {
       setLoading(true);
-      const token = localStorage.getItem('token');
       
       // Save current version to history
       const currentVersion = {
@@ -196,26 +210,22 @@ Data processing on this website is carried out by the website operator. You can 
         [activeTab]: [currentVersion, ...(versions[activeTab] || [])].slice(0, 10) // Keep last 10 versions
       };
       
-      await axios.post(
-        'http://localhost:3001/api/content',
-        {
-          key: 'legal',
-          value: JSON.stringify(content),
-          language: 'de'
-        },
-        { headers: token ? { Authorization: `Bearer ${token}` } : {} }
+      // Save impressum content
+      await contentAPI.update(
+        'legal_impressum',
+        JSON.stringify(content.impressum),
+        'de'
       );
       
-      // Save version history
-      await axios.post(
-        'http://localhost:3001/api/content',
-        {
-          key: 'legal-versions',
-          value: JSON.stringify(newVersions),
-          language: 'de'
-        },
-        { headers: token ? { Authorization: `Bearer ${token}` } : {} }
+      // Save datenschutz content
+      await contentAPI.update(
+        'legal_datenschutz',
+        JSON.stringify(content.datenschutz),
+        'de'
       );
+      
+      // Save version history to localStorage (since backend doesn't have version API yet)
+      localStorage.setItem('legal_versions', JSON.stringify(newVersions));
       
       setVersions(newVersions);
       alert('Legal content saved successfully!');

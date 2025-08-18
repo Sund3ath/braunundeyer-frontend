@@ -74,11 +74,14 @@ const AdminDashboard = () => {
   // Initialize store and load content on mount
   useEffect(() => {
     const init = async () => {
-      if (isAuthenticated && !initialized) {
-        console.log('Initializing CMS store...');
-        await initializeStore();
-      } else {
-        // Fallback to local storage if not authenticated or already initialized
+      if (isAuthenticated) {
+        console.log('User authenticated, initializing CMS store...');
+        // Always fetch fresh data when authenticated, even if initialized
+        // This ensures we have the latest data from the backend
+        await initializeStore(true); // Force refresh
+      } else if (!isAuthenticated && authCheckComplete) {
+        // Not authenticated, load local data only
+        console.log('Not authenticated, loading local data...');
         loadContent();
       }
     };
@@ -86,7 +89,7 @@ const AdminDashboard = () => {
     if (authCheckComplete) {
       init();
     }
-  }, [isAuthenticated, authCheckComplete, initialized, initializeStore, loadContent]);
+  }, [isAuthenticated, authCheckComplete, initializeStore, loadContent]);
   
   // Add admin-page class to body for proper cursor display
   useEffect(() => {

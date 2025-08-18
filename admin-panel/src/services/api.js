@@ -364,8 +364,13 @@ export const auditAPI = {
 
 // Auto-refresh token interceptor
 let refreshPromise = null;
+let interceptorSetup = false;
 
 const setupInterceptor = () => {
+  // Only set up once to avoid multiple interceptors
+  if (interceptorSetup) return;
+  interceptorSetup = true;
+  
   const originalFetch = window.fetch;
   
   window.fetch = async (...args) => {
@@ -373,12 +378,19 @@ const setupInterceptor = () => {
     
     // If we get a 401 and we have a refresh token, try to refresh
     if (response.status === 401 && localStorage.getItem('refreshToken')) {
+      // Don't try to refresh for auth endpoints
+      const url = typeof args[0] === 'string' ? args[0] : args[0].url;
+      if (url && (url.includes('/auth/login') || url.includes('/auth/refresh'))) {
+        return response;
+      }
+      
       if (!refreshPromise) {
         refreshPromise = authAPI.refreshToken()
           .catch(() => {
-            // If refresh fails, redirect to login
-            localStorage.clear();
-            window.location.href = '/login';
+            // If refresh fails, clear storage but don't redirect immediately
+            localStorage.removeItem('token');
+            localStorage.removeItem('refreshToken');
+            localStorage.removeItem('user');
             throw new Error('Session expired');
           })
           .finally(() => {
@@ -386,13 +398,18 @@ const setupInterceptor = () => {
           });
       }
       
-      await refreshPromise;
-      
-      // Retry the original request with new token
-      if (args[1] && args[1].headers) {
-        args[1].headers['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+      try {
+        await refreshPromise;
+        
+        // Retry the original request with new token
+        if (args[1] && args[1].headers) {
+          args[1].headers['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+        }
+        response = await originalFetch(...args);
+      } catch (error) {
+        // Return original 401 response if refresh failed
+        return response;
       }
-      response = await originalFetch(...args);
     }
     
     return response;

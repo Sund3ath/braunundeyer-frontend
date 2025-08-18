@@ -1,0 +1,85 @@
+version: '3.8'
+
+services:
+  # Backend API Service
+  backend:
+    build:
+      context: ./backend
+      target: development
+    container_name: braunundeyer-backend-dev
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=development
+      - PORT=3001
+      - DATABASE_URL=/app/database.sqlite
+      - JWT_SECRET=your-development-jwt-secret-change-this
+      - CORS_ORIGIN=http://localhost:3000,http://localhost:4029
+      - UPLOAD_DIR=/app/uploads
+      - LOG_LEVEL=debug
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+      - backend-uploads-dev:/app/uploads
+      - backend-db-dev:/app/data
+    networks:
+      - braunundeyer-network-dev
+    restart: unless-stopped
+
+  # Admin Panel (CMS)
+  admin-panel:
+    build:
+      context: ./admin-panel
+      target: development
+    container_name: braunundeyer-admin-dev
+    ports:
+      - "4029:3000"
+    environment:
+      - NODE_ENV=development
+      - VITE_API_URL=http://localhost:3001/api
+      - VITE_PUBLIC_API_URL=http://localhost:3001/api
+      - VITE_SITE_URL=http://localhost:3000
+      - PORT=3000
+    volumes:
+      - ./admin-panel:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    networks:
+      - braunundeyer-network-dev
+    restart: unless-stopped
+
+  # Next.js Frontend
+  nextjs-app:
+    build:
+      context: ./nextjs-app
+      target: development
+    container_name: braunundeyer-nextjs-dev
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - NEXT_PUBLIC_API_URL=http://backend:3001/api
+      - NEXT_PUBLIC_BACKEND_URL=http://localhost:3001
+      - NEXT_PUBLIC_SITE_URL=http://localhost:3000
+      - NEXT_PUBLIC_CMS_URL=http://localhost:4029
+      - API_URL_INTERNAL=http://backend:3001/api
+    volumes:
+      - ./nextjs-app:/app
+      - /app/node_modules
+      - /app/.next
+    depends_on:
+      - backend
+    networks:
+      - braunundeyer-network-dev
+    restart: unless-stopped
+
+networks:
+  braunundeyer-network-dev:
+    driver: bridge
+
+volumes:
+  backend-uploads-dev:
+    driver: local
+  backend-db-dev:
+    driver: local

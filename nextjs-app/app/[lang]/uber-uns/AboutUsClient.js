@@ -207,7 +207,7 @@ export default function AboutUsClient({ teamMembers = [], dict = {} }) {
         style={{ x: cursorXSpring, y: cursorYSpring }}
       />
       
-      {/* Breadcrumb Section */}
+      {/* Hero Section with Breadcrumb */}
       <section className="pt-20 lg:pt-24 bg-surface/95 backdrop-blur-sm border-b border-border relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
           <Breadcrumb items={breadcrumbItems} />

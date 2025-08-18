@@ -1001,3 +1001,239 @@
 2025-08-18 21:06:11:611 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
 2025-08-18 21:06:11:611 [32minfo[39m: [32mAuthorization successful[39m
 2025-08-18 21:06:11:611 [32minfo[39m: [32mContent updated: homepage (de) by admin@braunundeyer.de[39m
+2025-08-18 22:18:25:1825 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-18 22:18:25:1825 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-18 22:18:25:1825 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-18 22:18:25:1825 [32minfo[39m: [32mServer running on port 3001[39m
+2025-08-18 22:18:25:1825 [32minfo[39m: [32mEnvironment: development[39m
+2025-08-18 22:18:25:1825 [32minfo[39m: [32mCORS enabled for: http://localhost:4028,http://localhost:5173,http://localhost:3000,http://localhost:4029[39m
+2025-08-18 22:18:25:1825 [32minfo[39m: [32mAPI available at: http://localhost:3001/api[39m
+2025-08-18 22:18:26:1826 [32minfo[39m: [32mAnalytics tables initialized[39m
+2025-08-18 22:25:31:2531 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-18 22:25:31:2531 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-18 22:25:31:2531 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-18 22:30:20:3020 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-18 22:30:20:3020 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-18 22:30:20:3020 [32minfo[39m: [32mImage uploaded: image-1755549020444-184548391.jpeg by admin@braunundeyer.de[39m
+2025-08-18 22:30:23:3023 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-18 22:30:23:3023 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-18 22:30:23:3023 [32minfo[39m: [32mProject updated: 6 by admin@braunundeyer.de[39m
+2025-08-18 22:30:35:3035 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-18 22:30:35:3035 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-18 22:30:36:3036 [32minfo[39m: [32mImage uploaded: image-1755549035952-399313205.jpeg by admin@braunundeyer.de[39m
+2025-08-18 22:30:45:3045 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-18 22:30:45:3045 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-18 22:30:45:3045 [32minfo[39m: [32mImage uploaded: image-1755549045187-833498074.jpeg by admin@braunundeyer.de[39m
+2025-08-18 22:30:50:3050 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-18 22:30:50:3050 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-18 22:30:50:3050 [32minfo[39m: [32mImage uploaded: image-1755549050783-989980496.jpeg by admin@braunundeyer.de[39m
+2025-08-18 22:30:50:3050 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-18 22:30:50:3050 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-18 22:30:50:3050 [32minfo[39m: [32mImage uploaded: image-1755549050899-448792738.jpeg by admin@braunundeyer.de[39m
+2025-08-18 22:30:50:3050 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-18 22:30:50:3050 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-18 22:30:51:3051 [32minfo[39m: [32mImage uploaded: image-1755549050978-340756160.jpeg by admin@braunundeyer.de[39m
+2025-08-18 22:30:51:3051 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-18 22:30:51:3051 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-18 22:30:51:3051 [32minfo[39m: [32mImage uploaded: image-1755549051053-24756567.jpeg by admin@braunundeyer.de[39m
+2025-08-18 22:30:51:3051 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-18 22:30:51:3051 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-18 22:30:51:3051 [32minfo[39m: [32mImage uploaded: image-1755549051154-47953887.jpeg by admin@braunundeyer.de[39m
+2025-08-18 22:30:51:3051 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-18 22:30:51:3051 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-18 22:30:51:3051 [32minfo[39m: [32mImage uploaded: image-1755549051234-365138214.jpeg by admin@braunundeyer.de[39m
+2025-08-18 22:30:53:3053 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-18 22:30:53:3053 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-18 22:30:54:3054 [32minfo[39m: [32mProject updated: 8 by admin@braunundeyer.de[39m
+2025-08-18 22:31:02:312 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-18 22:31:02:312 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-18 22:31:02:312 [32minfo[39m: [32mImage uploaded: image-1755549062301-927897184.jpeg by admin@braunundeyer.de[39m
+2025-08-18 22:31:08:318 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-18 22:31:08:318 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-18 22:31:09:319 [32minfo[39m: [32mImage uploaded: image-1755549068957-235496825.jpeg by admin@braunundeyer.de[39m
+2025-08-18 22:31:09:319 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-18 22:31:09:319 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-18 22:31:09:319 [32minfo[39m: [32mImage uploaded: image-1755549069064-649949368.jpeg by admin@braunundeyer.de[39m
+2025-08-18 22:31:09:319 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-18 22:31:09:319 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-18 22:31:09:319 [32minfo[39m: [32mImage uploaded: image-1755549069139-622041347.jpeg by admin@braunundeyer.de[39m
+2025-08-18 22:31:09:319 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-18 22:31:09:319 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-18 22:31:09:319 [32minfo[39m: [32mImage uploaded: image-1755549069264-478910359.jpeg by admin@braunundeyer.de[39m
+2025-08-18 22:31:09:319 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-18 22:31:09:319 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-18 22:31:09:319 [32minfo[39m: [32mImage uploaded: image-1755549069345-139646026.jpeg by admin@braunundeyer.de[39m
+2025-08-18 22:31:09:319 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-18 22:31:09:319 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-18 22:31:09:319 [32minfo[39m: [32mImage uploaded: image-1755549069422-448945423.jpeg by admin@braunundeyer.de[39m
+2025-08-18 22:31:09:319 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-18 22:31:09:319 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-18 22:31:09:319 [32minfo[39m: [32mImage uploaded: image-1755549069549-483171602.jpeg by admin@braunundeyer.de[39m
+2025-08-18 22:31:10:3110 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-18 22:31:10:3110 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-18 22:31:10:3110 [32minfo[39m: [32mProject updated: 9 by admin@braunundeyer.de[39m
+2025-08-18 22:31:28:3128 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-18 22:31:28:3128 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-18 22:31:28:3128 [32minfo[39m: [32mImage uploaded: image-1755549088037-436779070.jpeg by admin@braunundeyer.de[39m
+2025-08-18 22:31:34:3134 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-18 22:31:34:3134 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-18 22:31:34:3134 [32minfo[39m: [32mImage uploaded: image-1755549094523-596052593.jpeg by admin@braunundeyer.de[39m
+2025-08-18 22:31:40:3140 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-18 22:31:40:3140 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-18 22:31:40:3140 [32minfo[39m: [32mImage uploaded: image-1755549100692-482138341.jpeg by admin@braunundeyer.de[39m
+2025-08-18 22:31:40:3140 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-18 22:31:40:3140 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-18 22:31:40:3140 [32minfo[39m: [32mImage uploaded: image-1755549100833-504960106.jpeg by admin@braunundeyer.de[39m
+2025-08-18 22:31:40:3140 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-18 22:31:40:3140 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-18 22:31:41:3141 [32minfo[39m: [32mImage uploaded: image-1755549100954-604820535.jpeg by admin@braunundeyer.de[39m
+2025-08-18 22:31:41:3141 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-18 22:31:41:3141 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-18 22:31:41:3141 [32minfo[39m: [32mImage uploaded: image-1755549101045-417613798.jpeg by admin@braunundeyer.de[39m
+2025-08-18 22:31:41:3141 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-18 22:31:41:3141 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-18 22:31:41:3141 [32minfo[39m: [32mImage uploaded: image-1755549101137-373817049.jpeg by admin@braunundeyer.de[39m
+2025-08-18 22:31:41:3141 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-18 22:31:41:3141 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-18 22:31:41:3141 [32minfo[39m: [32mImage uploaded: image-1755549101230-964737745.jpeg by admin@braunundeyer.de[39m
+2025-08-18 22:31:41:3141 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-18 22:31:41:3141 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-18 22:31:41:3141 [32minfo[39m: [32mImage uploaded: image-1755549101337-640151625.jpeg by admin@braunundeyer.de[39m
+2025-08-18 22:31:41:3141 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-18 22:31:41:3141 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-18 22:31:41:3141 [32minfo[39m: [32mImage uploaded: image-1755549101455-769958921.jpeg by admin@braunundeyer.de[39m
+2025-08-18 22:31:41:3141 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-18 22:31:41:3141 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-18 22:31:41:3141 [32minfo[39m: [32mImage uploaded: image-1755549101523-280568138.jpeg by admin@braunundeyer.de[39m
+2025-08-18 22:31:41:3141 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-18 22:31:41:3141 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-18 22:31:41:3141 [32minfo[39m: [32mImage uploaded: image-1755549101655-119182421.jpeg by admin@braunundeyer.de[39m
+2025-08-18 22:31:43:3143 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-18 22:31:43:3143 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-18 22:31:43:3143 [32minfo[39m: [32mProject updated: 10 by admin@braunundeyer.de[39m
+2025-08-18 22:31:59:3159 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-18 22:31:59:3159 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-18 22:31:59:3159 [32minfo[39m: [32mImage uploaded: image-1755549119481-354829194.jpeg by admin@braunundeyer.de[39m
+2025-08-18 22:32:17:3217 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-18 22:32:17:3217 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-18 22:32:17:3217 [32minfo[39m: [32mImage uploaded: image-1755549137132-711745733.jpeg by admin@braunundeyer.de[39m
+2025-08-18 22:32:17:3217 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-18 22:32:17:3217 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-18 22:32:17:3217 [32minfo[39m: [32mImage uploaded: image-1755549137236-213059408.jpeg by admin@braunundeyer.de[39m
+2025-08-18 22:33:01:331 [32minfo[39m: [32mSIGINT signal received: closing HTTP server[39m
+2025-08-18 22:33:01:331 [32minfo[39m: [32mDatabase connection closed[39m
+2025-08-18 22:33:02:332 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-18 22:33:02:332 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-18 22:33:02:332 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-18 22:33:02:332 [32minfo[39m: [32mServer running on port 3001[39m
+2025-08-18 22:33:02:332 [32minfo[39m: [32mEnvironment: development[39m
+2025-08-18 22:33:02:332 [32minfo[39m: [32mCORS enabled for: http://localhost:4028,http://localhost:5173,http://localhost:3000,http://localhost:4029[39m
+2025-08-18 22:33:02:332 [32minfo[39m: [32mAPI available at: http://localhost:3001/api[39m
+2025-08-18 22:33:03:333 [32minfo[39m: [32mAnalytics tables initialized[39m
+2025-08-18 23:01:55:155 [32minfo[39m: [32mSIGINT signal received: closing HTTP server[39m
+2025-08-18 21:03:05:35 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-18 21:03:05:35 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-18 21:03:05:35 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-18 21:03:05:35 [32minfo[39m: [32mServer running on port 3001[39m
+2025-08-18 21:03:05:35 [32minfo[39m: [32mEnvironment: development[39m
+2025-08-18 21:03:05:35 [32minfo[39m: [32mCORS enabled for: http://localhost:4028,http://localhost:5173,http://localhost:3000,http://localhost:4029[39m
+2025-08-18 21:03:05:35 [32minfo[39m: [32mAPI available at: http://localhost:3001/api[39m
+2025-08-18 21:03:06:36 [32minfo[39m: [32mAnalytics tables initialized[39m
+2025-08-18 21:03:52:352 [32minfo[39m: [32mSIGTERM signal received: closing HTTP server[39m
+2025-08-18 21:03:52:352 [32minfo[39m: [32mSIGINT signal received: closing HTTP server[39m
+2025-08-18 21:03:52:352 [32minfo[39m: [32mDatabase connection closed[39m
+2025-08-18 21:03:54:354 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-18 21:03:54:354 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-18 21:03:54:354 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-18 21:03:54:354 [32minfo[39m: [32mServer running on port 3001[39m
+2025-08-18 21:03:54:354 [32minfo[39m: [32mEnvironment: development[39m
+2025-08-18 21:03:54:354 [32minfo[39m: [32mCORS enabled for: http://localhost:4028,http://localhost:5173,http://localhost:3000,http://localhost:4029[39m
+2025-08-18 21:03:54:354 [32minfo[39m: [32mAPI available at: http://localhost:3001/api[39m
+2025-08-18 21:03:55:355 [32minfo[39m: [32mAnalytics tables initialized[39m
+2025-08-18 21:07:38:738 [32minfo[39m: [32mSIGTERM signal received: closing HTTP server[39m
+2025-08-18 21:07:38:738 [32minfo[39m: [32mSIGINT signal received: closing HTTP server[39m
+2025-08-18 21:07:49:749 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-18 21:07:50:750 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-18 21:07:50:750 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-18 21:07:50:750 [32minfo[39m: [32mServer running on port 3001[39m
+2025-08-18 21:07:50:750 [32minfo[39m: [32mEnvironment: development[39m
+2025-08-18 21:07:50:750 [32minfo[39m: [32mCORS enabled for: http://localhost:4028,http://localhost:5173,http://localhost:3000,http://localhost:4029[39m
+2025-08-18 21:07:50:750 [32minfo[39m: [32mAPI available at: http://localhost:3001/api[39m
+2025-08-18 21:07:50:750 [32minfo[39m: [32mAnalytics tables initialized[39m
+2025-08-18 21:26:57:2657 [32minfo[39m: [32mUser logged in: admin@braunundeyer.de[39m
+2025-08-18 21:27:59:2759 [32minfo[39m: [32mUser logged in: admin@braunundeyer.de[39m
+2025-08-18 21:35:46:3546 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-18 21:35:46:3546 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-18 21:35:46:3546 [32minfo[39m: [32mImage uploaded: image-1755552946794-60169124.jpeg by admin@braunundeyer.de[39m
+2025-08-18 21:35:50:3550 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-18 21:35:50:3550 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-18 21:35:50:3550 [32minfo[39m: [32mProject created: test by admin@braunundeyer.de[39m
+2025-08-18 22:00:26:026 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-18 22:00:26:026 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-18 22:00:26:026 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-18 22:00:26:026 [32minfo[39m: [32mServer running on port 3001[39m
+2025-08-18 22:00:26:026 [32minfo[39m: [32mEnvironment: development[39m
+2025-08-18 22:00:26:026 [32minfo[39m: [32mCORS enabled for: http://localhost:4028,http://localhost:5173,http://localhost:3000,http://localhost:4029[39m
+2025-08-18 22:00:26:026 [32minfo[39m: [32mAPI available at: http://localhost:3001/api[39m
+2025-08-18 22:00:27:027 [32minfo[39m: [32mAnalytics tables initialized[39m
+2025-08-18 22:01:43:143 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-18 22:01:43:143 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-18 22:01:43:143 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-18 22:01:43:143 [32minfo[39m: [32mServer running on port 3001[39m
+2025-08-18 22:01:43:143 [32minfo[39m: [32mEnvironment: development[39m
+2025-08-18 22:01:43:143 [32minfo[39m: [32mCORS enabled for: http://localhost:4028,http://localhost:5173,http://localhost:3000,http://localhost:4029[39m
+2025-08-18 22:01:43:143 [32minfo[39m: [32mAPI available at: http://localhost:3001/api[39m
+2025-08-18 22:01:44:144 [32minfo[39m: [32mAnalytics tables initialized[39m
+2025-08-18 22:01:53:153 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-18 22:01:54:154 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-18 22:01:54:154 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-18 22:01:54:154 [32minfo[39m: [32mServer running on port 3001[39m
+2025-08-18 22:01:54:154 [32minfo[39m: [32mEnvironment: development[39m
+2025-08-18 22:01:54:154 [32minfo[39m: [32mCORS enabled for: http://localhost:4028,http://localhost:5173,http://localhost:3000,http://localhost:4029[39m
+2025-08-18 22:01:54:154 [32minfo[39m: [32mAPI available at: http://localhost:3001/api[39m
+2025-08-18 22:01:54:154 [32minfo[39m: [32mAnalytics tables initialized[39m
+2025-08-18 22:02:03:23 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-18 22:02:03:23 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-18 22:02:03:23 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-18 22:02:03:23 [32minfo[39m: [32mServer running on port 3001[39m
+2025-08-18 22:02:03:23 [32minfo[39m: [32mEnvironment: development[39m
+2025-08-18 22:02:03:23 [32minfo[39m: [32mCORS enabled for: http://localhost:4028,http://localhost:5173,http://localhost:3000,http://localhost:4029[39m
+2025-08-18 22:02:03:23 [32minfo[39m: [32mAPI available at: http://localhost:3001/api[39m
+2025-08-18 22:02:04:24 [32minfo[39m: [32mAnalytics tables initialized[39m
+2025-08-19 00:02:12:212 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-19 00:02:12:212 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-19 00:02:12:212 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-19 00:03:26:326 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-19 00:03:26:326 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-19 00:03:26:326 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-19 00:03:26:326 [32minfo[39m: [32mServer running on port 3001[39m
+2025-08-19 00:03:26:326 [32minfo[39m: [32mEnvironment: development[39m
+2025-08-19 00:03:26:326 [32minfo[39m: [32mCORS enabled for: http://localhost:4028,http://localhost:5173,http://localhost:3000,http://localhost:4029[39m
+2025-08-19 00:03:26:326 [32minfo[39m: [32mAPI available at: http://localhost:3001/api[39m
+2025-08-19 00:03:27:327 [32minfo[39m: [32mAnalytics tables initialized[39m
+2025-08-19 00:04:12:412 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-19 00:04:12:412 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-19 00:04:12:412 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-19 00:04:12:412 [32minfo[39m: [32mServer running on port 3001[39m
+2025-08-19 00:04:12:412 [32minfo[39m: [32mEnvironment: development[39m
+2025-08-19 00:04:12:412 [32minfo[39m: [32mCORS enabled for: http://localhost:4028,http://localhost:5173,http://localhost:3000,http://localhost:4029[39m
+2025-08-19 00:04:12:412 [32minfo[39m: [32mAPI available at: http://localhost:3001/api[39m
+2025-08-19 00:04:13:413 [32minfo[39m: [32mAnalytics tables initialized[39m
+2025-08-18 22:10:18:1018 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-18 22:10:18:1018 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-18 22:10:18:1018 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-18 22:10:18:1018 [32minfo[39m: [32mServer running on port 3001[39m
+2025-08-18 22:10:18:1018 [32minfo[39m: [32mEnvironment: development[39m
+2025-08-18 22:10:18:1018 [32minfo[39m: [32mCORS enabled for: http://localhost:4028,http://localhost:5173,http://localhost:3000,http://localhost:4029[39m
+2025-08-18 22:10:18:1018 [32minfo[39m: [32mAPI available at: http://localhost:3001/api[39m
+2025-08-18 22:10:19:1019 [32minfo[39m: [32mAnalytics tables initialized[39m
+2025-08-18 22:10:51:1051 [32minfo[39m: [32mSIGTERM signal received: closing HTTP server[39m
+2025-08-18 22:10:51:1051 [32minfo[39m: [32mSIGINT signal received: closing HTTP server[39m
+2025-08-18 22:11:23:1123 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-18 22:11:23:1123 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-18 22:11:23:1123 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-18 22:11:23:1123 [32minfo[39m: [32mServer running on port 3001[39m
+2025-08-18 22:11:23:1123 [32minfo[39m: [32mEnvironment: development[39m
+2025-08-18 22:11:23:1123 [32minfo[39m: [32mCORS enabled for: http://localhost:4028,http://localhost:5173,http://localhost:3000,http://localhost:4029[39m
+2025-08-18 22:11:23:1123 [32minfo[39m: [32mAPI available at: http://localhost:3001/api[39m
+2025-08-18 22:11:24:1124 [32minfo[39m: [32mAnalytics tables initialized[39m

@@ -24,6 +24,8 @@ import analyticsRoutes from './routes/analytics.routes.js';
 import projectTranslationsRoutes from './routes/project-translations.routes.js';
 import teamRoutes from './routes/team.routes.js';
 import servicesRoutes from './routes/services.routes.js';
+import footerRoutes from './routes/footer.routes.js';
+import legalRoutes from './routes/legal.routes.js';
 
 // Import database
 import db from './config/db-simple.js';
@@ -148,7 +150,10 @@ app.get('/health', (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/project-translations', projectTranslationsRoutes);
-app.use('/api/content', contentRoutes);
+// Specific content routes MUST come before generic content routes
+app.use('/api/content/footer', footerRoutes); // Footer management routes
+app.use('/api/content/legal', legalRoutes); // Legal pages routes
+app.use('/api/content', contentRoutes); // Generic content routes (must be after specific ones)
 app.use('/api/media', mediaRoutes);
 app.use('/api/settings', settingsRoutes);
 app.use('/api/translate', translateRoutes);

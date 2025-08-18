@@ -1,0 +1,117 @@
+version: '3.8'
+
+services:
+  # Backend API Service (api.braunundeyer.de)
+  backend:
+    build:
+      context: ./backend
+      target: production
+    container_name: braunundeyer-backend-prod
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+      - DATABASE_URL=/app/data/database.sqlite
+      - JWT_SECRET=${JWT_SECRET}
+      - CORS_ORIGIN=https://braunundeyer.de,https://cms.braunundeyer.de
+      - UPLOAD_DIR=/app/uploads
+      - LOG_LEVEL=error
+    volumes:
+      - backend-uploads:/app/uploads
+      - backend-db:/app/data
+      - backend-logs:/app/logs
+    networks:
+      - braunundeyer-network
+    restart: always
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.backend.rule=Host(`api.braunundeyer.de`)"
+      - "traefik.http.routers.backend.entrypoints=websecure"
+      - "traefik.http.routers.backend.tls.certresolver=letsencrypt"
+      - "traefik.http.services.backend.loadbalancer.server.port=3001"
+
+  # Admin Panel (cms.braunundeyer.de)
+  admin-panel:
+    build:
+      context: ./admin-panel
+      target: production
+      args:
+        - REACT_APP_API_URL=https://api.braunundeyer.de/api
+        - REACT_APP_SITE_URL=https://braunundeyer.de
+    container_name: braunundeyer-admin-prod
+    depends_on:
+      - backend
+    networks:
+      - braunundeyer-network
+    restart: always
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.admin.rule=Host(`cms.braunundeyer.de`)"
+      - "traefik.http.routers.admin.entrypoints=websecure"
+      - "traefik.http.routers.admin.tls.certresolver=letsencrypt"
+      - "traefik.http.services.admin.loadbalancer.server.port=80"
+
+  # Next.js Frontend (braunundeyer.de)
+  nextjs-app:
+    build:
+      context: ./nextjs-app
+      target: production
+      args:
+        - NEXT_PUBLIC_API_URL=https://api.braunundeyer.de/api
+        - NEXT_PUBLIC_BACKEND_URL=https://api.braunundeyer.de
+        - NEXT_PUBLIC_SITE_URL=https://braunundeyer.de
+        - NEXT_PUBLIC_CMS_URL=https://cms.braunundeyer.de
+    container_name: braunundeyer-nextjs-prod
+    depends_on:
+      - backend
+    networks:
+      - braunundeyer-network
+    restart: always
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.nextjs.rule=Host(`braunundeyer.de`) || Host(`www.braunundeyer.de`)"
+      - "traefik.http.routers.nextjs.entrypoints=websecure"
+      - "traefik.http.routers.nextjs.tls.certresolver=letsencrypt"
+      - "traefik.http.services.nextjs.loadbalancer.server.port=3000"
+      # Redirect www to non-www
+      - "traefik.http.middlewares.redirect-www.redirectregex.regex=^https://www\\.(.*)"
+      - "traefik.http.middlewares.redirect-www.redirectregex.replacement=https://$${1}"
+      - "traefik.http.middlewares.redirect-www.redirectregex.permanent=true"
+      - "traefik.http.routers.nextjs.middlewares=redirect-www"
+
+  # Traefik Reverse Proxy
+  traefik:
+    image: traefik:v3.0
+    container_name: braunundeyer-traefik
+    command:
+      - "--api.insecure=false"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.letsencrypt.acme.tlschallenge=true"
+      - "--certificatesresolvers.letsencrypt.acme.email=${LETSENCRYPT_EMAIL}"
+      - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
+      # Redirect HTTP to HTTPS
+      - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./letsencrypt:/letsencrypt"
+    networks:
+      - braunundeyer-network
+    restart: always
+
+networks:
+  braunundeyer-network:
+    driver: bridge
+
+volumes:
+  backend-uploads:
+    driver: local
+  backend-db:
+    driver: local
+  backend-logs:
+    driver: local

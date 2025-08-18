@@ -46,12 +46,20 @@ export default function HomepageClient({
     if (!url || url === '' || url === null || url === undefined || (typeof url === 'string' && url.trim() === '')) {
       return null;
     }
-    // If it's already a full URL, use it as is
+    
+    const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3001';
+    
+    // If it's a hardcoded localhost URL, replace with environment variable
+    if (url.includes('http://localhost:3001')) {
+      return url.replace('http://localhost:3001', backendUrl);
+    }
+    
+    // If it's already a full URL (but not localhost), use it as is
     if (url.startsWith('http://') || url.startsWith('https://')) {
       return url;
     }
+    
     // If it's a relative path, prepend the backend URL
-    const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3001';
     return `${backendUrl}${url.startsWith('/') ? '' : '/'}${url}`;
   };
 

@@ -1,8 +1,19 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
+// Use internal URL for server-side requests (in Docker), public URL for client-side
+const getApiUrl = () => {
+  // Server-side: use internal Docker network URL if available
+  if (typeof window === 'undefined') {
+    return process.env.API_URL_INTERNAL || process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
+  }
+  // Client-side: use public URL
+  return process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
+};
+
+const API_URL = getApiUrl();
 
 // Helper function for API calls
 async function fetchAPI(endpoint, options = {}) {
-  const url = `${API_URL}${endpoint}`;
+  const apiUrl = getApiUrl(); // Get fresh URL for each request
+  const url = `${apiUrl}${endpoint}`;
   
   const defaultOptions = {
     headers: {
