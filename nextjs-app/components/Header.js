@@ -24,7 +24,8 @@ export default function Header({ dict, lang }) {
     setIsMobileMenuOpen(false);
     // Remove body scroll lock when navigating
     if (typeof document !== 'undefined') {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = '';
+      document.body.style.position = '';
     }
   }, [pathname]);
 
@@ -34,8 +35,12 @@ export default function Header({ dict, lang }) {
     // Prevent body scroll when mobile menu is open
     if (!isMobileMenuOpen) {
       document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
     }
   };
 

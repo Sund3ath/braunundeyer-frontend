@@ -440,6 +440,8 @@ export default function ContactPage() {
                       referrerPolicy="no-referrer-when-downgrade"
                       src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2609.764726082186!2d6.989532315674923!3d49.23412917932648!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4795b6a73c7dd3e5%3A0x1234567890abcdef!2sMainzerstra%C3%9Fe%2029%2C%2066111%20Saarbr%C3%BCcken!5e0!3m2!1sde!2sde!4v1234567890123"
                       className="border-0"
+                      allow="fullscreen"
+                      allowFullScreen
                     />
                   </div>
                 </motion.div>

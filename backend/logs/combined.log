@@ -1423,3 +1423,6 @@
 2025-08-19 12:15:14:1514 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
 2025-08-19 12:15:14:1514 [32minfo[39m: [32mAuthorization successful[39m
 2025-08-19 12:15:14:1514 [32minfo[39m: [32mProject created: Orbis by admin@braunundeyer.de[39m
+2025-08-19 12:43:18:4318 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-19 12:43:18:4318 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-19 12:43:18:4318 [32minfo[39m: [32mContent updated: homepage (de) by admin@braunundeyer.de[39m

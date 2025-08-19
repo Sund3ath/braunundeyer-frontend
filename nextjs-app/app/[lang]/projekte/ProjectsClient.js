@@ -427,6 +427,7 @@ export default function ProjectsClient({ initialProjects = [], dict = {} }) {
                               src={project.image}
                               alt={project.name}
                               fill
+                              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                               className="object-cover group-hover:scale-105 transition-transform duration-300"
                             />
                           ) : (
@@ -484,6 +485,7 @@ export default function ProjectsClient({ initialProjects = [], dict = {} }) {
                                 src={project.image}
                                 alt={project.name}
                                 fill
+                                sizes="(max-width: 768px) 100vw, 33vw"
                                 className="object-cover group-hover:scale-105 transition-transform duration-300"
                               />
                             ) : (

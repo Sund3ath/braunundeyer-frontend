@@ -177,6 +177,7 @@ export default function ProjectDetailClient({ project, relatedProjects = [], dic
                   src={projectImages[currentImageIndex]}
                   alt={`${project.name || project.title} - Image ${currentImageIndex + 1}`}
                   fill
+                  sizes="(max-width: 768px) 100vw, 66vw"
                   className="object-cover"
                   priority
                 />
@@ -316,6 +317,7 @@ export default function ProjectDetailClient({ project, relatedProjects = [], dic
                             src={image}
                             alt={`${project.name} - Thumbnail ${index + 1}`}
                             fill
+                            sizes="100px"
                             className="object-cover hover:scale-105 transition-transform duration-300"
                           />
                         </button>
@@ -447,6 +449,7 @@ export default function ProjectDetailClient({ project, relatedProjects = [], dic
                             src={relatedProject.image}
                             alt={relatedProject.name}
                             fill
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                             className="object-cover group-hover:scale-105 transition-transform duration-300"
                           />
                         ) : (
@@ -511,6 +514,7 @@ export default function ProjectDetailClient({ project, relatedProjects = [], dic
               src={projectImages[currentImageIndex]}
               alt={`${project.name} - Zoomed`}
               fill
+              sizes="100vw"
               className="object-contain"
             />
           </div>
