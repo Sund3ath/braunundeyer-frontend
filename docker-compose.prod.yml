@@ -82,7 +82,17 @@ services:
       - "traefik.http.middlewares.redirect-www.redirectregex.regex=^https://www\\.(.*)"
       - "traefik.http.middlewares.redirect-www.redirectregex.replacement=https://$${1}"
       - "traefik.http.middlewares.redirect-www.redirectregex.permanent=true"
-      - "traefik.http.routers.nextjs.middlewares=redirect-www"
+      # Security headers
+      - "traefik.http.middlewares.security-headers.headers.stsSeconds=31536000"
+      - "traefik.http.middlewares.security-headers.headers.stsIncludeSubdomains=true"
+      - "traefik.http.middlewares.security-headers.headers.stsPreload=true"
+      - "traefik.http.middlewares.security-headers.headers.forceSTSHeader=true"
+      - "traefik.http.middlewares.security-headers.headers.contentTypeNosniff=true"
+      - "traefik.http.middlewares.security-headers.headers.browserXssFilter=true"
+      - "traefik.http.middlewares.security-headers.headers.referrerPolicy=strict-origin-when-cross-origin"
+      - "traefik.http.middlewares.security-headers.headers.permissionsPolicy=camera=(), microphone=(), geolocation=(), payment=()"
+      - "traefik.http.middlewares.security-headers.headers.customFrameOptionsValue=SAMEORIGIN"
+      - "traefik.http.routers.nextjs.middlewares=redirect-www,security-headers"
 
   # Traefik Reverse Proxy
   traefik:
