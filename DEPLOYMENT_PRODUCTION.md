@@ -12,9 +12,9 @@ This guide covers the complete deployment process for the Braun & Eyer Architekt
 - **Storage**: 50GB SSD minimum
 - **Network**: Static IP address
 - **Domains**: 
-  - braunundeyer.de (main site)
-  - api.braunundeyer.de (backend API)
-  - cms.braunundeyer.de (admin panel)
+  - demo.braunundeyer.de (main site)
+  - api.demo.braunundeyer.de (backend API)
+  - cms.demo.braunundeyer.de (admin panel)
 
 ### Software Requirements
 - Docker 20.10+
@@ -82,10 +82,10 @@ This will:
 
 Point your domains to the server IP:
 ```
-A Record: braunundeyer.de → your-server-ip
-A Record: www.braunundeyer.de → your-server-ip
-A Record: api.braunundeyer.de → your-server-ip
-A Record: cms.braunundeyer.de → your-server-ip
+A Record: demo.braunundeyer.de → your-server-ip
+A Record: www.demo.braunundeyer.de → your-server-ip
+A Record: api.demo.braunundeyer.de → your-server-ip
+A Record: cms.demo.braunundeyer.de → your-server-ip
 ```
 
 ## Deployment Commands

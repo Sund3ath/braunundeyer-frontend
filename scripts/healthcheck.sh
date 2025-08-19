@@ -8,9 +8,9 @@ set -e
 # Configuration
 LOG_FILE="/var/log/braunundeyer-health.log"
 ALERT_EMAIL="admin@braunundeyer.de"
-FRONTEND_URL="https://braunundeyer.de"
-API_URL="https://api.braunundeyer.de/health"
-CMS_URL="https://cms.braunundeyer.de"
+FRONTEND_URL="https://demo.braunundeyer.de"
+API_URL="https://api.demo.braunundeyer.de/health"
+CMS_URL="https://cms.demo.braunundeyer.de"
 
 # Colors for output
 RED='\033[0;31m'
@@ -95,7 +95,7 @@ check_memory() {
 check_ssl() {
     log_message "${YELLOW}Checking SSL certificates...${NC}"
     
-    domains=("braunundeyer.de" "api.braunundeyer.de" "cms.braunundeyer.de")
+    domains=("demo.braunundeyer.de" "api.demo.braunundeyer.de" "cms.demo.braunundeyer.de")
     
     for domain in "${domains[@]}"; do
         expiry_date=$(echo | openssl s_client -servername $domain -connect $domain:443 2>/dev/null | openssl x509 -noout -enddate 2>/dev/null | cut -d= -f2)
