@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API_BASE_URL, BACKEND_URL } from "../../config/api";
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import Icon from '../../components/AppIcon';
 import useCMSStore from '../store/cmsStore';
@@ -85,7 +86,7 @@ const HomepageEditor = () => {
           const slides = homepageData.heroSlides || [
             {
               id: '1',
-              image: 'http://localhost:3001/uploads/innenarchitektur.png',
+              image: BACKEND_URL + '/uploads/innenarchitektur.png',
               title: 'Modern Architecture',
               subtitle: 'Innovative Design',
               description: 'Creating spaces that inspire and endure',
@@ -109,7 +110,7 @@ const HomepageEditor = () => {
         const slides = homepageContent.heroSlides || [
           {
             id: '1',
-            image: 'http://localhost:3001/uploads/innenarchitektur.png',
+            image: BACKEND_URL + '/uploads/innenarchitektur.png',
             title: 'Modern Architecture',
             subtitle: 'Innovative Design',
             description: 'Creating spaces that inspire and endure',
@@ -138,17 +139,17 @@ const HomepageEditor = () => {
       if (imageUrl && !imageUrl.startsWith('http')) {
         // If it's a relative path starting with /images, convert to backend URL
         if (imageUrl.startsWith('/images/')) {
-          imageUrl = `http://localhost:3001/uploads${imageUrl.substring(7)}`; // Remove /images prefix
+          imageUrl = `${BACKEND_URL}/uploads${imageUrl.substring(7)}`; // Remove /images prefix
         } else if (!imageUrl.startsWith('/')) {
-          imageUrl = `http://localhost:3001/uploads/${imageUrl}`;
+          imageUrl = `${BACKEND_URL}/uploads/${imageUrl}`;
         }
       }
       
       if (videoUrl && !videoUrl.startsWith('http')) {
         if (videoUrl.startsWith('/images/')) {
-          videoUrl = `http://localhost:3001/uploads${videoUrl.substring(7)}`;
+          videoUrl = `${BACKEND_URL}/uploads${videoUrl.substring(7)}`;
         } else if (!videoUrl.startsWith('/')) {
-          videoUrl = `http://localhost:3001/uploads/${videoUrl}`;
+          videoUrl = `${BACKEND_URL}/uploads/${videoUrl}`;
         }
       }
       
@@ -175,11 +176,11 @@ const HomepageEditor = () => {
           if (imageUrl.startsWith('/assets/images/')) {
             // Extract filename from /assets/images/ path and convert to /uploads/
             const filename = imageUrl.split('/').pop();
-            imageUrl = `http://localhost:3001/uploads/${filename}`;
+            imageUrl = `${BACKEND_URL}/uploads/${filename}`;
           } else if (!imageUrl.startsWith('/')) {
-            imageUrl = `http://localhost:3001/uploads/${imageUrl}`;
+            imageUrl = `${BACKEND_URL}/uploads/${imageUrl}`;
           } else {
-            imageUrl = `http://localhost:3001${imageUrl}`;
+            imageUrl = `${BACKEND_URL}${imageUrl}`;
           }
         }
         
@@ -330,7 +331,7 @@ const HomepageEditor = () => {
                                 // Show video preview if video exists
                                 <div className="relative w-32 h-20">
                                   <video
-                                    src={slide.video.startsWith('http') ? slide.video : `http://localhost:3001${slide.video.startsWith('/') ? '' : '/'}${slide.video}`}
+                                    src={slide.video.startsWith('http') ? slide.video : `${BACKEND_URL}${slide.video.startsWith('/') ? '' : '/'}${slide.video}`}
                                     className="w-32 h-20 object-cover rounded"
                                     muted
                                     autoPlay
@@ -341,7 +342,7 @@ const HomepageEditor = () => {
                                       e.target.style.display = 'none';
                                       if (slide.image) {
                                         const img = document.createElement('img');
-                                        img.src = slide.image.startsWith('http') ? slide.image : `http://localhost:3001${slide.image.startsWith('/') ? '' : '/'}${slide.image}`;
+                                        img.src = slide.image.startsWith('http') ? slide.image : `${BACKEND_URL}${slide.image.startsWith('/') ? '' : '/'}${slide.image}`;
                                         img.className = 'w-32 h-20 object-cover rounded';
                                         e.target.parentNode.appendChild(img);
                                       }
@@ -356,7 +357,7 @@ const HomepageEditor = () => {
                                 </div>
                               ) : slide.image ? (
                                 <img
-                                  src={slide.image.startsWith('http') ? slide.image : `http://localhost:3001${slide.image.startsWith('/') ? '' : '/'}${slide.image}`}
+                                  src={slide.image.startsWith('http') ? slide.image : `${BACKEND_URL}${slide.image.startsWith('/') ? '' : '/'}${slide.image}`}
                                   alt={slide.title}
                                   className="w-32 h-20 object-cover rounded"
                                   onError={(e) => {
@@ -556,11 +557,11 @@ const HomepageEditor = () => {
                           if (imgUrl.startsWith('/assets/images/')) {
                             // Extract filename from /assets/images/ path and convert to /uploads/
                             const filename = imgUrl.split('/').pop();
-                            return `http://localhost:3001/uploads/${filename}`;
+                            return `${BACKEND_URL}/uploads/${filename}`;
                           } else if (!imgUrl.startsWith('/')) {
-                            return `http://localhost:3001/uploads/${imgUrl}`;
+                            return `${BACKEND_URL}/uploads/${imgUrl}`;
                           } else {
-                            return `http://localhost:3001${imgUrl}`;
+                            return `${BACKEND_URL}${imgUrl}`;
                           }
                         }
                         return imgUrl;

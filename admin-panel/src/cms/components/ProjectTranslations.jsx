@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API_BASE_URL, BACKEND_URL } from "../../config/api";
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import Icon from 'components/AppIcon';
@@ -29,7 +30,7 @@ const ProjectTranslations = ({ project, onClose, onSave }) => {
       setLoading(true);
       const token = localStorage.getItem('token');
       const response = await axios.get(
-        `http://localhost:3001/api/project-translations/project/${project.id}`,
+        `${API_BASE_URL}/project-translations/project/${project.id}`,
         { 
           headers: token ? { Authorization: `Bearer ${token}` } : {}
         }
@@ -80,7 +81,7 @@ const ProjectTranslations = ({ project, onClose, onSave }) => {
       const translationData = translations[language];
 
       await axios.post(
-        `http://localhost:3001/api/project-translations/project/${project.id}/${language}`,
+        `${API_BASE_URL}/project-translations/project/${project.id}/${language}`,
         translationData,
         { 
           headers: token ? { 
@@ -111,7 +112,7 @@ const ProjectTranslations = ({ project, onClose, onSave }) => {
         const translationData = translations[lang.code];
         if (translationData && translationData.title) {
           await axios.post(
-            `http://localhost:3001/api/project-translations/project/${project.id}/${lang.code}`,
+            `${API_BASE_URL}/project-translations/project/${project.id}/${lang.code}`,
             translationData,
             { 
               headers: token ? { 
@@ -144,7 +145,7 @@ const ProjectTranslations = ({ project, onClose, onSave }) => {
       // For now, create placeholder translations
       // In production, this would call a translation API
       const response = await axios.post(
-        `http://localhost:3001/api/project-translations/bulk-translate/${project.id}`,
+        `${API_BASE_URL}/project-translations/bulk-translate/${project.id}`,
         { targetLanguages: [targetLanguage] },
         { 
           headers: token ? { 

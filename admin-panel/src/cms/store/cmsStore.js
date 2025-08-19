@@ -89,7 +89,7 @@ const useCMSStore = create(
             console.log('API Response - Content:', contentResult.status, contentResult.value);
             
             // Fix media URLs to point to backend server
-            const API_BASE = import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:3001';
+            const API_BASE = (import.meta.env.VITE_API_URL || 'http://api.braunundeyer.de/api').replace('/api', '');
             media = media.map(item => ({
               ...item,
               url: item.url?.startsWith('http') ? item.url : `${API_BASE}${item.url?.startsWith('/') ? '' : '/'}${item.url}`,
@@ -99,10 +99,40 @@ const useCMSStore = create(
             const content = contentResult.status === 'fulfilled' && contentResult.value?.content ? 
               contentResult.value.content : localContent;
             
-            // Save to local storage for offline use
-            localStorage.setItem('cms_projects', JSON.stringify(projects));
-            localStorage.setItem('cms_media', JSON.stringify(media));
-            localStorage.setItem('cms_content', JSON.stringify(content));
+            // Save to local storage for offline use (without large image data)
+            try {
+              // Store projects without base64 image data
+              const projectsForStorage = projects.map(p => ({
+                ...p,
+                image: p.image?.startsWith('data:') ? null : p.image,
+                gallery: p.gallery?.map(g => g?.startsWith('data:') ? null : g)
+              }));
+              localStorage.setItem('cms_projects', JSON.stringify(projectsForStorage));
+              
+              // Store media references only (not full data)
+              const mediaForStorage = media.map(m => ({
+                id: m.id,
+                filename: m.filename,
+                path: m.path,
+                url: m.url,
+                thumbnail: m.thumbnail
+              }));
+              localStorage.setItem('cms_media', JSON.stringify(mediaForStorage));
+              
+              // Content is usually smaller, but let's be safe
+              const contentStr = JSON.stringify(content);
+              if (contentStr.length < 1000000) { // Only store if less than 1MB
+                localStorage.setItem('cms_content', contentStr);
+              }
+            } catch (storageError) {
+              console.warn('Could not save to localStorage:', storageError);
+              // Clear localStorage if quota exceeded
+              if (storageError.name === 'QuotaExceededError') {
+                localStorage.removeItem('cms_projects');
+                localStorage.removeItem('cms_media');
+                localStorage.removeItem('cms_content');
+              }
+            }
             
             set({
               projects,
@@ -287,7 +317,8 @@ const useCMSStore = create(
             // Ensure proper URL formatting for uploaded media
             let mediaUrl = response.media.url || response.media.path;
             if (mediaUrl && !mediaUrl.startsWith('http')) {
-              mediaUrl = `http://localhost:3001${mediaUrl.startsWith('/') ? '' : '/'}${mediaUrl}`;
+              const BACKEND_URL = (import.meta.env.VITE_API_URL || 'http://api.braunundeyer.de/api').replace('/api', '');
+              mediaUrl = `${BACKEND_URL}${mediaUrl.startsWith('/') ? '' : '/'}${mediaUrl}`;
             }
             
             const media = {
@@ -307,29 +338,10 @@ const useCMSStore = create(
             
             return media;
           } catch (error) {
-            console.error('Failed to upload to API, using local storage:', error);
-            // Fallback to local storage
-            return new Promise((resolve, reject) => {
-              const reader = new FileReader();
-              reader.onloadend = () => {
-                const media = {
-                  id: Date.now().toString(),
-                  url: reader.result,
-                  name: file.name,
-                  type: file.type,
-                  size: file.size,
-                  uploadedAt: new Date().toISOString()
-                };
-                
-                set((state) => ({
-                  media: [...state.media, media]
-                }));
-                
-                resolve(media);
-              };
-              reader.onerror = reject;
-              reader.readAsDataURL(file);
-            });
+            console.error('Failed to upload to API:', error);
+            // Don't use base64 fallback - it causes issues
+            // Instead, throw the error so the user knows the upload failed
+            throw new Error(`Failed to upload image: ${error.message || 'Unknown error'}`);
           }
         },
         
@@ -426,7 +438,14 @@ const useCMSStore = create(
             media: state.media
           };
           
-          localStorage.setItem('cms_content', JSON.stringify(dataToSave));
+          try {
+            const dataStr = JSON.stringify(dataToSave);
+            if (dataStr.length < 1000000) { // Only store if less than 1MB
+              localStorage.setItem('cms_content', dataStr);
+            }
+          } catch (error) {
+            console.warn('Could not save to localStorage:', error);
+          }
           return { success: true };
         },
         

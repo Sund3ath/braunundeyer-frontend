@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import Icon from 'components/AppIcon';
 import { useDropzone } from 'react-dropzone';
 import axios from 'axios';
+import { API_BASE_URL, BACKEND_URL } from '../../config/api';
 
 const MediaLibraryEnhanced = () => {
   const [loading, setLoading] = useState(false);
@@ -40,7 +41,7 @@ const MediaLibraryEnhanced = () => {
       const token = localStorage.getItem('token');
       const headers = token ? { Authorization: `Bearer ${token}` } : {};
       
-      const response = await axios.get('http://localhost:3001/api/media', { headers });
+      const response = await axios.get(`${API_BASE_URL}/media`, { headers });
       
       if (response.data) {
         // Handle paginated response structure
@@ -123,7 +124,7 @@ const MediaLibraryEnhanced = () => {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.post(
-        'http://localhost:3001/api/media/upload/bulk',
+        `${API_BASE_URL}/media/upload/bulk`,
         formData,
         {
           headers: {
@@ -207,7 +208,7 @@ const MediaLibraryEnhanced = () => {
       const token = localStorage.getItem('token');
       
       await Promise.all(selectedFiles.map(file =>
-        axios.delete(`http://localhost:3001/api/media/${file.id}`, {
+        axios.delete(`${API_BASE_URL}/media/${file.id}`, {
           headers: token ? { Authorization: `Bearer ${token}` } : {}
         })
       ));
@@ -234,7 +235,7 @@ const MediaLibraryEnhanced = () => {
       const token = localStorage.getItem('token');
       
       await axios.put(
-        `http://localhost:3001/api/media/${editingFile.id}`,
+        `${API_BASE_URL}/media/${editingFile.id}`,
         {
           filename: editingFile.filename,
           altText: editingFile.altText,
@@ -261,7 +262,7 @@ const MediaLibraryEnhanced = () => {
       const token = localStorage.getItem('token');
       
       await axios.put(
-        `http://localhost:3001/api/media/${fileId}`,
+        `${API_BASE_URL}/media/${fileId}`,
         { category: newCategory },
         { headers: token ? { Authorization: `Bearer ${token}` } : {} }
       );
@@ -482,7 +483,7 @@ const MediaLibraryEnhanced = () => {
                   <div className="relative aspect-square bg-gray-100">
                     {file.mimetype?.startsWith('image/') ? (
                       <img
-                        src={`http://localhost:3001${file.path || file.url}`}
+                        src={`${BACKEND_URL}${file.path || file.url}`}
                         alt={file.altText?.de || file.filename}
                         className="w-full h-full object-cover"
                       />
@@ -509,7 +510,7 @@ const MediaLibraryEnhanced = () => {
                         <Icon name="Edit" size={14} />
                       </button>
                       <button
-                        onClick={() => copyToClipboard(`http://localhost:3001${file.path || file.url}`)}
+                        onClick={() => copyToClipboard(`${BACKEND_URL}${file.path || file.url}`)}
                         className="p-1 bg-white rounded shadow hover:bg-gray-100"
                       >
                         <Icon name="Copy" size={14} />
@@ -547,7 +548,7 @@ const MediaLibraryEnhanced = () => {
                   <div className="w-12 h-12 mr-3 bg-gray-100 rounded flex items-center justify-center">
                     {file.mimetype?.startsWith('image/') ? (
                       <img
-                        src={`http://localhost:3001${file.path || file.url}`}
+                        src={`${BACKEND_URL}${file.path || file.url}`}
                         alt={file.altText?.de || file.filename}
                         className="w-full h-full object-cover rounded"
                       />
@@ -581,7 +582,7 @@ const MediaLibraryEnhanced = () => {
                       <Icon name="Edit" size={16} />
                     </button>
                     <button
-                      onClick={() => copyToClipboard(`http://localhost:3001${file.path || file.url}`)}
+                      onClick={() => copyToClipboard(`' + BACKEND_URL}${file.path || file.url}`)}
                       className="p-2 text-gray-600 hover:bg-gray-100 rounded"
                     >
                       <Icon name="Copy" size={16} />
@@ -682,7 +683,7 @@ const MediaLibraryEnhanced = () => {
               {editingFile.mimetype?.startsWith('image/') && (
                 <div className="mb-4">
                   <img
-                    src={`http://localhost:3001${editingFile.path || editingFile.url}`}
+                    src={`${BACKEND_URL}${editingFile.path || editingFile.url}`}
                     alt={editingFile.filename}
                     className="max-h-64 mx-auto rounded"
                   />
@@ -761,7 +762,7 @@ const MediaLibraryEnhanced = () => {
                 <p><strong>Uploaded:</strong> {new Date(editingFile.uploadedAt || editingFile.createdAt).toLocaleString()}</p>
                 <p><strong>URL:</strong> 
                   <code className="ml-2 bg-gray-200 px-2 py-1 rounded text-xs">
-                    http://localhost:3001{editingFile.path || editingFile.url}
+                    {BACKEND_URL}{editingFile.path || editingFile.url}
                   </code>
                 </p>
               </div>

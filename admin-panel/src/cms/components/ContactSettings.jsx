@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API_BASE_URL, BACKEND_URL } from "../../config/api";
 import Icon from 'components/AppIcon';
 import axios from 'axios';
 
@@ -77,7 +78,7 @@ const ContactSettings = () => {
       const token = localStorage.getItem('token');
       const headers = token ? { Authorization: `Bearer ${token}` } : {};
       
-      const response = await axios.get('http://localhost:3001/api/content/contact-settings', { headers });
+      const response = await axios.get(API_BASE_URL + '/content/contact-settings', { headers });
       
       if (response.data && response.data.value) {
         const data = JSON.parse(response.data.value);
@@ -107,7 +108,7 @@ const ContactSettings = () => {
       };
       
       await axios.post(
-        'http://localhost:3001/api/content',
+        API_BASE_URL + '/content',
         {
           key: 'contact-settings',
           value: JSON.stringify(data),

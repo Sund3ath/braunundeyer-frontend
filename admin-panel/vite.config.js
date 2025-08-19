@@ -5,9 +5,15 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   server: {
-    port: 4029,
+    port: 3000,
     host: '0.0.0.0',
     strictPort: true,
+    allowedHosts: [
+      'cms.braunundeyer.de',
+      'localhost',
+      '127.0.0.1',
+      '0.0.0.0'
+    ]
   },
   resolve: {
     alias: {

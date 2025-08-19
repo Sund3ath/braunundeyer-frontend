@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API_BASE_URL, BACKEND_URL } from "../../config/api";
 import Icon from '../../components/AppIcon';
 
 const AnalyticsDashboardSimple = () => {
@@ -12,7 +13,7 @@ const AnalyticsDashboardSimple = () => {
   const fetchAnalytics = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`http://localhost:3001/api/analytics/stats?period=${period}`);
+      const response = await fetch(`${API_BASE_URL}/analytics/stats?period=${period}`);
       if (!response.ok) throw new Error('Failed to fetch analytics');
       const data = await response.json();
       setStats(data);
@@ -28,7 +29,7 @@ const AnalyticsDashboardSimple = () => {
   // Fetch real-time data
   const fetchRealtime = async () => {
     try {
-      const response = await fetch('http://localhost:3001/api/analytics/realtime');
+      const response = await fetch(API_BASE_URL + '/analytics/realtime');
       if (!response.ok) throw new Error('Failed to fetch realtime data');
       const data = await response.json();
       setRealtime(data);

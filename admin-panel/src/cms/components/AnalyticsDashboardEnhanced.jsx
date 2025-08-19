@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API_BASE_URL, BACKEND_URL } from "../../config/api";
 import Icon from 'components/AppIcon';
 import {
   LineChart, Line, AreaChart, Area, BarChart, Bar,
@@ -62,7 +63,7 @@ const AnalyticsDashboardEnhanced = () => {
       const headers = token ? { Authorization: `Bearer ${token}` } : {};
       
       const response = await axios.get(
-        `http://localhost:3001/api/analytics/dashboard?range=${dateRange}`,
+        `${API_BASE_URL}/analytics/dashboard?range=${dateRange}`,
         { headers }
       );
       
@@ -86,7 +87,7 @@ const AnalyticsDashboardEnhanced = () => {
       const headers = token ? { Authorization: `Bearer ${token}` } : {};
       
       const response = await axios.get(
-        'http://localhost:3001/api/analytics/realtime',
+        API_BASE_URL + '/analytics/realtime',
         { headers }
       );
       

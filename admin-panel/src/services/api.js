@@ -1,5 +1,7 @@
 // API Service for Braun & Eyer CMS
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://api.braunundeyer.de/api';
+export { API_BASE_URL };
+export const BACKEND_URL = API_BASE_URL.replace('/api', '');
 const API_TIMEOUT = 30000; // 30 seconds timeout (increased for large file uploads)
 
 // Helper function to add timeout to fetch

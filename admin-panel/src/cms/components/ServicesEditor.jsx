@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API_BASE_URL, BACKEND_URL } from "../../config/api";
 import Icon from 'components/AppIcon';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import axios from 'axios';
@@ -24,7 +25,7 @@ const ServicesEditor = () => {
       const token = localStorage.getItem('token');
       const headers = token ? { Authorization: `Bearer ${token}` } : {};
       
-      const response = await axios.get('http://localhost:3001/api/content/services', { headers });
+      const response = await axios.get(API_BASE_URL + '/content/services', { headers });
       
       if (response.data && response.data.value) {
         const data = JSON.parse(response.data.value);
@@ -73,7 +74,7 @@ const ServicesEditor = () => {
       };
       
       await axios.post(
-        'http://localhost:3001/api/content',
+        API_BASE_URL + '/content',
         {
           key: 'services',
           value: JSON.stringify(data),

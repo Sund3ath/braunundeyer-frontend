@@ -171,9 +171,21 @@ export const EditModeProvider = ({ children }) => {
       // For now, we'll simulate saving to localStorage
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      const existingData = JSON.parse(localStorage.getItem('cms_content') || '{}');
-      const updatedData = { ...existingData, ...data };
-      localStorage.setItem('cms_content', JSON.stringify(updatedData));
+      try {
+        const existingData = JSON.parse(localStorage.getItem('cms_content') || '{}');
+        const updatedData = { ...existingData, ...data };
+        const dataStr = JSON.stringify(updatedData);
+        if (dataStr.length < 1000000) { // Only store if less than 1MB
+          localStorage.setItem('cms_content', dataStr);
+        } else {
+          console.warn('Content too large for localStorage, skipping storage');
+        }
+      } catch (storageError) {
+        console.warn('Could not save to localStorage:', storageError);
+        if (storageError.name === 'QuotaExceededError') {
+          localStorage.removeItem('cms_content');
+        }
+      }
       
       setSavingStatus('saved');
       setUnsavedChanges(false);

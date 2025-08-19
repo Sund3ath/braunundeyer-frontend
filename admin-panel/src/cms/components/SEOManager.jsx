@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API_BASE_URL, BACKEND_URL } from "../../config/api";
 import Icon from 'components/AppIcon';
 import axios from 'axios';
 
@@ -45,7 +46,7 @@ const SEOManager = () => {
       const token = localStorage.getItem('token');
       const headers = token ? { Authorization: `Bearer ${token}` } : {};
       
-      const response = await axios.get('http://localhost:3001/api/content/seo', { headers });
+      const response = await axios.get(API_BASE_URL + '/content/seo', { headers });
       
       if (response.data && response.data.value) {
         const data = JSON.parse(response.data.value);
@@ -171,7 +172,7 @@ const SEOManager = () => {
       const token = localStorage.getItem('token');
       
       await axios.post(
-        'http://localhost:3001/api/content',
+        API_BASE_URL + '/content',
         {
           key: 'seo',
           value: JSON.stringify(seoData),
@@ -183,7 +184,7 @@ const SEOManager = () => {
       // Generate sitemap if enabled
       if (seoData.sitemap.enabled && seoData.sitemap.autoGenerate) {
         await axios.post(
-          'http://localhost:3001/api/seo/generate-sitemap',
+          API_BASE_URL + '/seo/generate-sitemap',
           seoData.sitemap,
           { headers: token ? { Authorization: `Bearer ${token}` } : {} }
         );
@@ -191,7 +192,7 @@ const SEOManager = () => {
       
       // Update robots.txt
       await axios.post(
-        'http://localhost:3001/api/seo/update-robots',
+        API_BASE_URL + '/seo/update-robots',
         seoData.robots,
         { headers: token ? { Authorization: `Bearer ${token}` } : {} }
       );

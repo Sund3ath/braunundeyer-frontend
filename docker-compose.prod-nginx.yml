@@ -1,0 +1,99 @@
+services:
+  # Backend API Service (api.braunundeyer.de)
+  backend:
+    build:
+      context: ./backend
+      target: production
+    container_name: braunundeyer-backend-prod
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+      - DATABASE_PATH=/app/data/database.sqlite
+      - JWT_SECRET=${JWT_SECRET:-your-very-secure-jwt-secret-change-this-in-production-min-32-chars}
+      - JWT_REFRESH_SECRET=${JWT_REFRESH_SECRET:-your-very-secure-refresh-secret-change-this-in-production-min-32-chars}
+      - ALLOWED_ORIGINS=https://braunundeyer.de,https://cms.braunundeyer.de,http://braunundeyer.de,http://cms.braunundeyer.de,http://www.braunundeyer.de
+      - UPLOAD_DIR=/app/uploads
+      - LOG_LEVEL=error
+      - SMTP_HOST=smtp.strato.de
+      - SMTP_PORT=465
+      - SMTP_USER=info@braunundeyer.de
+      - SMTP_PASSWORD=${SMTP_PASSWORD}
+      - EMAIL_FROM=info@braunundeyer.de
+      - EMAIL_TO=info@braunundeyer.de
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY:-sk-374a85178de1439d8b7438c2ac56be77}
+    volumes:
+      - backend-uploads:/app/uploads
+      - backend-data:/app/data
+      - backend-logs:/app/logs
+    ports:
+      - "127.0.0.1:3001:3001"
+    networks:
+      - braunundeyer-network
+    restart: always
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Admin Panel (cms.braunundeyer.de)
+  admin-panel:
+    build:
+      context: ./admin-panel
+      target: production
+      args:
+        - VITE_API_URL=http://api.braunundeyer.de/api
+        - VITE_BACKEND_URL=http://api.braunundeyer.de
+        - VITE_SITE_URL=http://demo.braunundeyer.de
+    container_name: braunundeyer-admin-prod
+    depends_on:
+      - backend
+    ports:
+      - "127.0.0.1:4029:80"
+    networks:
+      - braunundeyer-network
+    restart: always
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:80"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Next.js Frontend (braunundeyer.de)
+  nextjs-app:
+    build:
+      context: ./nextjs-app
+      target: production
+      args:
+        - NEXT_PUBLIC_API_URL=http://api.braunundeyer.de/api
+        - NEXT_PUBLIC_BACKEND_URL=http://api.braunundeyer.de
+        - NEXT_PUBLIC_SITE_URL=http://braunundeyer.de
+        - NEXT_PUBLIC_CMS_URL=http://cms.braunundeyer.de
+    container_name: braunundeyer-nextjs-prod
+    environment:
+      - NODE_ENV=production
+      - BACKEND_URL=http://backend:3001
+    depends_on:
+      - backend
+    ports:
+      - "127.0.0.1:3000:3000"
+    networks:
+      - braunundeyer-network
+    restart: always
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+networks:
+  braunundeyer-network:
+    driver: bridge
+
+volumes:
+  backend-uploads:
+    driver: local
+  backend-data:
+    driver: local
+  backend-logs:
+    driver: local

@@ -27,6 +27,15 @@ const prodOrigins = [
   'https://braunundeyer.de',
   'https://www.braunundeyer.de',
   'https://admin.braunundeyer.de',
+  'https://cms.braunundeyer.de',
+  'https://api.braunundeyer.de',
+  'http://braunundeyer.de',
+  'http://www.braunundeyer.de',
+  'http://cms.braunundeyer.de',
+  'http://api.braunundeyer.de',
+  // Demo domain for main site
+  'https://demo.braunundeyer.de',
+  'http://demo.braunundeyer.de',
   // Add more production origins as needed
 ];
 

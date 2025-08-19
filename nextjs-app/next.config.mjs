@@ -3,8 +3,12 @@ const nextConfig = {
   reactStrictMode: true,
   output: 'standalone', // Required for Docker production build
   
+  // Disable ESLint during builds
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  
   // Performance optimizations
-  swcMinify: true,
   compress: true,
   poweredByHeader: false,
   

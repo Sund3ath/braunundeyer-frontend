@@ -51,7 +51,7 @@ export async function getAllProjects(language = 'de') {
       },
       // In server components, we can't use credentials: 'include'
       // but we can pass cookies if needed
-      cache: 'no-store', // Ensure fresh data on each request
+      next: { revalidate: 60 }, // Revalidate every 60 seconds (ISR)
     });
 
     if (!response.ok) {
@@ -108,7 +108,7 @@ export async function getProjectById(id, language = 'de') {
       headers: {
         'Content-Type': 'application/json',
       },
-      cache: 'no-store',
+      next: { revalidate: 60 },
     });
 
     if (!response.ok) {
@@ -128,7 +128,7 @@ export async function getProjectById(id, language = 'de') {
             headers: {
               'Content-Type': 'application/json',
             },
-            cache: 'no-store',
+            next: { revalidate: 60 },
           }
         );
         
@@ -192,7 +192,7 @@ export async function getProjectsByCategory(category) {
       headers: {
         'Content-Type': 'application/json',
       },
-      cache: 'no-store',
+      next: { revalidate: 60 },
     });
 
     if (!response.ok) {
@@ -227,7 +227,7 @@ export async function getFeaturedProjects(limit = 6) {
       headers: {
         'Content-Type': 'application/json',
       },
-      cache: 'no-store',
+      next: { revalidate: 60 },
     });
 
     if (!response.ok) {

@@ -274,3 +274,5 @@
 2025-08-18 22:10:51:1051 [31merror[39m: [31mDatabase close error: SQLITE_MISUSE: Database handle is closed[39m
 2025-08-18 23:28:57:2857 [31merror[39m: [31mDatabase close error: SQLITE_MISUSE: Database handle is closed[39m
 2025-08-19 14:25:37:2537 [31merror[39m: [31mSMTP configuration error: Invalid login: 535 5.7.8 Authentication failed: wrong user/password[39m
+2025-08-19 16:04:26:426 [31merror[39m: [31mSMTP configuration error: Invalid login: 535 5.7.8 Authentication failed: wrong user/password[39m
+2025-08-19 16:04:39:439 [31merror[39m: [31mDatabase close error: SQLITE_MISUSE: Database handle is closed[39m

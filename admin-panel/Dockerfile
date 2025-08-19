@@ -7,7 +7,7 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
 COPY package*.json ./
-RUN npm ci
+RUN npm install
 
 # Development stage
 FROM base AS development
@@ -23,14 +23,16 @@ CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0", "--port", "3000"]
 FROM base AS builder
 WORKDIR /app
 COPY package*.json ./
-RUN npm ci
+RUN npm install
 COPY . .
 
 # Build the application
-ARG REACT_APP_API_URL
-ARG REACT_APP_SITE_URL
-ENV REACT_APP_API_URL=$REACT_APP_API_URL
-ENV REACT_APP_SITE_URL=$REACT_APP_SITE_URL
+ARG VITE_API_URL
+ARG VITE_BACKEND_URL
+ARG VITE_SITE_URL
+ENV VITE_API_URL=$VITE_API_URL
+ENV VITE_BACKEND_URL=$VITE_BACKEND_URL
+ENV VITE_SITE_URL=$VITE_SITE_URL
 
 RUN npm run build
 
@@ -38,7 +40,7 @@ RUN npm run build
 FROM nginx:alpine AS production
 
 # Copy custom nginx config
-COPY --from=builder /app/build /usr/share/nginx/html
+COPY --from=builder /app/dist /usr/share/nginx/html
 
 # Create nginx config for SPA
 RUN echo 'server { \

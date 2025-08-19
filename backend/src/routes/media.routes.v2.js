@@ -39,19 +39,22 @@ const localStorage = multer.diskStorage({
 
 // File filter for both local and S3
 const fileFilter = (req, file, cb) => {
-  // Allow images, videos, and PDFs
-  const allowedImageTypes = /jpeg|jpg|png|gif|webp|svg|pdf/;
+  // Allow images (including HEIC/HEIF), videos, and PDFs
+  const allowedImageTypes = /jpeg|jpg|png|gif|webp|svg|pdf|heic|heif/;
   const allowedVideoTypes = /mp4|webm|ogg|mov|avi|mkv/;
   
   const ext = path.extname(file.originalname).toLowerCase().substring(1);
   const isImage = allowedImageTypes.test(ext);
   const isVideo = allowedVideoTypes.test(ext);
   
-  // Also check mimetype
-  const isImageMime = file.mimetype.startsWith('image/') || file.mimetype === 'application/pdf';
+  // Also check mimetype - be more permissive
+  const isImageMime = file.mimetype.startsWith('image/') || 
+                      file.mimetype === 'application/pdf' ||
+                      file.mimetype === 'application/octet-stream'; // Some browsers send this for HEIC
   const isVideoMime = file.mimetype.startsWith('video/');
 
-  if ((isImage && isImageMime) || (isVideo && isVideoMime)) {
+  // Allow if extension OR mimetype matches (more permissive)
+  if (isImage || isVideo || isImageMime || isVideoMime) {
     return cb(null, true);
   } else {
     cb(new Error('Only image files, videos, and PDFs are allowed'));
@@ -415,9 +418,9 @@ router.post('/upload/bulk',
         const result = await db.prepare(`
           INSERT INTO media (
             filename, original_name, mimetype, size, path, 
-            uploaded_by, storage_type, s3_key, category, tags, alt_text
+            uploaded_by, storage_type, s3_key, alt_text
           )
-          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         `).run(
           mediaData.filename,
           mediaData.original_name,
@@ -427,9 +430,7 @@ router.post('/upload/bulk',
           req.user.id,
           mediaData.storage_type,
           useS3 ? file.key : null,
-          mediaData.category,
-          mediaData.tags,
-          mediaData.alt_text
+          mediaData.alt_text || ''
         );
 
         uploadedFiles.push({

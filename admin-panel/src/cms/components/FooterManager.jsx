@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API_BASE_URL, BACKEND_URL } from "../../config/api";
 import Icon from 'components/AppIcon';
 import axios from 'axios';
 
@@ -34,7 +35,7 @@ const FooterManager = () => {
       const token = localStorage.getItem('token');
       const headers = token ? { Authorization: `Bearer ${token}` } : {};
       
-      const response = await axios.get('http://localhost:3001/api/content/footer', { headers });
+      const response = await axios.get(API_BASE_URL + '/content/footer', { headers });
       
       if (response.data && response.data.value) {
         const data = JSON.parse(response.data.value);
@@ -192,7 +193,7 @@ const FooterManager = () => {
       const token = localStorage.getItem('token');
       
       await axios.post(
-        'http://localhost:3001/api/content',
+        API_BASE_URL + '/content',
         {
           key: 'footer',
           value: JSON.stringify(footerData),

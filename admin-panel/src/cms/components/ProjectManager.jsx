@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API_BASE_URL, BACKEND_URL } from "../../config/api";
 import { motion, AnimatePresence } from 'framer-motion';
 import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable';
@@ -67,7 +68,7 @@ const SortableProjectCard = ({ project, onEdit, onDelete }) => {
             {/* Thumbnail */}
             {project.image && (
               <img
-                src={project.image.startsWith('http') ? project.image : `http://localhost:3001${project.image.startsWith('/') ? '' : '/'}${project.image}`}
+                src={project.image.startsWith('http') ? project.image : `${BACKEND_URL}${project.image.startsWith('/') ? '' : '/'}${project.image}`}
                 alt={project.title || 'Project'}
                 className="w-20 h-20 object-cover rounded ml-4"
                 onError={(e) => {
@@ -221,7 +222,7 @@ const ProjectEditorModal = ({ project, isOpen, onClose, onSave }) => {
       
       console.log('Using token for AI optimization:', token ? 'Token found' : 'No token');
       
-      const response = await fetch('http://localhost:3001/api/ai/optimize', {
+      const response = await fetch(API_BASE_URL + '/ai/optimize', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -432,7 +433,7 @@ const ProjectEditorModal = ({ project, isOpen, onClose, onSave }) => {
                   <div className="flex items-center space-x-4">
                     {formData.image && (
                       <img
-                        src={formData.image.startsWith('http') ? formData.image : `http://localhost:3001${formData.image.startsWith('/') ? '' : '/'}${formData.image}`}
+                        src={formData.image.startsWith('http') ? formData.image : `${BACKEND_URL}${formData.image.startsWith('/') ? '' : '/'}${formData.image}`}
                         alt="Main"
                         className="w-32 h-32 object-cover rounded"
                         onError={(e) => {
@@ -459,7 +460,7 @@ const ProjectEditorModal = ({ project, isOpen, onClose, onSave }) => {
                     {formData.gallery?.map((img, index) => (
                       <div key={index} className="relative">
                         <img
-                          src={img.startsWith('http') ? img : `http://localhost:3001${img.startsWith('/') ? '' : '/'}${img}`}
+                          src={img.startsWith('http') ? img : `${BACKEND_URL}${img.startsWith('/') ? '' : '/'}${img}`}
                           alt={`Gallery ${index + 1}`}
                           className="w-full h-24 object-cover rounded"
                           onError={(e) => {

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API_BASE_URL, BACKEND_URL } from "../../config/api";
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import Icon from 'components/AppIcon';
@@ -53,7 +54,7 @@ const TeamManager = () => {
       setLoading(true);
       const token = localStorage.getItem('token');
       const response = await axios.get(
-        'http://localhost:3001/api/team?include_translations=true',
+        API_BASE_URL + '/team?include_translations=true',
         { headers: token ? { Authorization: `Bearer ${token}` } : {} }
       );
       // Sort by order_index
@@ -94,13 +95,13 @@ const TeamManager = () => {
       
       if (editingMember) {
         await axios.put(
-          `http://localhost:3001/api/team/${editingMember.id}`,
+          `${API_BASE_URL}/team/${editingMember.id}`,
           formDataToSend,
           config
         );
       } else {
         await axios.post(
-          'http://localhost:3001/api/team',
+          API_BASE_URL + '/team',
           formDataToSend,
           config
         );
@@ -121,7 +122,7 @@ const TeamManager = () => {
     try {
       const token = localStorage.getItem('token');
       await axios.delete(
-        `http://localhost:3001/api/team/${id}`,
+        `${API_BASE_URL}/team/${id}`,
         { headers: token ? { Authorization: `Bearer ${token}` } : {} }
       );
       fetchTeamMembers();
@@ -150,7 +151,7 @@ const TeamManager = () => {
       order_index: member.order_index || 0,
       is_active: member.is_active !== undefined ? member.is_active : true
     });
-    setImagePreview(member.image ? `http://localhost:3001${member.image}` : null);
+    setImagePreview(member.image ? `${BACKEND_URL}${member.image}` : null);
     setShowForm(true);
   };
 
@@ -238,7 +239,7 @@ const TeamManager = () => {
         
         // Send the new order to the backend
         await axios.put(
-          'http://localhost:3001/api/team/reorder',
+          API_BASE_URL + '/team/reorder',
           { memberIds: updatedMembers.map(m => m.id) },
           { headers }
         );
@@ -287,7 +288,7 @@ const TeamManager = () => {
           <div className="w-16 h-16 rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
             {member.image ? (
               <img
-                src={`http://localhost:3001${member.image}`}
+                src={`${BACKEND_URL}${member.image}`}
                 alt={member.name}
                 className="w-full h-full object-cover"
               />

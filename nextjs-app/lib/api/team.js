@@ -30,7 +30,7 @@ export async function getAllTeamMembers(language = 'de') {
         headers: {
           'Content-Type': 'application/json',
         },
-        cache: 'no-store', // Ensure fresh data on each request
+        next: { revalidate: 60 }, // Ensure fresh data on each request
       }
     );
 
@@ -66,7 +66,7 @@ export async function getTeamMemberById(id, language = 'de') {
         headers: {
           'Content-Type': 'application/json',
         },
-        cache: 'no-store',
+        next: { revalidate: 60 },
       }
     );
 

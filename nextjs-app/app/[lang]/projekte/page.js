@@ -1,5 +1,8 @@
-import { projectsAPI } from '@/lib/api';
+import { getAllProjects } from '@/lib/api/projects';
 import ProjectGalleryClient from './ProjectGalleryClient';
+
+// Force dynamic rendering with ISR (revalidate every 60 seconds)
+export const revalidate = 60;
 
 // This is a Server Component that fetches data
 export default async function ProjectsPage({ params }) {
@@ -9,10 +12,9 @@ export default async function ProjectsPage({ params }) {
   let error = null;
   
   try {
-    // Fetch projects from CMS API
-    const response = await projectsAPI.getAll();
-    // Handle both response.projects and response.data.projects formats
-    projects = response.projects || response.data?.projects || response.data || response || [];
+    // Fetch projects from CMS API with language support
+    projects = await getAllProjects(lang);
+    console.log(`Fetched ${projects.length} projects for language: ${lang}`);
   } catch (err) {
     console.error('Error fetching projects from CMS:', err);
     error = err.message;
