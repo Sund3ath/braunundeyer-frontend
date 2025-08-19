@@ -88,24 +88,24 @@ export default function AboutUsClient({ teamMembers = [], dict = {} }) {
   const testimonials = [
     {
       id: 1,
-      client: dict?.testimonials?.items?.[0]?.client || "Familie Schmidt",
-      company: dict?.testimonials?.items?.[0]?.company || "Privatkunde",
+      client: dict?.testimonials?.items?.[0]?.client || "Privatkunde",
+      company: dict?.testimonials?.items?.[0]?.company || "Einfamilienhaus Neubau",
       quote: dict?.testimonials?.items?.[0]?.quote || "Braun & Eyer hat unseren Traum vom Eigenheim perfekt umgesetzt. Die Beratung war erstklassig und die Umsetzung präzise.",
       project: dict?.testimonials?.items?.[0]?.project || "Einfamilienhaus Neubau",
       image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
     },
     {
       id: 2,
-      client: dict?.testimonials?.items?.[1]?.client || "Herr Dr. Müller",
-      company: dict?.testimonials?.items?.[1]?.company || "Müller Immobilien GmbH",
+      client: dict?.testimonials?.items?.[1]?.client || "Geschäftskunde",
+      company: dict?.testimonials?.items?.[1]?.company || "Immobiliengesellschaft",
       quote: dict?.testimonials?.items?.[1]?.quote || "Die Sanierung unseres denkmalgeschützten Gebäudes wurde mit höchster Kompetenz durchgeführt.",
       project: dict?.testimonials?.items?.[1]?.project || "Altbausanierung",
       image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
     },
     {
       id: 3,
-      client: dict?.testimonials?.items?.[2]?.client || "Frau Weber",
-      company: dict?.testimonials?.items?.[2]?.company || "Weber Consulting",
+      client: dict?.testimonials?.items?.[2]?.client || "Unternehmen",
+      company: dict?.testimonials?.items?.[2]?.company || "Beratungsunternehmen",
       quote: dict?.testimonials?.items?.[2]?.quote || "Die Innenarchitektur unseres Büros ist funktional und ästhetisch perfekt gelungen.",
       project: dict?.testimonials?.items?.[2]?.project || "Bürogestaltung",
       image: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"

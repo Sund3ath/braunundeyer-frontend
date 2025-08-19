@@ -1426,3 +1426,37 @@
 2025-08-19 12:43:18:4318 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
 2025-08-19 12:43:18:4318 [32minfo[39m: [32mAuthorization successful[39m
 2025-08-19 12:43:18:4318 [32minfo[39m: [32mContent updated: homepage (de) by admin@braunundeyer.de[39m
+2025-08-19 14:12:05:125 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-19 14:12:05:125 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-19 14:12:05:125 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-19 14:12:05:125 [32minfo[39m: [32mServer running on port 3001[39m
+2025-08-19 14:12:05:125 [32minfo[39m: [32mEnvironment: development[39m
+2025-08-19 14:12:05:125 [32minfo[39m: [32mCORS enabled for: http://localhost:4028,http://localhost:5173,http://localhost:3000,http://localhost:4029[39m
+2025-08-19 14:12:05:125 [32minfo[39m: [32mAPI available at: http://localhost:3001/api[39m
+2025-08-19 14:12:06:126 [32minfo[39m: [32mAnalytics tables initialized[39m
+2025-08-19 14:13:55:1355 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-19 14:13:55:1355 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-19 14:13:55:1355 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-19 14:13:55:1355 [32minfo[39m: [32mServer running on port 3001[39m
+2025-08-19 14:13:55:1355 [32minfo[39m: [32mEnvironment: development[39m
+2025-08-19 14:13:55:1355 [32minfo[39m: [32mCORS enabled for: http://localhost:4028,http://localhost:5173,http://localhost:3000,http://localhost:4029[39m
+2025-08-19 14:13:55:1355 [32minfo[39m: [32mAPI available at: http://localhost:3001/api[39m
+2025-08-19 14:13:56:1356 [32minfo[39m: [32mAnalytics tables initialized[39m
+2025-08-19 14:14:12:1412 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-19 14:14:12:1412 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-19 14:14:12:1412 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-19 14:14:12:1412 [32minfo[39m: [32mServer running on port 3001[39m
+2025-08-19 14:14:12:1412 [32minfo[39m: [32mEnvironment: development[39m
+2025-08-19 14:14:12:1412 [32minfo[39m: [32mCORS enabled for: http://localhost:4028,http://localhost:5173,http://localhost:3000,http://localhost:4029[39m
+2025-08-19 14:14:12:1412 [32minfo[39m: [32mAPI available at: http://localhost:3001/api[39m
+2025-08-19 14:14:13:1413 [32minfo[39m: [32mAnalytics tables initialized[39m
+2025-08-19 14:25:32:2532 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-19 14:25:32:2532 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-19 14:25:32:2532 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-19 14:25:32:2532 [32minfo[39m: [32mServer running on port 3001[39m
+2025-08-19 14:25:32:2532 [32minfo[39m: [32mEnvironment: development[39m
+2025-08-19 14:25:32:2532 [32minfo[39m: [32mCORS enabled for: http://localhost:4028,http://localhost:5173,http://localhost:3000,http://localhost:4029[39m
+2025-08-19 14:25:32:2532 [32minfo[39m: [32mAPI available at: http://localhost:3001/api[39m
+2025-08-19 14:25:33:2533 [32minfo[39m: [32mAnalytics tables initialized[39m
+2025-08-19 14:25:37:2537 [31merror[39m: [31mSMTP configuration error: Invalid login: 535 5.7.8 Authentication failed: wrong user/password[39m
+2025-08-19 14:27:30:2730 [32minfo[39m: [32mContact form submission (email disabled): Dies ist eine Testnachricht vom Kontaktformular.[39m

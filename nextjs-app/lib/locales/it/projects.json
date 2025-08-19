@@ -1,0 +1,50 @@
+{
+  "title": "Unsere Projekte",
+  "subtitle": "Entdecken Sie unser umfassendes Portfolio architektonischer Projekte von Neubau über Altbausanierung bis hin zur Innenarchitektur.",
+  "search": {
+    "placeholder": "Projekte suchen...",
+    "noResults": "Keine Projekte gefunden",
+    "noResultsDescription": "Versuchen Sie, Ihre Suchkriterien oder Filter anzupassen",
+    "clearFilters": "Filter löschen"
+  },
+  "filters": {
+    "all": "Alle",
+    "newBuilding": "Neubau",
+    "renovation": "Altbausanierung",
+    "interior": "Innenarchitektur",
+    "clearAll": "Alle löschen"
+  },
+  "sort": {
+    "newest": "Neueste",
+    "oldest": "Älteste",
+    "alphabetical": "A-Z"
+  },
+  "viewMode": {
+    "grid": "Rasteransicht",
+    "list": "Listenansicht"
+  },
+  "projectCard": {
+    "viewDetails": "Details anzeigen",
+    "area": "Fläche",
+    "year": "Jahr",
+    "location": "Standort",
+    "status": {
+      "completed": "Fertiggestellt",
+      "inProgress": "In Bearbeitung",
+      "planned": "In Planung"
+    }
+  },
+  "pagination": {
+    "showing": "Zeige {{current}} von {{total}} Projekten",
+    "loadMore": "Weitere Projekte laden",
+    "loading": "Lädt..."
+  },
+  "categories": {
+    "newBuilding": "Neubau",
+    "renovation": "Altbausanierung",
+    "interior": "Innenarchitektur",
+    "commercial": "Gewerbebau",
+    "residential": "Wohnbau",
+    "public": "Öffentliche Bauten"
+  }
+}

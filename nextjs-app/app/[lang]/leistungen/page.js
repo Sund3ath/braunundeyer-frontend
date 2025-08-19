@@ -73,8 +73,8 @@ export default function ServicesPage() {
       description: dict?.services?.newConstruction?.description || 'Moderne Neubauprojekte nach Ihren Wünschen',
       timeline: dict?.services?.newConstruction?.timeline || '6-12 Monate',
       deliverables: dict?.services?.newConstruction?.deliverables || [],
-      features: dict?.services?.newConstruction?.features || ['Energieeffizienz', 'Moderne Architektur', 'Individuelle Planung', 'Nachhaltigkeit'],
-      startingPrice: dict?.services?.newConstruction?.startingPrice || 'ab €2.500/m²'
+      features: dict?.services?.newConstruction?.features || ['Energieeffizienz', 'Moderne Architektur', 'Individuelle Planung', 'Nachhaltigkeit']
+      // startingPrice: dict?.services?.newConstruction?.startingPrice || 'ab €2.500/m²'
     },
     {
       id: 2,
@@ -85,8 +85,8 @@ export default function ServicesPage() {
       description: dict?.services?.renovation?.description || 'Behutsame Modernisierung historischer Gebäude',
       timeline: dict?.services?.renovation?.timeline || '3-9 Monate',
       deliverables: dict?.services?.renovation?.deliverables || [],
-      features: dict?.services?.renovation?.features || ['Denkmalschutz', 'Energetische Sanierung', 'Werterhaltung', 'Modernisierung'],
-      startingPrice: dict?.services?.renovation?.startingPrice || 'ab €1.800/m²'
+      features: dict?.services?.renovation?.features || ['Denkmalschutz', 'Energetische Sanierung', 'Werterhaltung', 'Modernisierung']
+      // startingPrice: dict?.services?.renovation?.startingPrice || 'ab €1.800/m²'
     },
     {
       id: 3,
@@ -97,8 +97,8 @@ export default function ServicesPage() {
       description: dict?.services?.interior?.description || 'Kreative Raumkonzepte für Wohn- und Geschäftsräume',
       timeline: dict?.services?.interior?.timeline || '2-6 Monate',
       deliverables: dict?.services?.interior?.deliverables || [],
-      features: dict?.services?.interior?.features || ['Raumplanung', 'Lichtkonzepte', 'Materialauswahl', 'Möbeldesign'],
-      startingPrice: dict?.services?.interior?.startingPrice || 'ab €150/m²'
+      features: dict?.services?.interior?.features || ['Raumplanung', 'Lichtkonzepte', 'Materialauswahl', 'Möbeldesign']
+      // startingPrice: dict?.services?.interior?.startingPrice || 'ab €150/m²'
     },
     {
       id: 4,
@@ -109,8 +109,8 @@ export default function ServicesPage() {
       description: dict?.services?.energy?.description || 'Nachhaltige Energiekonzepte und Beratung',
       timeline: dict?.services?.energy?.timeline || '1-2 Monate',
       deliverables: dict?.services?.energy?.deliverables || [],
-      features: dict?.services?.energy?.features || ['Energieausweis', 'KfW-Beratung', 'Solarberatung', 'Wärmepumpen'],
-      startingPrice: dict?.services?.energy?.startingPrice || 'ab €2.000'
+      features: dict?.services?.energy?.features || ['Energieausweis', 'KfW-Beratung', 'Solarberatung', 'Wärmepumpen']
+      // startingPrice: dict?.services?.energy?.startingPrice || 'ab €2.000'
     },
     {
       id: 5,
@@ -121,8 +121,8 @@ export default function ServicesPage() {
       description: dict?.services?.landscape?.description || 'Harmonische Außenraumgestaltung',
       timeline: dict?.services?.landscape?.timeline || '2-4 Monate',
       deliverables: dict?.services?.landscape?.deliverables || [],
-      features: dict?.services?.landscape?.features || ['Gartenplanung', 'Außenanlagen', 'Dachbegrünung', 'Wasserflächen'],
-      startingPrice: dict?.services?.landscape?.startingPrice || 'ab €100/m²'
+      features: dict?.services?.landscape?.features || ['Gartenplanung', 'Außenanlagen', 'Dachbegrünung', 'Wasserflächen']
+      // startingPrice: dict?.services?.landscape?.startingPrice || 'ab €100/m²'
     },
     {
       id: 6,
@@ -133,8 +133,8 @@ export default function ServicesPage() {
       description: dict?.services?.projectManagement?.description || 'Professionelle Baubegleitung und Koordination',
       timeline: dict?.services?.projectManagement?.timeline || 'Projektabhängig',
       deliverables: dict?.services?.projectManagement?.deliverables || [],
-      features: dict?.services?.projectManagement?.features || ['Bauüberwachung', 'Kostenkontrolle', 'Terminplanung', 'Qualitätssicherung'],
-      startingPrice: dict?.services?.projectManagement?.startingPrice || 'nach Vereinbarung'
+      features: dict?.services?.projectManagement?.features || ['Bauüberwachung', 'Kostenkontrolle', 'Terminplanung', 'Qualitätssicherung']
+      // startingPrice: dict?.services?.projectManagement?.startingPrice || 'nach Vereinbarung'
     }
   ];
 
@@ -379,13 +379,10 @@ export default function ServicesPage() {
                   </div>
                   
                   <div className="p-6 lg:p-8">
-                    <div className="flex items-center justify-between mb-4">
+                    <div className="mb-4">
                       <h3 className="text-xl lg:text-2xl font-heading font-medium text-primary">
                         {service.title}
                       </h3>
-                      <span className="text-accent font-body font-semibold">
-                        {service.startingPrice}
-                      </span>
                     </div>
                     
                     <p className="text-text-secondary font-body mb-4 leading-relaxed">

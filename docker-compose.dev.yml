@@ -17,6 +17,12 @@ services:
       - CORS_ORIGIN=http://localhost:3000,http://localhost:4029
       - UPLOAD_DIR=/app/uploads
       - LOG_LEVEL=debug
+      - SMTP_HOST=smtp.strato.de
+      - SMTP_PORT=465
+      - SMTP_USER=info@braunundeyer.de
+      - SMTP_PASSWORD=${SMTP_PASSWORD:-your-strato-email-password}
+      - EMAIL_FROM=info@braunundeyer.de
+      - EMAIL_TO=info@braunundeyer.de
     volumes:
       - ./backend:/app
       - /app/node_modules

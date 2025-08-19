@@ -115,19 +115,19 @@
     "goTo": "Zu Testimonial",
     "items": [
       {
-        "client": "Familie Müller",
-        "company": "Privatkunden",
+        "client": "Privatkunde",
+        "company": "Einfamilienhaus Neubau",
         "quote": "Braun & Eyer haben unser Traumhaus Wirklichkeit werden lassen. Die Betreuung war von der ersten Beratung bis zur Schlüsselübergabe perfekt.",
         "project": "Einfamilienhaus Neubau"
       },
       {
-        "client": "Dr. Schmidt",
+        "client": "Geschäftskunde",
         "company": "Denkmalschutz Projekt",
         "quote": "Die Sanierung unseres historischen Stadthauses wurde mit größter Sorgfalt und Fachkenntnis durchgeführt. Ein hervorragendes Ergebnis.",
         "project": "Altbausanierung Denkmalschutz"
       },
       {
-        "client": "Immobilien AG München",
+        "client": "Unternehmen",
         "company": "Gewerblicher Bauherr",
         "quote": "Professionell, kreativ und zuverlässig. Das Wohnbauprojekt wurde termingerecht und im Budget realisiert.",
         "project": "Mehrfamilienhaus Komplex"

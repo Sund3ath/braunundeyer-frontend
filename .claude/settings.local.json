@@ -56,7 +56,8 @@
       "Bash(docker:*)",
       "Bash(open:*)",
       "Bash(/dev/null)",
-      "mcp__playwright__browser_network_requests"
+      "mcp__playwright__browser_network_requests",
+      "mcp__playwright__browser_resize"
     ],
     "deny": [],
     "additionalDirectories": [

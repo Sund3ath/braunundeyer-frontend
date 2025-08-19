@@ -9,6 +9,7 @@ import { ArrowRight, ChevronLeft, ChevronRight, MapPin, Home, Building2, Palette
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import AnimatedText from '@/components/ui/AnimatedText';
+import FloatingTypography from '@/components/FloatingTypography';
 
 export default function HomepageClient({ 
   heroSlides: initialHeroSlides, 
@@ -24,9 +25,7 @@ export default function HomepageClient({
   const [clickCount, setClickCount] = useState(0);
   const clickTimeoutRef = useRef(null);
   const [hasEntered, setHasEntered] = useState(false);
-  const [waterDrops, setWaterDrops] = useState([]);
   const [ripples, setRipples] = useState([]);
-  const waterDropIdRef = useRef(0);
   const rippleIdRef = useRef(0);
   
   // Custom cursor motion values with enhanced spring
@@ -161,25 +160,6 @@ export default function HomepageClient({
     };
   }, [cursorX, cursorY, scrollY]);
 
-  // Water drop animation effect
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const dropId = waterDropIdRef.current++;
-      const newDrop = {
-        id: dropId,
-        left: Math.random() * 100,
-        animationDuration: 3 + Math.random() * 2,
-        size: 20 + Math.random() * 30
-      };
-      setWaterDrops(prev => [...prev, newDrop]);
-      
-      setTimeout(() => {
-        setWaterDrops(prev => prev.filter(drop => drop.id !== dropId));
-      }, newDrop.animationDuration * 1000);
-    }, 2000);
-
-    return () => clearInterval(interval);
-  }, []);
 
   // Create ripple effect on click
   const handleCreateRipple = useCallback((e) => {
@@ -309,6 +289,9 @@ export default function HomepageClient({
       
       <Header dict={dict?.translation || dict} lang={lang} />
       
+      {/* Enhanced Floating Typography Background with Deep Scroll */}
+      <FloatingTypography variant="homepage" />
+      
       {/* Custom Cursor */}
       <motion.div
         className="cursor-dot"
@@ -319,21 +302,6 @@ export default function HomepageClient({
         style={{ x: cursorXSpring, y: cursorYSpring }}
       />
 
-      {/* Water Drop Effects */}
-      <div className="fixed inset-0 pointer-events-none z-10">
-        {waterDrops.map(drop => (
-          <div
-            key={drop.id}
-            className="absolute water-drop-element rounded-full"
-            style={{
-              left: `${drop.left}%`,
-              width: `${drop.size}px`,
-              height: `${drop.size}px`,
-              animationDuration: `${drop.animationDuration}s`
-            }}
-          />
-        ))}
-      </div>
 
       {/* Ripple Effects */}
       {ripples.map(ripple => (
@@ -349,21 +317,6 @@ export default function HomepageClient({
         />
       ))}
 
-      {/* Background Typography Animation */}
-      <motion.div 
-        className="fixed inset-0 pointer-events-none overflow-hidden z-0"
-        style={{ y: parallaxY }}
-      >
-        <div className="absolute top-20 left-10 text-[200px] font-bold text-gray-100/20 select-none animate-float">
-          ARCHITEKTUR
-        </div>
-        <div className="absolute bottom-20 right-10 text-[150px] font-bold text-gray-100/20 select-none animate-wave">
-          DESIGN
-        </div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-[100px] font-bold text-gray-100/10 select-none animate-pulse">
-          INNOVATION
-        </div>
-      </motion.div>
 
       {/* Hero Section with Water Effects - Matching Vite Version */}
       <motion.section 

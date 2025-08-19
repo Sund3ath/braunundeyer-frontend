@@ -15,6 +15,12 @@ services:
       - CORS_ORIGIN=https://braunundeyer.de,https://cms.braunundeyer.de
       - UPLOAD_DIR=/app/uploads
       - LOG_LEVEL=error
+      - SMTP_HOST=smtp.strato.de
+      - SMTP_PORT=465
+      - SMTP_USER=info@braunundeyer.de
+      - SMTP_PASSWORD=${SMTP_PASSWORD}
+      - EMAIL_FROM=info@braunundeyer.de
+      - EMAIL_TO=info@braunundeyer.de
     volumes:
       - backend-uploads:/app/uploads
       - backend-db:/app/data

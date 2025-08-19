@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
-import { Search, X, ChevronDown, Grid3X3, List, MapPin, Square, ArrowRight, AlertCircle } from 'lucide-react';
+import { Search, X, ChevronDown, Grid3X3, List, MapPin, Square, ArrowRight, AlertCircle, Expand, Eye } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Breadcrumb from '@/components/ui/Breadcrumb';
@@ -23,6 +23,8 @@ export default function ProjectGalleryClient({ initialProjects = [], lang = 'de'
   const [dict, setDict] = useState({});
   const [clickCount, setClickCount] = useState(0);
   const clickTimeoutRef = useRef(null);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [isImageModalOpen, setIsImageModalOpen] = useState(false);
 
   // Handle triple-click on footer copyright
   const handleCopyrightClick = () => {
@@ -133,6 +135,19 @@ export default function ProjectGalleryClient({ initialProjects = [], lang = 'de'
     setVisibleProjects(prev => prev + 6);
   };
 
+  // Handle image viewing
+  const openImageModal = (e, project) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setSelectedImage(project);
+    setIsImageModalOpen(true);
+  };
+
+  const closeImageModal = () => {
+    setIsImageModalOpen(false);
+    setSelectedImage(null);
+  };
+
   const breadcrumbItems = [
     { href: `/${lang}/homepage`, label: dict?.translation?.nav?.home || 'Startseite' },
     { label: dict?.projects?.title || 'Projekte' }
@@ -221,7 +236,7 @@ export default function ProjectGalleryClient({ initialProjects = [], lang = 'de'
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-text-secondary" size={20} />
                 <input
                   type="text"
-                  placeholder={dict?.projects?.search || "Projekt suchen..."}
+                  placeholder={dict?.projects?.search?.placeholder || "Projekt suchen..."}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-full pl-10 pr-10 py-2.5 bg-surface border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent transition-all duration-200 font-body text-primary placeholder-text-secondary"
@@ -331,11 +346,8 @@ export default function ProjectGalleryClient({ initialProjects = [], lang = 'de'
                       transition={{ duration: 0.5, delay: index * 0.1 }}
                     >
                       {viewMode === 'grid' ? (
-                        <Link 
-                          href={`/${lang}/projekte/${project.id}`}
-                          className="group block bg-surface rounded-lg overflow-hidden shadow-subtle hover:shadow-pronounced transition-all duration-300"
-                        >
-                          <div className="aspect-[4/3] overflow-hidden bg-gray-100">
+                        <div className="group block bg-surface rounded-lg overflow-hidden shadow-subtle hover:shadow-pronounced transition-all duration-300">
+                          <div className="aspect-[4/3] overflow-hidden bg-gray-100 relative">
                             <Image
                               src={project.image || '/placeholder.jpg'}
                               alt={project.name || project.title || 'Project image'}
@@ -343,7 +355,18 @@ export default function ProjectGalleryClient({ initialProjects = [], lang = 'de'
                               height={600}
                               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                             />
+                            <button
+                              onClick={(e) => openImageModal(e, project)}
+                              className="absolute top-4 right-4 p-2 bg-black/50 hover:bg-black/70 text-white rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                              aria-label="View image"
+                            >
+                              <Expand size={20} />
+                            </button>
                           </div>
+                          <Link 
+                            href={`/${lang}/projekte/${project.id}`}
+                            className="block"
+                          >
                           <div className="p-6">
                             <div className="flex items-center justify-between mb-2">
                               <span className="text-xs font-body font-medium text-accent uppercase tracking-wider">
@@ -373,13 +396,11 @@ export default function ProjectGalleryClient({ initialProjects = [], lang = 'de'
                               <ArrowRight size={16} className="text-accent group-hover:translate-x-1 transition-transform duration-200" />
                             </div>
                           </div>
-                        </Link>
+                          </Link>
+                        </div>
                       ) : (
-                        <Link 
-                          href={`/${lang}/projekte/${project.id}`}
-                          className="group flex flex-col lg:flex-row bg-surface rounded-lg overflow-hidden shadow-subtle hover:shadow-pronounced transition-all duration-300"
-                        >
-                          <div className="lg:w-1/3 aspect-[4/3] lg:aspect-auto overflow-hidden bg-gray-100">
+                        <div className="group flex flex-col lg:flex-row bg-surface rounded-lg overflow-hidden shadow-subtle hover:shadow-pronounced transition-all duration-300">
+                          <div className="lg:w-1/3 aspect-[4/3] lg:aspect-auto overflow-hidden bg-gray-100 relative">
                             <Image
                               src={project.image || '/placeholder.jpg'}
                               alt={project.name || project.title || 'Project image'}
@@ -387,7 +408,18 @@ export default function ProjectGalleryClient({ initialProjects = [], lang = 'de'
                               height={300}
                               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                             />
+                            <button
+                              onClick={(e) => openImageModal(e, project)}
+                              className="absolute top-4 right-4 p-2 bg-black/50 hover:bg-black/70 text-white rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                              aria-label="View image"
+                            >
+                              <Expand size={20} />
+                            </button>
                           </div>
+                          <Link 
+                            href={`/${lang}/projekte/${project.id}`}
+                            className="flex-1"
+                          >
                           <div className="flex-1 p-6 lg:p-8">
                             <div className="flex items-center justify-between mb-3">
                               <span className="text-sm font-body font-medium text-accent uppercase tracking-wider">
@@ -420,7 +452,8 @@ export default function ProjectGalleryClient({ initialProjects = [], lang = 'de'
                               </span>
                             </div>
                           </div>
-                        </Link>
+                          </Link>
+                        </div>
                       )}
                     </motion.div>
                   ))}
@@ -444,6 +477,40 @@ export default function ProjectGalleryClient({ initialProjects = [], lang = 'de'
         </section>
 
       <Footer dict={dict.translation} lang={lang} onCopyrightClick={handleCopyrightClick} />
+
+      {/* Image Modal */}
+      {isImageModalOpen && selectedImage && (
+        <div 
+          className="fixed inset-0 z-[10000] bg-black/90 flex items-center justify-center p-4"
+          onClick={closeImageModal}
+        >
+          <button
+            onClick={closeImageModal}
+            className="absolute top-4 right-4 p-2 bg-white/10 hover:bg-white/20 text-white rounded-lg transition-colors duration-200"
+            aria-label="Close"
+          >
+            <X size={24} />
+          </button>
+          <div className="relative max-w-6xl max-h-[90vh] w-full h-full flex items-center justify-center">
+            <Image
+              src={selectedImage.image || '/placeholder.jpg'}
+              alt={selectedImage.name || selectedImage.title || 'Project image'}
+              width={1920}
+              height={1080}
+              className="max-w-full max-h-full object-contain"
+              onClick={(e) => e.stopPropagation()}
+            />
+            <div className="absolute bottom-4 left-4 right-4 text-white bg-black/50 p-4 rounded-lg">
+              <h3 className="text-xl font-heading font-medium mb-2">
+                {selectedImage.name || selectedImage.title}
+              </h3>
+              <p className="text-sm opacity-90">
+                {selectedImage.location} • {selectedImage.year}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

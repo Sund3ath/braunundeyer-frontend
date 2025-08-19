@@ -8,6 +8,7 @@ import { MapPin, Phone, Mail, Clock, CheckCircle, Instagram, Linkedin, Facebook,
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Breadcrumb from '@/components/ui/Breadcrumb';
+import FloatingTypography from '@/components/FloatingTypography';
 
 export default function ContactPage() {
   const params = useParams();
@@ -177,19 +178,45 @@ export default function ContactPage() {
 
     setIsSubmitting(true);
 
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSubmitted(true);
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        projectType: '',
-        timeline: '',
-        message: ''
+    try {
+      // Get the API URL
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
+      
+      // Send the form data to the backend
+      const response = await fetch(`${apiUrl}/contact`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
       });
-    }, 2000);
+
+      const result = await response.json();
+
+      if (result.success) {
+        setIsSubmitted(true);
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          projectType: '',
+          timeline: '',
+          message: ''
+        });
+      } else {
+        // Show error message
+        setErrors({ 
+          submit: result.error || 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.' 
+        });
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      setErrors({ 
+        submit: 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.' 
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const toggleFaq = (id) => {
@@ -253,6 +280,9 @@ export default function ContactPage() {
       `}</style>
 
       <Header dict={dict.translation || {}} lang={lang} />
+      
+      {/* Enhanced Floating Typography Background */}
+      <FloatingTypography variant="contact" />
 
       {/* Custom Cursor */}
       <motion.div
@@ -282,43 +312,6 @@ export default function ContactPage() {
 
         {/* Main Content */}
         <section className="py-16 lg:py-24 relative">
-          {/* Background Typography */}
-          <div className="absolute inset-0 w-full pointer-events-none">
-            <motion.div
-              className="absolute text-[13rem] opacity-[0.08] text-gray-400 font-thin select-none whitespace-nowrap"
-              style={{ left: "-10%", top: "35%" }}
-              animate={{
-                x: [0, 25, -15, 0],
-                y: [0, -12, 8, 0],
-                rotate: [0, 0.3, -0.2, 0],
-              }}
-              transition={{
-                duration: 30,
-                repeat: Infinity,
-                ease: "linear"
-              }}
-            >
-              KONTAKT
-            </motion.div>
-            <motion.div
-              className="absolute text-8xl opacity-[0.11] text-gray-400 font-thin select-none whitespace-nowrap"
-              style={{ right: "-8%", top: "65%" }}
-              animate={{
-                x: [0, -20, 10, 0],
-                y: [0, 15, -10, 0],
-                rotate: [0, -0.4, 0.5, 0],
-              }}
-              transition={{
-                duration: 25,
-                repeat: Infinity,
-                delay: 3,
-                ease: "linear"
-              }}
-            >
-              dialog
-            </motion.div>
-          </div>
-
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
               
@@ -613,6 +606,13 @@ export default function ContactPage() {
                         <p className="mt-1 text-sm text-red-600 font-body">{errors.message}</p>
                       )}
                     </div>
+
+                    {/* Error Message */}
+                    {errors.submit && (
+                      <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg font-body text-sm">
+                        {errors.submit}
+                      </div>
+                    )}
 
                     {/* Submit Button */}
                     <button
