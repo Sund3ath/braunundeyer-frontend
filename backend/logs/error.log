@@ -276,3 +276,6 @@
 2025-08-19 14:25:37:2537 [31merror[39m: [31mSMTP configuration error: Invalid login: 535 5.7.8 Authentication failed: wrong user/password[39m
 2025-08-19 16:04:26:426 [31merror[39m: [31mSMTP configuration error: Invalid login: 535 5.7.8 Authentication failed: wrong user/password[39m
 2025-08-19 16:04:39:439 [31merror[39m: [31mDatabase close error: SQLITE_MISUSE: Database handle is closed[39m
+2025-08-19 20:01:33:133 [31merror[39m: [31mSMTP configuration error: Invalid login: 535 5.7.8 Authentication failed: wrong user/password[39m
+2025-08-19 20:05:07:57 [31merror[39m: [31mDatabase close error: SQLITE_MISUSE: Database handle is closed[39m
+2025-08-19 20:06:02:62 [31merror[39m: [31mSMTP configuration error: Invalid login: 535 5.7.8 Authentication failed: wrong user/password[39m

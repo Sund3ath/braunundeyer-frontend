@@ -99,46 +99,7 @@ const Landing = () => {
         }}
       />
       
-      {/* Floating geometric shapes - represents modern architecture */}
-      <div className="absolute inset-0 pointer-events-none">
-        {[...Array(5)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute"
-            style={{
-              left: `${20 + i * 15}%`,
-              top: `${30 + i * 10}%`,
-              width: `${100 + i * 20}px`,
-              height: `${100 + i * 20}px`,
-            }}
-            animate={{
-              x: [0, 30, -20, 0],
-              y: [0, -40, 20, 0],
-              rotate: [0, 90, 180, 270, 360],
-            }}
-            transition={{
-              duration: 20 + i * 5,
-              repeat: Infinity,
-              ease: "linear"
-            }}
-          >
-            <div 
-              className="w-full h-full"
-              style={{
-                border: '1px solid rgba(255,255,255,0.15)',
-                background: `linear-gradient(45deg, 
-                  rgba(255,255,255,0.02) 0%, 
-                  rgba(255,255,255,0.05) 50%, 
-                  rgba(255,255,255,0.02) 100%)`,
-                clipPath: i % 2 === 0 
-                  ? 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)' // Diamond
-                  : 'polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)', // Hexagon
-                boxShadow: '0 0 20px rgba(255,255,255,0.1)'
-              }}
-            />
-          </motion.div>
-        ))}
-      </div>
+      {/* Removed floating geometric shapes for cleaner look */}
       
       {/* Dynamic light beams - represents light in architecture */}
       <div className="absolute inset-0 overflow-hidden">
@@ -278,7 +239,7 @@ const Landing = () => {
           <div className="text-center mb-12">
             <div className="relative inline-block group">
               <motion.h1 
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-normal text-white tracking-[0.3em] sm:tracking-[0.4em] mb-1 relative z-10"
+                className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-normal text-white tracking-[0.3em] sm:tracking-[0.4em] mb-1 relative z-10"
                 style={{
                   fontFamily: "'Times New Roman', Times, serif",
                   fontWeight: 400,
@@ -333,7 +294,7 @@ const Landing = () => {
             </div>
             
             <motion.p 
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-normal text-white/90 tracking-[0.46em] sm:tracking-[0.52em] mt-2 relative"
+              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-normal text-white/90 tracking-[0.46em] sm:tracking-[0.52em] mt-2 relative"
               style={{
                 fontFamily: "'Times New Roman', Times, serif",
                 fontWeight: 400,
@@ -370,7 +331,7 @@ const Landing = () => {
                 transition={{ duration: 0.3 }}
               >
                 <motion.span 
-                  className="text-lg sm:text-xl md:text-2xl font-normal text-white/80 tracking-[0.25em] relative z-10"
+                  className="text-base sm:text-lg md:text-xl font-normal text-white/80 tracking-[0.25em] relative z-10"
                   style={{
                     fontFamily: "'Times New Roman', Times, serif",
                     fontWeight: 400,
@@ -413,7 +374,7 @@ const Landing = () => {
                 transition={{ duration: 0.3 }}
               >
                 <motion.span 
-                  className="text-lg sm:text-xl md:text-2xl font-normal text-white/80 tracking-[0.25em] relative z-10"
+                  className="text-base sm:text-lg md:text-xl font-normal text-white/80 tracking-[0.25em] relative z-10"
                   style={{
                     fontFamily: "'Times New Roman', Times, serif",
                     fontWeight: 400,
@@ -464,7 +425,7 @@ const Landing = () => {
         >
           <motion.button
             onClick={handleEnterSite}
-            className="group relative px-20 sm:px-24 py-3 sm:py-4 bg-transparent text-white text-xs sm:text-sm tracking-[0.35em] sm:tracking-[0.4em] font-normal transition-all duration-700"
+            className="group relative px-12 sm:px-16 py-2 sm:py-3 bg-transparent text-white text-xs tracking-[0.35em] font-normal transition-all duration-700"
             style={{
               fontFamily: "'Times New Roman', Times, serif",
               fontWeight: 400,
