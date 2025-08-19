@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 
-const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3001';
+// Use internal Docker URL for server-side requests
+const BACKEND_URL = process.env.BACKEND_URL || process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3001';
 
 export async function POST(request) {
   try {
@@ -16,13 +17,15 @@ export async function POST(request) {
     });
 
     if (!response.ok) {
-      throw new Error(`Backend responded with ${response.status}`);
+      const errorText = await response.text();
+      console.error('Backend error response:', response.status, errorText);
+      throw new Error(`Backend responded with ${response.status}: ${errorText}`);
     }
 
     const result = await response.json();
     return NextResponse.json(result);
   } catch (error) {
-    console.error('Analytics pageview error:', error);
+    console.error('Analytics pageview error:', error.message);
     return NextResponse.json(
       { error: 'Failed to track pageview' },
       { status: 500 }

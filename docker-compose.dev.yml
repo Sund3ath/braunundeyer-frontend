@@ -64,6 +64,7 @@ services:
       - NEXT_PUBLIC_SITE_URL=http://localhost:3000
       - NEXT_PUBLIC_CMS_URL=http://localhost:4029
       - API_URL_INTERNAL=http://backend:3001/api
+      - BACKEND_URL=http://backend:3001
     volumes:
       - ./nextjs-app:/app
       - /app/node_modules

@@ -38,33 +38,129 @@ async function fetchAPI(endpoint, options = {}) {
   }
 }
 
+// Helper function to process image URLs
+const processImageUrl = (url) => {
+  if (!url || url === '' || url === null || url === undefined) {
+    return null;
+  }
+  
+  // If it's already a full URL
+  if (url.startsWith('http://') || url.startsWith('https://')) {
+    // Check if it's a localhost URL that needs to be replaced with backend URL for Docker
+    if (typeof window === 'undefined' && url.includes('localhost:3001')) {
+      const backendUrl = process.env.BACKEND_URL || 'http://localhost:3001';
+      // Only replace if we're in Docker environment (BACKEND_URL is set to http://backend:3001)
+      if (backendUrl.includes('backend:3001')) {
+        return url.replace('http://localhost:3001', backendUrl);
+      }
+    }
+    // Return the URL as is if it's already a full URL
+    return url;
+  }
+  
+  // Get the appropriate backend URL for relative paths
+  const backendUrl = typeof window === 'undefined' 
+    ? (process.env.BACKEND_URL || process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3001')
+    : (process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3001');
+  
+  // If it's a relative path, prepend the backend URL
+  return `${backendUrl}${url.startsWith('/') ? '' : '/'}${url}`;
+};
+
 // Projects API
 export const projectsAPI = {
   // Get all projects
   async getAll(params = {}) {
     const queryString = new URLSearchParams(params).toString();
     const endpoint = queryString ? `/projects?${queryString}` : '/projects';
-    return fetchAPI(endpoint);
+    const response = await fetchAPI(endpoint);
+    
+    // Process image URLs for all projects
+    if (response.projects && Array.isArray(response.projects)) {
+      response.projects = response.projects.map(project => ({
+        ...project,
+        image: processImageUrl(project.image),
+        featured_image: processImageUrl(project.featured_image),
+        gallery: project.gallery && Array.isArray(project.gallery) 
+          ? project.gallery.map(img => processImageUrl(img))
+          : []
+      }));
+    }
+    
+    return response;
   },
 
   // Get single project by ID
   async getById(id) {
-    return fetchAPI(`/projects/${id}`);
+    const project = await fetchAPI(`/projects/${id}`);
+    
+    // Process image URLs
+    if (project) {
+      project.image = processImageUrl(project.image);
+      project.featured_image = processImageUrl(project.featured_image);
+      if (project.gallery && Array.isArray(project.gallery)) {
+        project.gallery = project.gallery.map(img => processImageUrl(img));
+      }
+    }
+    
+    return project;
   },
 
   // Get projects by category
   async getByCategory(category) {
-    return fetchAPI(`/projects?category=${category}`);
+    const response = await fetchAPI(`/projects?category=${category}`);
+    
+    // Process image URLs for all projects
+    if (response.projects && Array.isArray(response.projects)) {
+      response.projects = response.projects.map(project => ({
+        ...project,
+        image: processImageUrl(project.image),
+        featured_image: processImageUrl(project.featured_image),
+        gallery: project.gallery && Array.isArray(project.gallery) 
+          ? project.gallery.map(img => processImageUrl(img))
+          : []
+      }));
+    }
+    
+    return response;
   },
 
   // Get featured projects
   async getFeatured() {
-    return fetchAPI('/projects?featured=true');
+    const response = await fetchAPI('/projects?featured=true');
+    
+    // Process image URLs for all projects
+    if (response.projects && Array.isArray(response.projects)) {
+      response.projects = response.projects.map(project => ({
+        ...project,
+        image: processImageUrl(project.image),
+        featured_image: processImageUrl(project.featured_image),
+        gallery: project.gallery && Array.isArray(project.gallery) 
+          ? project.gallery.map(img => processImageUrl(img))
+          : []
+      }));
+    }
+    
+    return response;
   },
 
   // Search projects
   async search(query) {
-    return fetchAPI(`/projects/search?q=${encodeURIComponent(query)}`);
+    const response = await fetchAPI(`/projects/search?q=${encodeURIComponent(query)}`);
+    
+    // Process image URLs for all projects
+    if (response.projects && Array.isArray(response.projects)) {
+      response.projects = response.projects.map(project => ({
+        ...project,
+        image: processImageUrl(project.image),
+        featured_image: processImageUrl(project.featured_image),
+        gallery: project.gallery && Array.isArray(project.gallery) 
+          ? project.gallery.map(img => processImageUrl(img))
+          : []
+      }));
+    }
+    
+    return response;
   }
 };
 
@@ -165,6 +261,24 @@ export const homepageAPI = {
           config = { heroSlides: [], featuredProjects: [] };
         }
       }
+      
+      // Process image URLs in hero slides
+      if (config.heroSlides && Array.isArray(config.heroSlides)) {
+        config.heroSlides = config.heroSlides.map(slide => ({
+          ...slide,
+          image: processImageUrl(slide.image),
+          video: slide.video ? processImageUrl(slide.video) : null
+        }));
+      }
+      
+      // Process image URLs in featured projects
+      if (config.featuredProjects && Array.isArray(config.featuredProjects)) {
+        config.featuredProjects = config.featuredProjects.map(project => ({
+          ...project,
+          image: processImageUrl(project.image)
+        }));
+      }
+      
       return config || {
         heroSlides: [],
         featuredProjects: []

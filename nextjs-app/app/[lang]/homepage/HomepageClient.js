@@ -63,11 +63,7 @@ export default function HomepageClient({
     return `${backendUrl}${url.startsWith('/') ? '' : '/'}${url}`;
   };
 
-  const heroSlides = initialHeroSlides?.length > 0 ? initialHeroSlides.map(slide => ({
-    ...slide,
-    image: processImageUrl(slide.image),
-    video: processImageUrl(slide.video)
-  })) : [
+  const heroSlides = initialHeroSlides?.length > 0 ? initialHeroSlides : [
     {
       id: 1,
       image: processImageUrl("/images/alt_neu_ungestaltung.png"),
@@ -95,56 +91,7 @@ export default function HomepageClient({
   const featuredProjects = initialFeaturedProjects?.length > 0 ? initialFeaturedProjects.map(project => ({
     ...project,
     image: processImageUrl(project.image)
-  })) : [
-    {
-      id: 1,
-      title: dict?.projects?.items?.project1?.title || 'Modernes Einfamilienhaus',
-      type: dict?.projects?.items?.project1?.type || 'Neubau',
-      location: dict?.projects?.items?.project1?.location || 'Wohngebiet',
-      image: processImageUrl("/images/ferienvilla.png"),
-      year: "2024"
-    },
-    {
-      id: 2,
-      title: dict?.projects?.items?.project2?.title || 'Historische Villa Sanierung',
-      type: dict?.projects?.items?.project2?.type || 'Altbausanierung',
-      location: dict?.projects?.items?.project2?.location || 'Altstadt',
-      image: processImageUrl("/images/sarnierung_alt_neu.png"),
-      year: "2023"
-    },
-    {
-      id: 3,
-      title: dict?.projects?.items?.project3?.title || 'Mehrfamilienhaus Neubau',
-      type: dict?.projects?.items?.project3?.type || 'Neubau',
-      location: dict?.projects?.items?.project3?.location || 'Stadtrand',
-      image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80",
-      year: "2024"
-    },
-    {
-      id: 4,
-      title: dict?.projects?.items?.project4?.title || 'Bürogebäude Umbau',
-      type: dict?.projects?.items?.project4?.type || 'Umbau',
-      location: dict?.projects?.items?.project4?.location || 'Gewerbegebiet',
-      image: processImageUrl("/images/alt_neu_ungestaltung.png"),
-      year: "2023"
-    },
-    {
-      id: 5,
-      title: dict?.projects?.items?.project5?.title || 'Energetische Sanierung',
-      type: dict?.projects?.items?.project5?.type || 'Sanierung',
-      location: dict?.projects?.items?.project5?.location || 'Innenstadt',
-      image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80",
-      year: "2024"
-    },
-    {
-      id: 6,
-      title: dict?.projects?.items?.project6?.title || 'Neubau Doppelhaus',
-      type: dict?.projects?.items?.project6?.type || 'Neubau',
-      location: dict?.projects?.items?.project6?.location || 'Neubaugebiet',
-      image: "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&q=80",
-      year: "2024"
-    }
-  ];
+  })) : [];
 
   const testimonials = [
     {
@@ -643,24 +590,25 @@ export default function HomepageClient({
       </motion.section>
 
       {/* Featured Projects with Enhanced Hover Effects */}
-      <section className="py-20 px-4 bg-gray-50 relative z-20">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl md:text-5xl font-light text-gray-800 mb-6">
-              {dict?.projects?.title || "Unsere Projekte"}
-            </h2>
-            <p className="text-xl text-gray-600">
-              {dict?.projects?.subtitle || "Eine Auswahl unserer realisierten Bauvorhaben"}
-            </p>
-          </motion.div>
+      {featuredProjects.length > 0 && (
+        <section className="py-20 px-4 bg-gray-50 relative z-20">
+          <div className="max-w-7xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center mb-16"
+            >
+              <h2 className="text-4xl md:text-5xl font-light text-gray-800 mb-6">
+                {dict?.projects?.title || "Unsere Projekte"}
+              </h2>
+              <p className="text-xl text-gray-600">
+                {dict?.projects?.subtitle || "Eine Auswahl unserer realisierten Bauvorhaben"}
+              </p>
+            </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuredProjects.map((project, index) => (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {featuredProjects.map((project, index) => (
               <motion.div
                 key={project.id}
                 initial={{ opacity: 0, y: 20 }}
@@ -742,6 +690,7 @@ export default function HomepageClient({
           </motion.div>
         </div>
       </section>
+      )}
 
       {/* Stats Section with Counter Animation */}
       <motion.section

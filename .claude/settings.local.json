@@ -55,7 +55,8 @@
       "Bash(docker-compose:*)",
       "Bash(docker:*)",
       "Bash(open:*)",
-      "Bash(/dev/null)"
+      "Bash(/dev/null)",
+      "mcp__playwright__browser_network_requests"
     ],
     "deny": [],
     "additionalDirectories": [

@@ -1245,3 +1245,181 @@
 2025-08-18 23:22:51:2251 [32minfo[39m: [32mCORS enabled for: http://localhost:4028,http://localhost:5173,http://localhost:3000,http://localhost:4029[39m
 2025-08-18 23:22:51:2251 [32minfo[39m: [32mAPI available at: http://localhost:3001/api[39m
 2025-08-18 23:22:52:2252 [32minfo[39m: [32mAnalytics tables initialized[39m
+2025-08-18 23:28:57:2857 [32minfo[39m: [32mSIGTERM signal received: closing HTTP server[39m
+2025-08-18 23:28:57:2857 [32minfo[39m: [32mSIGINT signal received: closing HTTP server[39m
+2025-08-18 23:30:12:3012 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-18 23:30:12:3012 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-18 23:30:12:3012 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-18 23:30:12:3012 [32minfo[39m: [32mServer running on port 3001[39m
+2025-08-18 23:30:12:3012 [32minfo[39m: [32mEnvironment: development[39m
+2025-08-18 23:30:12:3012 [32minfo[39m: [32mCORS enabled for: http://localhost:4028,http://localhost:5173,http://localhost:3000,http://localhost:4029[39m
+2025-08-18 23:30:12:3012 [32minfo[39m: [32mAPI available at: http://localhost:3001/api[39m
+2025-08-18 23:30:13:3013 [32minfo[39m: [32mAnalytics tables initialized[39m
+2025-08-18 23:30:20:3020 [32minfo[39m: [32mUser logged in: admin@braunundeyer.de[39m
+2025-08-19 07:05:13:513 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-19 07:05:13:513 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-19 07:05:13:513 [32minfo[39m: [32mImage uploaded: image-1755587113677-563000920.mp4 by admin@braunundeyer.de[39m
+2025-08-19 07:05:17:517 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-19 07:05:17:517 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-19 07:05:17:517 [32minfo[39m: [32mContent updated: homepage (de) by admin@braunundeyer.de[39m
+2025-08-19 07:06:04:64 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-19 07:06:04:64 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-19 07:06:04:64 [32minfo[39m: [32mProject deleted: 12 by admin@braunundeyer.de[39m
+2025-08-19 07:06:06:66 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-19 07:06:06:66 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-19 07:06:06:66 [32minfo[39m: [32mProject deleted: 6 by admin@braunundeyer.de[39m
+2025-08-19 07:06:08:68 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-19 07:06:08:68 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-19 07:06:08:68 [32minfo[39m: [32mProject deleted: 7 by admin@braunundeyer.de[39m
+2025-08-19 07:06:10:610 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-19 07:06:10:610 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-19 07:06:10:610 [32minfo[39m: [32mProject deleted: 8 by admin@braunundeyer.de[39m
+2025-08-19 07:06:12:612 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-19 07:06:12:612 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-19 07:06:12:612 [32minfo[39m: [32mProject deleted: 9 by admin@braunundeyer.de[39m
+2025-08-19 07:06:14:614 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-19 07:06:14:614 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-19 07:06:14:614 [32minfo[39m: [32mProject deleted: 10 by admin@braunundeyer.de[39m
+2025-08-19 07:06:16:616 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-19 07:06:16:616 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-19 07:06:16:616 [32minfo[39m: [32mProject deleted: 11 by admin@braunundeyer.de[39m
+2025-08-19 07:07:27:727 [32minfo[39m: [32mUser logged in: admin@braunundeyer.de[39m
+2025-08-19 07:07:43:743 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-19 07:07:43:743 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-19 07:07:43:743 [32minfo[39m: [32mContent updated: homepage (de) by admin@braunundeyer.de[39m
+2025-08-19 07:36:34:3634 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-19 07:36:34:3634 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-19 07:36:34:3634 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-19 07:36:34:3634 [32minfo[39m: [32mServer running on port 3001[39m
+2025-08-19 07:36:34:3634 [32minfo[39m: [32mEnvironment: development[39m
+2025-08-19 07:36:34:3634 [32minfo[39m: [32mCORS enabled for: http://localhost:4028,http://localhost:5173,http://localhost:3000,http://localhost:4029[39m
+2025-08-19 07:36:34:3634 [32minfo[39m: [32mAPI available at: http://localhost:3001/api[39m
+2025-08-19 07:36:35:3635 [32minfo[39m: [32mAnalytics tables initialized[39m
+2025-08-19 07:36:55:3655 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-19 07:36:55:3655 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-19 07:36:55:3655 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-19 07:36:55:3655 [32minfo[39m: [32mServer running on port 3001[39m
+2025-08-19 07:36:55:3655 [32minfo[39m: [32mEnvironment: development[39m
+2025-08-19 07:36:55:3655 [32minfo[39m: [32mCORS enabled for: http://localhost:4028,http://localhost:5173,http://localhost:3000,http://localhost:4029[39m
+2025-08-19 07:36:55:3655 [32minfo[39m: [32mAPI available at: http://localhost:3001/api[39m
+2025-08-19 07:36:56:3656 [32minfo[39m: [32mAnalytics tables initialized[39m
+2025-08-19 07:37:16:3716 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-19 07:37:16:3716 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-19 07:37:16:3716 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-19 07:37:16:3716 [32minfo[39m: [32mServer running on port 3001[39m
+2025-08-19 07:37:16:3716 [32minfo[39m: [32mEnvironment: development[39m
+2025-08-19 07:37:16:3716 [32minfo[39m: [32mCORS enabled for: http://localhost:4028,http://localhost:5173,http://localhost:3000,http://localhost:4029[39m
+2025-08-19 07:37:16:3716 [32minfo[39m: [32mAPI available at: http://localhost:3001/api[39m
+2025-08-19 07:37:17:3717 [32minfo[39m: [32mAnalytics tables initialized[39m
+2025-08-19 07:37:38:3738 [32minfo[39m: [32mConnected to SQLite database[39m
+2025-08-19 07:37:38:3738 [32minfo[39m: [32mDatabase tables created/verified[39m
+2025-08-19 07:37:38:3738 [32minfo[39m: [32mDatabase initialized successfully[39m
+2025-08-19 07:37:38:3738 [32minfo[39m: [32mServer running on port 3001[39m
+2025-08-19 07:37:38:3738 [32minfo[39m: [32mEnvironment: development[39m
+2025-08-19 07:37:38:3738 [32minfo[39m: [32mCORS enabled for: http://localhost:4028,http://localhost:5173,http://localhost:3000,http://localhost:4029[39m
+2025-08-19 07:37:38:3738 [32minfo[39m: [32mAPI available at: http://localhost:3001/api[39m
+2025-08-19 07:37:39:3739 [32minfo[39m: [32mAnalytics tables initialized[39m
+2025-08-19 07:53:25:5325 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin,editor][39m
+2025-08-19 07:53:25:5325 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-19 07:53:25:5325 [32minfo[39m: [32mTeam member updated: Sandra Urbano by admin@braunundeyer.de[39m
+2025-08-19 07:53:49:5349 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin,editor][39m
+2025-08-19 07:53:49:5349 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-19 07:53:49:5349 [32minfo[39m: [32mTeam member updated: Sandra Urbano by admin@braunundeyer.de[39m
+2025-08-19 07:55:55:5555 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin,editor][39m
+2025-08-19 07:55:55:5555 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-19 07:55:55:5555 [32minfo[39m: [32mCreating team member, user:[39m
+2025-08-19 07:55:55:5555 [32minfo[39m: [32mTeam member created: Patric Eyer by admin@braunundeyer.de[39m
+2025-08-19 07:56:01:561 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin,editor][39m
+2025-08-19 07:56:01:561 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-19 07:56:01:561 [32minfo[39m: [32mTeam member updated: Patric Eyer by admin@braunundeyer.de[39m
+2025-08-19 07:56:42:5642 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin,editor][39m
+2025-08-19 07:56:42:5642 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-19 07:56:42:5642 [32minfo[39m: [32mCreating team member, user:[39m
+2025-08-19 07:56:58:5658 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin,editor][39m
+2025-08-19 07:56:58:5658 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-19 07:56:58:5658 [32minfo[39m: [32mCreating team member, user:[39m
+2025-08-19 07:56:58:5658 [32minfo[39m: [32mTeam member created: Marc A. Winter by admin@braunundeyer.de[39m
+2025-08-19 07:57:39:5739 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin,editor][39m
+2025-08-19 07:57:39:5739 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-19 07:57:39:5739 [32minfo[39m: [32mCreating team member, user:[39m
+2025-08-19 07:57:39:5739 [32minfo[39m: [32mTeam member created: Christian F. Braun by admin@braunundeyer.de[39m
+2025-08-19 07:57:48:5748 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin,editor][39m
+2025-08-19 07:57:48:5748 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-19 07:57:48:5748 [32minfo[39m: [32mTeam member updated: Christian F. Braun by admin@braunundeyer.de[39m
+2025-08-19 07:58:17:5817 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin,editor][39m
+2025-08-19 07:58:17:5817 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-19 07:58:17:5817 [32minfo[39m: [32mCreating team member, user:[39m
+2025-08-19 07:58:17:5817 [32minfo[39m: [32mTeam member created: Ruth Wagner by admin@braunundeyer.de[39m
+2025-08-19 07:58:32:5832 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin,editor][39m
+2025-08-19 07:58:32:5832 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-19 07:58:32:5832 [32minfo[39m: [32mTeam member updated: Ruth Wagner by admin@braunundeyer.de[39m
+2025-08-19 12:00:54:054 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin,editor][39m
+2025-08-19 12:00:54:054 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-19 12:00:54:054 [32minfo[39m: [32mTeam members reordered by admin@braunundeyer.de[39m
+2025-08-19 12:00:55:055 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin,editor][39m
+2025-08-19 12:00:55:055 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-19 12:00:55:055 [32minfo[39m: [32mTeam members reordered by admin@braunundeyer.de[39m
+2025-08-19 12:01:28:128 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin,editor][39m
+2025-08-19 12:01:28:128 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-19 12:01:28:128 [32minfo[39m: [32mTeam members reordered by admin@braunundeyer.de[39m
+2025-08-19 12:03:14:314 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-19 12:03:15:315 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-19 12:03:15:315 [32minfo[39m: [32mImage uploaded: image-1755604995009-283615628.png by admin@braunundeyer.de[39m
+2025-08-19 12:03:17:317 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-19 12:03:17:317 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-19 12:03:17:317 [32minfo[39m: [32mContent updated: homepage (de) by admin@braunundeyer.de[39m
+2025-08-19 12:11:30:1130 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-19 12:11:30:1130 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-19 12:11:30:1130 [32minfo[39m: [32mOptimizing text with DeepSeek API (optimize): "Das ist der Neubau des Großraumbüros der orbit..." in de[39m
+2025-08-19 12:11:34:1134 [32minfo[39m: [32mDeepSeek optimization successful[39m
+2025-08-19 12:11:34:1134 [32minfo[39m: [32mText optimized (optimize) by admin@braunundeyer.de[39m
+2025-08-19 12:11:43:1143 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-19 12:11:43:1143 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-19 12:11:43:1143 [32minfo[39m: [32mOptimizing text with DeepSeek API (optimize): "Der Neubau des Großraumbüros für Orbis..." in de[39m
+2025-08-19 12:11:47:1147 [32minfo[39m: [32mDeepSeek optimization successful[39m
+2025-08-19 12:11:47:1147 [32minfo[39m: [32mText optimized (optimize) by admin@braunundeyer.de[39m
+2025-08-19 12:12:00:120 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-19 12:12:00:120 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-19 12:12:00:120 [32minfo[39m: [32mImage uploaded: image-1755605520086-487617378.png by admin@braunundeyer.de[39m
+2025-08-19 12:15:00:150 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-19 12:15:00:150 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-19 12:15:00:150 [32minfo[39m: [32mImage uploaded: image-1755605700701-656171391.jpeg by admin@braunundeyer.de[39m
+2025-08-19 12:15:00:150 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-19 12:15:00:150 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-19 12:15:00:150 [32minfo[39m: [32mImage uploaded: image-1755605700832-21026119.jpeg by admin@braunundeyer.de[39m
+2025-08-19 12:15:00:150 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-19 12:15:00:150 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-19 12:15:01:151 [32minfo[39m: [32mImage uploaded: image-1755605700935-621810703.jpeg by admin@braunundeyer.de[39m
+2025-08-19 12:15:01:151 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-19 12:15:01:151 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-19 12:15:01:151 [32minfo[39m: [32mImage uploaded: image-1755605701017-501977337.jpeg by admin@braunundeyer.de[39m
+2025-08-19 12:15:01:151 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-19 12:15:01:151 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-19 12:15:01:151 [32minfo[39m: [32mImage uploaded: image-1755605701112-140558867.jpeg by admin@braunundeyer.de[39m
+2025-08-19 12:15:01:151 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-19 12:15:01:151 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-19 12:15:01:151 [32minfo[39m: [32mImage uploaded: image-1755605701202-495807274.jpeg by admin@braunundeyer.de[39m
+2025-08-19 12:15:01:151 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-19 12:15:01:151 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-19 12:15:01:151 [32minfo[39m: [32mImage uploaded: image-1755605701291-250989212.jpeg by admin@braunundeyer.de[39m
+2025-08-19 12:15:01:151 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-19 12:15:01:151 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-19 12:15:01:151 [32minfo[39m: [32mImage uploaded: image-1755605701392-393942160.jpeg by admin@braunundeyer.de[39m
+2025-08-19 12:15:01:151 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-19 12:15:01:151 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-19 12:15:01:151 [32minfo[39m: [32mImage uploaded: image-1755605701543-974503024.jpeg by admin@braunundeyer.de[39m
+2025-08-19 12:15:01:151 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-19 12:15:01:151 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-19 12:15:01:151 [32minfo[39m: [32mImage uploaded: image-1755605701650-700291059.jpeg by admin@braunundeyer.de[39m
+2025-08-19 12:15:01:151 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-19 12:15:01:151 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-19 12:15:01:151 [32minfo[39m: [32mImage uploaded: image-1755605701754-527337527.jpeg by admin@braunundeyer.de[39m
+2025-08-19 12:15:01:151 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-19 12:15:01:151 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-19 12:15:01:151 [32minfo[39m: [32mImage uploaded: image-1755605701851-540568322.jpeg by admin@braunundeyer.de[39m
+2025-08-19 12:15:01:151 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-19 12:15:01:151 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-19 12:15:02:152 [32minfo[39m: [32mImage uploaded: image-1755605701950-489274912.jpeg by admin@braunundeyer.de[39m
+2025-08-19 12:15:14:1514 [32minfo[39m: [32mAuthorization check: User role="admin", Required roles=[admin][39m
+2025-08-19 12:15:14:1514 [32minfo[39m: [32mAuthorization successful[39m
+2025-08-19 12:15:14:1514 [32minfo[39m: [32mProject created: Orbis by admin@braunundeyer.de[39m

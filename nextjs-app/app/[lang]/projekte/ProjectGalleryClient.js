@@ -337,7 +337,7 @@ export default function ProjectGalleryClient({ initialProjects = [], lang = 'de'
                         >
                           <div className="aspect-[4/3] overflow-hidden bg-gray-100">
                             <Image
-                              src={project.image ? `${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3001'}${project.image}` : '/placeholder.jpg'}
+                              src={project.image || '/placeholder.jpg'}
                               alt={project.name || project.title || 'Project image'}
                               width={800}
                               height={600}
@@ -381,7 +381,7 @@ export default function ProjectGalleryClient({ initialProjects = [], lang = 'de'
                         >
                           <div className="lg:w-1/3 aspect-[4/3] lg:aspect-auto overflow-hidden bg-gray-100">
                             <Image
-                              src={project.image ? `${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3001'}${project.image}` : '/placeholder.jpg'}
+                              src={project.image || '/placeholder.jpg'}
                               alt={project.name || project.title || 'Project image'}
                               width={400}
                               height={300}

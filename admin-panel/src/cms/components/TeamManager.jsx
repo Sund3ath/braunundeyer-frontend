@@ -3,6 +3,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import Icon from 'components/AppIcon';
 import axios from 'axios';
+import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
+import { arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 
 const TeamManager = () => {
   const { t } = useTranslation();
@@ -52,7 +56,9 @@ const TeamManager = () => {
         'http://localhost:3001/api/team?include_translations=true',
         { headers: token ? { Authorization: `Bearer ${token}` } : {} }
       );
-      setMembers(response.data);
+      // Sort by order_index
+      const sortedMembers = response.data.sort((a, b) => (a.order_index || 0) - (b.order_index || 0));
+      setMembers(sortedMembers);
     } catch (error) {
       console.error('Error fetching team members:', error);
     } finally {
@@ -200,6 +206,137 @@ const TeamManager = () => {
     }
   };
 
+  // Drag and Drop handlers
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
+
+  const handleDragEnd = async (event) => {
+    const { active, over } = event;
+
+    if (active.id !== over.id) {
+      const oldIndex = members.findIndex((member) => member.id === active.id);
+      const newIndex = members.findIndex((member) => member.id === over.id);
+      
+      const newMembers = arrayMove(members, oldIndex, newIndex);
+      
+      // Update order_index for all affected members
+      const updatedMembers = newMembers.map((member, index) => ({
+        ...member,
+        order_index: index
+      }));
+      
+      setMembers(updatedMembers);
+      
+      // Update order in backend using the reorder endpoint
+      try {
+        const token = localStorage.getItem('token');
+        const headers = token ? { Authorization: `Bearer ${token}` } : {};
+        
+        // Send the new order to the backend
+        await axios.put(
+          'http://localhost:3001/api/team/reorder',
+          { memberIds: updatedMembers.map(m => m.id) },
+          { headers }
+        );
+      } catch (error) {
+        console.error('Error updating member order:', error);
+        // Refresh to get correct order from backend
+        fetchTeamMembers();
+      }
+    }
+  };
+
+  // Sortable Item Component
+  const SortableItem = ({ member }) => {
+    const {
+      attributes,
+      listeners,
+      setNodeRef,
+      transform,
+      transition,
+      isDragging,
+    } = useSortable({ id: member.id });
+
+    const style = {
+      transform: CSS.Transform.toString(transform),
+      transition,
+      opacity: isDragging ? 0.5 : 1,
+    };
+
+    return (
+      <div
+        ref={setNodeRef}
+        style={style}
+        className="bg-white rounded-lg shadow-sm border p-4 hover:shadow-md transition-shadow"
+      >
+        <div className="flex items-center space-x-4">
+          {/* Drag Handle */}
+          <div
+            {...attributes}
+            {...listeners}
+            className="cursor-move p-2 hover:bg-gray-100 rounded"
+          >
+            <Icon name="GripVertical" size={20} className="text-gray-400" />
+          </div>
+
+          {/* Image */}
+          <div className="w-16 h-16 rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
+            {member.image ? (
+              <img
+                src={`http://localhost:3001${member.image}`}
+                alt={member.name}
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center">
+                <Icon name="User" size={24} className="text-gray-400" />
+              </div>
+            )}
+          </div>
+
+          {/* Info */}
+          <div className="flex-1">
+            <h3 className="font-semibold text-gray-900">{member.name}</h3>
+            <p className="text-sm text-gray-600">{member.position}</p>
+            <p className="text-xs text-gray-500">{member.email}</p>
+            <p className="text-xs text-gray-400">Order: {member.order_index + 1}</p>
+          </div>
+
+          {/* Status */}
+          <div className="flex items-center space-x-2">
+            <span className={`px-2 py-1 text-xs rounded-full ${
+              member.is_active 
+                ? 'bg-green-100 text-green-800' 
+                : 'bg-gray-100 text-gray-600'
+            }`}>
+              {member.is_active ? 'Active' : 'Inactive'}
+            </span>
+          </div>
+
+          {/* Actions */}
+          <div className="flex items-center space-x-2">
+            <button
+              onClick={() => handleEdit(member)}
+              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+            >
+              <Icon name="Edit" size={16} />
+            </button>
+            <button
+              onClick={() => handleDelete(member.id)}
+              className="p-2 hover:bg-red-100 rounded-lg text-red-600 transition-colors"
+            >
+              <Icon name="Trash2" size={16} />
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
@@ -222,66 +359,30 @@ const TeamManager = () => {
         </button>
       </div>
 
-      {/* Team Members List */}
-      <div className="grid gap-4">
-        {members.map((member) => (
-          <div
-            key={member.id}
-            className="bg-white rounded-lg shadow-sm border p-4 hover:shadow-md transition-shadow"
-          >
-            <div className="flex items-center space-x-4">
-              {/* Image */}
-              <div className="w-16 h-16 rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
-                {member.image ? (
-                  <img
-                    src={`http://localhost:3001${member.image}`}
-                    alt={member.name}
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center">
-                    <Icon name="User" size={24} className="text-gray-400" />
-                  </div>
-                )}
-              </div>
-
-              {/* Info */}
-              <div className="flex-1">
-                <h3 className="font-semibold text-gray-900">{member.name}</h3>
-                <p className="text-sm text-gray-600">{member.position}</p>
-                <p className="text-xs text-gray-500">{member.email}</p>
-              </div>
-
-              {/* Status */}
-              <div className="flex items-center space-x-2">
-                <span className={`px-2 py-1 text-xs rounded-full ${
-                  member.is_active 
-                    ? 'bg-green-100 text-green-800' 
-                    : 'bg-gray-100 text-gray-600'
-                }`}>
-                  {member.is_active ? 'Active' : 'Inactive'}
-                </span>
-              </div>
-
-              {/* Actions */}
-              <div className="flex items-center space-x-2">
-                <button
-                  onClick={() => handleEdit(member)}
-                  className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-                >
-                  <Icon name="Edit" size={16} />
-                </button>
-                <button
-                  onClick={() => handleDelete(member.id)}
-                  className="p-2 hover:bg-red-100 rounded-lg text-red-600 transition-colors"
-                >
-                  <Icon name="Trash2" size={16} />
-                </button>
-              </div>
-            </div>
-          </div>
-        ))}
+      {/* Team Members List with Drag & Drop */}
+      <div className="mb-4 p-4 bg-blue-50 rounded-lg">
+        <p className="text-sm text-blue-700">
+          <Icon name="Info" size={16} className="inline mr-2" />
+          Drag and drop team members to reorder them. The order will be reflected on the website.
+        </p>
       </div>
+      
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        onDragEnd={handleDragEnd}
+      >
+        <SortableContext
+          items={members.map(m => m.id)}
+          strategy={verticalListSortingStrategy}
+        >
+          <div className="grid gap-4">
+            {members.map((member) => (
+              <SortableItem key={member.id} member={member} />
+            ))}
+          </div>
+        </SortableContext>
+      </DndContext>
 
       {/* Add/Edit Form Modal */}
       <AnimatePresence>

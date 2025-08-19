@@ -1,4 +1,7 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3001';
+// Use internal Docker URL for server-side requests, public URL for client-side
+const API_BASE_URL = typeof window === 'undefined' 
+  ? (process.env.BACKEND_URL || process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3001')
+  : (process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3001');
 
 /**
  * Process image URL to ensure it points to the backend
@@ -7,12 +10,28 @@ const processImageUrl = (url) => {
   if (!url || url === '' || url === null || url === undefined) {
     return null;
   }
-  // If it's already a full URL, return as is
+  
+  // If it's already a full URL
   if (url.startsWith('http://') || url.startsWith('https://')) {
+    // Check if it's a localhost URL that needs to be replaced with backend URL for Docker
+    if (typeof window === 'undefined' && url.includes('localhost:3001')) {
+      const backendUrl = process.env.BACKEND_URL || 'http://localhost:3001';
+      // Only replace if we're in Docker environment (BACKEND_URL is set to http://backend:3001)
+      if (backendUrl.includes('backend:3001')) {
+        return url.replace('http://localhost:3001', backendUrl);
+      }
+    }
+    // Return the URL as is if it's already a full URL
     return url;
   }
+  
+  // Get the appropriate backend URL for relative paths
+  const backendUrl = typeof window === 'undefined' 
+    ? (process.env.BACKEND_URL || process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3001')
+    : (process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3001');
+  
   // If it's a relative path, prepend the backend URL
-  return `${API_BASE_URL}${url.startsWith('/') ? '' : '/'}${url}`;
+  return `${backendUrl}${url.startsWith('/') ? '' : '/'}${url}`;
 };
 
 /**

@@ -1,4 +1,7 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3001';
+// Use internal Docker URL for server-side requests, public URL for client-side
+const API_BASE_URL = typeof window === 'undefined' 
+  ? (process.env.BACKEND_URL || process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3001')
+  : (process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3001');
 
 /**
  * Process image URL to ensure it points to the backend

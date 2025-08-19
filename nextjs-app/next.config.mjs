@@ -9,11 +9,17 @@ const nextConfig = {
   poweredByHeader: false,
   
   images: {
-    domains: ['localhost', 'braunundeyer.de', 'cms.braunundeyer.de', 'api.braunundeyer.de', 'images.unsplash.com'],
+    domains: ['localhost', 'backend', 'braunundeyer.de', 'cms.braunundeyer.de', 'api.braunundeyer.de', 'images.unsplash.com'],
     remotePatterns: [
       {
         protocol: 'http',
         hostname: 'localhost',
+        port: '3001',
+        pathname: '/uploads/**',
+      },
+      {
+        protocol: 'http',
+        hostname: 'backend',
         port: '3001',
         pathname: '/uploads/**',
       },
@@ -25,7 +31,19 @@ const nextConfig = {
       },
       {
         protocol: 'http',
+        hostname: 'backend',
+        port: '3001',
+        pathname: '/assets/**',
+      },
+      {
+        protocol: 'http',
         hostname: 'localhost',
+        port: '3001',
+        pathname: '/images/**',
+      },
+      {
+        protocol: 'http',
+        hostname: 'backend',
         port: '3001',
         pathname: '/images/**',
       },
@@ -57,10 +75,19 @@ const nextConfig = {
     scrollRestoration: true,
   },
   async rewrites() {
+    const backendUrl = process.env.BACKEND_URL || 'http://backend:3001';
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
+    
     return [
+      // Proxy uploads directly to backend for Docker compatibility
+      {
+        source: '/uploads/:path*',
+        destination: `${backendUrl}/uploads/:path*`,
+      },
+      // API proxy
       {
         source: '/api/:path*',
-        destination: `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api'}/:path*`,
+        destination: `${apiUrl}/:path*`,
       },
     ];
   },

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 
-const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3001';
+// Use internal Docker URL for server-side requests
+const BACKEND_URL = process.env.BACKEND_URL || process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3001';
 
 export async function POST(request) {
   try {

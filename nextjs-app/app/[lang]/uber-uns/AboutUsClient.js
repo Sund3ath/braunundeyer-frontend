@@ -231,6 +231,7 @@ export default function AboutUsClient({ teamMembers = [], dict = {} }) {
             width={2000}
             height={500}
             className="w-full h-full object-cover"
+            style={{ width: 'auto', height: 'auto' }}
           />
           <div className="absolute inset-0 bg-primary/60"></div>
           <div className="absolute inset-0 flex items-center justify-center">
