@@ -36,11 +36,6 @@ export default function AboutUsClient({ teamMembers = [], dict = {} }) {
       description: dict?.milestones?.items?.founding?.description || "Gründung des Architekturbüros Braun & Eyer"
     },
     {
-      year: dict?.milestones?.items?.firstAward?.year || "2002",
-      title: dict?.milestones?.items?.firstAward?.title || "Erste Auszeichnung",
-      description: dict?.milestones?.items?.firstAward?.description || "Architekturpreis für nachhaltiges Bauen"
-    },
-    {
       year: dict?.milestones?.items?.sustainability?.year || "2010",
       title: dict?.milestones?.items?.sustainability?.title || "Nachhaltigkeit",
       description: dict?.milestones?.items?.sustainability?.description || "Zertifizierung als Energieberater"
@@ -112,28 +107,7 @@ export default function AboutUsClient({ teamMembers = [], dict = {} }) {
     }
   ];
 
-  const awards = [
-    {
-      title: dict?.awards?.items?.architecture || "Deutscher Architekturpreis",
-      year: "2023",
-      category: lang === 'de' ? "Altbausanierung" : "Building Renovation"
-    },
-    {
-      title: dict?.awards?.items?.sustainability || "Nachhaltigkeitspreis",
-      year: "2022",
-      category: lang === 'de' ? "Energieeffizientes Bauen" : "Energy-Efficient Construction"
-    },
-    {
-      title: dict?.awards?.items?.innovation || "Innovationspreis Bauen",
-      year: "2021",
-      category: lang === 'de' ? "Wohnungsbau" : "Residential Construction"
-    },
-    {
-      title: dict?.awards?.items?.heritage || "Denkmalschutzpreis",
-      year: "2020",
-      category: lang === 'de' ? "Historische Sanierung" : "Historic Renovation"
-    }
-  ];
+  // Awards data removed
 
   const toggleMemberDetails = (memberId) => {
     setExpandedMember(expandedMember === memberId ? null : memberId);
@@ -451,37 +425,7 @@ export default function AboutUsClient({ teamMembers = [], dict = {} }) {
         </div>
       </section>
 
-      {/* Awards Section */}
-      <section className="py-16 lg:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-heading font-light text-primary mb-4">
-              {dict?.awards?.title || 'Auszeichnungen'}
-            </h2>
-            <p className="text-lg text-text-secondary font-body max-w-2xl mx-auto">
-              {dict?.awards?.subtitle || 'Anerkennung für herausragende Leistungen'}
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {awards.map((award, index) => (
-              <motion.div
-                key={index}
-                className="bg-gradient-to-br from-accent/10 to-accent/5 rounded-lg p-6 text-center"
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <Trophy size={40} className="text-accent mx-auto mb-4" />
-                <h3 className="font-heading font-medium text-primary mb-2">{award.title}</h3>
-                <p className="text-accent font-body font-semibold text-lg mb-1">{award.year}</p>
-                <p className="text-text-secondary font-body text-sm">{award.category}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Awards Section removed */}
 
       {/* Testimonials Section */}
       <section className="py-16 lg:py-24 bg-surface/50">
