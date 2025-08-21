@@ -12,6 +12,29 @@ Multi-application architecture portfolio system for Braun & Eyer Architekturbür
 
 ## Commands
 
+### Production Deployment with Docker (IMPORTANT - Use this!)
+```bash
+# Build and deploy Next.js app (frontend)
+docker compose -f docker-compose.prod-nginx.yml up -d --build nextjs-app
+
+# Build and deploy Backend API
+docker compose -f docker-compose.prod-nginx.yml up -d --build backend
+
+# Build and deploy Admin Panel
+docker compose -f docker-compose.prod-nginx.yml up -d --build admin-panel
+
+# Build and deploy all services at once
+docker compose -f docker-compose.prod-nginx.yml up -d --build
+
+# View logs
+docker compose -f docker-compose.prod-nginx.yml logs -f [service-name]
+
+# Container names:
+# - braunundeyer-nextjs-prod (Next.js frontend)
+# - braunundeyer-backend-prod (Backend API)
+# - braunundeyer-admin-prod (Admin Panel)
+```
+
 ### Development with Docker
 ```bash
 # Start all services
@@ -22,9 +45,6 @@ docker compose -f docker-compose.dev.yml restart nextjs-app
 
 # View logs
 docker compose -f docker-compose.dev.yml logs -f [service-name]
-
-# Production deployment
-docker compose -f docker-compose.prod.yml up -d
 ```
 
 ### React App (Original)
@@ -320,3 +340,55 @@ npm run test:seo              # Validates meta tags and structured data
 - Lighthouse scores > 90
 - Image optimization with webp format
 - Code splitting by route
+
+## Backup & Restore
+
+### Backup Location
+```
+/home/braunundeyer-frontend/backups/
+```
+
+### Creating Backups
+```bash
+# Create backup directory with timestamp
+TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
+mkdir -p /home/braunundeyer-frontend/backups/backup_$TIMESTAMP
+
+# Copy database from Docker container
+docker cp braunundeyer-backend-prod:/app/data/database.sqlite /home/braunundeyer-frontend/backups/backup_$TIMESTAMP/
+
+# Copy uploads from Docker container (620+ MB of images/videos)
+docker cp braunundeyer-backend-prod:/app/uploads /home/braunundeyer-frontend/backups/backup_$TIMESTAMP/
+
+# Create compressed archive
+cd /home/braunundeyer-frontend/backups
+tar -czf backup_${TIMESTAMP}_complete.tar.gz backup_$TIMESTAMP/
+
+# Latest backup (21.08.2025): backup_20250821_213546_complete.tar.gz (607 MB)
+```
+
+### Restoring from Backup
+```bash
+# Extract backup
+cd /home/braunundeyer-frontend/backups
+tar -xzf backup_TIMESTAMP_complete.tar.gz
+
+# Restore database to container
+docker cp backup_TIMESTAMP/database.sqlite braunundeyer-backend-prod:/app/data/
+
+# Restore uploads to container
+docker cp backup_TIMESTAMP/uploads braunundeyer-backend-prod:/app/
+
+# Restart backend to apply changes
+docker restart braunundeyer-backend-prod
+```
+
+### Important Data Locations in Docker
+- **Database**: `/app/data/database.sqlite` (5.7 MB)
+- **Uploads**: `/app/uploads/` (620+ MB - all images, videos, media)
+- **Container**: `braunundeyer-backend-prod`
+
+### Nginx Configuration
+- **Config File**: `/etc/nginx/sites-enabled/braunundeyer-prod`
+- **Upload Limit**: 200MB (configured for large video uploads)
+- **Reload Nginx**: `sudo nginx -t && sudo systemctl reload nginx`
