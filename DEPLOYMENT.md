@@ -1,345 +1,286 @@
-# Deployment Guide for Braun & Eyer Architekturbüro
+# Braun & Eyer Production Deployment Guide
 
-## Table of Contents
-1. [Prerequisites](#prerequisites)
-2. [Development Setup](#development-setup)
-3. [Production Setup](#production-setup)
-4. [Domain Configuration](#domain-configuration)
-5. [SSL Certificates](#ssl-certificates)
-6. [Backup and Restore](#backup-and-restore)
-7. [Monitoring](#monitoring)
-8. [Troubleshooting](#troubleshooting)
+## ⚠️ CRITICAL: Read This First!
+This guide documents the CORRECT deployment process to avoid data loss and configuration issues.
 
-## Prerequisites
+## System Architecture
+- **Backend API**: Express.js with SQLite (port 3001) → api.braunundeyer.de
+- **Next.js Frontend**: SSR/SSG app (port 3000) → demo.braunundeyer.de  
+- **Admin Panel**: React CMS (port 4029) → cms.braunundeyer.de
+- **Reverse Proxy**: Nginx (NOT Traefik)
+- **Database**: SQLite in Docker volume `backend-data`
 
-### Required Software
-- Docker Engine 20.10+
-- Docker Compose 2.0+
-- Make (optional, for using Makefile commands)
-- Git
+---
 
-### System Requirements
-- **Development**: 4GB RAM, 10GB disk space
-- **Production**: 8GB RAM, 20GB disk space
-- **OS**: Linux (Ubuntu 20.04+ recommended), macOS, or Windows with WSL2
+## 🚀 CORRECT Deployment Process
 
-## Development Setup
-
-### Quick Start
+### 1. Pre-Deployment Backup (MANDATORY)
 ```bash
-# Clone the repository
-git clone https://github.com/your-repo/braunundeyer-architekturbuero.git
-cd braunundeyer-architekturbuero
+# Backup current database
+./scripts/backup-database.sh
 
-# Start development environment
-make dev
-
-# Or without make:
-docker-compose -f docker-compose.dev.yml up -d
+# Verify backup
+ls -lah /home/braunundeyer-frontend/backups/
 ```
 
-### Access Development Services
-- **Backend API**: http://localhost:3001
-- **Admin Panel**: http://localhost:4029
-- **Next.js App**: http://localhost:3000
-
-### Development Commands
+### 2. Use the CORRECT Docker Compose File
 ```bash
-# View logs
-make logs-dev
+# ✅ CORRECT - Use this file:
+docker compose -f docker-compose.prod-nginx.yml [command]
 
-# Stop services
-make down-dev
-
-# Rebuild containers
-make build-dev
-
-# Access container shell
-make shell-backend  # Backend shell
-make shell-admin    # Admin panel shell
-make shell-nextjs   # Next.js shell
+# ❌ WRONG - DO NOT use:
+# docker compose -f docker-compose.prod.yml  # This uses wrong volumes!
 ```
 
-## Production Setup
-
-### 1. Server Preparation
+### 3. Build and Deploy
 ```bash
-# Update system
-sudo apt update && sudo apt upgrade -y
+# Stop existing containers
+docker compose -f docker-compose.prod-nginx.yml down
 
-# Install Docker
-curl -fsSL https://get.docker.com -o get-docker.sh
-sudo sh get-docker.sh
+# Build all services
+docker compose -f docker-compose.prod-nginx.yml build
 
-# Install Docker Compose
-sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
+# Start all services
+docker compose -f docker-compose.prod-nginx.yml up -d
+
+# Verify all are running
+docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
 ```
 
-### 2. Configure Environment
-```bash
-# Copy and configure production environment
-cp .env.production.example .env.production
-nano .env.production
+---
 
-# Required configurations:
-# - JWT_SECRET: Generate with: openssl rand -base64 32
-# - LETSENCRYPT_EMAIL: Your email for SSL certificates
-# - SMTP settings for email functionality
+## 📁 Critical File & Volume Locations
+
+### Database (MOST IMPORTANT)
+- **Docker Volume Name**: `backend-data` ⚠️ NOT `backend-db`!
+- **Container Path**: `/app/data/database.sqlite`
+- **Host Path**: `/var/lib/docker/volumes/braunundeyer-frontend_backend-data/_data/database.sqlite`
+- **Expected Size**: ~5-6MB (if only 364KB, data is missing!)
+
+### Correct Port Mappings (REQUIRED)
+```yaml
+# In docker-compose.prod-nginx.yml:
+backend:
+  ports:
+    - "127.0.0.1:3001:3001"  # Required for nginx
+nextjs-app:
+  ports:
+    - "127.0.0.1:3000:3000"  # Required for nginx
+admin-panel:
+  ports:
+    - "127.0.0.1:4029:80"    # Required for nginx
 ```
 
-### 3. Deploy to Production
+---
+
+## 🔧 Environment Variables
+
+### Backend Requirements
 ```bash
-# Build and start production containers
-make prod
-
-# Or without make:
-docker-compose -f docker-compose.prod.yml --env-file .env.production up -d
-```
-
-### 4. Initial Database Setup
-```bash
-# Create initial admin user
-docker exec braunundeyer-backend-prod node src/scripts/create-admin.js
-
-# Run migrations if needed
-docker exec braunundeyer-backend-prod node src/migrations/run.js
-```
-
-## Domain Configuration
-
-### DNS Settings
-Add the following A records to your domain:
-
-| Subdomain | Type | Value | Description |
-|-----------|------|-------|-------------|
-| @ | A | YOUR_SERVER_IP | Main website |
-| www | CNAME | braunundeyer.de | WWW redirect |
-| api | A | YOUR_SERVER_IP | Backend API |
-| cms | A | YOUR_SERVER_IP | Admin panel |
-
-### Nginx Configuration (Alternative to Traefik)
-If not using Traefik, configure Nginx:
-
-```nginx
-# /etc/nginx/sites-available/braunundeyer.de
-server {
-    listen 80;
-    server_name braunundeyer.de www.braunundeyer.de;
-    return 301 https://$server_name$request_uri;
-}
-
-server {
-    listen 443 ssl http2;
-    server_name braunundeyer.de;
-    
-    ssl_certificate /etc/letsencrypt/live/braunundeyer.de/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/braunundeyer.de/privkey.pem;
-    
-    location / {
-        proxy_pass http://localhost:3000;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection 'upgrade';
-        proxy_set_header Host $host;
-        proxy_cache_bypass $http_upgrade;
-    }
-}
-
-# Similar configuration for api.braunundeyer.de and cms.braunundeyer.de
-```
-
-## SSL Certificates
-
-### Automatic SSL with Traefik
-Traefik automatically manages SSL certificates via Let's Encrypt. Ensure:
-1. Ports 80 and 443 are open
-2. DNS is properly configured
-3. Email is set in `.env.production`
-
-### Manual SSL with Certbot
-```bash
-# Install Certbot
-sudo apt install certbot python3-certbot-nginx
-
-# Generate certificates
-sudo certbot --nginx -d braunundeyer.de -d www.braunundeyer.de
-sudo certbot --nginx -d api.braunundeyer.de
-sudo certbot --nginx -d cms.braunundeyer.de
-
-# Auto-renewal
-sudo certbot renew --dry-run
-```
-
-## Backup and Restore
-
-### Automated Backups
-```bash
-# Create backup script
-cat > /usr/local/bin/backup-braunundeyer.sh << 'EOF'
-#!/bin/bash
-BACKUP_DIR="/var/backups/braunundeyer"
-DATE=$(date +%Y%m%d-%H%M%S)
-
-mkdir -p $BACKUP_DIR
-
-# Backup database
-docker exec braunundeyer-backend-prod tar -czf - /app/data > $BACKUP_DIR/db-$DATE.tar.gz
-
-# Backup uploads
-docker exec braunundeyer-backend-prod tar -czf - /app/uploads > $BACKUP_DIR/uploads-$DATE.tar.gz
-
-# Keep only last 30 days
-find $BACKUP_DIR -type f -mtime +30 -delete
+# Create .env file
+cat > .env << EOF
+JWT_SECRET=your-very-secure-jwt-secret-min-32-chars
+JWT_REFRESH_SECRET=your-very-secure-refresh-secret-min-32-chars
+SMTP_PASSWORD=your-smtp-password
+DEEPSEEK_API_KEY=sk-your-api-key
 EOF
+```
 
-chmod +x /usr/local/bin/backup-braunundeyer.sh
+### Next.js Build Arguments (in docker-compose.prod-nginx.yml)
+```yaml
+build:
+  args:
+    - NEXT_PUBLIC_API_URL=http://api.braunundeyer.de/api
+    - NEXT_PUBLIC_BACKEND_URL=http://api.braunundeyer.de
+    - NEXT_PUBLIC_SITE_URL=http://demo.braunundeyer.de
+    - API_URL_INTERNAL=http://api.braunundeyer.de/api  # Critical for SSG!
+```
 
-# Add to crontab (daily at 3 AM)
-echo "0 3 * * * /usr/local/bin/backup-braunundeyer.sh" | sudo crontab -
+### CORS Configuration (MUST include all domains)
+```yaml
+environment:
+  - ALLOWED_ORIGINS=http://demo.braunundeyer.de,https://demo.braunundeyer.de,http://braunundeyer.de,https://braunundeyer.de,http://cms.braunundeyer.de,https://cms.braunundeyer.de
+```
+
+---
+
+## ⚠️ Common Issues & Solutions
+
+### Issue 1: Database Data Loss After Restart
+**Symptom**: CMS data missing after container restart
+**Cause**: Using wrong Docker volume
+**Fix**:
+```bash
+# Check both volumes
+sudo ls -lah /var/lib/docker/volumes/braunundeyer-frontend_backend-data/_data/
+sudo ls -lah /var/lib/docker/volumes/braunundeyer-frontend_backend-db/_data/
+
+# Copy larger database to correct volume
+sudo cp /var/lib/docker/volumes/braunundeyer-frontend_backend-data/_data/database.sqlite \
+        /var/lib/docker/volumes/braunundeyer-frontend_backend-data/_data/database.sqlite
+
+docker restart braunundeyer-backend-prod
+```
+
+### Issue 2: Homepage/Gallery Not Showing Content
+**Symptom**: Projects page works but homepage/gallery empty
+**Cause**: API returning no featured projects
+**Fix**:
+1. Edit `/nextjs-app/app/[lang]/homepage/page.js`
+2. Change `featured: true` to `status: 'published'`
+3. Rebuild: `docker compose -f docker-compose.prod-nginx.yml build nextjs-app`
+
+### Issue 3: Images Not Loading (404)
+**Symptom**: Images return 404 errors
+**Cause**: Missing port mapping
+**Fix**: Ensure ports are mapped in docker-compose.prod-nginx.yml
+
+### Issue 4: Wrong Docker Compose File Used
+**Symptom**: Various issues after deployment
+**Fix**: ALWAYS use `docker-compose.prod-nginx.yml`
+```bash
+# Stop wrong setup
+docker compose -f docker-compose.prod.yml down
+
+# Start correct setup
+docker compose -f docker-compose.prod-nginx.yml up -d
+```
+
+---
+
+## 🔄 Database Backup & Recovery
+
+### Automatic Daily Backups (Already Configured)
+```bash
+# Runs daily at 2:00 AM via cron
+sudo crontab -l | grep backup
+# Output: 0 2 * * * /home/braunundeyer-frontend/scripts/backup-database.sh
 ```
 
 ### Manual Backup
 ```bash
-make backup
+./scripts/backup-database.sh
 ```
 
 ### Restore from Backup
 ```bash
-make restore FILE=backups/db-backup-20250118-120000.tar.gz
+# List backups
+ls -lah /home/braunundeyer-frontend/backups/
+
+# Restore specific backup
+sudo cp /home/braunundeyer-frontend/backups/database_backup_[TIMESTAMP].sqlite \
+        /var/lib/docker/volumes/braunundeyer-frontend_backend-data/_data/database.sqlite
+
+docker restart braunundeyer-backend-prod
 ```
 
-## Monitoring
+---
 
-### Health Checks
+## 🔍 Monitoring & Verification
+
+### Check Service Health
 ```bash
-# Check container status
-docker-compose -f docker-compose.prod.yml ps
+# Container status (all should be healthy/running)
+docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
 
-# Check service health
-curl https://api.braunundeyer.de/health
-curl https://cms.braunundeyer.de
-curl https://braunundeyer.de
+# API endpoints
+curl -I http://api.braunundeyer.de/api/projects
+curl -I http://demo.braunundeyer.de/de/homepage
+curl -I http://localhost:4029
+
+# Database size (should be ~5-6MB)
+sudo ls -lah /var/lib/docker/volumes/braunundeyer-frontend_backend-data/_data/database.sqlite
 ```
 
-### Log Monitoring
+### View Logs
 ```bash
-# View all logs
-make logs-prod
-
-# View specific service logs
-docker logs braunundeyer-backend-prod -f
-docker logs braunundeyer-admin-prod -f
-docker logs braunundeyer-nextjs-prod -f
+docker logs braunundeyer-backend-prod --tail 50
+docker logs braunundeyer-nextjs-prod --tail 50
+docker logs braunundeyer-admin-prod --tail 50
 ```
 
-### Resource Monitoring
+---
+
+## 🚨 Emergency Recovery Process
+
+If everything is broken:
+
 ```bash
-# Check resource usage
-docker stats
+# 1. Stop everything
+docker compose -f docker-compose.prod-nginx.yml down
 
-# Check disk usage
-df -h
-docker system df
+# 2. Find the latest backup
+ls -lah /home/braunundeyer-frontend/backups/
+
+# 3. Restore database
+sudo cp /home/braunundeyer-frontend/backups/database_backup_[LATEST].sqlite \
+        /var/lib/docker/volumes/braunundeyer-frontend_backend-data/_data/database.sqlite
+
+# 4. Rebuild everything
+docker compose -f docker-compose.prod-nginx.yml build
+
+# 5. Start services
+docker compose -f docker-compose.prod-nginx.yml up -d
+
+# 6. Verify
+docker ps --format "table {{.Names}}\t{{.Status}}"
+curl -I http://api.braunundeyer.de/api/projects
 ```
 
-## Troubleshooting
+---
 
-### Common Issues and Solutions
+## ✅ Deployment Checklist
 
-#### 1. Containers won't start
+Before any deployment:
+- [ ] Backup database with `./scripts/backup-database.sh`
+- [ ] Using `docker-compose.prod-nginx.yml` (NOT docker-compose.prod.yml)
+- [ ] Environment variables set in `.env`
+- [ ] CORS includes all domains
+- [ ] Port mappings configured (3001, 3000, 4029)
+- [ ] Database volume is `backend-data` (NOT backend-db)
+- [ ] API_URL_INTERNAL set for Next.js build
+
+After deployment:
+- [ ] All containers showing as healthy/running
+- [ ] Homepage shows projects and hero image
+- [ ] Gallery page loads images
+- [ ] Admin panel accessible
+- [ ] Database size is ~5-6MB (not 364KB)
+
+---
+
+## 📝 Key Commands Reference
+
 ```bash
-# Check logs
-docker-compose -f docker-compose.prod.yml logs
+# Deployment
+docker compose -f docker-compose.prod-nginx.yml build
+docker compose -f docker-compose.prod-nginx.yml up -d
 
-# Check port conflicts
-sudo netstat -tulpn | grep -E ':(80|443|3000|3001)'
+# Backup
+./scripts/backup-database.sh
 
-# Reset and restart
-make clean
-make prod
+# Logs
+docker logs braunundeyer-backend-prod --tail 50
+docker logs braunundeyer-nextjs-prod --tail 50
+
+# Status
+docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
+
+# Restart individual service
+docker compose -f docker-compose.prod-nginx.yml restart [service-name]
 ```
 
-#### 2. SSL certificate issues
-```bash
-# Check Traefik logs
-docker logs braunundeyer-traefik
+---
 
-# Manually trigger renewal
-docker exec braunundeyer-traefik traefik renew --cert.resolvers=letsencrypt
+## ⚠️ DO NOT DO THIS
 
-# Check certificate status
-docker exec braunundeyer-traefik cat /letsencrypt/acme.json | jq
-```
+1. **NEVER** use `docker compose down -v` (deletes volumes/data!)
+2. **NEVER** use `docker-compose.prod.yml` (wrong volume configuration)
+3. **NEVER** deploy without backup
+4. **NEVER** change database volume from `backend-data` to `backend-db`
+5. **NEVER** remove port mappings from docker-compose
 
-#### 3. Database connection issues
-```bash
-# Check database file permissions
-docker exec braunundeyer-backend-prod ls -la /app/data
+---
 
-# Recreate database
-docker exec braunundeyer-backend-prod node src/scripts/init-db.js
-```
-
-#### 4. Upload issues
-```bash
-# Check upload directory permissions
-docker exec braunundeyer-backend-prod ls -la /app/uploads
-
-# Fix permissions
-docker exec braunundeyer-backend-prod chown -R nodejs:nodejs /app/uploads
-```
-
-#### 5. Performance issues
-```bash
-# Restart services
-docker-compose -f docker-compose.prod.yml restart
-
-# Clear Next.js cache
-docker exec braunundeyer-nextjs-prod rm -rf .next/cache
-
-# Prune Docker system
-docker system prune -a --volumes
-```
-
-## Security Checklist
-
-- [ ] Change all default passwords
-- [ ] Configure firewall (allow only 80, 443, 22)
-- [ ] Enable automatic security updates
-- [ ] Configure fail2ban for SSH
-- [ ] Regular backups configured
-- [ ] SSL certificates working
-- [ ] Environment variables secured
-- [ ] Database encrypted
-- [ ] File upload restrictions configured
-- [ ] CORS properly configured
-- [ ] Rate limiting enabled
-- [ ] Regular security updates
-
-## Maintenance
-
-### Weekly Tasks
-- Check disk space
-- Review error logs
-- Test backups
-- Update dependencies (development)
-
-### Monthly Tasks
-- Security updates
-- Performance review
-- Backup retention cleanup
-- SSL certificate check
-
-### Quarterly Tasks
-- Full system backup
-- Disaster recovery test
-- Security audit
-- Performance optimization
-
-## Support
-
-For issues or questions:
-- Check logs: `make logs-prod`
-- Review this documentation
-- Contact: support@braunundeyer.de
+Last Updated: August 20, 2025
+Critical Config File: `/home/braunundeyer-frontend/docker-compose.prod-nginx.yml`

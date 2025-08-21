@@ -12,7 +12,7 @@ export default async function HomePage({ params }) {
     // Fetch homepage config and all projects in parallel
     const [config, projectsResponse] = await Promise.all([
       homepageAPI.getConfig(),
-      projectsAPI.getAll({ featured: true, limit: 6 })
+      projectsAPI.getAll({ status: 'published', limit: 6 })
     ]);
     
     homepageData = config;

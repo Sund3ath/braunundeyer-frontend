@@ -57,12 +57,23 @@
       "Bash(open:*)",
       "Bash(/dev/null)",
       "mcp__playwright__browser_network_requests",
-      "mcp__playwright__browser_resize"
+      "mcp__playwright__browser_resize",
+      "Bash(NEXT_PUBLIC_API_URL=http://demo.braunundeyer.de/api NEXT_PUBLIC_BACKEND_URL=http://demo.braunundeyer.de NEXT_PUBLIC_SITE_URL=http://demo.braunundeyer.de docker compose -f docker-compose.prod.yml build nextjs-app)",
+      "Bash(NEXT_PUBLIC_API_URL=http://api.braunundeyer.de/api NEXT_PUBLIC_BACKEND_URL=http://api.braunundeyer.de NEXT_PUBLIC_SITE_URL=http://demo.braunundeyer.de docker compose -f docker-compose.prod.yml build nextjs-app)",
+      "Bash(DATABASE_PATH=/app/data/database.sqlite docker compose -f docker-compose.prod.yml up -d backend)",
+      "Bash(sudo nginx:*)",
+      "Bash(ss:*)",
+      "Bash(sudo:*)",
+      "Bash(/home/braunundeyer-frontend/scripts/backup-database.sh:*)",
+      "Bash(/home/braunundeyer-frontend/scripts/setup-daily-backup.sh:*)",
+      "Bash(journalctl:*)",
+      "Bash(git add:*)"
     ],
     "deny": [],
     "additionalDirectories": [
       "/Users/taymac/Freelancer Work/braunundeyer architekturbüro/backend",
-      "/Users/taymac/Freelancer Work/braunundeyer architekturbüro/nextjs-app"
+      "/Users/taymac/Freelancer Work/braunundeyer architekturbüro/nextjs-app",
+      "/etc/nginx/sites-enabled"
     ]
   }
 }

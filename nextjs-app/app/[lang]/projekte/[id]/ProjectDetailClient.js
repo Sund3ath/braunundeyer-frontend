@@ -21,6 +21,8 @@ export default function ProjectDetailClient({ project, relatedProjects = [], dic
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isZoomed, setIsZoomed] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
 
   // Custom cursor motion values
   const cursorX = useMotionValue(0);
@@ -82,6 +84,26 @@ export default function ProjectDetailClient({ project, relatedProjects = [], dic
     }
   };
 
+  // Lightbox functions
+  const openLightbox = (index) => {
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeLightbox = () => {
+    setLightboxOpen(false);
+    document.body.style.overflow = 'unset';
+  };
+
+  const nextLightboxImage = () => {
+    setLightboxIndex((prev) => (prev + 1) % projectImages.length);
+  };
+
+  const prevLightboxImage = () => {
+    setLightboxIndex((prev) => (prev - 1 + projectImages.length) % projectImages.length);
+  };
+
   // Custom cursor tracking
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -92,6 +114,24 @@ export default function ProjectDetailClient({ project, relatedProjects = [], dic
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, [cursorX, cursorY]);
+
+  // Keyboard navigation for lightbox
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (!lightboxOpen) return;
+      
+      if (e.key === 'Escape') {
+        closeLightbox();
+      } else if (e.key === 'ArrowRight') {
+        nextLightboxImage();
+      } else if (e.key === 'ArrowLeft') {
+        prevLightboxImage();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [lightboxOpen]);
 
   const breadcrumbItems = [
     { href: `/${lang}/homepage`, label: dict?.translation?.nav?.home || 'Startseite' },
@@ -308,18 +348,19 @@ export default function ProjectDetailClient({ project, relatedProjects = [], dic
                       {projectImages.map((image, index) => (
                         <button
                           key={index}
-                          onClick={() => setCurrentImageIndex(index)}
-                          className={`relative aspect-[4/3] overflow-hidden rounded-lg ${
-                            index === currentImageIndex ? 'ring-2 ring-accent' : ''
-                          }`}
+                          onClick={() => openLightbox(index)}
+                          className="relative aspect-[4/3] overflow-hidden rounded-lg hover:ring-2 hover:ring-accent transition-all duration-200 group"
                         >
                           <Image
                             src={image}
                             alt={`${project.name} - Thumbnail ${index + 1}`}
                             fill
-                            sizes="100px"
-                            className="object-cover hover:scale-105 transition-transform duration-300"
+                            sizes="(max-width: 768px) 50vw, 33vw"
+                            className="object-cover group-hover:scale-105 transition-transform duration-300"
                           />
+                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
+                            <ZoomIn className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" size={24} />
+                          </div>
                         </button>
                       ))}
                     </div>
@@ -517,6 +558,87 @@ export default function ProjectDetailClient({ project, relatedProjects = [], dic
               sizes="100vw"
               className="object-contain"
             />
+          </div>
+        </motion.div>
+      )}
+
+      {/* Lightbox Modal for Gallery */}
+      {lightboxOpen && projectImages.length > 0 && (
+        <motion.div
+          className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          {/* Close Button */}
+          <button
+            onClick={closeLightbox}
+            className="absolute top-4 right-4 text-white/70 hover:text-white transition-colors duration-200 z-50"
+          >
+            <X size={32} />
+          </button>
+
+          {/* Image Counter */}
+          <div className="absolute top-4 left-4 text-white/70 font-body">
+            {lightboxIndex + 1} / {projectImages.length}
+          </div>
+
+          {/* Previous Button */}
+          {projectImages.length > 1 && (
+            <button
+              onClick={prevLightboxImage}
+              className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white p-3 rounded-full transition-all duration-200 backdrop-blur-sm"
+            >
+              <ChevronLeft size={28} />
+            </button>
+          )}
+
+          {/* Next Button */}
+          {projectImages.length > 1 && (
+            <button
+              onClick={nextLightboxImage}
+              className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white p-3 rounded-full transition-all duration-200 backdrop-blur-sm"
+            >
+              <ChevronRight size={28} />
+            </button>
+          )}
+
+          {/* Main Image */}
+          <div 
+            className="relative max-w-7xl max-h-[85vh] w-full h-full mx-16"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <Image
+              src={projectImages[lightboxIndex]}
+              alt={`${project.name} - Image ${lightboxIndex + 1}`}
+              fill
+              sizes="100vw"
+              className="object-contain"
+              priority
+            />
+          </div>
+
+          {/* Thumbnail Strip */}
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2 max-w-full overflow-x-auto px-4">
+            {projectImages.map((image, index) => (
+              <button
+                key={index}
+                onClick={() => setLightboxIndex(index)}
+                className={`relative w-16 h-16 flex-shrink-0 overflow-hidden rounded transition-all duration-200 ${
+                  index === lightboxIndex 
+                    ? 'ring-2 ring-white opacity-100' 
+                    : 'opacity-50 hover:opacity-75'
+                }`}
+              >
+                <Image
+                  src={image}
+                  alt={`Thumbnail ${index + 1}`}
+                  fill
+                  sizes="64px"
+                  className="object-cover"
+                />
+              </button>
+            ))}
           </div>
         </motion.div>
       )}

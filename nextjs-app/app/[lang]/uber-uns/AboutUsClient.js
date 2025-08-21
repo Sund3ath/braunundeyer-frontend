@@ -274,70 +274,143 @@ export default function AboutUsClient({ teamMembers = [], dict = {} }) {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {teamMembers.map((member, index) => (
-              <motion.div 
-                key={member.id} 
-                className="bg-surface rounded-lg overflow-hidden shadow-subtle"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <div className="aspect-square overflow-hidden">
-                  {member.image ? (
-                    <Image
-                      src={member.image}
-                      alt={member.name}
-                      width={400}
-                      height={400}
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                    />
-                  ) : (
-                    <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                      <Users size={60} className="text-gray-400" />
-                    </div>
-                  )}
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-heading font-medium text-primary mb-1">
-                    {member.name}
-                  </h3>
-                  <p className="text-accent font-body font-medium mb-3">
-                    {member.position}
-                  </p>
-                  {member.bio && (
-                    <p className="text-text-secondary font-body text-sm mb-4 leading-relaxed">
-                      {member.bio}
+          {/* First 2 members centered above */}
+          <div className="flex justify-center mb-12">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl">
+              {teamMembers.slice(0, 2).map((member, index) => (
+                <motion.div 
+                  key={member.id} 
+                  className="bg-surface rounded-lg overflow-hidden shadow-subtle"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                >
+                  <div className="aspect-square overflow-hidden">
+                    {member.image ? (
+                      <Image
+                        src={member.image}
+                        alt={member.name}
+                        width={400}
+                        height={400}
+                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                        <Users size={60} className="text-gray-400" />
+                      </div>
+                    )}
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-xl font-heading font-medium text-primary mb-1">
+                      {member.name}
+                    </h3>
+                    <p className="text-accent font-body font-medium mb-3">
+                      {member.position}
                     </p>
-                  )}
-                  
-                  {member.email && (
-                    <p className="text-text-secondary font-body text-sm mb-1">
-                      {member.email}
-                    </p>
-                  )}
-                  
-                  {member.phone && (
-                    <p className="text-text-secondary font-body text-sm mb-4">
-                      {member.phone}
-                    </p>
-                  )}
-                  
-                  {member.linkedin && (
-                    <a 
-                      href={member.linkedin} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="text-accent hover:text-primary transition-colors duration-200 font-body text-sm"
-                    >
-                      LinkedIn →
-                    </a>
-                  )}
-                </div>
-              </motion.div>
-            ))}
+                    {member.bio && (
+                      <p className="text-text-secondary font-body text-sm mb-4 leading-relaxed">
+                        {member.bio}
+                      </p>
+                    )}
+                    
+                    {member.email && (
+                      <p className="text-text-secondary font-body text-sm mb-1">
+                        {member.email}
+                      </p>
+                    )}
+                    
+                    {member.phone && (
+                      <p className="text-text-secondary font-body text-sm mb-4">
+                        {member.phone}
+                      </p>
+                    )}
+                    
+                    {member.linkedin && (
+                      <a 
+                        href={member.linkedin} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-accent hover:text-primary transition-colors duration-200 font-body text-sm"
+                      >
+                        LinkedIn →
+                      </a>
+                    )}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
+
+          {/* Remaining members centered below */}
+          {teamMembers.length > 2 && (
+            <div className="flex justify-center">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl">
+                {teamMembers.slice(2).map((member, index) => (
+                  <motion.div 
+                    key={member.id} 
+                    className="bg-surface rounded-lg overflow-hidden shadow-subtle"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: (index + 2) * 0.1 }}
+                  >
+                    <div className="aspect-square overflow-hidden">
+                      {member.image ? (
+                        <Image
+                          src={member.image}
+                          alt={member.name}
+                          width={400}
+                          height={400}
+                          className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                          <Users size={60} className="text-gray-400" />
+                        </div>
+                      )}
+                    </div>
+                    <div className="p-6">
+                      <h3 className="text-xl font-heading font-medium text-primary mb-1">
+                        {member.name}
+                      </h3>
+                      <p className="text-accent font-body font-medium mb-3">
+                        {member.position}
+                      </p>
+                      {member.bio && (
+                        <p className="text-text-secondary font-body text-sm mb-4 leading-relaxed">
+                          {member.bio}
+                        </p>
+                      )}
+                      
+                      {member.email && (
+                        <p className="text-text-secondary font-body text-sm mb-1">
+                          {member.email}
+                        </p>
+                      )}
+                      
+                      {member.phone && (
+                        <p className="text-text-secondary font-body text-sm mb-4">
+                          {member.phone}
+                        </p>
+                      )}
+                      
+                      {member.linkedin && (
+                        <a 
+                          href={member.linkedin} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="text-accent hover:text-primary transition-colors duration-200 font-body text-sm"
+                        >
+                          LinkedIn →
+                        </a>
+                      )}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </section>
 

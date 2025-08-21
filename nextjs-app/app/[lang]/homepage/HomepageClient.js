@@ -4,8 +4,8 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
-import { motion, useMotionValue, useSpring, AnimatePresence, useTransform } from 'framer-motion';
-import { ArrowRight, ChevronLeft, ChevronRight, MapPin, Home, Building2, Palette, TreePine, Mail } from 'lucide-react';
+import { motion, useMotionValue, AnimatePresence, useTransform } from 'framer-motion';
+import { ArrowRight, ChevronLeft, ChevronRight, MapPin, Home, Building2, Palette, Stethoscope, Mail } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import AnimatedText from '@/components/ui/AnimatedText';
@@ -28,12 +28,7 @@ export default function HomepageClient({
   const [ripples, setRipples] = useState([]);
   const rippleIdRef = useRef(0);
   
-  // Custom cursor motion values with enhanced spring
-  const cursorX = useMotionValue(0);
-  const cursorY = useMotionValue(0);
-  const springConfig = { damping: 25, stiffness: 700 };
-  const cursorXSpring = useSpring(cursorX, springConfig);
-  const cursorYSpring = useSpring(cursorY, springConfig);
+  // Custom cursor is now handled globally in app/layout.js
   
   // Background text parallax
   const scrollY = useMotionValue(0);
@@ -144,8 +139,6 @@ export default function HomepageClient({
   useEffect(() => {
     const handleMouseMove = (e) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
-      cursorX.set(e.clientX);
-      cursorY.set(e.clientY);
     };
 
     const handleScroll = () => {
@@ -158,7 +151,7 @@ export default function HomepageClient({
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [cursorX, cursorY, scrollY]);
+  }, [scrollY]);
 
 
   // Create ripple effect on click
@@ -219,9 +212,9 @@ export default function HomepageClient({
       description: dict?.services?.interior?.description || "Durchdachte Raumkonzepte"
     },
     {
-      icon: <TreePine className="w-8 h-8" />,
-      title: dict?.services?.landscape?.title || "Außenanlagen",
-      description: dict?.services?.landscape?.description || "Harmonische Außengestaltung"
+      icon: <Stethoscope className="w-8 h-8" />,
+      title: dict?.services?.medical?.title || "Arztpraxen",
+      description: dict?.services?.medical?.description || "Moderne Praxisgestaltung"
     }
   ];
 
@@ -257,50 +250,12 @@ export default function HomepageClient({
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white relative overflow-hidden custom-cursor" onClick={handleCreateRipple}>
-      <style jsx global>{`
-        .custom-cursor {
-          cursor: none;
-        }
-        .custom-cursor * {
-          cursor: none !important;
-        }
-        .cursor-dot {
-          position: fixed;
-          width: 8px;
-          height: 8px;
-          background-color: #059669;
-          border-radius: 50%;
-          pointer-events: none;
-          z-index: 10000;
-          transform: translate(-50%, -50%);
-        }
-        .cursor-ring {
-          position: fixed;
-          width: 30px;
-          height: 30px;
-          border: 2px solid #059669;
-          border-radius: 50%;
-          pointer-events: none;
-          z-index: 9999;
-          transform: translate(-50%, -50%);
-          opacity: 0.5;
-        }
-      `}</style>
       
       <Header dict={dict?.translation || dict} lang={lang} />
       
       {/* Enhanced Floating Typography Background with Deep Scroll */}
       <FloatingTypography variant="homepage" />
       
-      {/* Custom Cursor */}
-      <motion.div
-        className="cursor-dot"
-        style={{ x: cursorXSpring, y: cursorYSpring }}
-      />
-      <motion.div
-        className="cursor-ring"
-        style={{ x: cursorXSpring, y: cursorYSpring }}
-      />
 
 
       {/* Ripple Effects */}

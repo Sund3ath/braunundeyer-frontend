@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 import { projectsAPI, contentAPI, mediaAPI } from '../../services/api';
+import rebuildService from '../../services/rebuild';
 
 // Track initialization promise to prevent concurrent calls
 let initializationPromise = null;
@@ -205,6 +206,10 @@ const useCMSStore = create(
               projects: [...state.projects, newProject]
             }));
             get().addToHistory();
+            
+            // Trigger rebuild for Next.js
+            rebuildService.queueAutoRebuild('projects', 'create');
+            
             return newProject;
           } catch (error) {
             console.error('Failed to add project:', error);
@@ -233,6 +238,9 @@ const useCMSStore = create(
                 p.id === id ? updatedProject : p
               )
             }));
+            
+            // Trigger rebuild for Next.js
+            rebuildService.queueAutoRebuild('projects', 'update');
           } catch (error) {
             console.error('Failed to update project:', error);
             // Fallback to local update
@@ -250,6 +258,9 @@ const useCMSStore = create(
         deleteProject: async (id) => {
           try {
             await projectsAPI.delete(id);
+            
+            // Trigger rebuild for Next.js
+            rebuildService.queueAutoRebuild('projects', 'delete');
           } catch (error) {
             console.error('Failed to delete project:', error);
           }

@@ -15,9 +15,7 @@ const WaterEffect = dynamic(() => import('@/components/ui/WaterEffect'), {
   loading: () => <div className="h-screen bg-background" />
 });
 
-const CursorTrail = dynamic(() => import('@/components/ui/CursorTrail'), {
-  ssr: false
-});
+// CursorTrail is now added globally in app/layout.js
 
 // Lazy load sections that are not immediately visible
 const TestimonialsSection = lazy(() => import('@/components/homepage/TestimonialsSection'));
@@ -54,10 +52,6 @@ export default function HomepageOptimized({
     <div className="min-h-screen relative overflow-hidden bg-background">
       <Header dict={dict?.translation || dict} lang={lang} />
       
-      {/* Only load cursor effects after initial render */}
-      <Suspense fallback={null}>
-        <CursorTrail />
-      </Suspense>
 
       {/* Hero Section - Always load immediately as it's above the fold */}
       <section className="relative h-screen overflow-hidden bg-background pt-20 lg:pt-24">

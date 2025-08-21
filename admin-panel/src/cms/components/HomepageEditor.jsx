@@ -4,6 +4,7 @@ import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import Icon from '../../components/AppIcon';
 import useCMSStore from '../store/cmsStore';
 import { contentAPI } from '../../services/api';
+import rebuildService from '../../services/rebuild';
 
 const HomepageEditor = () => {
   const { projects, media, content, setContent, updateProject, uploadMedia, currentLanguage, loadContent } = useCMSStore();
@@ -196,7 +197,10 @@ const HomepageEditor = () => {
     };
 
     await setContent('homepage', homepageConfig);
-    alert('Homepage configuration saved!');
+    alert('Homepage configuration saved! Triggering site rebuild...');
+    
+    // Trigger rebuild to update Next.js with new content
+    rebuildService.queueAutoRebuild('homepage_config', 'update');
     
     // Reload content to ensure sync with backend
     if (loadContent) {

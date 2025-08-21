@@ -47,6 +47,10 @@
       "deliverables": ["Plannings", "Rapports qualité", "Rapports d'avancement", "Protocoles de réception"],
       "features": ["Coordination des métiers", "Contrôle qualité", "Gestion des délais", "Suivi des coûts"]
     },
+    "medical": {
+      "title": "Cabinets Médicaux",
+      "description": "Conception moderne de cabinets avec des concepts fonctionnels et hygiéniques pour les établissements médicaux et les centres de thérapie."
+    },
     "labels": {
       "timeline": "Durée",
       "deliverables": "Livrables",

@@ -47,6 +47,10 @@
       "deliverables": ["Programmi", "Rapporti qualità", "Rapporti di avanzamento", "Protocolli di accettazione"],
       "features": ["Coordinamento mestieri", "Controllo qualità", "Gestione scadenze", "Monitoraggio costi"]
     },
+    "medical": {
+      "title": "Studi Medici",
+      "description": "Design moderno di studi con concetti funzionali e igienici per strutture mediche e centri di terapia."
+    },
     "labels": {
       "timeline": "Tempistica",
       "deliverables": "Prestazioni",

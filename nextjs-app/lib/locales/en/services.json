@@ -47,6 +47,10 @@
       "deliverables": ["Schedules", "Quality reports", "Progress reports", "Acceptance protocols"],
       "features": ["Trade coordination", "Quality control", "Schedule management", "Cost monitoring"]
     },
+    "medical": {
+      "title": "Medical Practices",
+      "description": "Modern practice design with functional and hygienic concepts for medical facilities and therapy centers."
+    },
     "labels": {
       "timeline": "Timeline",
       "deliverables": "Deliverables",

@@ -27,6 +27,7 @@ import servicesRoutes from './routes/services.routes.js';
 import footerRoutes from './routes/footer.routes.js';
 import legalRoutes from './routes/legal.routes.js';
 import contactRoutes from './routes/contact.routes.js';
+import rebuildRoutes from './routes/rebuild.routes.js';
 
 // Import database
 import db from './config/db-simple.js';
@@ -163,6 +164,7 @@ app.use('/api/analytics', analyticsRoutes);
 app.use('/api/test', testRoutes);
 app.use('/api/team', teamRoutes);
 app.use('/api/contact', contactRoutes); // Contact form routes
+app.use('/api/rebuild', rebuildRoutes); // Rebuild automation routes
 app.use('/api', servicesRoutes); // Services and contact settings routes
 
 // 404 handler

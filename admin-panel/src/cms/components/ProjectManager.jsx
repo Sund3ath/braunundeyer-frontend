@@ -13,6 +13,7 @@ import EditableImage from './EditableImage';
 import Icon from 'components/AppIcon';
 import ProjectTranslations from './ProjectTranslations';
 import { projectsAPI } from '../../services/api';
+import rebuildService from '../../services/rebuild';
 
 // Sortable Project Card
 const SortableProjectCard = ({ project, onEdit, onDelete }) => {

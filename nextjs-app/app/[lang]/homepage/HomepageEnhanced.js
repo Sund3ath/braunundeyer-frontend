@@ -7,11 +7,11 @@ import { useParams, useRouter } from 'next/navigation';
 import { motion, useMotionValue, useSpring, AnimatePresence } from 'framer-motion';
 import { 
   ArrowRight, ChevronLeft, ChevronRight, MapPin, Home, 
-  Building2, Palette, TreePine, Mail, Loader2, Star 
+  Building2, Palette, Stethoscope, Mail, Loader2, Star 
 } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import CursorTrail from '@/components/ui/CursorTrail';
+// CursorTrail is now added globally in app/layout.js
 import WaterEffect from '@/components/ui/WaterEffect';
 import AnimatedText from '@/components/ui/AnimatedText';
 import ContentBackgroundTypography from '@/components/ui/ContentBackgroundTypography';
@@ -154,9 +154,9 @@ export default function HomepageEnhanced({
     },
     {
       id: 4,
-      icon: <TreePine className="w-8 h-8" />,
-      title: dict?.services?.items?.service4?.title || 'Außenanlagen',
-      description: dict?.services?.items?.service4?.description || 'Harmonische Gartengestaltung'
+      icon: <Stethoscope className="w-8 h-8" />,
+      title: dict?.services?.items?.service4?.title || 'Arztpraxen',
+      description: dict?.services?.items?.service4?.description || 'Moderne Praxisgestaltung'
     }
   ];
 
@@ -264,7 +264,6 @@ export default function HomepageEnhanced({
   return (
     <div className="min-h-screen custom-cursor relative overflow-hidden bg-background">
       <Header dict={dict?.translation || dict} lang={lang} />
-      <CursorTrail />
       
       {/* Custom Cursor */}
       <motion.div

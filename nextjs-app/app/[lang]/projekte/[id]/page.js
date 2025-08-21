@@ -50,19 +50,20 @@ export default async function ProjectDetailPage({ params }) {
 }
 
 // Generate static params for all projects (optional for SSG)
-export async function generateStaticParams() {
-  try {
-    const projects = await getAllProjects();
-    const languages = ['de', 'en', 'fr', 'it', 'es'];
+// Temporarily disabled for build - will be re-enabled when API is accessible
+// export async function generateStaticParams() {
+//   try {
+//     const projects = await getAllProjects();
+//     const languages = ['de', 'en', 'fr', 'it', 'es'];
     
-    return languages.flatMap(lang =>
-      projects.map(project => ({
-        lang,
-        id: project.id.toString(),
-      }))
-    );
-  } catch (error) {
-    console.error('Failed to generate static params:', error);
-    return [];
-  }
-}
+//     return languages.flatMap(lang =>
+//       projects.map(project => ({
+//         lang,
+//         id: project.id.toString(),
+//       }))
+//     );
+//   } catch (error) {
+//     console.error('Failed to generate static params:', error);
+//     return [];
+//   }
+// }

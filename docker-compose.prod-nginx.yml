@@ -11,7 +11,7 @@ services:
       - DATABASE_PATH=/app/data/database.sqlite
       - JWT_SECRET=${JWT_SECRET:-your-very-secure-jwt-secret-change-this-in-production-min-32-chars}
       - JWT_REFRESH_SECRET=${JWT_REFRESH_SECRET:-your-very-secure-refresh-secret-change-this-in-production-min-32-chars}
-      - ALLOWED_ORIGINS=https://braunundeyer.de,https://cms.braunundeyer.de,http://braunundeyer.de,http://cms.braunundeyer.de,http://www.braunundeyer.de
+      - ALLOWED_ORIGINS=https://braunundeyer.de,https://cms.braunundeyer.de,http://braunundeyer.de,http://cms.braunundeyer.de,http://www.braunundeyer.de,http://demo.braunundeyer.de,https://demo.braunundeyer.de
       - UPLOAD_DIR=/app/uploads
       - LOG_LEVEL=error
       - SMTP_HOST=smtp.strato.de
@@ -67,7 +67,7 @@ services:
       args:
         - NEXT_PUBLIC_API_URL=http://api.braunundeyer.de/api
         - NEXT_PUBLIC_BACKEND_URL=http://api.braunundeyer.de
-        - NEXT_PUBLIC_SITE_URL=http://braunundeyer.de
+        - NEXT_PUBLIC_SITE_URL=http://demo.braunundeyer.de
         - NEXT_PUBLIC_CMS_URL=http://cms.braunundeyer.de
     container_name: braunundeyer-nextjs-prod
     environment:

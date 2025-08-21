@@ -6,10 +6,12 @@ services:
       context: ./backend
       target: production
     container_name: braunundeyer-backend-prod
+    ports:
+      - "127.0.0.1:3001:3001"
     environment:
       - NODE_ENV=production
       - PORT=3001
-      - DATABASE_URL=/app/data/database.sqlite
+      - DATABASE_PATH=/app/data/database.sqlite
       - JWT_SECRET=${JWT_SECRET}
       - CORS_ORIGIN=https://braunundeyer.de,https://cms.braunundeyer.de
       - UPLOAD_DIR=/app/uploads
@@ -40,7 +42,7 @@ services:
       context: ./admin-panel
       target: production
       args:
-        - REACT_APP_API_URL=https://api.braunundeyer.de/api
+        - REACT_APP_API_URL=http://backend:3001/api
         - REACT_APP_SITE_URL=https://braunundeyer.de
     container_name: braunundeyer-admin-prod
     depends_on:
@@ -61,11 +63,15 @@ services:
       context: ./nextjs-app
       target: production
       args:
-        - NEXT_PUBLIC_API_URL=https://api.braunundeyer.de/api
-        - NEXT_PUBLIC_BACKEND_URL=https://api.braunundeyer.de
+        - NEXT_PUBLIC_API_URL=http://backend:3001/api
+        - NEXT_PUBLIC_BACKEND_URL=http://backend:3001
         - NEXT_PUBLIC_SITE_URL=https://braunundeyer.de
         - NEXT_PUBLIC_CMS_URL=https://cms.braunundeyer.de
+        - BACKEND_URL=http://api.braunundeyer.de
+        - API_URL_INTERNAL=http://api.braunundeyer.de/api
     container_name: braunundeyer-nextjs-prod
+    ports:
+      - "127.0.0.1:3000:3000"
     depends_on:
       - backend
     networks:

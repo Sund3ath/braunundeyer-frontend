@@ -47,6 +47,10 @@
       "deliverables": ["Cronogramas", "Informes de calidad", "Informes de progreso", "Protocolos de aceptación"],
       "features": ["Coordinación de oficios", "Control de calidad", "Gestión de plazos", "Monitoreo de costos"]
     },
+    "medical": {
+      "title": "Consultorios Médicos",
+      "description": "Diseño moderno de consultorios con conceptos funcionales e higiénicos para instalaciones médicas y centros de terapia."
+    },
     "labels": {
       "timeline": "Plazo",
       "deliverables": "Entregables",

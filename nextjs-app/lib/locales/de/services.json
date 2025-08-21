@@ -42,6 +42,10 @@
       "deliverables": ["Terminpläne", "Qualitätsberichte", "Fortschrittsberichte", "Abnahmeprotokolle"],
       "features": ["Gewerkekoordination", "Qualitätskontrolle", "Terminmanagement", "Kostenüberwachung"]
     },
+    "medical": {
+      "title": "Arztpraxen",
+      "description": "Moderne Praxisgestaltung mit funktionalen und hygienischen Konzepten für medizinische Einrichtungen und Therapiezentren."
+    },
     "labels": {
       "timeline": "Zeitrahmen",
       "deliverables": "Leistungen",

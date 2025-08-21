@@ -1,0 +1,58 @@
+[2025-08-19T20:58:09.024Z] [INFO] Database monitoring started
+[2025-08-19T20:58:09.028Z] [INFO] Monitoring tables: projects, hero_slides, project_translations, homepage_config
+[2025-08-19T20:58:09.028Z] [INFO] Check interval: 10 seconds
+[2025-08-19T20:58:09.037Z] [WARN] Error querying hero_slides: SQLITE_ERROR: no such table: hero_slides
+[2025-08-19T20:58:09.038Z] [WARN] Error querying homepage_config: SQLITE_ERROR: no such table: homepage_config
+[2025-08-19T20:58:09.039Z] [INFO] Initial state saved
+[2025-08-19T20:58:19.046Z] [WARN] Error querying hero_slides: SQLITE_ERROR: no such table: hero_slides
+[2025-08-19T20:58:19.047Z] [WARN] Error querying homepage_config: SQLITE_ERROR: no such table: homepage_config
+[2025-08-19T20:58:29.056Z] [WARN] Error querying hero_slides: SQLITE_ERROR: no such table: hero_slides
+[2025-08-19T20:58:29.058Z] [WARN] Error querying homepage_config: SQLITE_ERROR: no such table: homepage_config
+[2025-08-19T20:58:39.059Z] [WARN] Error querying hero_slides: SQLITE_ERROR: no such table: hero_slides
+[2025-08-19T20:58:39.060Z] [WARN] Error querying homepage_config: SQLITE_ERROR: no such table: homepage_config
+[2025-08-19T20:58:49.069Z] [WARN] Error querying hero_slides: SQLITE_ERROR: no such table: hero_slides
+[2025-08-19T20:58:49.070Z] [WARN] Error querying homepage_config: SQLITE_ERROR: no such table: homepage_config
+[2025-08-19T20:58:59.079Z] [WARN] Error querying hero_slides: SQLITE_ERROR: no such table: hero_slides
+[2025-08-19T20:58:59.080Z] [WARN] Error querying homepage_config: SQLITE_ERROR: no such table: homepage_config
+[2025-08-19T20:59:09.081Z] [WARN] Error querying hero_slides: SQLITE_ERROR: no such table: hero_slides
+[2025-08-19T20:59:09.082Z] [WARN] Error querying homepage_config: SQLITE_ERROR: no such table: homepage_config
+[2025-08-19T20:59:19.091Z] [WARN] Error querying hero_slides: SQLITE_ERROR: no such table: hero_slides
+[2025-08-19T20:59:19.091Z] [WARN] Error querying homepage_config: SQLITE_ERROR: no such table: homepage_config
+[2025-08-19T20:59:29.101Z] [WARN] Error querying hero_slides: SQLITE_ERROR: no such table: hero_slides
+[2025-08-19T20:59:29.102Z] [WARN] Error querying homepage_config: SQLITE_ERROR: no such table: homepage_config
+[2025-08-19T20:59:39.108Z] [WARN] Error querying hero_slides: SQLITE_ERROR: no such table: hero_slides
+[2025-08-19T20:59:39.109Z] [WARN] Error querying homepage_config: SQLITE_ERROR: no such table: homepage_config
+[2025-08-19T20:59:47.599Z] [INFO] Monitoring stopped by system
+[2025-08-19T20:59:47.686Z] [INFO] Database monitoring started
+[2025-08-19T20:59:47.690Z] [INFO] Monitoring tables: projects, project_translations
+[2025-08-19T20:59:47.690Z] [INFO] Check interval: 10 seconds
+[2025-08-19T21:08:07.367Z] [INFO] Monitoring stopped by system
+[2025-08-19T21:08:07.461Z] [INFO] Database monitoring started
+[2025-08-19T21:08:07.464Z] [INFO] Monitoring tables: projects, project_translations
+[2025-08-19T21:08:07.465Z] [INFO] Check interval: 10 seconds
+[2025-08-19T21:08:07.474Z] [INFO] Database changes detected in tables: projects, project_translations
+[2025-08-19T21:08:07.474Z] [INFO] Starting Next.js rebuild...
+[2025-08-19T21:08:08.576Z] [INFO] Next.js rebuild completed successfully
+[2025-08-19T21:08:08.576Z] [DEBUG] Build output: #1 [internal] load local bake definitions
+#1 reading from stdin 1.37kB done
+#1 DONE 0.0s
+
+#2 [backend internal] load build definition from Dockerfile
+#2 transferring dockerfile: 1.16kB done
+#2 DONE 0.0s
+
+#3 [nextjs-app internal] load build definition from Dockerfile
+#3 transferring dockerfile: 1.51kB done
+#3 DONE 0.0s
+
+#4 [nextjs-app internal] load metadata for docker.io/library/node:18-alpine
+#4 DONE 0.4s
+
+#5 [nextjs-app internal] load .dockerignore
+#5 transferring context: 248B done
+#5 DONE 0....
+[2025-08-19T21:08:26.945Z] [INFO] Monitoring stopped by system
+[2025-08-19T21:08:27.018Z] [INFO] Database monitoring started
+[2025-08-19T21:08:27.022Z] [INFO] Monitoring tables: projects, project_translations
+[2025-08-19T21:08:27.022Z] [INFO] Check interval: 10 seconds
+[2025-08-19T21:08:27.029Z] [INFO] Initial state saved
