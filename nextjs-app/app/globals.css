@@ -56,6 +56,10 @@
   }
   @media (min-width: 1024px) { body { font-size: 1.0625rem; } }
   h1, h2, h3, h4 { font-family: var(--serif); font-weight: 400; color: var(--ink); font-optical-sizing: auto; }
+  /* Typographic detail: no widows in running text, hanging quotes/brackets at
+     the start of headlines (progressive enhancements, ignored where unsupported). */
+  p, dd, figcaption, li { text-wrap: pretty; }
+  h1, h2, h3 { hanging-punctuation: first; }
   a { color: inherit; text-decoration: none; }
   button { font: inherit; color: inherit; }
   :focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
@@ -81,7 +85,7 @@
   .t-display { font-family: var(--serif); font-weight: 340; font-size: clamp(2.625rem, 1.15rem + 5.4vw, 6rem); line-height: 1.02; letter-spacing: -0.022em; color: var(--ink); text-wrap: balance; }
   .t-h1 { font-family: var(--serif); font-weight: 360; font-size: clamp(2.375rem, 1.5rem + 3.4vw, 4.5rem); line-height: 1.04; letter-spacing: -0.02em; color: var(--ink); text-wrap: balance; }
   .t-h2 { font-family: var(--serif); font-weight: 380; font-size: clamp(1.875rem, 1.4rem + 1.9vw, 3rem); line-height: 1.08; letter-spacing: -0.015em; color: var(--ink); text-wrap: balance; }
-  .t-h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(1.3125rem, 1.15rem + .55vw, 1.625rem); line-height: 1.2; letter-spacing: -0.008em; color: var(--ink); }
+  .t-h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(1.3125rem, 1.15rem + .55vw, 1.625rem); line-height: 1.2; letter-spacing: -0.008em; color: var(--ink); text-wrap: balance; }
   .t-lead { font-family: var(--serif); font-weight: 380; font-size: clamp(1.25rem, 1.05rem + .75vw, 1.6875rem); line-height: 1.42; color: var(--ink); text-wrap: pretty; }
   .t-prose { font-family: var(--serif); font-size: clamp(1.125rem, 1.05rem + .3vw, 1.3125rem); line-height: 1.62; color: var(--anthracite); max-width: 36em; }
   .t-prose p + p { margin-top: 1em; }
@@ -123,8 +127,12 @@
   .nav { display: none; align-self: center; }
   .nav ul { display: flex; gap: var(--s-6); align-items: center; }
   .nav a, .lang-btn { display: inline-flex; align-items: center; min-height: 44px; font-size: .9375rem; font-weight: 450; text-decoration: none; color: var(--anthracite); }
+  /* Same vocabulary as .link: a hairline underline appears on hover, the
+     current page carries it in ink. */
+  .nav a { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 7px; text-decoration-color: transparent; transition: color var(--t-fast) var(--ease-out), text-decoration-color var(--t-fast) var(--ease-out); }
   .nav a:hover, .lang-btn:hover { color: var(--ink); }
-  .nav a[aria-current="page"] { color: var(--ink); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 7px; }
+  .nav a:hover { text-decoration-color: var(--line); }
+  .nav a[aria-current="page"], .nav a[aria-current="page"]:hover { color: var(--ink); text-decoration-color: var(--ink); }
   .header-tools { display: flex; align-items: center; gap: var(--s-6); align-self: center; }
   .lang { position: relative; display: none; }
   .lang-btn { background: none; border: 0; cursor: pointer; gap: 6px; padding: 0; }
@@ -225,11 +233,12 @@
   /* A slow settle (scale 1.04 -> 1) while a slide is shown; compositor only. */
   .hs-media img { transform: scale(1.04); transition: transform 7s linear; }
   .hs-slide.is-active .hs-media img { transform: none; }
-  /* Functional scrim: keeps white text >= 4.5:1 even over a white photo
-     (alpha >= .57 wherever small text sits). */
-  .hs-media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,.8) 0%, rgba(0,0,0,.64) 50%, rgba(0,0,0,.3) 80%, rgba(0,0,0,.2) 100%); }
+  /* Functional scrim, local to the text zone: keeps white text >= 4.5:1 over
+     any photo (combined alpha >= .57 wherever small text sits) while the
+     upper and right parts of the photograph stay nearly untouched. */
+  .hs-media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,.8) 0%, rgba(0,0,0,.62) 42%, rgba(0,0,0,.2) 74%, rgba(0,0,0,.06) 100%); }
   @media (min-width: 1024px) {
-    .hs-media::after { background: linear-gradient(90deg, rgba(0,0,0,.72) 0%, rgba(0,0,0,.6) 44%, rgba(0,0,0,.22) 76%, rgba(0,0,0,.12) 100%), linear-gradient(0deg, rgba(0,0,0,.5) 0%, rgba(0,0,0,0) 34%); }
+    .hs-media::after { background: linear-gradient(90deg, rgba(0,0,0,.64) 0%, rgba(0,0,0,.46) 36%, rgba(0,0,0,.1) 66%, rgba(0,0,0,0) 100%), linear-gradient(0deg, rgba(0,0,0,.62) 0%, rgba(0,0,0,.28) 26%, rgba(0,0,0,0) 46%); }
   }
   .hs-text { position: relative; z-index: 1; width: 100%; padding-bottom: var(--hs-bar); display: grid; justify-items: start; }
   .hs-count { display: flex; align-items: center; gap: 12px; margin-bottom: var(--s-5); font: 500 .75rem/1 var(--sans); letter-spacing: .16em; color: rgba(255,255,255,.9); font-feature-settings: "tnum" 1, "lnum" 1; }
@@ -290,7 +299,7 @@
   .srv-intro p { max-width: 28em; }
   .srv-list { border-bottom: 1px solid var(--line); }
   .srv-list a, .srv-list .srv-row { display: grid; gap: 6px; padding-block: var(--s-5) var(--s-6); border-top: 1px solid var(--line); text-decoration: none; color: inherit; }
-  .srv-list h3 { font-size: clamp(1.625rem, 1.3rem + 1.2vw, 2.375rem); line-height: 1.1; letter-spacing: -.012em; }
+  .srv-list h3 { font-size: clamp(1.625rem, 1.3rem + 1.2vw, 2.375rem); line-height: 1.1; letter-spacing: -.012em; text-wrap: balance; }
   .srv-list p { max-width: 32em; }
   .srv-list a:hover h3, .srv-list a:focus-visible h3 { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .16em; }
   @media (min-width: 1024px) {
@@ -302,7 +311,7 @@
   .about-band { background: var(--putz); }
   .about-body { display: grid; gap: var(--s-6); margin-top: var(--s-5); }
   .team-list { display: grid; gap: var(--s-4) var(--gutter); border-top: 1px solid var(--line); padding-top: var(--s-5); }
-  .team-list li { display: grid; }
+  .team-list li { display: grid; align-content: start; }
   .team-list .name { color: var(--ink); }
   .team-list .role { font-size: .875rem; color: var(--muted); }
   @media (min-width: 600px) { .team-list { grid-template-columns: 1fr 1fr; } }
@@ -345,7 +354,7 @@
   .pd-body { padding-block: var(--s-8); row-gap: var(--s-7); }
   .facts { display: grid; grid-template-columns: auto 1fr; gap: 10px var(--s-5); font-size: .9375rem; border-top: 1px solid var(--ink); padding-top: var(--s-4); }
   .facts dt { color: var(--muted); }
-  .facts dd { color: var(--ink); font-feature-settings: "tnum" 1; overflow-wrap: anywhere; }
+  .facts dd { color: var(--ink); font-feature-settings: "tnum" 1; overflow-wrap: break-word; hyphens: auto; }
   @media (min-width: 1024px) {
     .pd-body { padding-block: var(--s-10); }
     .pd-body > .pd-facts { grid-column: 1 / 4; position: sticky; top: var(--s-6); align-self: start; }
@@ -554,6 +563,7 @@
   .lb-count { font-size: .875rem; font-feature-settings: "tnum" 1; color: var(--ink); }
   .lb-count span { color: var(--muted); }
   .lb-close { display: inline-flex; align-items: center; gap: 10px; background: none; border: 0; padding: 12px 0 12px 12px; cursor: pointer; font-size: .9375rem; font-weight: 500; color: var(--ink); min-height: 44px; }
+  .lb-close:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .25em; }
   .lb-close:focus-visible { outline-offset: -4px; }
   .lb-close svg { width: 14px; height: 14px; }
   .lb-stage { position: relative; min-height: 0; display: grid; place-items: center; padding-inline: var(--margin); touch-action: pan-y pinch-zoom; user-select: none; -webkit-user-select: none; }
@@ -590,6 +600,12 @@
   .consent p { font-size: .9375rem; max-width: 46em; }
   .consent-actions { display: flex; flex-wrap: wrap; gap: var(--s-2); }
   .consent-actions .btn { min-height: 44px; padding-inline: 18px; }
+  /* Phones: two ghost choices side by side, the primary choice full width. */
+  @media (max-width: 599px) {
+    .consent-actions { display: grid; grid-template-columns: 1fr 1fr; }
+    .consent-actions .btn { padding-inline: 12px; }
+    .consent-actions .btn:not(.btn--ghost) { grid-column: 1 / -1; }
+  }
   .consent fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: var(--s-3); border-top: 1px solid var(--line); padding-top: var(--s-4); }
   .consent legend { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
   .check { display: grid; grid-template-columns: 24px 1fr; gap: 4px var(--s-3); align-items: start; }
@@ -640,12 +656,26 @@
   font: 500 11px/1 var(--sans); letter-spacing: .18em; text-transform: uppercase; color: var(--bt-note); text-align: left;
 }
 .bt-end[data-n]::after { text-align: right; }
-/* Phones: the words bleed on both sides, so the notes would be cut off. */
-@media (max-width: 599px) { .bt-w[data-n]::after { display: none; } }
 /* Registration cross. */
 .bt--cross::after {
   content: ""; position: absolute; left: var(--cx); top: var(--cy); width: 23px; height: 23px; margin: -11px 0 0 -11px;
   background: linear-gradient(var(--bt-line), var(--bt-line)) center / 1px 100% no-repeat, linear-gradient(var(--bt-line), var(--bt-line)) center / 100% 1px no-repeat;
+}
+/* Phones: the words bleed on both sides, so the notes would be cut off, and a
+   cross next to a caption reads as a stray mark. Both stay desktop-only. */
+@media (max-width: 599px) { .bt-w[data-n]::after, .bt--cross::after { display: none; } }
+
+
+/* Splash backdrop word: barely there, lit by a slow light pulse that travels
+   through the letterforms (an overlay copy of the word, filled with a moving
+   highlight and clipped to the glyphs). CSS only. */
+.bt--splash { --bt-stroke: rgba(255,255,255,.075); }
+.bt--splash .bt-w::after {
+  content: attr(data-w); position: absolute; left: 0; top: 0; display: block; padding-bottom: .1em;
+  color: transparent; -webkit-text-stroke: 0;
+  background: linear-gradient(100deg, rgba(255,255,255,0) 38%, rgba(255,255,255,.2) 47%, rgba(255,255,255,.5) 50%, rgba(255,255,255,.2) 53%, rgba(255,255,255,0) 62%) 130% 0 / 260% 100% no-repeat;
+  -webkit-background-clip: text; background-clip: text;
+  opacity: 0;
 }
 
 /* ---------- Intro overlay (components/home/EntryOverlay.js) ---------- */
@@ -664,21 +694,8 @@ html.intro-pending::after { content: ""; position: fixed; inset: 0; z-index: 119
   background: radial-gradient(closest-side, rgba(255,255,255,.13), rgba(255,255,255,.045) 45%, rgba(255,255,255,0) 100%);
   pointer-events: none;
 }
-.entry-frame {
-  position: absolute; inset: clamp(14px, 2.6vw, 36px); pointer-events: none; border: 1px solid rgba(255,255,255,.06);
-  --c: rgba(255,255,255,.34);
-  background:
-    linear-gradient(var(--c), var(--c)) left top / 28px 1px no-repeat, linear-gradient(var(--c), var(--c)) left top / 1px 28px no-repeat,
-    linear-gradient(var(--c), var(--c)) right top / 28px 1px no-repeat, linear-gradient(var(--c), var(--c)) right top / 1px 28px no-repeat,
-    linear-gradient(var(--c), var(--c)) left bottom / 28px 1px no-repeat, linear-gradient(var(--c), var(--c)) left bottom / 1px 28px no-repeat,
-    linear-gradient(var(--c), var(--c)) right bottom / 28px 1px no-repeat, linear-gradient(var(--c), var(--c)) right bottom / 1px 28px no-repeat;
-}
 .entry-inner { position: relative; display: grid; justify-items: center; text-align: center; padding: 48px 24px; transition: opacity 280ms ease; }
 .entry.is-leaving .entry-inner { opacity: 0; }
-.entry-bracket { position: absolute; width: clamp(96px, 20vw, 220px); height: clamp(96px, 18vw, 210px); pointer-events: none; border: 0 solid rgba(255,255,255,.14); }
-.entry-bracket--a { left: -10%; top: -6%; border-top-width: 1px; border-left-width: 1px; }
-.entry-bracket--b { right: -12%; bottom: 20%; border-bottom-width: 1px; border-right-width: 1px; }
-@media (max-width: 599px) { .entry-bracket--a { left: 0; } .entry-bracket--b { right: 0; } }
 .entry-mark { display: grid; justify-items: center; font-family: var(--serif); font-weight: 400; font-size: clamp(1.375rem, .85rem + 2.5vw, 2.75rem); line-height: 1.25; color: #fff; font-variation-settings: "opsz" 24; }
 .entry-mark span { display: block; white-space: nowrap; }
 .entry-mark .e1 { position: relative; letter-spacing: .42em; padding: 0 .22em .3em .64em; }
@@ -688,25 +705,15 @@ html.intro-pending::after { content: ""; position: fixed; inset: 0; z-index: 119
 .entry-tag span { padding-left: .3em; }
 .entry-tag i { width: 1px; height: 64px; background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,.5), rgba(255,255,255,0)); }
 .entry-btn {
-  --t: rgba(255,255,255,.9);
-  position: relative; margin-top: clamp(44px, 9vh, 96px); min-width: 224px; min-height: 48px; padding: 0 40px;
-  background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.26); cursor: pointer;
+  position: relative; margin-top: clamp(44px, 9vh, 96px); min-width: 224px; min-height: 52px; padding: 0 40px; overflow: hidden;
+  background: rgba(255,255,255,.04); color: #fff; border: 1px solid rgba(255,255,255,.2); border-radius: 0; cursor: pointer;
   font: 500 .8125rem/1 var(--serif); letter-spacing: .38em; text-transform: uppercase;
-  transition: background-color var(--t-base) var(--ease-out), border-color var(--t-base) var(--ease-out);
+  transition: background-color var(--t-base) var(--ease-out), border-color var(--t-base) var(--ease-out), color var(--t-base) var(--ease-out);
 }
-.entry-btn > span:first-child { padding-left: .38em; }
-.entry-btn::before {
-  content: ""; position: absolute; inset: -1px; pointer-events: none; transition: inset var(--t-base) var(--ease-out);
-  background:
-    linear-gradient(var(--t), var(--t)) left top / 10px 1px no-repeat, linear-gradient(var(--t), var(--t)) left top / 1px 10px no-repeat,
-    linear-gradient(var(--t), var(--t)) right top / 10px 1px no-repeat, linear-gradient(var(--t), var(--t)) right top / 1px 10px no-repeat,
-    linear-gradient(var(--t), var(--t)) left bottom / 10px 1px no-repeat, linear-gradient(var(--t), var(--t)) left bottom / 1px 10px no-repeat,
-    linear-gradient(var(--t), var(--t)) right bottom / 10px 1px no-repeat, linear-gradient(var(--t), var(--t)) right bottom / 1px 10px no-repeat;
-}
-.entry-btn:hover { background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.5); }
-.entry-btn:hover::before, .entry-btn:focus-visible::before { inset: -7px; }
-/* Focus (ENTER is focused on load): brighter border, ticks move out. */
-.entry-btn:focus-visible { outline: 0; background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.85); }
+.entry-btn > span:first-child { position: relative; padding-left: .38em; }
+.entry-btn:hover { background: #fff; border-color: #fff; color: #0b0b0b; }
+.entry-btn:focus-visible { outline: 0; background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.9); }
+.entry-btn:focus-visible:hover { background: #fff; color: #0b0b0b; }
 
 
 /* ---------- Touch: 44px targets for stacked text links ---------- */
@@ -724,6 +731,7 @@ html.intro-pending::after { content: ""; position: fixed; inset: 0; z-index: 119
 @keyframes bt-draw { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
 @keyframes bt-draw-end { from { clip-path: inset(0 0 0 100%); } to { clip-path: inset(0 0 0 0); } }
 @keyframes bt-float { from { transform: translate3d(-2vw, 0, 0); } to { transform: translate3d(2vw, 0, 0); } }
+@keyframes bt-pulse { 0% { background-position: 130% 0; opacity: 1; } 62% { background-position: -30% 0; opacity: 1; } 63%, 100% { background-position: -30% 0; opacity: 0; } }
 @keyframes entry-in { from { opacity: 0; transform: translate3d(0, 10px, 0); } }
 @keyframes entry-rule { from { transform: scaleX(0); } }
 @keyframes entry-breathe { from { opacity: .7; } to { opacity: 1; } }
@@ -744,6 +752,7 @@ html.intro-pending::after { content: ""; position: fixed; inset: 0; z-index: 119
 
 @media (prefers-reduced-motion: no-preference) {
   .bt--splash .bt-w { animation: bt-float 40s ease-in-out infinite alternate; }
+  .bt--splash .bt-w::after { animation: bt-pulse 7s cubic-bezier(.45, .05, .35, 1) .5s infinite; }
   .entry::before { animation: entry-breathe 6s ease-in-out infinite alternate; }
   .entry-mark .e1, .entry-mark .e2, .entry-tag, .entry-btn { animation: entry-in 900ms var(--ease-out) both; }
   .entry-mark .e2 { animation-delay: 90ms; }

@@ -132,10 +132,7 @@ export default function EntryOverlay({ copy, typo, brand }) {
       onTransitionEnd={(e) => { if (e.target === overlayRef.current && state === 'leaving') finish(); }}
     >
       <BackdropType variant="splash" words={typo} tone="dark" />
-      <span className="entry-frame" aria-hidden="true" />
       <div className="entry-inner">
-        <span className="entry-bracket entry-bracket--a" aria-hidden="true" />
-        <span className="entry-bracket entry-bracket--b" aria-hidden="true" />
         <p className="entry-mark" aria-hidden="true">
           <span className="e1">braun &amp; eyer</span>
           <span className="e2">architekten</span>

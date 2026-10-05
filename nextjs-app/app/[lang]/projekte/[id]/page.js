@@ -12,6 +12,7 @@ import JsonLd from '@/components/JsonLd';
 import Photo from '@/components/ui/Photo';
 import Breadcrumbs from '@/components/site/Breadcrumbs';
 import ProjectLightbox from '@/components/projects/ProjectLightbox';
+import BackdropType from '@/components/ui/BackdropType';
 
 /**
  * Incremental static regeneration: pages are rendered on first request, cached
@@ -182,6 +183,8 @@ export default async function ProjectDetailPage({ params }) {
     <main id="main">
       <JsonLd data={projectGraph({ lang, project: { ...project, title: projectTitle(project) }, description: projectDescription(project, lang) })} />
 
+      <div className="has-bt">
+        <BackdropType variant="projectHead" words={copy.typo} />
       <div className="wrap cols page-head">
         <Breadcrumbs
           label={copy.common.breadcrumbs}
@@ -193,6 +196,7 @@ export default async function ProjectDetailPage({ params }) {
         />
         <h1 className="t-display">{p.title}</h1>
         {p.subtitle && <p className="t-lead page-aside">{p.subtitle}</p>}
+      </div>
       </div>
 
       <ProjectLightbox items={lbItems} copy={copy.lightbox}>
@@ -230,7 +234,8 @@ export default async function ProjectDetailPage({ params }) {
         </section>
 
         {sequence.length > 0 && (
-          <section className="seq" aria-label={copy.project.sequence}>
+          <section className="seq has-bt" aria-label={copy.project.sequence}>
+            <BackdropType variant="sequence" words={copy.typo} />
             {sequence.map((g, gi) => {
               if (g.kind === 'bleed') {
                 const img = g.imgs[0];

@@ -72,6 +72,27 @@ const LAYOUTS = {
     ],
     cross: { x: '6%', y: '20rem' },
   },
+  projectHead: {
+    words: [
+      { key: 'design', style: 'stroke', size: 'xl', r: '-8vw', y: '1.5rem', d: '-7vw' },
+    ],
+    cross: { x: '7%', y: '12rem' },
+  },
+  // Long image sequences: a word every ~95vh, alternating sides/styles. Words
+  // below the end of the section are simply clipped, so one layout fits any
+  // number of photos. They show in the gaps and margins around the photos.
+  sequence: {
+    words: ['architecture', 'design', 'innovation', 'vision', 'space', 'build', 'renovate', 'heritage', 'architecture', 'design'].map((key, i) => ({
+      key,
+      id: `${key}-${i}`,
+      style: i % 2 ? 'stroke' : 'fill',
+      size: i % 3 === 0 ? 'xl' : 'l',
+      ...(i % 2 ? { r: `${-6 - (i % 4) * 2}vw` } : { l: `${-5 - (i % 3) * 3}vw` }),
+      y: `${6 + i * 95}svh`,
+      d: `${i % 2 ? -8 : 8}vw`,
+      ...(i % 3 === 0 ? { n: String(i + 1).padStart(2, '0'), end: i % 2 === 1 } : {}),
+    })),
+  },
   cta: {
     words: [
       { key: 'dialogue', style: 'stroke', size: 'l', l: '-8vw', y: '14%', d: '8vw' },
@@ -111,7 +132,7 @@ export default function BackdropType({ variant, words, tone = 'light', className
         if (!text) return null;
         return (
           <span
-            key={w.key}
+            key={w.id || w.key}
             className={`bt-w bt-${w.style} bt-${w.size}${w.end ? ' bt-end' : ''}`}
             data-w={text}
             data-n={w.n}
