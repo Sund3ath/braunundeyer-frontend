@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import { Menu, X, Home, Building2, Users, Settings, Mail, Images } from 'lucide-react';
 import LanguageSwitcher from './LanguageSwitcher';
 
-export default function Header({ dict, lang }) {
+export default function Header({ dict, lang, navigationSettings }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
@@ -44,14 +44,46 @@ export default function Header({ dict, lang }) {
     }
   };
 
-  const navItems = [
-    { href: `/${lang}/homepage`, label: dict?.nav?.home || 'Startseite', icon: Home },
-    { href: `/${lang}/projekte`, label: dict?.nav?.projects || 'Projekte', icon: Building2 },
-    { href: `/${lang}/gallery`, label: dict?.nav?.gallery || 'Galerie', icon: Images },
-    { href: `/${lang}/uber-uns`, label: dict?.nav?.about || 'Über Uns', icon: Users },
-    { href: `/${lang}/leistungen`, label: dict?.nav?.services || 'Leistungen', icon: Settings },
-    { href: `/${lang}/kontakt`, label: dict?.nav?.contact || 'Kontakt', icon: Mail },
+  // Use navigation settings from CMS if available, otherwise use defaults
+  // Handle both dict.nav and dict.translation.nav patterns
+  const navTranslations = dict?.nav || dict?.translation?.nav || {};
+  const defaultNavItems = [
+    { href: `/${lang}/homepage`, label: navTranslations.home || 'Startseite', icon: Home },
+    { href: `/${lang}/projekte`, label: navTranslations.projects || 'Projekte', icon: Building2 },
+    { href: `/${lang}/gallery`, label: navTranslations.gallery || 'Galerie', icon: Images },
+    { href: `/${lang}/uber-uns`, label: navTranslations.about || 'Über Uns', icon: Users },
+    { href: `/${lang}/leistungen`, label: navTranslations.services || 'Leistungen', icon: Settings },
+    { href: `/${lang}/kontakt`, label: navTranslations.contact || 'Kontakt', icon: Mail },
   ];
+
+  // Map icon names to Lucide icons
+  const iconMap = {
+    'Home': Home,
+    'Building2': Building2,
+    'Folder': Building2,
+    'Images': Images,
+    'Users': Users,
+    'Settings': Settings,
+    'Briefcase': Settings,
+    'Mail': Mail
+  };
+
+  // Process navigation items from CMS or use defaults
+  const navItems = navigationSettings?.mainMenu?.map(item => ({
+    href: item.href,
+    label: item.label,
+    icon: iconMap[item.icon] || Home,
+    visible: item.visible !== false
+  })).filter(item => item.visible) || defaultNavItems;
+  
+  const mobileNavItems = navigationSettings?.mobileMenu?.length > 0 
+    ? navigationSettings.mobileMenu.map(item => ({
+        href: item.href,
+        label: item.label,
+        icon: iconMap[item.icon] || Home,
+        visible: item.visible !== false
+      })).filter(item => item.visible)
+    : navItems;
 
   const isActive = (href) => pathname === href;
 
@@ -150,10 +182,17 @@ export default function Header({ dict, lang }) {
             {/* Mobile Menu Button */}
             <button
               onClick={toggleMobileMenu}
-              className="lg:hidden p-2 rounded text-text-secondary hover:text-accent hover:bg-surface transition-colors duration-200"
+              className="lg:hidden flex items-center space-x-2 p-2 rounded text-text-secondary hover:text-accent hover:bg-surface transition-colors duration-200"
               aria-label="Toggle mobile menu"
             >
-              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              {isMobileMenuOpen ? (
+                <X size={24} />
+              ) : (
+                <>
+                  <Menu size={24} />
+                  <span className="text-sm font-body">Menü</span>
+                </>
+              )}
             </button>
           </div>
         </nav>
@@ -182,7 +221,7 @@ export default function Header({ dict, lang }) {
             
             <nav className="p-4 overflow-y-auto h-full pb-20">
               <ul className="space-y-2">
-                {navItems.map((item) => {
+                {mobileNavItems.map((item) => {
                   const Icon = item.icon;
                   return (
                     <li key={item.href}>

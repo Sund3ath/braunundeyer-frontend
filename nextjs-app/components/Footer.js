@@ -89,7 +89,7 @@ export default function Footer({ dict, lang, onCopyrightClick }) {
               <div className="font-heading font-semibold text-xl">Braun & Eyer</div>
             </div>
             <p className="font-body text-white/80 mb-4">
-              Außergewöhnliche Architekturlösungen, die Innovation mit Funktionalität verbinden.
+              {dict?.footer?.description || 'Außergewöhnliche Architekturlösungen, die Innovation mit Funktionalität verbinden.'}
             </p>
             <div className="flex space-x-4">
               {socialLinks.map((social) => {
@@ -117,14 +117,14 @@ export default function Footer({ dict, lang, onCopyrightClick }) {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            <h3 className="font-heading font-medium text-lg mb-4">Leistungen</h3>
+            <h3 className="font-heading font-medium text-lg mb-4">{dict?.footer?.services || 'Leistungen'}</h3>
             <ul className="space-y-2 font-body">
               <li>
                 <Link 
                   href={`/${lang}/leistungen`} 
                   className="text-white/80 hover:text-accent transition-colors duration-200"
                 >
-                  Neubau
+                  {dict?.services?.items?.service1?.title || 'Neubau'}
                 </Link>
               </li>
               <li>
@@ -132,7 +132,7 @@ export default function Footer({ dict, lang, onCopyrightClick }) {
                   href={`/${lang}/leistungen`} 
                   className="text-white/80 hover:text-accent transition-colors duration-200"
                 >
-                  Altbausanierung
+                  {dict?.services?.items?.service2?.title || 'Altbausanierung'}
                 </Link>
               </li>
               <li>
@@ -140,7 +140,7 @@ export default function Footer({ dict, lang, onCopyrightClick }) {
                   href={`/${lang}/leistungen`} 
                   className="text-white/80 hover:text-accent transition-colors duration-200"
                 >
-                  Innenarchitektur
+                  {dict?.services?.items?.service3?.title || 'Ingenieursleistungen'}
                 </Link>
               </li>
               <li>
@@ -148,7 +148,7 @@ export default function Footer({ dict, lang, onCopyrightClick }) {
                   href={`/${lang}/leistungen`} 
                   className="text-white/80 hover:text-accent transition-colors duration-200"
                 >
-                  Beratung
+                  {dict?.services?.items?.service4?.title || 'Energieberatung'}
                 </Link>
               </li>
             </ul>
@@ -160,14 +160,14 @@ export default function Footer({ dict, lang, onCopyrightClick }) {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <h3 className="font-heading font-medium text-lg mb-4">Unternehmen</h3>
+            <h3 className="font-heading font-medium text-lg mb-4">{dict?.footer?.company || 'Unternehmen'}</h3>
             <ul className="space-y-2 font-body">
               <li>
                 <Link 
                   href={`/${lang}/uber-uns`} 
                   className="text-white/80 hover:text-accent transition-colors duration-200"
                 >
-                  Über uns
+                  {dict?.footer?.links?.about || 'Über uns'}
                 </Link>
               </li>
               <li>
@@ -175,7 +175,7 @@ export default function Footer({ dict, lang, onCopyrightClick }) {
                   href={`/${lang}/projekte`} 
                   className="text-white/80 hover:text-accent transition-colors duration-200"
                 >
-                  Projekte
+                  {dict?.footer?.links?.projects || 'Projekte'}
                 </Link>
               </li>
               <li>
@@ -183,7 +183,7 @@ export default function Footer({ dict, lang, onCopyrightClick }) {
                   href={`/${lang}/kontakt`} 
                   className="text-white/80 hover:text-accent transition-colors duration-200"
                 >
-                  Kontakt
+                  {dict?.footer?.contact || 'Kontakt'}
                 </Link>
               </li>
               <li>
@@ -191,7 +191,7 @@ export default function Footer({ dict, lang, onCopyrightClick }) {
                   href="#" 
                   className="text-white/80 hover:text-accent transition-colors duration-200"
                 >
-                  Karriere
+                  {dict?.footer?.links?.career || 'Karriere'}
                 </a>
               </li>
               <li>
@@ -199,7 +199,7 @@ export default function Footer({ dict, lang, onCopyrightClick }) {
                   href={`/${lang}/impressum`} 
                   className="text-white/80 hover:text-accent transition-colors duration-200"
                 >
-                  Impressum
+                  {dict?.footer?.links?.imprint || 'Impressum'}
                 </Link>
               </li>
               <li>
@@ -207,7 +207,7 @@ export default function Footer({ dict, lang, onCopyrightClick }) {
                   href={`/${lang}/datenschutz`} 
                   className="text-white/80 hover:text-accent transition-colors duration-200"
                 >
-                  Datenschutz
+                  {dict?.footer?.links?.privacy || 'Datenschutz'}
                 </Link>
               </li>
             </ul>
@@ -219,7 +219,7 @@ export default function Footer({ dict, lang, onCopyrightClick }) {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            <h3 className="font-heading font-medium text-lg mb-4">Kontakt</h3>
+            <h3 className="font-heading font-medium text-lg mb-4">{dict?.footer?.contact || 'Kontakt'}</h3>
             <div className="space-y-3 font-body text-white/80">
               <div className="flex items-start space-x-3">
                 <MapPin size={16} className="mt-1 flex-shrink-0" />
@@ -252,7 +252,7 @@ export default function Footer({ dict, lang, onCopyrightClick }) {
             onClick={handleCopyrightClick}
             style={{ userSelect: 'none' }}
           >
-            © {currentYear} Braun & Eyer Architekturbüro. Alle Rechte vorbehalten.
+            {dict?.footer?.copyright?.replace('2025', currentYear) || `© ${currentYear} Braun & Eyer Architekturbüro. Alle Rechte vorbehalten.`}
           </p>
         </motion.div>
       </div>

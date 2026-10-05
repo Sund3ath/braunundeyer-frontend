@@ -1,0 +1,201 @@
+{
+  "title": "Os Nossos Serviços",
+  "subtitle": "Serviços arquitetónicos profissionais para as suas visões",
+  "description": "Da primeira ideia à entrega das chaves - acompanhamo-lo em todas as fases do seu projeto de construção com especialização e paixão.",
+  "hero": {
+    "title": "Serviços Arquitetónicos",
+    "subtitle": "Planeamento e consultoria profissional para o seu projeto de construção"
+  },
+  "services": {
+    "newConstruction": {
+      "title": "Construção Nova",
+      "description": "Projetos individuais de construção nova desde moradias unifamiliares a edifícios multifamiliares e edifícios comerciais. Arquitetura moderna com conceitos sustentáveis e soluções energeticamente eficientes.",
+      "timeline": "6-12 meses",
+      "startingPrice": "desde €8.000",
+      "deliverables": ["Plantas arquitetónicas", "Visualizações 3D", "Especificações de materiais", "Supervisão de construção"],
+      "features": ["Análise do local", "Planeamento de espaços", "Consultoria energética", "Integração paisagística"]
+    },
+    "renovation": {
+      "title": "Renovação de Edifícios",
+      "description": "Renovação profissional de edifícios históricos considerando proteção patrimonial, física de edifícios e padrões modernos de habitação. Preservação do carácter original com funcionalidade contemporânea.",
+      "timeline": "8-18 meses",
+      "startingPrice": "desde €12.000",
+      "deliverables": ["Avaliação de inventário", "Conceito de renovação", "Planeamento de licenças", "Apoio à construção"],
+      "features": ["Proteção patrimonial", "Física de edifícios", "Renovação energética", "Acessibilidade"]
+    },
+    "interior": {
+      "title": "Design de Interiores",
+      "description": "Design de interiores completo desde o layout de espaços ao mobiliário. Soluções funcionais e estéticas para espaços residenciais e comerciais com foco na utilização ótima do espaço.",
+      "timeline": "3-6 meses",
+      "startingPrice": "desde €5.000",
+      "deliverables": ["Conceito de espaço", "Seleção de materiais", "Plano de mobiliário", "Design de iluminação"],
+      "features": ["Consultoria de cores", "Seleção de mobiliário", "Design de luz", "Soluções personalizadas"]
+    },
+    "energy": {
+      "title": "Consultoria Energética",
+      "description": "Consultoria energética profissional para construção nova e renovação. Otimização da eficiência energética, aconselhamento sobre subsídios e criação de certificados energéticos de acordo com os padrões atuais.",
+      "timeline": "2-4 semanas",
+      "startingPrice": "desde €800",
+      "deliverables": ["Certificado energético", "Roteiro de renovação", "Consultoria de subsídios", "Análise económica"],
+      "features": ["Termografia", "Teste blower door", "Candidatura de subsídio", "Consultoria KfW"]
+    },
+    "projectManagement": {
+      "title": "Gestão de Projetos",
+      "description": "Apoio abrangente ao projeto desde o planeamento até à conclusão. Coordenação de todos os ofícios, monitorização de cronogramas e controlo de qualidade para um progresso de construção suave.",
+      "timeline": "Duração do projeto",
+      "startingPrice": "desde €3.000",
+      "deliverables": ["Cronogramas", "Relatórios de qualidade", "Relatórios de progresso", "Protocolos de aceitação"],
+      "features": ["Coordenação de ofícios", "Controlo de qualidade", "Gestão de cronogramas", "Monitorização de custos"]
+    },
+    "medical": {
+      "title": "Consultórios Médicos",
+      "description": "Design moderno de consultório com conceitos funcionais e higiénicos para instalações médicas e centros de terapia."
+    },
+    "labels": {
+      "timeline": "Cronograma",
+      "deliverables": "Entregáveis",
+      "features": "Características",
+      "startingFrom": "desde",
+      "learnMore": "Saber mais",
+      "lessInfo": "Mostrar menos"
+    }
+  },
+  "process": {
+    "title": "O Nosso Processo de Planeamento",
+    "subtitle": "Da visão à realidade",
+    "steps": {
+      "consultation": {
+        "title": "Consulta Inicial",
+        "description": "Discutimos as suas ideias, requisitos e objetivos do projeto numa reunião detalhada de consulta.",
+        "duration": "1-2 horas"
+      },
+      "analysis": {
+        "title": "Análise do Local",
+        "description": "Avaliação abrangente das condições locais, restrições e possibilidades do terreno de construção.",
+        "duration": "1-3 dias"
+      },
+      "concept": {
+        "title": "Desenvolvimento de Conceito",
+        "description": "Criação dos primeiros conceitos de design e exploração de várias soluções arquitetónicas.",
+        "duration": "2-4 semanas"
+      },
+      "design": {
+        "title": "Planeamento de Design",
+        "description": "Refinamento do conceito escolhido com plantas detalhadas e especificações.",
+        "duration": "4-8 semanas"
+      },
+      "permits": {
+        "title": "Planeamento de Licenças",
+        "description": "Preparação de documentos de construção e candidatura para as licenças de construção necessárias.",
+        "duration": "2-6 semanas"
+      },
+      "construction": {
+        "title": "Apoio à Construção",
+        "description": "Apoio contínuo durante a fase de construção para garantir a qualidade do planeamento.",
+        "duration": "Tempo de construção"
+      }
+    }
+  },
+  "caseStudies": {
+    "title": "Projetos de Sucesso",
+    "subtitle": "Transformações que inspiram",
+    "before": "Antes",
+    "after": "Depois",
+    "outcome": "Resultado",
+    "projects": {
+      "modernHome": {
+        "title": "Moradia Unifamiliar Moderna",
+        "location": "Munique-Schwabing",
+        "outcome": "Construção nova energeticamente eficiente com 40% menos consumo de energia do que legalmente exigido."
+      },
+      "heritage": {
+        "title": "Casa Patrimonial Protegida",
+        "location": "Centro Histórico de Munique",
+        "outcome": "Renovação cuidadosa sob proteção patrimonial com 60% de melhoria na eficiência energética."
+      },
+      "penthouse": {
+        "title": "Apartamento Penthouse",
+        "location": "Munique-Maxvorstadt",
+        "outcome": "Utilização ótima do espaço com 30% mais espaço de armazenamento e qualidade de vida melhorada."
+      }
+    }
+  },
+  "faq": {
+    "title": "Perguntas Frequentes",
+    "subtitle": "Respostas às suas perguntas mais importantes",
+    "items": [
+      {
+        "question": "O que está incluído na consulta inicial?",
+        "answer": "A nossa consulta inicial inclui uma discussão detalhada dos seus objetivos do projeto, uma visita ao local se necessário, uma avaliação inicial de viabilidade e uma visão geral do nosso processo de planeamento. Também receberá uma oferta detalhada com âmbito de serviços, cronograma e estrutura de investimento para o seu projeto."
+      },
+      {
+        "question": "Quanto tempo demora um projeto residencial típico?",
+        "answer": "Projetos residenciais típicos demoram 6-12 meses desde o planeamento inicial até à aprovação de construção. A duração pode variar dependendo do tamanho do projeto, complexidade e processo de tomada de decisão. Criamos cronogramas detalhados já na fase de proposta."
+      },
+      {
+        "question": "Vocês tratam das licenças de construção?",
+        "answer": "Sim, apoiamo-lo com todos os procedimentos de licença necessários e coordenação oficial. A nossa equipa conhece os regulamentos de construção locais e procedimentos de licença e garante que o seu projeto cumpre todos os padrões de conformidade."
+      },
+      {
+        "question": "Podem ajudar com o financiamento?",
+        "answer": "Trabalhamos com consultores de financiamento experientes e podemos conectá-lo com parceiros adequados. Os nossos cálculos de custo detalhados e documentos de planeamento simplificam as candidaturas de empréstimo."
+      },
+      {
+        "question": "Oferecem soluções de design sustentável?",
+        "answer": "A sustentabilidade está no coração da nossa filosofia de planeamento. Integramos sistemas energeticamente eficientes, materiais ecológicos e princípios de planeamento inteligente em todos os nossos projetos."
+      }
+    ]
+  },
+  "contact": {
+    "title": "Vamos Discutir o Seu Projeto",
+    "subtitle": "Pronto para tornar a sua visão realidade?",
+    "form": {
+      "service": "Serviço Desejado",
+      "selectService": "Selecionar serviço",
+      "name": "O Seu Nome",
+      "email": "Email",
+      "phone": "Telefone",
+      "projectDetails": "Detalhes do Projeto",
+      "projectPlaceholder": "Descreva o seu projeto e requisitos...",
+      "submit": "Enviar Pedido",
+      "submitting": "A enviar..."
+    }
+  },
+  "pricing": {
+    "title": "Investimento & Honorários",
+    "subtitle": "Estrutura de honorários transparente que oferece valor em cada fase do seu projeto.",
+    "consultation": {
+      "title": "Serviços de Consultoria",
+      "items": {
+        "initial": "Consulta Inicial",
+        "initialPrice": "€150/hora",
+        "siteAnalysis": "Análise do Local",
+        "siteAnalysisPrice": "€800-2.500",
+        "feasibility": "Estudo de Viabilidade",
+        "feasibilityPrice": "€1.500-4.000"
+      }
+    },
+    "project": {
+      "title": "Honorários de Projeto",
+      "items": {
+        "residential": "Projetos Residenciais",
+        "residentialPrice": "10-15% da soma de construção",
+        "commercial": "Projetos Comerciais",
+        "commercialPrice": "8-12% da soma de construção",
+        "interior": "Design de Interiores",
+        "interiorPrice": "€200-400/m²"
+      }
+    },
+    "payment": {
+      "title": "Estrutura de Pagamento",
+      "description": "Os projetos são tipicamente estruturados com 30% de depósito, 40% após conclusão do design, e 30% após conclusão do projeto. Oferecemos planos de pagamento flexíveis para projetos maiores e fornecemos detalhamentos de custos durante a fase de proposta."
+    }
+  },
+  "cta": {
+    "title": "Pronto para o Seu Projeto?",
+    "description": "Entre em contacto connosco para uma consulta gratuita",
+    "button": "Agendar Consulta",
+    "phone": "Ou ligue-nos",
+    "email": "Enviar email"
+  }
+}

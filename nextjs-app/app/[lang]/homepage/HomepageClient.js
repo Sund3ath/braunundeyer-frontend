@@ -14,7 +14,8 @@ import FloatingTypography from '@/components/FloatingTypography';
 export default function HomepageClient({ 
   heroSlides: initialHeroSlides, 
   featuredProjects: initialFeaturedProjects,
-  dict 
+  dict,
+  navigationSettings 
 }) {
   const params = useParams();
   const router = useRouter();
@@ -57,7 +58,11 @@ export default function HomepageClient({
     return `${backendUrl}${url.startsWith('/') ? '' : '/'}${url}`;
   };
 
-  const heroSlides = initialHeroSlides?.length > 0 ? initialHeroSlides : [
+  const heroSlides = initialHeroSlides?.length > 0 ? initialHeroSlides.map(slide => ({
+    ...slide,
+    image: processImageUrl(slide.image),
+    video: processImageUrl(slide.video)
+  })) : [
     {
       id: 1,
       image: processImageUrl("/images/alt_neu_ungestaltung.png"),
@@ -222,7 +227,7 @@ export default function HomepageClient({
     { value: "500+", label: dict?.stats?.projects || "Projekte" },
     { value: "25+", label: dict?.stats?.years || "Jahre Erfahrung" },
     { value: "100%", label: dict?.stats?.satisfaction || "Kundenzufriedenheit" },
-    { value: "15+", label: dict?.stats?.team || "Team Mitglieder" }
+    { value: "5", label: dict?.stats?.team || "Team Mitglieder" }
   ];
 
   const containerVariants = {
@@ -251,7 +256,7 @@ export default function HomepageClient({
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white relative overflow-hidden custom-cursor" onClick={handleCreateRipple}>
       
-      <Header dict={dict?.translation || dict} lang={lang} />
+      <Header dict={dict?.translation || dict} lang={lang} navigationSettings={navigationSettings} />
       
       {/* Enhanced Floating Typography Background with Deep Scroll */}
       <FloatingTypography variant="homepage" />
@@ -634,64 +639,6 @@ export default function HomepageClient({
         </div>
       </motion.section>
 
-      {/* Testimonials with Enhanced Animation */}
-      <section className="py-20 px-4 relative z-20">
-        <div className="max-w-4xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl md:text-5xl font-light text-gray-800 mb-6">
-              {dict?.testimonials?.title || "Kundenstimmen"}
-            </h2>
-            <p className="text-xl text-gray-600">
-              {dict?.testimonials?.subtitle || "Was unsere Kunden über uns sagen"}
-            </p>
-          </motion.div>
-
-          <div className="relative bg-white rounded-2xl shadow-xl p-8 md:p-12">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentTestimonial}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.5 }}
-                className="text-center"
-              >
-                <div className="flex justify-center mb-4">
-                  {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
-                    <span key={i} className="text-yellow-400 text-2xl">★</span>
-                  ))}
-                </div>
-                <p className="text-xl text-gray-700 mb-6 italic leading-relaxed">
-                  "{testimonials[currentTestimonial].text}"
-                </p>
-                <div className="font-semibold text-gray-900">
-                  {testimonials[currentTestimonial].name}
-                </div>
-                <div className="text-gray-600">
-                  {testimonials[currentTestimonial].project}
-                </div>
-              </motion.div>
-            </AnimatePresence>
-
-            <div className="flex justify-center gap-2 mt-8">
-              {testimonials.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentTestimonial(index)}
-                  className={`w-2 h-2 rounded-full transition-all ${
-                    index === currentTestimonial ? 'w-8 bg-primary' : 'bg-gray-300'
-                  }`}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* CTA Section with Animated Background */}
       <section className="py-20 px-4 bg-gradient-to-r from-primary to-primary-dark text-white relative z-20 overflow-hidden">

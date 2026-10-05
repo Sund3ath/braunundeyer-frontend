@@ -1,23 +1,30 @@
 import HomepageClient from './HomepageClient';
 import { homepageAPI, projectsAPI } from '@/lib/api';
+import { getNavigationSettings } from '@/lib/navigation';
+
+// Force dynamic rendering with ISR (revalidate every 60 seconds)
+export const revalidate = 60;
 
 export default async function HomePage({ params }) {
   const { lang = 'de' } = await params;
   
-  // Fetch homepage configuration and projects from API
+  // Fetch homepage configuration, projects, and navigation settings from API
   let homepageData = { heroSlides: [], featuredProjects: [] };
   let allProjects = [];
+  let navigationSettings = null;
   
   try {
-    // Fetch homepage config and all projects in parallel
-    const [config, projectsResponse] = await Promise.all([
+    // Fetch homepage config, projects, and navigation in parallel
+    const [config, projectsResponse, navSettings] = await Promise.all([
       homepageAPI.getConfig(),
-      projectsAPI.getAll({ status: 'published', limit: 6 })
+      projectsAPI.getAll({ status: 'published', limit: 6 }),
+      getNavigationSettings(lang)
     ]);
     
     homepageData = config;
     // Get featured projects from the API response
     allProjects = projectsResponse.projects || [];
+    navigationSettings = navSettings;
     
     // Use featured projects from API if available
     if (allProjects.length > 0) {
@@ -49,6 +56,8 @@ export default async function HomePage({ params }) {
       featuredProjects={homepageData.featuredProjects}
       allProjects={allProjects}
       dict={dict}
+      lang={lang}
+      navigationSettings={navigationSettings}
     />
   );
 }

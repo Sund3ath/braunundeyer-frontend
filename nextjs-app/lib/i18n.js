@@ -1,6 +1,6 @@
 export const i18n = {
   defaultLocale: 'de',
-  locales: ['de', 'en', 'fr', 'it', 'es'],
+  locales: ['de', 'en', 'fr', 'it', 'es', 'pt'],
 };
 
 export const languages = [
@@ -8,7 +8,8 @@ export const languages = [
   { code: 'en', name: 'English', flag: '🇬🇧' },
   { code: 'fr', name: 'Français', flag: '🇫🇷' },
   { code: 'it', name: 'Italiano', flag: '🇮🇹' },
-  { code: 'es', name: 'Español', flag: '🇪🇸' }
+  { code: 'es', name: 'Español', flag: '🇪🇸' },
+  { code: 'pt', name: 'Português', flag: '🇵🇹' }
 ];
 
 export function getLocaleFromPath(pathname) {

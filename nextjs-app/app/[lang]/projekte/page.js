@@ -1,5 +1,6 @@
 import { getAllProjects } from '@/lib/api/projects';
 import ProjectGalleryClient from './ProjectGalleryClient';
+import { getNavigationSettings } from '@/lib/navigation';
 
 // Force dynamic rendering with ISR (revalidate every 60 seconds)
 export const revalidate = 60;
@@ -10,6 +11,24 @@ export default async function ProjectsPage({ params }) {
   
   let projects = [];
   let error = null;
+  let dict = {};
+  
+  // Fetch navigation settings
+  const navigationSettings = await getNavigationSettings(lang);
+  
+  // Load translations
+  try {
+    const [homepageDict, translationDict] = await Promise.all([
+      import(`@/lib/locales/${lang}/homepage.json`),
+      import(`@/lib/locales/${lang}/translation.json`)
+    ]);
+    dict = {
+      ...homepageDict.default,
+      translation: translationDict.default
+    };
+  } catch (error) {
+    console.error('Failed to load translations:', error);
+  }
   
   try {
     // Fetch projects from CMS API with language support
@@ -80,6 +99,8 @@ export default async function ProjectsPage({ params }) {
       initialProjects={projectsArray}
       lang={lang}
       apiError={error}
+      navigationSettings={navigationSettings}
+      dict={dict}
     />
   );
 }

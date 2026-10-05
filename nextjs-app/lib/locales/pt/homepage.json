@@ -1,0 +1,153 @@
+{
+  "hero": {
+    "slide1": {
+      "title": "Gabinete de Arquitetura & Engenharia",
+      "subtitle": "Construção Nova e Renovação de Edifícios com Especialização",
+      "description": "Desenvolvemos soluções arquitetónicas inovadoras que combinam construção moderna com renovação sustentável de edifícios históricos."
+    },
+    "slide2": {
+      "title": "Construção Nova",
+      "subtitle": "Arquitetura Moderna para o Futuro",
+      "description": "Projetos contemporâneos de construção nova que atendem aos mais altos padrões de design, funcionalidade e eficiência energética."
+    },
+    "slide3": {
+      "title": "Renovação de Edifícios",
+      "subtitle": "Modernização Cuidadosa de Estruturas Históricas",
+      "description": "Renovação e modernização profissional de edifícios antigos preservando o seu carácter original."
+    },
+    "cta": {
+      "projects": "O Nosso Trabalho",
+      "start": "Iniciar Projeto"
+    }
+  },
+  "projects": {
+    "title": "Projetos Selecionados",
+    "subtitle": "Descubra os nossos mais recentes projetos arquitetónicos que combinam inovação, sustentabilidade e excelência em design na construção nova e renovação de edifícios.",
+    "viewAll": "Ver Todos os Projetos",
+    "viewProject": "Ver Projeto",
+    "items": {
+      "project1": {
+        "title": "Moradia Unifamiliar Moderna",
+        "type": "Construção Nova",
+        "location": "Zona Residencial"
+      },
+      "project2": {
+        "title": "Renovação de Villa Histórica",
+        "type": "Renovação de Edifício",
+        "location": "Centro Histórico"
+      },
+      "project3": {
+        "title": "Edifício Multifamiliar",
+        "type": "Construção Nova",
+        "location": "Subúrbios"
+      },
+      "project4": {
+        "title": "Renovação com Proteção Patrimonial",
+        "type": "Renovação de Edifício",
+        "location": "Centro Histórico"
+      },
+      "project5": {
+        "title": "Casa Energeticamente Eficiente",
+        "type": "Construção Nova",
+        "location": "Novo Desenvolvimento"
+      },
+      "project6": {
+        "title": "Modernização Wilhelmina",
+        "type": "Renovação de Edifício",
+        "location": "Centro da Cidade"
+      }
+    }
+  },
+  "services": {
+    "title": "Os Nossos Serviços",
+    "subtitle": "Da ideia inicial à conclusão, oferecemos serviços arquitetónicos e de engenharia abrangentes para construção nova e renovação de edifícios.",
+    "viewMore": "Saber Mais",
+    "items": {
+      "service1": {
+        "title": "Construção Nova",
+        "description": "Projetos modernos de construção nova desde o planeamento até à conclusão. Realizamos edifícios residenciais e comerciais de acordo com os mais recentes padrões."
+      },
+      "service2": {
+        "title": "Renovação de Edifícios",
+        "description": "Renovação e modernização profissional de edifícios históricos considerando proteção monumental e eficiência energética."
+      },
+      "service3": {
+        "title": "Serviços de Engenharia",
+        "description": "Planeamento técnico abrangente e consultoria para todas as fases de construção com foco em estática, tecnologia de construção e física."
+      },
+      "service4": {
+        "title": "Consultoria Energética",
+        "description": "Soluções sustentáveis para construção e renovação energeticamente eficientes com foco na proteção ambiental e poupança de custos."
+      }
+    }
+  },
+  "about": {
+    "title": "Sobre Nós",
+    "description": "Com mais de 25 anos de experiência, somos o seu parceiro de confiança para construção nova e renovação de edifícios. A nossa equipa de arquitetos e engenheiros experientes desenvolve soluções inovadoras para os seus projetos de construção."
+  },
+  "stats": {
+    "projects": "Projetos",
+    "years": "Anos de Experiência",
+    "satisfaction": "Satisfação do Cliente",
+    "team": "Membros da Equipa"
+  },
+  "philosophy": {
+    "title": "A Nossa Filosofia",
+    "text1": "Na Braun & Eyer, entendemos a arquitetura como o equilíbrio perfeito entre forma, função e sustentabilidade. A nossa abordagem combina conceitos de planeamento inovadores com técnicas de construção comprovadas para criar espaços que inspiram e contribuem positivamente para a comunidade.",
+    "text2": "Com anos de experiência em construção nova e renovação de edifícios, fizemo-nos um nome com soluções arquitetónicas excecionais que resistem ao teste do tempo enquanto ultrapassam os limites do planeamento contemporâneo.",
+    "cta": "Sobre a Nossa Equipa"
+  },
+  "testimonials": {
+    "title": "O Que Dizem os Nossos Clientes",
+    "subtitle": "Não acredite apenas na nossa palavra. Descubra o que os nossos clientes dizem sobre trabalhar com a Braun & Eyer.",
+    "items": {
+      "testimonial1": {
+        "name": "Cliente Privado",
+        "project": "Moradia Unifamiliar",
+        "text": "A Braun & Eyer implementou perfeitamente a nossa visão. O apoio foi profissional e a qualidade do trabalho convence-nos todos os dias."
+      },
+      "testimonial2": {
+        "name": "Cliente Empresarial",
+        "project": "Renovação de Edifício",
+        "text": "A renovação do nosso edifício antigo foi realizada com o máximo cuidado. A equipa sabe como combinar tecnologia moderna com substância histórica."
+      },
+      "testimonial3": {
+        "name": "Empresa",
+        "project": "Redesenho de Escritório",
+        "text": "Trabalhar com a Braun & Eyer foi completamente profissional. A sua especialização em renovação de edifícios tornou o nosso projeto um sucesso."
+      }
+    }
+  },
+  "cta": {
+    "title": "Deixe-nos Realizar o Seu Projeto",
+    "subtitle": "Entre em contacto connosco para uma consulta sem compromisso",
+    "contact": "Entrar em Contacto",
+    "call": "Ligar-nos"
+  },
+  "newsletter": {
+    "title": "Mantenha-se Informado",
+    "subtitle": "Subscreva a nossa newsletter para atualizações sobre projetos atuais, insights de planeamento e tendências arquitetónicas.",
+    "placeholder": "O seu endereço de email",
+    "button": "Subscrever"
+  },
+  "footer": {
+    "description": "Gabinete de Arquitetura & Engenharia - Especializado em construção nova e renovação de edifícios com soluções inovadoras e sustentáveis.",
+    "services": "Serviços",
+    "company": "Empresa",
+    "contact": "Contacto",
+    "links": {
+      "about": "Sobre Nós",
+      "projects": "Projetos",
+      "career": "Carreira",
+      "imprint": "Impressão",
+      "privacy": "Privacidade"
+    },
+    "address": {
+      "company": "Gabinete de Arquitetura Braun & Eyer",
+      "country": "Alemanha",
+      "phone": "+49 (0) 123 456789",
+      "email": "info@braunundeyer.de"
+    },
+    "copyright": "© 2025 Gabinete de Arquitetura & Engenharia Braun & Eyer. Todos os direitos reservados."
+  }
+}

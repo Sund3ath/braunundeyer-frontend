@@ -24,6 +24,7 @@
     "title": "Selected Projects",
     "subtitle": "Discover our latest architectural projects that combine innovation, sustainability and design excellence in new construction and building renovation.",
     "viewAll": "View All Projects",
+    "viewProject": "View Project",
     "items": {
       "project1": {
         "title": "Modern Single-Family Home",
@@ -80,6 +81,16 @@
       }
     }
   },
+  "about": {
+    "title": "About Us",
+    "description": "With over 25 years of experience, we are your reliable partner for new construction and building renovation. Our team of experienced architects and engineers develops innovative solutions for your construction projects."
+  },
+  "stats": {
+    "projects": "Projects",
+    "years": "Years of Experience",
+    "satisfaction": "Customer Satisfaction",
+    "team": "Team Members"
+  },
   "philosophy": {
     "title": "Our Philosophy",
     "text1": "At Braun & Eyer, we understand architecture as the perfect balance between form, function and sustainability. Our approach combines innovative planning concepts with proven construction techniques to create spaces that both inspire and make a positive contribution to the community.",
@@ -91,21 +102,27 @@
     "subtitle": "Don't just take our word for it. Learn what our clients say about working with Braun & Eyer.",
     "items": {
       "testimonial1": {
-        "name": "The Müller Family",
-        "role": "Property Owner",
-        "content": "Braun & Eyer perfectly implemented our vision. The support was professional and the quality of work convinces us every day."
+        "name": "Private Client",
+        "project": "Single Family Home",
+        "text": "Braun & Eyer perfectly implemented our vision. The support was professional and the quality of work convinces us every day."
       },
       "testimonial2": {
-        "name": "Mr. Schmidt",
-        "role": "Property Owner",
-        "content": "The renovation of our old building was carried out with the utmost care. The team knows how to combine modern technology with historic substance."
+        "name": "Business Client",
+        "project": "Building Renovation",
+        "text": "The renovation of our old building was carried out with the utmost care. The team knows how to combine modern technology with historic substance."
       },
       "testimonial3": {
-        "name": "Ms. Weber",
-        "role": "Investor",
-        "content": "Working with Braun & Eyer was thoroughly professional. Their expertise in building renovation made our project a success."
+        "name": "Company",
+        "project": "Office Redesign",
+        "text": "Working with Braun & Eyer was thoroughly professional. Their expertise in building renovation made our project a success."
       }
     }
+  },
+  "cta": {
+    "title": "Let Us Realize Your Project",
+    "subtitle": "Contact us for a non-binding consultation",
+    "contact": "Get in Touch",
+    "call": "Call Us"
   },
   "newsletter": {
     "title": "Stay Informed",

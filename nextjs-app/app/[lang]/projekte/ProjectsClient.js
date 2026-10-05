@@ -4,7 +4,7 @@ import React, { useState, useEffect, useMemo, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
-import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Search, X, ChevronDown, Grid3X3, List, MapPin, Square, ArrowRight } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -43,12 +43,6 @@ export default function ProjectsClient({ initialProjects = [], dict = {} }) {
     }, 500);
   };
 
-  // Custom cursor motion values
-  const cursorX = useMotionValue(0);
-  const cursorY = useMotionValue(0);
-  const springConfig = { damping: 25, stiffness: 700 };
-  const cursorXSpring = useSpring(cursorX, springConfig);
-  const cursorYSpring = useSpring(cursorY, springConfig);
 
   // Use API data or fallback to defaults
   const projects = initialProjects.length > 0 ? initialProjects : [
@@ -127,47 +121,10 @@ export default function ProjectsClient({ initialProjects = [], dict = {} }) {
     setSortBy('Neueste');
   };
 
-  // Custom cursor tracking
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      cursorX.set(e.clientX);
-      cursorY.set(e.clientY);
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, [cursorX, cursorY]);
 
   return (
-    <div className="min-h-screen custom-cursor relative overflow-hidden bg-background">
+    <div className="min-h-screen relative overflow-hidden bg-background">
       <style jsx global>{`
-        .custom-cursor {
-          cursor: none;
-        }
-        .custom-cursor * {
-          cursor: none !important;
-        }
-        .cursor-dot {
-          position: fixed;
-          width: 8px;
-          height: 8px;
-          background-color: rgb(192, 192, 192);
-          border-radius: 50%;
-          pointer-events: none;
-          z-index: 9999;
-          transform: translate(-50%, -50%);
-          mix-blend-mode: difference;
-        }
-        .cursor-ring {
-          position: fixed;
-          width: 32px;
-          height: 32px;
-          border: 2px solid rgba(192, 192, 192, 0.5);
-          border-radius: 50%;
-          pointer-events: none;
-          z-index: 9998;
-          transform: translate(-50%, -50%);
-        }
         .line-clamp-2 {
           display: -webkit-box;
           -webkit-line-clamp: 2;
@@ -184,15 +141,6 @@ export default function ProjectsClient({ initialProjects = [], dict = {} }) {
       
       <Header dict={dict.translation} lang={lang} />
       
-      {/* Custom Cursor */}
-      <motion.div
-        className="cursor-dot"
-        style={{ x: cursorXSpring, y: cursorYSpring }}
-      />
-      <motion.div
-        className="cursor-ring"
-        style={{ x: cursorXSpring, y: cursorYSpring }}
-      />
       
       {/* Main Content */}
       <main className="pt-20 lg:pt-24">
@@ -559,7 +507,7 @@ export default function ProjectsClient({ initialProjects = [], dict = {} }) {
         </section>
       </main>
 
-      <Footer dict={dict.translation} lang={lang} onCopyrightClick={handleCopyrightClick} />
+      <Footer dict={dict} lang={lang} onCopyrightClick={handleCopyrightClick} />
     </div>
   );
 }

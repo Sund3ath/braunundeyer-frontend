@@ -1,5 +1,6 @@
 import GalleryClient from './GalleryClient';
 import { getDictionary } from '@/lib/dictionaries';
+import { getNavigationSettings } from '@/lib/navigation';
 
 export async function generateMetadata({ params }) {
   const { lang } = await params;
@@ -33,7 +34,10 @@ export async function generateMetadata({ params }) {
 
 export default async function GalleryPage({ params }) {
   const { lang } = await params;
-  const dict = await getDictionary(lang);
+  const [dict, navigationSettings] = await Promise.all([
+    getDictionary(lang),
+    getNavigationSettings(lang)
+  ]);
 
-  return <GalleryClient lang={lang} dict={dict} />;
+  return <GalleryClient lang={lang} dict={dict} navigationSettings={navigationSettings} />;
 }

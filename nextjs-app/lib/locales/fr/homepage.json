@@ -1,136 +1,167 @@
 {
   "hero": {
     "slide1": {
-      "title": "Architekturbüro Ingenieure",
-      "subtitle": "Neubau und Altbausanierung mit Expertise",
-      "description": "Wir entwickeln innovative Architekturlösungen, die moderne Bauweise mit nachhaltiger Sanierung historischer Gebäude verbinden."
+      "title": "Cabinet d'Architecture & Ingénierie",
+      "subtitle": "Construction Neuve et Rénovation avec Expertise",
+      "description": "Nous développons des solutions architecturales innovantes qui allient construction moderne et rénovation durable de bâtiments historiques."
     },
     "slide2": {
-      "title": "Neubau",
-      "subtitle": "Moderne Architektur für die Zukunft",
-      "description": "Zeitgemäße Neubauprojekte, die höchste Ansprüche an Design, Funktionalität und Energieeffizienz erfüllen."
+      "title": "Construction Neuve",
+      "subtitle": "Architecture Moderne pour l'Avenir",
+      "description": "Projets de construction contemporains répondant aux plus hautes exigences en matière de design, fonctionnalité et efficacité énergétique."
     },
     "slide3": {
-      "title": "Altbausanierung",
-      "subtitle": "Behutsame Modernisierung historischer Substanz",
-      "description": "Fachgerechte Sanierung und Modernisierung von Altbauten unter Erhaltung des ursprünglichen Charakters."
+      "title": "Rénovation",
+      "subtitle": "Modernisation Respectueuse des Structures Historiques",
+      "description": "Rénovation et modernisation professionnelles de bâtiments anciens tout en préservant leur caractère original."
     },
     "cta": {
-      "projects": "Unsere Arbeiten",
-      "start": "Projekt Starten"
+      "projects": "Nos Réalisations",
+      "start": "Démarrer un Projet"
     }
   },
   "projects": {
-    "title": "Ausgewählte Projekte",
-    "subtitle": "Entdecken Sie unsere neuesten Architekturprojekte, die Innovation, Nachhaltigkeit und Designexzellenz in Neubau und Altbausanierung vereinen.",
-    "viewAll": "Alle Projekte Ansehen",
+    "title": "Projets Sélectionnés",
+    "subtitle": "Découvrez nos derniers projets architecturaux alliant innovation, durabilité et excellence du design",
+    "viewAll": "Voir Tous les Projets",
+    "viewProject": "Voir le Projet",
     "items": {
       "project1": {
-        "title": "Modernes Einfamilienhaus",
-        "type": "Neubau",
-        "location": "Wohngebiet"
+        "title": "Maison Individuelle Moderne",
+        "type": "Construction Neuve",
+        "location": "Zone Résidentielle"
       },
       "project2": {
-        "title": "Historische Villa Sanierung",
-        "type": "Altbausanierung",
-        "location": "Altstadt"
+        "title": "Rénovation Villa Historique",
+        "type": "Rénovation",
+        "location": "Centre Historique"
       },
       "project3": {
-        "title": "Mehrfamilienhaus Neubau",
-        "type": "Neubau",
-        "location": "Stadtrand"
+        "title": "Immeuble Collectif",
+        "type": "Construction Neuve",
+        "location": "Périphérie"
       },
       "project4": {
-        "title": "Denkmalgeschützte Sanierung",
-        "type": "Altbausanierung",
-        "location": "Historisches Zentrum"
+        "title": "Rénovation Monument Classé",
+        "type": "Rénovation",
+        "location": "Centre Ville"
       },
       "project5": {
-        "title": "Energieeffizientes Wohnhaus",
-        "type": "Neubau",
-        "location": "Neubaugebiet"
+        "title": "Maison Éco-énergétique",
+        "type": "Construction Neuve",
+        "location": "Nouveau Quartier"
       },
       "project6": {
-        "title": "Gründerzeit Modernisierung",
-        "type": "Altbausanierung",
-        "location": "Innenstadtbereich"
+        "title": "Modernisation Belle Époque",
+        "type": "Rénovation",
+        "location": "Centre-ville"
       }
     }
   },
   "services": {
-    "title": "Unsere Leistungen",
-    "subtitle": "Von der ersten Idee bis zur Fertigstellung bieten wir umfassende Architektur- und Ingenieurleistungen für Neubau und Altbausanierung.",
-    "viewMore": "Mehr Erfahren",
+    "title": "Nos Services",
+    "subtitle": "De la première idée à la réalisation, nous offrons des services complets d'architecture et d'ingénierie",
+    "viewMore": "En Savoir Plus",
+    "residential": {
+      "title": "Résidentiel",
+      "description": "Concepts résidentiels personnalisés"
+    },
+    "commercial": {
+      "title": "Commercial",
+      "description": "Bâtiments commerciaux fonctionnels"
+    },
+    "interior": {
+      "title": "Architecture Intérieure",
+      "description": "Concepts d'espaces réfléchis"
+    },
+    "medical": {
+      "title": "Cabinets Médicaux",
+      "description": "Aménagement moderne de cabinets"
+    },
     "items": {
       "service1": {
-        "title": "Neubau",
-        "description": "Moderne Neubauprojekte von der Planung bis zur Fertigstellung. Wir realisieren Wohn- und Geschäftsgebäude nach neuesten Standards."
+        "title": "Construction Neuve",
+        "description": "Projets de construction moderne de la planification à la réalisation. Nous réalisons des bâtiments résidentiels et commerciaux selon les dernières normes."
       },
       "service2": {
-        "title": "Altbausanierung",
-        "description": "Fachgerechte Sanierung und Modernisierung historischer Gebäude unter Berücksichtigung von Denkmalschutz und Energieeffizienz."
+        "title": "Rénovation",
+        "description": "Rénovation et modernisation professionnelles de bâtiments historiques en tenant compte de la protection des monuments et de l'efficacité énergétique."
       },
       "service3": {
-        "title": "Ingenieursleistungen",
-        "description": "Umfassende technische Planung und Beratung für alle Bauphasen mit Fokus auf Statik, Haustechnik und Bauphysik."
+        "title": "Services d'Ingénierie",
+        "description": "Planification technique complète et conseil pour toutes les phases de construction avec focus sur la statique, la technique du bâtiment et la physique."
       },
       "service4": {
-        "title": "Energieberatung",
-        "description": "Nachhaltige Lösungen für energieeffizientes Bauen und Sanieren mit Fokus auf Umweltschutz und Kosteneinsparung."
+        "title": "Conseil Énergétique",
+        "description": "Solutions durables pour une construction et rénovation éco-énergétiques axées sur la protection de l'environnement et les économies."
       }
     }
+  },
+  "about": {
+    "title": "À Propos",
+    "description": "Avec plus de 25 ans d'expérience, nous sommes votre partenaire fiable pour la construction neuve et la rénovation. Notre équipe d'architectes et d'ingénieurs expérimentés développe des solutions innovantes pour vos projets."
+  },
+  "stats": {
+    "projects": "Projets",
+    "years": "Années d'Expérience",
+    "satisfaction": "Satisfaction Client",
+    "team": "Membres de l'Équipe"
   },
   "philosophy": {
-    "title": "Unsere Philosophie",
-    "text1": "Bei Braun & Eyer verstehen wir Architektur als die perfekte Balance zwischen Form, Funktion und Nachhaltigkeit. Unser Ansatz verbindet innovative Planungskonzepte mit bewährten Bautechniken, um Räume zu schaffen, die sowohl inspirieren als auch einen positiven Beitrag zur Gemeinschaft leisten.",
-    "text2": "Mit langjähriger Erfahrung in Neubau und Altbausanierung haben wir uns einen Namen für außergewöhnliche Architekturlösungen gemacht, die den Test der Zeit bestehen und gleichzeitig die Grenzen zeitgemäßer Planung erweitern.",
-    "cta": "Über Unser Team"
+    "title": "Notre Philosophie",
+    "text1": "Chez Braun & Eyer, nous concevons l'architecture comme l'équilibre parfait entre forme, fonction et durabilité. Notre approche combine des concepts de planification innovants avec des techniques de construction éprouvées.",
+    "text2": "Avec des années d'expérience dans la construction neuve et la rénovation, nous nous sommes fait un nom avec des solutions architecturales exceptionnelles qui résistent à l'épreuve du temps.",
+    "cta": "Notre Équipe"
   },
   "testimonials": {
-    "title": "Was Unsere Kunden Sagen",
-    "subtitle": "Vertrauen Sie nicht nur unserem Wort. Hier erfahren Sie, was unsere Kunden über die Zusammenarbeit mit Braun & Eyer sagen.",
-    "items": {
-      "testimonial1": {
-        "name": "Privatkunde",
-        "role": "Einfamilienhaus Neubau",
-        "content": "Braun & Eyer hat unsere Vorstellungen perfekt umgesetzt. Die Betreuung war professionell und die Qualität der Arbeit überzeugt uns täglich aufs Neue."
-      },
-      "testimonial2": {
-        "name": "Geschäftskunde",
-        "role": "Altbausanierung",
-        "content": "Die Sanierung unseres Altbaus wurde mit größter Sorgfalt durchgeführt. Das Team versteht es, moderne Technik mit historischer Substanz zu verbinden."
-      },
-      "testimonial3": {
-        "name": "Unternehmen",
-        "role": "Bürogestaltung",
-        "content": "Die Zusammenarbeit mit Braun & Eyer war durchweg professionell. Ihre Expertise in der Altbausanierung hat unser Projekt zum Erfolg geführt."
-      }
+    "title": "Ce Que Disent Nos Clients",
+    "subtitle": "Ne nous croyez pas sur parole. Découvrez ce que nos clients disent de leur collaboration avec Braun & Eyer.",
+    "testimonial1": {
+      "name": "Client Privé",
+      "project": "Maison Individuelle",
+      "text": "Braun & Eyer a parfaitement réalisé notre vision. Le suivi était professionnel et la qualité du travail nous convainc chaque jour."
+    },
+    "testimonial2": {
+      "name": "Client Commercial",
+      "project": "Rénovation de Bâtiment",
+      "text": "La rénovation de notre bâtiment ancien a été réalisée avec le plus grand soin. L'équipe sait allier technologie moderne et substance historique."
+    },
+    "testimonial3": {
+      "name": "Entreprise",
+      "project": "Réaménagement de Bureaux",
+      "text": "La collaboration avec Braun & Eyer était entièrement professionnelle. Leur expertise en rénovation a fait de notre projet un succès."
     }
   },
+  "cta": {
+    "title": "Réalisons Votre Projet Ensemble",
+    "subtitle": "Contactez-nous pour une consultation sans engagement",
+    "contact": "Nous Contacter",
+    "call": "Appeler"
+  },
   "newsletter": {
-    "title": "Bleiben Sie Informiert",
-    "subtitle": "Abonnieren Sie unseren Newsletter für Updates zu aktuellen Projekten, Planungseinblicke und Architekturtrends.",
-    "placeholder": "Ihre E-Mail-Adresse",
-    "button": "Abonnieren"
+    "title": "Restez Informé",
+    "subtitle": "Abonnez-vous à notre newsletter pour des mises à jour sur les projets actuels et les tendances architecturales.",
+    "placeholder": "Votre adresse e-mail",
+    "button": "S'abonner"
   },
   "footer": {
-    "description": "Architekturbüro Ingenieure - Spezialisiert auf Neubau und Altbausanierung mit innovativen und nachhaltigen Lösungen.",
-    "services": "Leistungen",
-    "company": "Unternehmen",
-    "contact": "Kontakt",
+    "description": "Cabinet d'Architecture & Ingénierie - Spécialisé dans la construction neuve et la rénovation avec des solutions innovantes et durables.",
+    "services": "Services",
+    "company": "Entreprise",
+    "contact": "Contact",
     "links": {
-      "about": "Über Uns",
-      "projects": "Projekte",
-      "career": "Karriere",
-      "imprint": "Impressum",
-      "privacy": "Datenschutz"
+      "about": "À Propos",
+      "projects": "Projets",
+      "career": "Carrière",
+      "imprint": "Mentions Légales",
+      "privacy": "Confidentialité"
     },
     "address": {
-      "company": "Architekturbüro Braun & Eyer",
-      "country": "Deutschland",
-      "phone": "+49 (0) 123 456789",
+      "company": "Cabinet d'Architecture Braun & Eyer",
+      "country": "Allemagne",
+      "phone": "+49 (0) 681 954 174 88",
       "email": "info@braunundeyer.de"
     },
-    "copyright": "© 2025 Braun & Eyer Architekturbüro Ingenieure. Alle Rechte vorbehalten."
+    "copyright": "© 2025 Braun & Eyer Cabinet d'Architecture & Ingénierie. Tous droits réservés."
   }
 }

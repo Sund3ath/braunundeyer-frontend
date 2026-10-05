@@ -1,0 +1,161 @@
+{
+  "title": "Sobre Nós",
+  "subtitle": "Arquitetura com Paixão e Precisão",
+  "description": "Na Braun & Eyer Arquitetura & Engenharia, entendemos a arquitetura como a arte de criar espaços que inspiram pessoas e conectam comunidades.",
+  "philosophy": {
+    "title": "A Nossa Filosofia",
+    "text1": "A nossa filosofia baseia-se no equilíbrio perfeito entre design inovador, construção sustentável e elegância intemporal.",
+    "text2": "Combinamos tecnologias modernas com artesanato comprovado para desenvolver espaços que não apenas atendem aos requisitos de hoje, mas também antecipam possibilidades futuras."
+  },
+  "team": {
+    "title": "A Nossa Equipa",
+    "subtitle": "Conheça os especialistas por trás dos nossos projetos excecionais",
+    "viewMore": "Saber mais",
+    "viewLess": "Mostrar menos",
+    "education": "Educação",
+    "certifications": "Certificações",
+    "specializations": "Especializações",
+    "notableProjects": "Projetos Notáveis"
+  },
+  "milestones": {
+    "title": "A Nossa História",
+    "subtitle": "Marcos do nosso desenvolvimento",
+    "items": {
+      "founding": {
+        "year": "1995",
+        "title": "Fundação do Gabinete",
+        "description": "O Gabinete de Arquitetura Braun & Eyer é fundado com a visão de criar soluções arquitetónicas inovadoras e sustentáveis."
+      },
+      "firstAward": {
+        "year": "2008",
+        "title": "Primeiro Prémio",
+        "description": "Recebeu o Prémio de Arquitetura de Saarland por conquistas excecionais em renovação de edifícios."
+      },
+      "sustainability": {
+        "year": "2012",
+        "title": "Foco na Sustentabilidade",
+        "description": "Certificação como consultor energético e especialização em construção sustentável e energeticamente eficiente."
+      },
+      "digital": {
+        "year": "2016",
+        "title": "Inovação Digital",
+        "description": "Introdução da tecnologia BIM e visualização 3D para processos de planeamento precisos."
+      },
+      "pandemic": {
+        "year": "2020",
+        "title": "Adaptação à Pandemia",
+        "description": "Modelos de trabalho flexíveis e foco aumentado em vida saudável e segura."
+      },
+      "expansion": {
+        "year": "2023",
+        "title": "Expansão",
+        "description": "Reforço da equipa e expansão do nosso portfólio para desenvolvimento urbano sustentável."
+      }
+    }
+  },
+  "values": {
+    "title": "Os Nossos Valores",
+    "items": {
+      "innovation": {
+        "title": "Inovação",
+        "description": "Usamos tecnologias de ponta e abordagens criativas para criar espaços excecionais."
+      },
+      "sustainability": {
+        "title": "Sustentabilidade",
+        "description": "A proteção ambiental e eficiência de recursos são componentes centrais da nossa filosofia de planeamento."
+      },
+      "excellence": {
+        "title": "Excelência",
+        "description": "Esforçamo-nos pela mais alta qualidade e atenção aos detalhes em cada projeto."
+      },
+      "collaboration": {
+        "title": "Colaboração",
+        "description": "Projetos de sucesso emergem através de comunicação aberta e cooperação de parceria."
+      }
+    }
+  },
+  "awards": {
+    "title": "Prémios & Reconhecimento",
+    "subtitle": "Reconhecimento pelo nosso trabalho",
+    "items": {
+      "architecture": "Prémio de Arquitetura de Saarland",
+      "sustainability": "Certificação DGNB Gold",
+      "innovation": "Prémio BIM para Planeamento Digital",
+      "heritage": "Prémio de Proteção Patrimonial"
+    }
+  },
+  "services": {
+    "title": "Os Nossos Serviços",
+    "subtitle": "Serviços arquitetónicos abrangentes, adaptados para dar vida à sua visão com especialização e inovação.",
+    "viewAll": "Descobrir Todos os Serviços",
+    "items": {
+      "newConstruction": {
+        "title": "Construção Nova",
+        "description": "Casas individuais, edifícios multifamiliares e edifícios comerciais de acordo com as suas ideias e necessidades."
+      },
+      "renovation": {
+        "title": "Renovação de Edifícios",
+        "description": "Renovação profissional de edifícios históricos com consideração pela proteção patrimonial e padrões modernos."
+      },
+      "interior": {
+        "title": "Design de Interiores",
+        "description": "Design de interiores completo desde o planeamento de espaços ao mobiliário para funcionalidade ótima."
+      },
+      "consulting": {
+        "title": "Serviços de Consultoria",
+        "description": "Consultoria especializada para planeamento de construção, procedimentos de licença e otimização energética."
+      }
+    }
+  },
+  "testimonials": {
+    "title": "Testemunhos de Clientes",
+    "subtitle": "Aprenda com os nossos clientes satisfeitos sobre as suas experiências com a Braun & Eyer.",
+    "previous": "Testemunho Anterior",
+    "next": "Próximo Testemunho",
+    "goTo": "Ir para Testemunho",
+    "items": [
+      {
+        "client": "A Família Müller",
+        "company": "Clientes Privados",
+        "quote": "A Braun & Eyer tornou a nossa casa de sonho uma realidade. O apoio foi perfeito desde a primeira consulta até à entrega das chaves.",
+        "project": "Construção de Moradia Unifamiliar"
+      },
+      {
+        "client": "Dr. Schmidt",
+        "company": "Projeto de Proteção Patrimonial",
+        "quote": "A renovação da nossa casa histórica foi realizada com o máximo cuidado e especialização. Um resultado excecional.",
+        "project": "Renovação de Edifício Patrimonial"
+      },
+      {
+        "client": "Imobiliária AG Munique",
+        "company": "Promotor Comercial",
+        "quote": "Profissional, criativo e confiável. O projeto residencial foi concluído a tempo e dentro do orçamento.",
+        "project": "Complexo Multifamiliar"
+      }
+    ]
+  },
+  "contact": {
+    "title": "Entre em Contacto",
+    "subtitle": "Pronto para o seu projeto de arquitetura? Entre em contacto com a nossa equipa para uma consulta pessoal.",
+    "office": {
+      "title": "Localização do Gabinete",
+      "address": "Mainzerstrasse 29",
+      "city": "66111 Saarbrücken, Alemanha"
+    },
+    "hours": {
+      "title": "Horário de Funcionamento",
+      "weekdays": "Segunda - Sexta: 9:00 - 18:00",
+      "saturday": "Sábado: 10:00 - 16:00"
+    },
+    "consultation": {
+      "title": "Consultas Agendadas",
+      "appointment": "Consulta por marcação",
+      "emergency": "Apoio de emergência disponível"
+    }
+  },
+  "cta": {
+    "title": "Vamos Realizar o Seu Projeto",
+    "description": "Pronto para transformar a sua visão em realidade? A nossa equipa aguarda trabalhar consigo.",
+    "button": "Iniciar Projeto"
+  }
+}

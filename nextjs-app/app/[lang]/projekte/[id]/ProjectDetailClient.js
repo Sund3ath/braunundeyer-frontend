@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { 
   MapPin, Calendar, Square, ArrowLeft, ChevronLeft, ChevronRight, 
   X, Share2, Facebook, Twitter, Linkedin, Copy, Check, ZoomIn,
@@ -24,12 +24,6 @@ export default function ProjectDetailClient({ project, relatedProjects = [], dic
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
 
-  // Custom cursor motion values
-  const cursorX = useMotionValue(0);
-  const cursorY = useMotionValue(0);
-  const springConfig = { damping: 25, stiffness: 700 };
-  const cursorXSpring = useSpring(cursorX, springConfig);
-  const cursorYSpring = useSpring(cursorY, springConfig);
 
   // If no project found, show error
   if (!project) {
@@ -50,9 +44,16 @@ export default function ProjectDetailClient({ project, relatedProjects = [], dic
     );
   }
 
-  // Prepare images array
-  const projectImages = project.images?.length > 0 ? project.images : 
-    (project.image ? [project.image] : []);
+  // Prepare images array - use images field (which is synced with gallery order)
+  // Remove duplicates and filter out empty/null values
+  const projectImages = (() => {
+    const images = project.images?.length > 0 ? project.images : 
+      (project.gallery?.length > 0 ? project.gallery : 
+        (project.image ? [project.image] : []));
+    
+    // Remove duplicates and filter empty values
+    return [...new Set(images.filter(img => img && img.trim() !== ''))];
+  })();
 
   const nextImage = () => {
     setCurrentImageIndex((prev) => (prev + 1) % projectImages.length);
@@ -104,16 +105,6 @@ export default function ProjectDetailClient({ project, relatedProjects = [], dic
     setLightboxIndex((prev) => (prev - 1 + projectImages.length) % projectImages.length);
   };
 
-  // Custom cursor tracking
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      cursorX.set(e.clientX);
-      cursorY.set(e.clientY);
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, [cursorX, cursorY]);
 
   // Keyboard navigation for lightbox
   useEffect(() => {
@@ -156,48 +147,10 @@ export default function ProjectDetailClient({ project, relatedProjects = [], dic
   };
 
   return (
-    <div className="min-h-screen custom-cursor relative overflow-hidden bg-background">
-      <style jsx global>{`
-        .custom-cursor {
-          cursor: none;
-        }
-        .custom-cursor * {
-          cursor: none !important;
-        }
-        .cursor-dot {
-          position: fixed;
-          width: 8px;
-          height: 8px;
-          background-color: #059669;
-          border-radius: 50%;
-          pointer-events: none;
-          z-index: 10000;
-          transform: translate(-50%, -50%);
-        }
-        .cursor-ring {
-          position: fixed;
-          width: 30px;
-          height: 30px;
-          border: 2px solid #059669;
-          border-radius: 50%;
-          pointer-events: none;
-          z-index: 9999;
-          transform: translate(-50%, -50%);
-          opacity: 0.5;
-        }
-      `}</style>
+    <div className="min-h-screen relative overflow-hidden bg-background">
 
       <Header dict={dict.translation} lang={lang} />
 
-      {/* Custom Cursor */}
-      <motion.div
-        className="cursor-dot"
-        style={{ x: cursorXSpring, y: cursorYSpring }}
-      />
-      <motion.div
-        className="cursor-ring"
-        style={{ x: cursorXSpring, y: cursorYSpring }}
-      />
 
       {/* Main Content */}
       <main className="pt-20 lg:pt-24">
@@ -569,13 +522,15 @@ export default function ProjectDetailClient({ project, relatedProjects = [], dic
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
+          onClick={closeLightbox}
         >
           {/* Close Button */}
           <button
             onClick={closeLightbox}
-            className="absolute top-4 right-4 text-white/70 hover:text-white transition-colors duration-200 z-50"
+            className="absolute top-4 right-4 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-200 z-[60] backdrop-blur-sm"
+            aria-label="Close lightbox"
           >
-            <X size={32} />
+            <X size={28} />
           </button>
 
           {/* Image Counter */}
@@ -586,8 +541,11 @@ export default function ProjectDetailClient({ project, relatedProjects = [], dic
           {/* Previous Button */}
           {projectImages.length > 1 && (
             <button
-              onClick={prevLightboxImage}
-              className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white p-3 rounded-full transition-all duration-200 backdrop-blur-sm"
+              onClick={(e) => {
+                e.stopPropagation();
+                prevLightboxImage();
+              }}
+              className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white p-3 rounded-full transition-all duration-200 backdrop-blur-sm z-[60]"
             >
               <ChevronLeft size={28} />
             </button>
@@ -596,8 +554,11 @@ export default function ProjectDetailClient({ project, relatedProjects = [], dic
           {/* Next Button */}
           {projectImages.length > 1 && (
             <button
-              onClick={nextLightboxImage}
-              className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white p-3 rounded-full transition-all duration-200 backdrop-blur-sm"
+              onClick={(e) => {
+                e.stopPropagation();
+                nextLightboxImage();
+              }}
+              className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white p-3 rounded-full transition-all duration-200 backdrop-blur-sm z-[60]"
             >
               <ChevronRight size={28} />
             </button>
@@ -619,11 +580,17 @@ export default function ProjectDetailClient({ project, relatedProjects = [], dic
           </div>
 
           {/* Thumbnail Strip */}
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2 max-w-full overflow-x-auto px-4">
+          <div 
+            className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2 max-w-full overflow-x-auto px-4 z-[60]"
+            onClick={(e) => e.stopPropagation()}
+          >
             {projectImages.map((image, index) => (
               <button
                 key={index}
-                onClick={() => setLightboxIndex(index)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setLightboxIndex(index);
+                }}
                 className={`relative w-16 h-16 flex-shrink-0 overflow-hidden rounded transition-all duration-200 ${
                   index === lightboxIndex 
                     ? 'ring-2 ring-white opacity-100' 
@@ -643,7 +610,7 @@ export default function ProjectDetailClient({ project, relatedProjects = [], dic
         </motion.div>
       )}
 
-      <Footer dict={dict.translation} lang={lang} />
+      <Footer dict={dict} lang={lang} />
     </div>
   );
 }

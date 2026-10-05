@@ -1,27 +1,30 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 const CustomCursor = () => {
+  const [mouseHistory, setMouseHistory] = useState([]);
   const [isVisible, setIsVisible] = useState(false);
-  
-  // Custom cursor motion values with enhanced spring
-  const cursorX = useMotionValue(0);
-  const cursorY = useMotionValue(0);
-  const springConfig = { damping: 25, stiffness: 700 };
-  const cursorXSpring = useSpring(cursorX, springConfig);
-  const cursorYSpring = useSpring(cursorY, springConfig);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
+    let localCounter = 0;
     const handleMouseMove = (e) => {
       setIsVisible(true);
-      cursorX.set(e.clientX);
-      cursorY.set(e.clientY);
+      setMousePosition({ x: e.clientX, y: e.clientY });
+      
+      localCounter++;
+      const uniqueId = `${Date.now()}-${localCounter}`;
+      setMouseHistory(prev => {
+        const newHistory = [...prev, { x: e.clientX, y: e.clientY, id: uniqueId }];
+        return newHistory.slice(-12); // Keep only last 12 positions for smoother trail
+      });
     };
 
     const handleMouseLeave = () => {
       setIsVisible(false);
+      setMouseHistory([]);
     };
 
     const handleMouseEnter = () => {
@@ -41,7 +44,7 @@ const CustomCursor = () => {
       document.removeEventListener('mouseleave', handleMouseLeave);
       document.removeEventListener('mouseenter', handleMouseEnter);
     };
-  }, [cursorX, cursorY]);
+  }, []);
 
   if (!isVisible) return null;
 
@@ -54,38 +57,56 @@ const CustomCursor = () => {
         .custom-cursor * {
           cursor: none !important;
         }
-        .cursor-dot {
-          position: fixed;
-          width: 8px;
-          height: 8px;
-          background-color: #059669;
-          border-radius: 50%;
-          pointer-events: none;
-          z-index: 10000;
-          transform: translate(-50%, -50%);
-        }
-        .cursor-ring {
-          position: fixed;
-          width: 30px;
-          height: 30px;
-          border: 2px solid #059669;
-          border-radius: 50%;
-          pointer-events: none;
-          z-index: 9999;
-          transform: translate(-50%, -50%);
-          opacity: 0.5;
-        }
       `}</style>
       
-      {/* Custom Cursor */}
-      <motion.div
-        className="cursor-dot"
-        style={{ x: cursorXSpring, y: cursorYSpring }}
-      />
-      <motion.div
-        className="cursor-ring"
-        style={{ x: cursorXSpring, y: cursorYSpring }}
-      />
+      {/* Trail effect */}
+      <div className="fixed inset-0 pointer-events-none z-[9999]">
+        {mouseHistory.map((point, index) => (
+          <motion.div
+            key={point.id}
+            className="absolute rounded-full"
+            style={{
+              left: point.x,
+              top: point.y,
+              width: 12 - index * 0.5,
+              height: 12 - index * 0.5,
+              background: `radial-gradient(circle, rgba(5, 150, 105, ${0.8 - index * 0.06}) 0%, transparent 70%)`,
+              transform: 'translate(-50%, -50%)',
+            }}
+            initial={{ 
+              scale: 1,
+              opacity: 0.8
+            }}
+            animate={{
+              scale: 0.3,
+              opacity: 0
+            }}
+            transition={{
+              duration: 1.2,
+              ease: "easeOut"
+            }}
+          />
+        ))}
+        
+        {/* Main cursor dot */}
+        <motion.div
+          className="absolute w-2 h-2 bg-accent rounded-full"
+          style={{
+            left: mousePosition.x,
+            top: mousePosition.y,
+            transform: 'translate(-50%, -50%)',
+            zIndex: 10001
+          }}
+          animate={{
+            scale: [1, 1.2, 1],
+          }}
+          transition={{
+            duration: 0.6,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+      </div>
     </>
   );
 };

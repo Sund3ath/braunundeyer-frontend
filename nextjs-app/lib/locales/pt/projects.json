@@ -1,0 +1,50 @@
+{
+  "title": "Os Nossos Projetos",
+  "subtitle": "Descubra o nosso portfólio abrangente de projetos arquitetónicos desde construção nova a renovação histórica e design de interiores.",
+  "search": {
+    "placeholder": "Procurar projetos...",
+    "noResults": "Nenhum projeto encontrado",
+    "noResultsDescription": "Tente ajustar os seus critérios de pesquisa ou filtros",
+    "clearFilters": "Limpar filtros"
+  },
+  "filters": {
+    "all": "Todos",
+    "newBuilding": "Construção Nova",
+    "renovation": "Renovação de Edifício",
+    "interior": "Design de Interiores",
+    "clearAll": "Limpar todos"
+  },
+  "sort": {
+    "newest": "Mais Recentes",
+    "oldest": "Mais Antigos",
+    "alphabetical": "A-Z"
+  },
+  "viewMode": {
+    "grid": "Vista de grelha",
+    "list": "Vista de lista"
+  },
+  "projectCard": {
+    "viewDetails": "Ver detalhes",
+    "area": "Área",
+    "year": "Ano",
+    "location": "Localização",
+    "status": {
+      "completed": "Concluído",
+      "inProgress": "Em Progresso",
+      "planned": "Planeado"
+    }
+  },
+  "pagination": {
+    "showing": "A mostrar {{current}} de {{total}} projetos",
+    "loadMore": "Carregar mais projetos",
+    "loading": "A carregar..."
+  },
+  "categories": {
+    "newBuilding": "Construção Nova",
+    "renovation": "Renovação de Edifício",
+    "interior": "Design de Interiores",
+    "commercial": "Comercial",
+    "residential": "Residencial",
+    "public": "Edifícios Públicos"
+  }
+}

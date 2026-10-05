@@ -8,7 +8,7 @@ import { ChevronRight, RefreshCw, Grid3X3, Maximize2 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-const GalleryClient = ({ lang, dict }) => {
+const GalleryClient = ({ lang, dict, navigationSettings }) => {
   // Layout patterns for collage
   const layoutItems = useMemo(() => [
     { id: 0, gridArea: '1 / 1 / 3 / 3', size: 'large' },
@@ -284,7 +284,7 @@ const GalleryClient = ({ lang, dict }) => {
 
   return (
     <>
-      <Header dict={dict} lang={lang} />
+      <Header dict={dict} lang={lang} navigationSettings={navigationSettings} />
       
       <main className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
         {/* Hero Section with Breadcrumb */}
@@ -515,7 +515,7 @@ const GalleryClient = ({ lang, dict }) => {
         </AnimatePresence>
       </main>
 
-      <Footer />
+      <Footer dict={dict} lang={lang} />
     </>
   );
 };

@@ -1,0 +1,85 @@
+{
+  "nav": {
+    "home": "Início",
+    "projects": "Projetos",
+    "gallery": "Galeria",
+    "about": "Sobre Nós",
+    "services": "Serviços",
+    "contact": "Contacto"
+  },
+  "hero": {
+    "title": "Braun & Eyer Arquitetura",
+    "subtitle": "Arquitetura Inovadora com Tradição",
+    "cta": "Explorar Projetos"
+  },
+  "projects": {
+    "title": "Os Nossos Projetos",
+    "viewAll": "Ver Todos os Projetos",
+    "filter": {
+      "all": "Todos",
+      "newBuilding": "Nova Construção",
+      "renovation": "Renovação",
+      "commercial": "Comercial"
+    },
+    "details": {
+      "year": "Ano",
+      "location": "Localização",
+      "area": "Área",
+      "category": "Categoria"
+    }
+  },
+  "step": "Passo",
+  "about": {
+    "title": "Sobre Nós",
+    "philosophy": "A Nossa Filosofia",
+    "team": "A Nossa Equipa",
+    "history": "História"
+  },
+  "services": {
+    "title": "Os Nossos Serviços",
+    "planning": "Planeamento",
+    "consulting": "Consultoria",
+    "projectManagement": "Gestão de Projetos",
+    "renovation": "Renovação"
+  },
+  "contact": {
+    "title": "Contacto",
+    "form": {
+      "name": "Nome",
+      "email": "Email",
+      "phone": "Telefone",
+      "message": "Mensagem",
+      "send": "Enviar Mensagem",
+      "success": "A sua mensagem foi enviada com sucesso!"
+    },
+    "info": {
+      "address": "Endereço",
+      "businessHours": "Horário de Funcionamento",
+      "phone": "Telefone",
+      "email": "Email"
+    }
+  },
+  "footer": {
+    "rights": "Todos os direitos reservados",
+    "imprint": "Impressão",
+    "privacy": "Privacidade",
+    "tagline": "Excelência Arquitetónica Desde 2005"
+  },
+  "cms": {
+    "editMode": "Modo de Edição",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "add": "Adicionar",
+    "edit": "Editar",
+    "preview": "Pré-visualizar",
+    "publish": "Publicar",
+    "unpublish": "Despublicar",
+    "addSection": "Adicionar Secção",
+    "addProject": "Adicionar Projeto",
+    "uploadImage": "Carregar Imagem",
+    "changeImage": "Alterar Imagem",
+    "saving": "A guardar...",
+    "saved": "Guardado"
+  }
+}

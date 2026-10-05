@@ -1,6 +1,6 @@
 export default function sitemap() {
   const baseUrl = 'https://braunundeyer.de';
-  const languages = ['de', 'en', 'fr', 'it', 'es'];
+  const languages = ['de', 'en', 'fr', 'it', 'es', 'pt'];
   
   const routes = [
     '',

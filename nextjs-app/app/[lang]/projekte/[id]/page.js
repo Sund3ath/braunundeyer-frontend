@@ -1,5 +1,7 @@
 import ProjectDetailClient from './ProjectDetailClient';
 import { getProjectById, getAllProjects } from '@/lib/api/projects';
+import { getNavigationSettings } from '@/lib/navigation';
+import { getDictionary, getModuleDictionary } from '@/lib/getDictionary';
 
 export default async function ProjectDetailPage({ params }) {
   const { lang = 'de', id } = await params;
@@ -25,26 +27,25 @@ export default async function ProjectDetailPage({ params }) {
     console.error('Failed to fetch project details:', error);
   }
   
-  // Load translations
-  let dict = {};
-  try {
-    const [projectsDict, translationDict] = await Promise.all([
-      import(`@/lib/locales/${lang}/projects.json`),
-      import(`@/lib/locales/${lang}/translation.json`)
-    ]);
-    dict = {
-      projects: projectsDict.default,
-      translation: translationDict.default
-    };
-  } catch (error) {
-    console.error('Failed to load translations:', error);
-  }
+  // Load translations with footer and navigation
+  const [baseDict, projectsDict, navigationSettings] = await Promise.all([
+    getDictionary(lang),
+    getModuleDictionary(lang, 'projects'),
+    getNavigationSettings(lang)
+  ]);
+  
+  const dict = {
+    ...baseDict,
+    projects: projectsDict
+  };
 
   return (
     <ProjectDetailClient 
       project={project}
       relatedProjects={relatedProjects}
       dict={dict}
+      lang={lang}
+      navigationSettings={navigationSettings}
     />
   );
 }

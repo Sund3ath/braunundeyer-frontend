@@ -49,6 +49,14 @@ export async function generateMetadata({ params }) {
       },
       description: 'Braun & Eyer Arquitectos - Su estudio de arquitectura en Saarbrücken. Especializado en construcción nueva, renovación y protección de monumentos desde 1999.',
       keywords: ['Arquitectos Saarbrücken', 'Braun Eyer', 'Estudio Arquitectura', 'Construcción Nueva', 'Renovación', 'Protección Monumentos'],
+    },
+    pt: {
+      title: {
+        default: 'Braun & Eyer Arquitetos | Gabinete de Arquitetura Saarbrücken',
+        template: '%s | Braun & Eyer Arquitetos'
+      },
+      description: 'Braun & Eyer Arquitetos - O seu gabinete de arquitetura em Saarbrücken. Especializado em construção nova, renovação e proteção de monumentos desde 1999.',
+      keywords: ['Arquitetos Saarbrücken', 'Braun Eyer', 'Gabinete Arquitetura', 'Construção Nova', 'Renovação', 'Proteção Monumentos', 'Arquitetura Alemanha'],
     }
   };
 

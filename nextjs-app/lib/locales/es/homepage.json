@@ -1,136 +1,167 @@
 {
   "hero": {
     "slide1": {
-      "title": "Architekturbüro Ingenieure",
-      "subtitle": "Neubau und Altbausanierung mit Expertise",
-      "description": "Wir entwickeln innovative Architekturlösungen, die moderne Bauweise mit nachhaltiger Sanierung historischer Gebäude verbinden."
+      "title": "Estudio de Arquitectura e Ingeniería",
+      "subtitle": "Construcción Nueva y Renovación con Experiencia",
+      "description": "Desarrollamos soluciones arquitectónicas innovadoras que combinan construcción moderna con renovación sostenible de edificios históricos."
     },
     "slide2": {
-      "title": "Neubau",
-      "subtitle": "Moderne Architektur für die Zukunft",
-      "description": "Zeitgemäße Neubauprojekte, die höchste Ansprüche an Design, Funktionalität und Energieeffizienz erfüllen."
+      "title": "Construcción Nueva",
+      "subtitle": "Arquitectura Moderna para el Futuro",
+      "description": "Proyectos de construcción contemporáneos que cumplen los más altos estándares de diseño, funcionalidad y eficiencia energética."
     },
     "slide3": {
-      "title": "Altbausanierung",
-      "subtitle": "Behutsame Modernisierung historischer Substanz",
-      "description": "Fachgerechte Sanierung und Modernisierung von Altbauten unter Erhaltung des ursprünglichen Charakters."
+      "title": "Renovación",
+      "subtitle": "Modernización Respetuosa de Estructuras Históricas",
+      "description": "Renovación y modernización profesional de edificios antiguos preservando su carácter original."
     },
     "cta": {
-      "projects": "Unsere Arbeiten",
-      "start": "Projekt Starten"
+      "projects": "Nuestros Trabajos",
+      "start": "Iniciar Proyecto"
     }
   },
   "projects": {
-    "title": "Ausgewählte Projekte",
-    "subtitle": "Entdecken Sie unsere neuesten Architekturprojekte, die Innovation, Nachhaltigkeit und Designexzellenz in Neubau und Altbausanierung vereinen.",
-    "viewAll": "Alle Projekte Ansehen",
+    "title": "Proyectos Seleccionados",
+    "subtitle": "Descubre nuestros últimos proyectos arquitectónicos que combinan innovación, sostenibilidad y excelencia en diseño",
+    "viewAll": "Ver Todos los Proyectos",
+    "viewProject": "Ver Proyecto",
     "items": {
       "project1": {
-        "title": "Modernes Einfamilienhaus",
-        "type": "Neubau",
-        "location": "Wohngebiet"
+        "title": "Casa Unifamiliar Moderna",
+        "type": "Construcción Nueva",
+        "location": "Zona Residencial"
       },
       "project2": {
-        "title": "Historische Villa Sanierung",
-        "type": "Altbausanierung",
-        "location": "Altstadt"
+        "title": "Renovación Villa Histórica",
+        "type": "Renovación",
+        "location": "Centro Histórico"
       },
       "project3": {
-        "title": "Mehrfamilienhaus Neubau",
-        "type": "Neubau",
-        "location": "Stadtrand"
+        "title": "Edificio Multifamiliar",
+        "type": "Construcción Nueva",
+        "location": "Suburbios"
       },
       "project4": {
-        "title": "Denkmalgeschützte Sanierung",
-        "type": "Altbausanierung",
-        "location": "Historisches Zentrum"
+        "title": "Renovación Monumento",
+        "type": "Renovación",
+        "location": "Centro Ciudad"
       },
       "project5": {
-        "title": "Energieeffizientes Wohnhaus",
-        "type": "Neubau",
-        "location": "Neubaugebiet"
+        "title": "Casa Eco-eficiente",
+        "type": "Construcción Nueva",
+        "location": "Nueva Urbanización"
       },
       "project6": {
-        "title": "Gründerzeit Modernisierung",
-        "type": "Altbausanierung",
-        "location": "Innenstadtbereich"
+        "title": "Modernización Modernista",
+        "type": "Renovación",
+        "location": "Centro"
       }
     }
   },
   "services": {
-    "title": "Unsere Leistungen",
-    "subtitle": "Von der ersten Idee bis zur Fertigstellung bieten wir umfassende Architektur- und Ingenieurleistungen für Neubau und Altbausanierung.",
-    "viewMore": "Mehr Erfahren",
+    "title": "Nuestros Servicios",
+    "subtitle": "Desde la primera idea hasta la realización, ofrecemos servicios completos de arquitectura e ingeniería",
+    "viewMore": "Saber Más",
+    "residential": {
+      "title": "Residencial",
+      "description": "Conceptos habitacionales personalizados"
+    },
+    "commercial": {
+      "title": "Comercial",
+      "description": "Edificios comerciales funcionales"
+    },
+    "interior": {
+      "title": "Arquitectura Interior",
+      "description": "Conceptos espaciales pensados"
+    },
+    "medical": {
+      "title": "Consultorios Médicos",
+      "description": "Diseño moderno de consultorios"
+    },
     "items": {
       "service1": {
-        "title": "Neubau",
-        "description": "Moderne Neubauprojekte von der Planung bis zur Fertigstellung. Wir realisieren Wohn- und Geschäftsgebäude nach neuesten Standards."
+        "title": "Construcción Nueva",
+        "description": "Proyectos de construcción modernos desde la planificación hasta la realización. Realizamos edificios residenciales y comerciales según los últimos estándares."
       },
       "service2": {
-        "title": "Altbausanierung",
-        "description": "Fachgerechte Sanierung und Modernisierung historischer Gebäude unter Berücksichtigung von Denkmalschutz und Energieeffizienz."
+        "title": "Renovación",
+        "description": "Renovación y modernización profesional de edificios históricos considerando la protección de monumentos y la eficiencia energética."
       },
       "service3": {
-        "title": "Ingenieursleistungen",
-        "description": "Umfassende technische Planung und Beratung für alle Bauphasen mit Fokus auf Statik, Haustechnik und Bauphysik."
+        "title": "Servicios de Ingeniería",
+        "description": "Planificación técnica completa y asesoramiento para todas las fases de construcción con enfoque en estática, instalaciones y física de edificios."
       },
       "service4": {
-        "title": "Energieberatung",
-        "description": "Nachhaltige Lösungen für energieeffizientes Bauen und Sanieren mit Fokus auf Umweltschutz und Kosteneinsparung."
+        "title": "Consultoría Energética",
+        "description": "Soluciones sostenibles para construcción y renovación eco-eficiente con enfoque en protección ambiental y ahorro."
       }
     }
+  },
+  "about": {
+    "title": "Acerca de Nosotros",
+    "description": "Con más de 25 años de experiencia, somos su socio confiable para construcción nueva y renovación. Nuestro equipo de arquitectos e ingenieros experimentados desarrolla soluciones innovadoras para sus proyectos."
+  },
+  "stats": {
+    "projects": "Proyectos",
+    "years": "Años de Experiencia",
+    "satisfaction": "Satisfacción del Cliente",
+    "team": "Miembros del Equipo"
   },
   "philosophy": {
-    "title": "Unsere Philosophie",
-    "text1": "Bei Braun & Eyer verstehen wir Architektur als die perfekte Balance zwischen Form, Funktion und Nachhaltigkeit. Unser Ansatz verbindet innovative Planungskonzepte mit bewährten Bautechniken, um Räume zu schaffen, die sowohl inspirieren als auch einen positiven Beitrag zur Gemeinschaft leisten.",
-    "text2": "Mit langjähriger Erfahrung in Neubau und Altbausanierung haben wir uns einen Namen für außergewöhnliche Architekturlösungen gemacht, die den Test der Zeit bestehen und gleichzeitig die Grenzen zeitgemäßer Planung erweitern.",
-    "cta": "Über Unser Team"
+    "title": "Nuestra Filosofía",
+    "text1": "En Braun & Eyer, concebimos la arquitectura como el equilibrio perfecto entre forma, función y sostenibilidad. Nuestro enfoque combina conceptos de planificación innovadores con técnicas de construcción probadas.",
+    "text2": "Con años de experiencia en construcción nueva y renovación, nos hemos hecho un nombre con soluciones arquitectónicas excepcionales que resisten la prueba del tiempo.",
+    "cta": "Nuestro Equipo"
   },
   "testimonials": {
-    "title": "Was Unsere Kunden Sagen",
-    "subtitle": "Vertrauen Sie nicht nur unserem Wort. Hier erfahren Sie, was unsere Kunden über die Zusammenarbeit mit Braun & Eyer sagen.",
-    "items": {
-      "testimonial1": {
-        "name": "Privatkunde",
-        "role": "Einfamilienhaus Neubau",
-        "content": "Braun & Eyer hat unsere Vorstellungen perfekt umgesetzt. Die Betreuung war professionell und die Qualität der Arbeit überzeugt uns täglich aufs Neue."
-      },
-      "testimonial2": {
-        "name": "Geschäftskunde",
-        "role": "Altbausanierung",
-        "content": "Die Sanierung unseres Altbaus wurde mit größter Sorgfalt durchgeführt. Das Team versteht es, moderne Technik mit historischer Substanz zu verbinden."
-      },
-      "testimonial3": {
-        "name": "Unternehmen",
-        "role": "Bürogestaltung",
-        "content": "Die Zusammenarbeit mit Braun & Eyer war durchweg professionell. Ihre Expertise in der Altbausanierung hat unser Projekt zum Erfolg geführt."
-      }
+    "title": "Lo Que Dicen Nuestros Clientes",
+    "subtitle": "No solo confíe en nuestra palabra. Descubra lo que dicen nuestros clientes sobre trabajar con Braun & Eyer.",
+    "testimonial1": {
+      "name": "Cliente Privado",
+      "project": "Casa Unifamiliar",
+      "text": "Braun & Eyer realizó perfectamente nuestra visión. El apoyo fue profesional y la calidad del trabajo nos convence cada día."
+    },
+    "testimonial2": {
+      "name": "Cliente Empresarial",
+      "project": "Renovación de Edificio",
+      "text": "La renovación de nuestro edificio antiguo se realizó con el máximo cuidado. El equipo sabe cómo combinar tecnología moderna con sustancia histórica."
+    },
+    "testimonial3": {
+      "name": "Empresa",
+      "project": "Remodelación de Oficinas",
+      "text": "Trabajar con Braun & Eyer fue completamente profesional. Su experiencia en renovación hizo de nuestro proyecto un éxito."
     }
   },
+  "cta": {
+    "title": "Realicemos Su Proyecto Juntos",
+    "subtitle": "Contáctenos para una consulta sin compromiso",
+    "contact": "Contactar",
+    "call": "Llamar"
+  },
   "newsletter": {
-    "title": "Bleiben Sie Informiert",
-    "subtitle": "Abonnieren Sie unseren Newsletter für Updates zu aktuellen Projekten, Planungseinblicke und Architekturtrends.",
-    "placeholder": "Ihre E-Mail-Adresse",
-    "button": "Abonnieren"
+    "title": "Manténgase Informado",
+    "subtitle": "Suscríbase a nuestro boletín para actualizaciones sobre proyectos actuales y tendencias arquitectónicas.",
+    "placeholder": "Su dirección de correo",
+    "button": "Suscribirse"
   },
   "footer": {
-    "description": "Architekturbüro Ingenieure - Spezialisiert auf Neubau und Altbausanierung mit innovativen und nachhaltigen Lösungen.",
-    "services": "Leistungen",
-    "company": "Unternehmen",
-    "contact": "Kontakt",
+    "description": "Estudio de Arquitectura e Ingeniería - Especializado en construcción nueva y renovación con soluciones innovadoras y sostenibles.",
+    "services": "Servicios",
+    "company": "Empresa",
+    "contact": "Contacto",
     "links": {
-      "about": "Über Uns",
-      "projects": "Projekte",
-      "career": "Karriere",
-      "imprint": "Impressum",
-      "privacy": "Datenschutz"
+      "about": "Acerca de",
+      "projects": "Proyectos",
+      "career": "Carrera",
+      "imprint": "Aviso Legal",
+      "privacy": "Privacidad"
     },
     "address": {
-      "company": "Architekturbüro Braun & Eyer",
-      "country": "Deutschland",
-      "phone": "+49 (0) 123 456789",
+      "company": "Estudio de Arquitectura Braun & Eyer",
+      "country": "Alemania",
+      "phone": "+49 (0) 681 954 174 88",
       "email": "info@braunundeyer.de"
     },
-    "copyright": "© 2025 Braun & Eyer Architekturbüro Ingenieure. Alle Rechte vorbehalten."
+    "copyright": "© 2025 Braun & Eyer Estudio de Arquitectura e Ingeniería. Todos los derechos reservados."
   }
 }

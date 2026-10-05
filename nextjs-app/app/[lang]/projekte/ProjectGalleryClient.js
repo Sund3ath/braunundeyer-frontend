@@ -4,13 +4,13 @@ import React, { useState, useEffect, useMemo, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Search, X, ChevronDown, Grid3X3, List, MapPin, Square, ArrowRight, AlertCircle, Expand, Eye } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Breadcrumb from '@/components/ui/Breadcrumb';
 
-export default function ProjectGalleryClient({ initialProjects = [], lang = 'de', apiError = null }) {
+export default function ProjectGalleryClient({ initialProjects = [], lang = 'de', apiError = null, navigationSettings, dict: propDict }) {
   const router = useRouter();
   // Ensure projects is always an array
   const [projects, setProjects] = useState(Array.isArray(initialProjects) ? initialProjects : []);
@@ -47,25 +47,27 @@ export default function ProjectGalleryClient({ initialProjects = [], lang = 'de'
     }, 500);
   };
 
-  // Custom cursor motion values
-  const cursorX = useMotionValue(0);
-  const cursorY = useMotionValue(0);
-  const springConfig = { damping: 25, stiffness: 700 };
-  const cursorXSpring = useSpring(cursorX, springConfig);
-  const cursorYSpring = useSpring(cursorY, springConfig);
 
   // Load translations
   useEffect(() => {
-    Promise.all([
-      import(`@/lib/locales/${lang}/translation.json`),
-      import(`@/lib/locales/${lang}/projects.json`)
-    ]).then(([translationModule, projectsModule]) => {
-      setDict({
-        translation: translationModule.default,
-        projects: projectsModule.default
+    if (propDict) {
+      // Use dict from props if available
+      setDict(propDict);
+    } else {
+      // Load translations if not passed as prop
+      Promise.all([
+        import(`@/lib/locales/${lang}/translation.json`),
+        import(`@/lib/locales/${lang}/projects.json`),
+        import(`@/lib/locales/${lang}/homepage.json`)
+      ]).then(([translationModule, projectsModule, homepageModule]) => {
+        setDict({
+          translation: translationModule.default,
+          projects: projectsModule.default,
+          ...homepageModule.default
+        });
       });
-    });
-  }, [lang]);
+    }
+  }, [lang, propDict]);
 
   // Extract unique categories from projects
   const categories = useMemo(() => {
@@ -120,17 +122,6 @@ export default function ProjectGalleryClient({ initialProjects = [], lang = 'de'
     return filtered;
   }, [projects, selectedCategory, searchQuery, sortBy]);
 
-  // Custom cursor tracking
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      cursorX.set(e.clientX);
-      cursorY.set(e.clientY);
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, [cursorX, cursorY]);
-
   const handleLoadMore = () => {
     setVisibleProjects(prev => prev + 6);
   };
@@ -154,48 +145,8 @@ export default function ProjectGalleryClient({ initialProjects = [], lang = 'de'
   ];
 
   return (
-    <div className="min-h-screen custom-cursor relative overflow-hidden bg-background">
-      <style jsx global>{`
-        .custom-cursor {
-          cursor: none;
-        }
-        .custom-cursor * {
-          cursor: none !important;
-        }
-        .cursor-dot {
-          position: fixed;
-          width: 8px;
-          height: 8px;
-          background-color: #059669;
-          border-radius: 50%;
-          pointer-events: none;
-          z-index: 10000;
-          transform: translate(-50%, -50%);
-        }
-        .cursor-ring {
-          position: fixed;
-          width: 30px;
-          height: 30px;
-          border: 2px solid #059669;
-          border-radius: 50%;
-          pointer-events: none;
-          z-index: 9999;
-          transform: translate(-50%, -50%);
-          opacity: 0.5;
-        }
-      `}</style>
-
-      <Header dict={dict.translation} lang={lang} />
-
-      {/* Custom Cursor */}
-      <motion.div
-        className="cursor-dot"
-        style={{ x: cursorXSpring, y: cursorYSpring }}
-      />
-      <motion.div
-        className="cursor-ring"
-        style={{ x: cursorXSpring, y: cursorYSpring }}
-      />
+    <div className="min-h-screen relative overflow-hidden bg-background">
+      <Header dict={dict.translation} lang={lang} navigationSettings={navigationSettings} />
       
       {/* Hero Section with Breadcrumb */}
       <section className="pt-20 lg:pt-24 bg-surface/95 backdrop-blur-sm border-b border-border relative z-10">
@@ -476,7 +427,7 @@ export default function ProjectGalleryClient({ initialProjects = [], lang = 'de'
           </div>
         </section>
 
-      <Footer dict={dict.translation} lang={lang} onCopyrightClick={handleCopyrightClick} />
+      <Footer dict={dict} lang={lang} onCopyrightClick={handleCopyrightClick} />
 
       {/* Image Modal */}
       {isImageModalOpen && selectedImage && (

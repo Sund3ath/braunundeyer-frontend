@@ -4,24 +4,18 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
-import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Home, Building2, Palette, Users, ChevronDown, ChevronUp, ArrowRight, ChevronLeft, ChevronRight, Award, Trophy, Star } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Breadcrumb from '@/components/ui/Breadcrumb';
 
-export default function AboutUsClient({ teamMembers = [], dict = {} }) {
+export default function AboutUsClient({ teamMembers = [], dict = {}, lang, navigationSettings }) {
   const params = useParams();
-  const lang = params.lang || 'de';
+  const langParam = lang || params.lang || 'de';
   const [expandedMember, setExpandedMember] = useState(null);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
-  // Custom cursor motion values
-  const cursorX = useMotionValue(0);
-  const cursorY = useMotionValue(0);
-  const springConfig = { damping: 25, stiffness: 700 };
-  const cursorXSpring = useSpring(cursorX, springConfig);
-  const cursorYSpring = useSpring(cursorY, springConfig);
 
   const officePhilosophy = {
     title: dict?.subtitle || 'Tradition trifft Innovation',
@@ -121,16 +115,6 @@ export default function AboutUsClient({ teamMembers = [], dict = {} }) {
     setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
   };
 
-  // Custom cursor tracking
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      cursorX.set(e.clientX);
-      cursorY.set(e.clientY);
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, [cursorX, cursorY]);
 
   const breadcrumbItems = [
     { href: `/${lang}/homepage`, label: dict?.translation?.nav?.home || 'Startseite' },
@@ -138,48 +122,10 @@ export default function AboutUsClient({ teamMembers = [], dict = {} }) {
   ];
 
   return (
-    <div className="min-h-screen custom-cursor relative overflow-hidden bg-background">
-      <style jsx global>{`
-        .custom-cursor {
-          cursor: none;
-        }
-        .custom-cursor * {
-          cursor: none !important;
-        }
-        .cursor-dot {
-          position: fixed;
-          width: 8px;
-          height: 8px;
-          background-color: #059669;
-          border-radius: 50%;
-          pointer-events: none;
-          z-index: 10000;
-          transform: translate(-50%, -50%);
-        }
-        .cursor-ring {
-          position: fixed;
-          width: 30px;
-          height: 30px;
-          border: 2px solid #059669;
-          border-radius: 50%;
-          pointer-events: none;
-          z-index: 9999;
-          transform: translate(-50%, -50%);
-          opacity: 0.5;
-        }
-      `}</style>
+    <div className="min-h-screen relative overflow-hidden bg-background">
 
-      <Header dict={dict.translation} lang={lang} />
+      <Header dict={dict.translation} lang={langParam} navigationSettings={navigationSettings} />
 
-      {/* Custom Cursor */}
-      <motion.div
-        className="cursor-dot"
-        style={{ x: cursorXSpring, y: cursorYSpring }}
-      />
-      <motion.div
-        className="cursor-ring"
-        style={{ x: cursorXSpring, y: cursorYSpring }}
-      />
       
       {/* Hero Section with Breadcrumb */}
       <section className="pt-20 lg:pt-24 bg-surface/95 backdrop-blur-sm border-b border-border relative z-10">
@@ -198,16 +144,7 @@ export default function AboutUsClient({ teamMembers = [], dict = {} }) {
 
       {/* Hero Section with Philosophy */}
       <section className="relative z-10">
-        <div className="relative h-96 lg:h-[500px] overflow-hidden">
-          <Image
-            src={officePhilosophy.backgroundImage}
-            alt="Braun & Eyer Büro"
-            width={2000}
-            height={500}
-            className="w-full h-full object-cover"
-            style={{ width: 'auto', height: 'auto' }}
-          />
-          <div className="absolute inset-0 bg-primary/60"></div>
+        <div className="relative h-96 lg:h-[500px] overflow-hidden bg-black">
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="max-w-4xl mx-auto px-4 text-center text-white">
               <motion.div 
@@ -286,14 +223,14 @@ export default function AboutUsClient({ teamMembers = [], dict = {} }) {
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                 >
-                  <div className="aspect-square overflow-hidden">
+                  <div className="aspect-[3/4] overflow-hidden bg-gray-100">
                     {member.image ? (
                       <Image
                         src={member.image}
                         alt={member.name}
                         width={400}
-                        height={400}
-                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                        height={533}
+                        className="w-full h-full object-contain hover:scale-105 transition-transform duration-300"
                       />
                     ) : (
                       <div className="w-full h-full bg-gray-200 flex items-center justify-center">
@@ -355,14 +292,14 @@ export default function AboutUsClient({ teamMembers = [], dict = {} }) {
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: (index + 2) * 0.1 }}
                   >
-                    <div className="aspect-square overflow-hidden">
+                    <div className="aspect-[3/4] overflow-hidden bg-gray-100">
                       {member.image ? (
                         <Image
                           src={member.image}
                           alt={member.name}
                           width={400}
-                          height={400}
-                          className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                          height={533}
+                          className="w-full h-full object-contain hover:scale-105 transition-transform duration-300"
                         />
                       ) : (
                         <div className="w-full h-full bg-gray-200 flex items-center justify-center">
@@ -500,81 +437,7 @@ export default function AboutUsClient({ teamMembers = [], dict = {} }) {
 
       {/* Awards Section removed */}
 
-      {/* Testimonials Section */}
-      <section className="py-16 lg:py-24 bg-surface/50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-heading font-light text-primary mb-4">
-              {dict?.testimonials?.title || 'Was unsere Kunden sagen'}
-            </h2>
-            <p className="text-lg text-text-secondary font-body">
-              {dict?.testimonials?.subtitle || 'Erfolgreiche Projekte und zufriedene Kunden'}
-            </p>
-          </div>
-
-          <div className="relative max-w-4xl mx-auto">
-            <div className="bg-background rounded-lg p-8 lg:p-12 shadow-subtle">
-              <div className="flex items-center justify-between mb-8">
-                <button
-                  onClick={prevTestimonial}
-                  className="p-2 rounded-full bg-surface hover:bg-accent/10 transition-colors duration-200"
-                  aria-label="Previous testimonial"
-                >
-                  <ChevronLeft size={24} className="text-accent" />
-                </button>
-                <div className="flex space-x-2">
-                  {testimonials.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setCurrentTestimonial(index)}
-                      className={`w-2 h-2 rounded-full transition-colors duration-200 ${
-                        index === currentTestimonial ? 'bg-accent' : 'bg-border'
-                      }`}
-                      aria-label={`Go to testimonial ${index + 1}`}
-                    />
-                  ))}
-                </div>
-                <button
-                  onClick={nextTestimonial}
-                  className="p-2 rounded-full bg-surface hover:bg-accent/10 transition-colors duration-200"
-                  aria-label="Next testimonial"
-                >
-                  <ChevronRight size={24} className="text-accent" />
-                </button>
-              </div>
-
-              <motion.div
-                key={currentTestimonial}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                <blockquote className="text-lg lg:text-xl text-text-secondary font-body italic mb-6">
-                  "{testimonials[currentTestimonial].quote}"
-                </blockquote>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="font-heading font-medium text-primary">
-                      {testimonials[currentTestimonial].client}
-                    </p>
-                    <p className="text-text-secondary font-body text-sm">
-                      {testimonials[currentTestimonial].company}
-                    </p>
-                    <p className="text-accent font-body text-sm">
-                      {testimonials[currentTestimonial].project}
-                    </p>
-                  </div>
-                  <div className="flex space-x-1">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} size={20} className="text-yellow-500 fill-current" />
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Testimonials Section removed */}
 
       {/* CTA Section */}
       <motion.section 
@@ -609,7 +472,7 @@ export default function AboutUsClient({ teamMembers = [], dict = {} }) {
         </div>
       </motion.section>
 
-      <Footer dict={dict.translation} lang={lang} />
+      <Footer dict={dict} lang={lang} />
     </div>
   );
 }
