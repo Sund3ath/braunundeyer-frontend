@@ -1,651 +1,261 @@
-'use client';
+import { notFound } from 'next/navigation';
+import Link from 'next/link';
+import { homepageAPI } from '@/lib/api';
+import { staticPageMetadata, isValidLocale } from '@/lib/seo';
+import { getSeoCopy } from '@/lib/seo-copy';
+import { getUiCopy } from '@/lib/ui-copy';
+import { webPageGraph } from '@/lib/schema';
+import { SITE } from '@/lib/site';
+import { getProjectList, withCovers, isBuildPhase } from '@/lib/project-data';
+import { getServicesConfig, getTeam } from '@/lib/cms-content';
+import JsonLd from '@/components/JsonLd';
+import Photo from '@/components/ui/Photo';
+import BackdropType from '@/components/ui/BackdropType';
+import HeroSlider from '@/components/home/HeroSlider';
+import EntryOverlay from '@/components/home/EntryOverlay';
+import { fmt } from '@/lib/fmt';
 
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useRouter } from 'next/navigation';
-import { useParams } from 'next/navigation';
+/**
+ * Homepage, served at /{lang} (server component; /{lang}/homepage 308s here).
+ * Sections: full-width hero carousel of the CMS hero slides (titles are h2),
+ * intro with the page's single h1, three selected projects on a staggered
+ * grid, the services as a typographic list, an office snippet with the team,
+ * a contact block. Backdrop typography (decorative, CSS-generated words)
+ * sits behind the sections. The optional intro overlay ("ENTER") is mounted
+ * client-side only, on top of this fully server-rendered page.
+ * Content comes from the CMS (hero slides, featured projects, services, team)
+ * and lib/site.js; sections without data are omitted.
+ */
 
-const Landing = () => {
-  const router = useRouter();
-  const params = useParams();
-  const lang = params.lang || 'de';
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isAnimating, setIsAnimating] = useState(false);
-  const [isHovering, setIsHovering] = useState(false);
-  const [currentTime, setCurrentTime] = useState(new Date());
-  const containerRef = useRef(null);
-  const parallaxRef = useRef(null);
+// ISR: regenerate at most every 60 seconds (same freshness as before).
+export const revalidate = 60;
 
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
+export async function generateMetadata({ params }) {
+  const { lang } = await params;
+  return staticPageMetadata('home', lang);
+}
 
-    window.addEventListener('mousemove', handleMouseMove);
-    
-    // Update time for dynamic elements
-    const timer = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 1000);
-    
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      clearInterval(timer);
-    };
-  }, []);
-  
-  // Calculate parallax values based on mouse position
-  const parallaxX = (mousePosition.x - (typeof window !== 'undefined' ? window.innerWidth : 0) / 2) * 0.02;
-  const parallaxY = (mousePosition.y - (typeof window !== 'undefined' ? window.innerHeight : 0) / 2) * 0.02;
+const WORK_SLOTS = [
+  { cls: 'w1', sizes: '(min-width: 1024px) 40vw, (min-width: 600px) 50vw, 100vw' },
+  { cls: 'w2', sizes: '(min-width: 1024px) 50vw, (min-width: 600px) 50vw, 100vw' },
+  { cls: 'w3', sizes: '(min-width: 1024px) 66vw, 92vw' },
+];
 
-  const handleEnterSite = () => {
-    setIsAnimating(true);
-    // Navigate after animation completes - optimized timing
-    setTimeout(() => {
-      router.push(`/${lang}/homepage`);
-    }, 3500);
+function cleanText(t) {
+  return String(t || '').replace(/\s+/g, ' ').replace(/\s+,/g, ',').trim();
+}
+
+const COMPLETION = /^(?:fertigstellung|completion|completed)\s*:?\s*(\d{4})$/i;
+const YEAR_RANGE = /^(\d{4})\s*[-–]\s*(\d{4})$/;
+
+/**
+ * CMS hero slide -> view model. The CMS mixes client and year in free text
+ * ("Orbis SE , Fertigstellung 2025" / description "Fertigstellung  2025" /
+ * "2023- 2026"); split it into a client line and a localised year line.
+ */
+function heroSlideView(slide, heroCopy) {
+  const parts = [slide.subtitle, slide.description]
+    .flatMap((t) => String(t || '').split(','))
+    .map(cleanText)
+    .filter(Boolean);
+  let completed = null;
+  const years = [];
+  const rest = [];
+  parts.forEach((p) => {
+    const c = p.match(COMPLETION);
+    const r = p.match(YEAR_RANGE);
+    if (c) completed = c[1];
+    else if (r) years.push(`${r[1]}–${r[2]}`);
+    else if (/^\d{4}$/.test(p)) years.push(p);
+    else if (!rest.includes(p)) rest.push(p);
+  });
+  const title = cleanText(slide.title);
+  const client = rest.join(', ');
+  return {
+    id: String(slide.id ?? slide.image),
+    src: slide.image,
+    video: slide.video || null,
+    title,
+    client,
+    meta: [completed && fmt(heroCopy.completed, { year: completed }), ...years].filter(Boolean).join(' · '),
+    alt: [title, client].filter(Boolean).join(', ') || SITE.name,
   };
+}
+
+async function getHomepageConfig() {
+  try {
+    const config = await homepageAPI.getConfig();
+    return config && typeof config === 'object' ? config : {};
+  } catch {
+    return {};
+  }
+}
+
+export default async function HomePage({ params }) {
+  const { lang = 'de' } = await params;
+  // The layout already 404s unknown locales; bail out before any API calls.
+  if (!isValidLocale(lang)) notFound();
+
+  const copy = getUiCopy(lang);
+  const seo = getSeoCopy(lang);
+
+  const [config, list, servicesConfig, team] = await Promise.all([
+    getHomepageConfig(),
+    getProjectList(lang),
+    getServicesConfig(),
+    getTeam(lang),
+  ]);
+
+  // Runtime API failure: keep serving the last good ISR version.
+  if (list.error && !isBuildPhase()) throw new Error('Projects API unavailable');
+
+  // Hero carousel: the CMS hero slides with a real image (in CMS order);
+  // without any, the selected projects' lead photos.
+  const cmsSlides = (Array.isArray(config.heroSlides) ? config.heroSlides : [])
+    .filter((s) => s && s.image)
+    .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+
+  // Selected projects: CMS "featured" first, then the newest ones.
+  const featuredIds = (Array.isArray(config.featuredProjects) ? config.featuredProjects : []).map((p) => String(p.id));
+  const ordered = [
+    ...featuredIds.map((id) => list.projects.find((p) => p.id === id)).filter(Boolean),
+    ...list.projects.filter((p) => !featuredIds.includes(p.id)),
+  ];
+  const selected = await withCovers(ordered.slice(0, 3), lang);
+
+  const heroSlides = cmsSlides.length
+    ? cmsSlides.map((s) => heroSlideView(s, copy.home.hero))
+    : selected.filter((p) => p.cover).map((p) => ({
+      id: `p${p.id}`,
+      src: p.cover.src,
+      video: null,
+      title: p.title,
+      client: p.meta || '',
+      meta: '',
+      alt: p.cover.alt,
+      w: p.cover.w,
+      h: p.cover.h,
+    }));
+
+  const services = (servicesConfig?.services?.length ? servicesConfig.services : copy.services.fallback)
+    .filter((s) => s && s.title)
+    .map((s) => ({ id: String(s.id), title: cleanText(s.title), description: cleanText(s.description) }));
 
   return (
-    <div 
-      ref={containerRef}
-      className="min-h-screen relative overflow-hidden flex items-center justify-center"
-      style={{
-        backgroundImage: `
-          radial-gradient(ellipse at ${mousePosition.x}px ${mousePosition.y}px, 
-            rgba(255, 255, 255, 0.08) 0%, 
-            transparent 40%),
-          linear-gradient(135deg, 
-            #000000 0%, 
-            #1a1a1a 25%, 
-            #000000 50%, 
-            #1a1a1a 75%, 
-            #000000 100%)
-        `,
-        backgroundSize: '400% 400%',
-        backgroundColor: '#000000',
-        animation: 'gradientShift 15s ease infinite'
-      }}
-    >
-      <style jsx global>{`
-        @keyframes gradientShift {
-          0%, 100% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-        }
-        @keyframes shimmer {
-          0% { background-position: -200% center; }
-          100% { background-position: 200% center; }
-        }
-        @keyframes pulse {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.5; }
-        }
-      `}</style>
-
-      {/* Architectural grid overlay - represents precision and structure */}
-      <div 
-        className="absolute inset-0 opacity-20"
-        style={{
-          backgroundImage: `
-            linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px),
-            linear-gradient(rgba(255,255,255,0.08) 2px, transparent 2px),
-            linear-gradient(90deg, rgba(255,255,255,0.08) 2px, transparent 2px)
-          `,
-          backgroundSize: '50px 50px, 50px 50px, 100px 100px, 100px 100px',
-          transform: `perspective(1000px) rotateX(60deg) translateZ(${parallaxY}px)`,
-          transformOrigin: 'center center',
-          mixBlendMode: 'overlay'
-        }}
+    <main id="main">
+      <JsonLd
+        data={webPageGraph({
+          lang,
+          path: '',
+          name: seo.home.title,
+          description: seo.home.description,
+        })}
       />
-      
-      {/* Removed floating geometric shapes for cleaner look */}
-      
-      {/* Dynamic light beams - represents light in architecture */}
-      <div className="absolute inset-0 overflow-hidden">
-        {[...Array(3)].map((_, i) => (
-          <motion.div
-            key={`beam-${i}`}
-            className="absolute h-full"
-            style={{
-              width: '2px',
-              background: `linear-gradient(to bottom, 
-                transparent 0%, 
-                rgba(255, 255, 255, 0.6) 50%, 
-                transparent 100%)`,
-              left: `${30 + i * 20}%`,
-              filter: 'blur(1px)',
-            }}
-            animate={{
-              x: [-100, typeof window !== 'undefined' ? window.innerWidth : 1000],
-              opacity: [0, 0.3, 0.3, 0],
-            }}
-            transition={{
-              duration: 8,
-              delay: i * 2,
-              repeat: Infinity,
-              ease: "linear"
-            }}
-          />
-        ))}
-      </div>
-      
-      {/* Particles system - represents building materials */}
-      <div className="absolute inset-0 pointer-events-none">
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={`particle-${i}`}
-            className="absolute w-1 h-1 bg-white/30 rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [-20, 20],
-              x: [-10, 10],
-              opacity: [0, 0.5, 0],
-            }}
-            transition={{
-              duration: 3 + Math.random() * 2,
-              delay: Math.random() * 2,
-              repeat: Infinity,
-              repeatType: "reverse",
-            }}
-          />
-        ))}
-      </div>
 
-      {/* Advanced mouse follower with ripple effect */}
-      <AnimatePresence>
-        <motion.div
-          className="absolute pointer-events-none mix-blend-screen"
-          style={{
-            width: '400px',
-            height: '400px',
-            left: mousePosition.x - 200,
-            top: mousePosition.y - 200,
-          }}
-          transition={{ type: "spring", damping: 25, stiffness: 150 }}
-        >
-          <div 
-            className="w-full h-full rounded-full"
-            style={{
-              background: `
-                radial-gradient(circle at center, 
-                  rgba(255, 255, 255, 0.15) 0%, 
-                  rgba(255, 255, 255, 0.08) 30%,
-                  transparent 70%)
-              `,
-              filter: 'blur(2px)',
-              mixBlendMode: 'screen'
-            }}
-          />
-          {/* Inner glow */}
-          <div 
-            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full"
-            style={{
-              background: 'radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 60%)',
-              animation: 'pulse 2s ease-in-out infinite',
-              boxShadow: '0 0 40px rgba(255,255,255,0.1)'
-            }}
-          />
-        </motion.div>
-      </AnimatePresence>
+      <EntryOverlay copy={copy.entry} typo={copy.typo} brand={SITE.name} />
 
-      {/* Main content */}
-      <motion.div 
-        className="relative z-10 text-center px-4 sm:px-6 lg:px-8"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 0.5 }}
-      >
+      {heroSlides.length > 0 && (
+        <HeroSlider
+          slides={heroSlides}
+          copy={copy.home.hero}
+          workHref={`/${lang}/projekte`}
+          contactHref={`/${lang}/kontakt`}
+        />
+      )}
 
-        {/* Enhanced logo design with architectural elements */}
-        <motion.div 
-          className="mb-20 relative"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ 
-            opacity: isAnimating ? 0 : 1, 
-            y: isAnimating ? -180 : 0,
-            scale: isAnimating ? 0.7 : 1,
-            filter: isAnimating ? "blur(2px)" : "blur(0px)"
-          }}
-          transition={{ 
-            duration: isAnimating ? 1.2 : 0.8, 
-            delay: isAnimating ? 0.1 : 1.2,
-            ease: isAnimating ? [0.76, 0, 0.24, 1] : "easeOut"
-          }}
-          onMouseEnter={() => setIsHovering(true)}
-          onMouseLeave={() => setIsHovering(false)}
-        >
-          {/* Architectural frame elements */}
-          <motion.div 
-            className="absolute -top-20 -left-20 w-40 h-40 border-l-2 border-t-2 border-white/10"
-            animate={{
-              opacity: isHovering ? 0.3 : 0.1,
-              scale: isHovering ? 1.1 : 1,
-            }}
-            transition={{ duration: 0.6 }}
-          />
-          <motion.div 
-            className="absolute -bottom-20 -right-20 w-40 h-40 border-r-2 border-b-2 border-white/10"
-            animate={{
-              opacity: isHovering ? 0.3 : 0.1,
-              scale: isHovering ? 1.1 : 1,
-            }}
-            transition={{ duration: 0.6 }}
-          />
-          {/* Enhanced typography with dynamic effects */}
-          <div className="text-center mb-12">
-            <div className="relative inline-block group">
-              <motion.h1 
-                className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-normal text-white tracking-[0.3em] sm:tracking-[0.4em] mb-1 relative z-10"
-                style={{
-                  fontFamily: "'Times New Roman', Times, serif",
-                  fontWeight: 400,
-                  textShadow: '0 0 30px rgba(255,255,255,0.1)',
-                }}
-              >
-                {/* Split text for individual letter animations */}
-                {['b','r','a','u','n',' ','&',' ','e','y','e','r'].map((letter, i) => (
-                  <motion.span
-                    key={i}
-                    className="inline-block"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{
-                      duration: 0.5,
-                      delay: 1.5 + (i * 0.05),
-                      ease: "easeOut"
-                    }}
-                    whileHover={{
-                      y: -5,
-                      textShadow: '0 0 20px rgba(255,255,255,0.8)',
-                      transition: { duration: 0.2 }
-                    }}
-                  >
-                    {letter === ' ' ? '\u00A0' : letter}
-                  </motion.span>
-                ))}
-              </motion.h1>
-              
-              {/* Dynamic underline with gradient - reduced gap */}
-              <motion.div 
-                className="absolute -bottom-0.5 h-[2px] overflow-hidden"
-                style={{
-                  left: '-10%',
-                  right: '-10%',
-                  width: '120%',
-                }}
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ duration: 1, delay: 2.2, ease: "easeOut" }}
-              >
-                <div 
-                  className="w-full h-full"
-                  style={{
-                    backgroundImage: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.8), rgba(255,255,255,1), rgba(255,255,255,0.8), transparent)',
-                    backgroundSize: '200% 100%',
-                    animation: 'shimmer 3s infinite linear',
-                    boxShadow: '0 0 10px rgba(255,255,255,0.3)'
-                  }}
-                />
-              </motion.div>
+      <section className="wrap cols intro has-bt" aria-labelledby="h-intro">
+        <BackdropType variant="intro" words={copy.typo} />
+        <h1 className="t-h1" id="h-intro">{seo.home.h1}</h1>
+        <div className="intro-side">
+          <p>{copy.home.intro}</p>
+          <p className="t-meta">{copy.home.since}</p>
+        </div>
+      </section>
+
+      {selected.length > 0 && (
+        <section className="section has-bt" aria-labelledby="h-proj">
+          <BackdropType variant="projects" words={copy.typo} />
+          <div className="wrap">
+            <div className="cols sec-head">
+              <h2 className="t-h2" id="h-proj">{copy.home.selected}</h2>
+              <Link className="link sec-link" href={`/${lang}/projekte`}>{copy.home.allProjects}</Link>
             </div>
-            
-            <motion.p 
-              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-normal text-white/90 tracking-[0.46em] sm:tracking-[0.52em] mt-2 relative"
-              style={{
-                fontFamily: "'Times New Roman', Times, serif",
-                fontWeight: 400,
-                marginLeft: '0.2em',
-              }}
-              initial={{ opacity: 0, letterSpacing: '0.1em' }}
-              animate={{ opacity: 1, letterSpacing: '0.52em' }}
-              transition={{ duration: 1, delay: 2.5 }}
-            >
-              architekten
-            </motion.p>
+            <div className="cols works">
+              {selected.map((p, i) => (
+                <article key={p.id} className={`work ${WORK_SLOTS[i].cls}${p.cover && p.cover.w < p.cover.h ? ' is-portrait' : ''}`}>
+                  <Link href={p.href}>
+                    {p.cover && (
+                      <span className="ph">
+                        <Photo src={p.cover.src} alt={p.cover.alt} width={p.cover.w} height={p.cover.h} sizes={WORK_SLOTS[i].sizes} className="w-full h-auto" />
+                      </span>
+                    )}
+                    <h3 className="t-h3">{p.title}</h3>
+                    {p.meta && <p className="t-meta">{p.meta}</p>}
+                  </Link>
+                </article>
+              ))}
+            </div>
           </div>
-          
-          {/* Innovative split design element */}
-          <motion.div 
-            className="relative flex items-center justify-center mt-16 mb-8"
-            initial={{ opacity: 0 }}
-            animate={{ 
-              opacity: isAnimating ? 0 : 1,
-              y: isAnimating ? (typeof window !== 'undefined' ? -window.innerHeight/2 + 32 : -300) : 0,
-            }}
-            transition={{
-              duration: isAnimating ? 1.4 : 0.8,
-              delay: isAnimating ? 0.3 : 2.8,
-              ease: isAnimating ? [0.87, 0, 0.13, 1] : "easeOut"
-            }}
-          >
-            {/* Dual concept visualization with innovative layout */}
-            <div className="flex items-center gap-8 relative">
-              {/* Historic Architecture Side */}
-              <motion.div 
-                className="relative group"
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.3 }}
-              >
-                <motion.span 
-                  className="text-base sm:text-lg md:text-xl font-normal text-white/80 tracking-[0.25em] relative z-10"
-                  style={{
-                    fontFamily: "'Times New Roman', Times, serif",
-                    fontWeight: 400,
-                  }}
-                >
-                  architektur
-                </motion.span>
-                {/* Historic pattern overlay */}
-                <div 
-                  className="absolute -inset-4 opacity-0 group-hover:opacity-20 transition-opacity duration-500"
-                  style={{
-                    backgroundImage: `
-                      repeating-linear-gradient(45deg, 
-                        transparent, 
-                        transparent 10px, 
-                        rgba(255,255,255,0.1) 10px, 
-                        rgba(255,255,255,0.1) 20px)
-                    `,
-                  }}
-                />
-              </motion.div>
-              
-              {/* Center divider - architectural column */}
-              <motion.div 
-                className="relative h-20 w-[2px] bg-gradient-to-b from-transparent via-white/40 to-transparent"
-                animate={{
-                  scaleY: [1, 1.2, 1],
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-              />
-              
-              {/* Modern Design Side */}
-              <motion.div 
-                className="relative group"
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.3 }}
-              >
-                <motion.span 
-                  className="text-base sm:text-lg md:text-xl font-normal text-white/80 tracking-[0.25em] relative z-10"
-                  style={{
-                    fontFamily: "'Times New Roman', Times, serif",
-                    fontWeight: 400,
-                  }}
-                >
-                  design
-                </motion.span>
-                {/* Modern geometric overlay */}
-                <motion.div 
-                  className="absolute -inset-4 opacity-0 group-hover:opacity-40 transition-opacity duration-500"
-                  animate={{
-                    rotate: [0, 360],
-                  }}
-                  transition={{
-                    duration: 20,
-                    repeat: Infinity,
-                    ease: "linear"
-                  }}
-                >
-                  <div 
-                    className="w-full h-full"
-                    style={{
-                      background: 'conic-gradient(from 0deg, transparent, rgba(255, 255, 255, 0.3), transparent)',
-                      filter: 'blur(1px)'
-                    }}
-                  />
-                </motion.div>
-              </motion.div>
+        </section>
+      )}
+
+      {services.length > 0 && (
+        <section className="section has-bt" aria-labelledby="h-srv">
+          <BackdropType variant="services" words={copy.typo} />
+          <div className="wrap cols">
+            <div className="srv-intro">
+              <h2 className="t-h2" id="h-srv">{copy.home.services}</h2>
+              <p>{copy.home.servicesIntro}</p>
+              <Link className="link" href={`/${lang}/leistungen`}>{copy.home.servicesMore}</Link>
             </div>
-          </motion.div>
-        </motion.div>
+            <ul className="srv-list">
+              {services.map((s) => (
+                <li key={s.id}>
+                  <Link href={`/${lang}/leistungen#leistung-${s.id}`}>
+                    <h3>{s.title}</h3>
+                    {s.description && <p>{s.description}</p>}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      )}
 
-        {/* Revolutionary Enter button with liquid metal effect */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ 
-            opacity: isAnimating ? 0 : 1, 
-            y: isAnimating ? 80 : 0,
-            scale: isAnimating ? 0.6 : 1,
-            filter: isAnimating ? "blur(8px)" : "blur(0px)"
-          }}
-          transition={{ 
-            duration: isAnimating ? 1.0 : 0.8, 
-            delay: isAnimating ? 0 : 3.5,
-            ease: isAnimating ? [0.76, 0, 0.24, 1] : "easeOut"
-          }}
-          className="relative mt-20"
-        >
-          <motion.button
-            onClick={handleEnterSite}
-            className="group relative px-12 sm:px-16 py-2 sm:py-3 bg-transparent text-white text-xs tracking-[0.35em] font-normal transition-all duration-700"
-            style={{
-              fontFamily: "'Times New Roman', Times, serif",
-              fontWeight: 400,
-            }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            {/* Background gradient effect */}
-            <motion.div
-              className="absolute inset-0 rounded-sm opacity-0 group-hover:opacity-100 transition-opacity duration-700"
-              style={{
-                background: 'linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05))',
-                filter: 'blur(0px)',
-              }}
-            />
-            
-            {/* Border with animation */}
-            <motion.div
-              className="absolute inset-0 rounded-sm"
-              style={{
-                border: '1px solid rgba(255,255,255,0.3)',
-              }}
-              animate={{
-                borderColor: ['rgba(255,255,255,0.3)', 'rgba(255,255,255,0.5)', 'rgba(255,255,255,0.3)'],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            />
-            
-            {/* Corner accents */}
-            <div className="absolute top-0 left-0 w-3 h-3 border-t border-l border-white/60" />
-            <div className="absolute top-0 right-0 w-3 h-3 border-t border-r border-white/60" />
-            <div className="absolute bottom-0 left-0 w-3 h-3 border-b border-l border-white/60" />
-            <div className="absolute bottom-0 right-0 w-3 h-3 border-b border-r border-white/60" />
-            
-            {/* Text */}
-            <span className="relative z-10">ENTER</span>
-            
-            {/* Hover effect overlay */}
-            <motion.div
-              className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-700"
-              style={{
-                mixBlendMode: 'overlay',
-              }}
-            />
-          </motion.button>
-        </motion.div>
-      </motion.div>
+      <section className="section about-band has-bt" aria-labelledby="h-about">
+        <BackdropType variant="office" words={copy.typo} tone="putz" />
+        <div className="wrap cols">
+          <h2 className="t-h2" id="h-about">{copy.home.office}</h2>
+          <div className="about-body">
+            <p className="t-lead">{copy.home.officeLead}</p>
+            {team.length > 0 && (
+              <ul className="team-list" aria-label={copy.home.team}>
+                {team.map((m) => (
+                  <li key={m.id}>
+                    <span className="name">{m.name}</span>
+                    {m.position && <span className="role">{m.position}</span>}
+                  </li>
+                ))}
+              </ul>
+            )}
+            <p><Link className="link" href={`/${lang}/uber-uns`}>{copy.home.officeMore}</Link></p>
+          </div>
+        </div>
+      </section>
 
-      {/* Full screen page skeleton with gradual color transition */}
-      <AnimatePresence>
-        {isAnimating && (
-          <motion.div
-            className="fixed inset-0 z-50"
-            initial={{ 
-              opacity: 0,
-              backgroundColor: "rgba(17, 24, 39, 1)" // dark gray-900
-            }}
-            animate={{ 
-              opacity: 1,
-              backgroundColor: "rgba(249, 250, 251, 1)" // light gray background like main page
-            }}
-            transition={{
-              opacity: { duration: 1.0, delay: 1.5, ease: "easeOut" },
-              backgroundColor: { duration: 2.5, delay: 2.0, ease: [0.87, 0, 0.13, 1] }
-            }}
-          >
-            <div className="h-full w-full flex flex-col">
-              {/* Real navbar structure that the white bar transforms into */}
-              <motion.header 
-                className="h-16 lg:h-20 w-full fixed top-0 left-0 right-0 z-100"
-                initial={{ 
-                  opacity: 0,
-                  backgroundColor: "rgba(255, 255, 255, 1)" // Start as white (the flying bar)
-                }}
-                animate={{ 
-                  opacity: 1,
-                  backgroundColor: "rgba(255, 255, 255, 1)" // Stay white like real navbar
-                }}
-                transition={{
-                  opacity: { duration: 0.5, delay: 1.2, ease: "easeOut" },
-                  backgroundColor: { duration: 1.2, delay: 1.8, ease: [0.25, 0.1, 0.25, 1] }
-                }}
-              >
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                  <div className="flex items-center justify-between h-16 lg:h-20">
-                    {/* Logo placeholder - matching the actual header design */}
-                    <motion.div 
-                      className="group transition-smooth relative"
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{
-                        duration: 0.6,
-                        delay: 1.8,
-                        ease: "easeOut"
-                      }}
-                    >
-                      <div className="bg-black px-6 lg:px-8 text-center relative z-10 mt-3 mb-3" style={{ paddingTop: '12px', paddingBottom: '18px', marginBottom: '-12px' }}>
-                        <div className="relative inline-block">
-                          <div 
-                            className="text-sm lg:text-base font-normal text-white tracking-[0.3em] lg:tracking-[0.4em] mb-0"
-                            style={{
-                              fontFamily: "'Times New Roman', Times, serif",
-                              fontWeight: 400,
-                            }}
-                          >
-                            braun & eyer
-                          </div>
-                          {/* Underline - extended */}
-                          <div 
-                            className="absolute -bottom-0 h-[1px] bg-white"
-                            style={{
-                              left: '-5%',
-                              right: '-5%',
-                              width: '110%',
-                            }}
-                          />
-                        </div>
-                        <div 
-                          className="text-sm lg:text-base font-normal text-white tracking-[0.38em] lg:tracking-[0.52em] mt-0"
-                          style={{
-                            fontFamily: "'Times New Roman', Times, serif",
-                            fontWeight: 400,
-                            marginLeft: '0.2em',
-                          }}
-                        >
-                          architekten
-                        </div>
-                      </div>
-                    </motion.div>
-
-                    {/* Navigation placeholder */}
-                    <motion.div 
-                      className="hidden lg:flex items-center space-x-8"
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{
-                        duration: 0.6,
-                        delay: 2.0,
-                        ease: "easeOut"
-                      }}
-                    >
-                      {['Startseite', 'Projekte', 'Über uns', 'Leistungen', 'Kontakt'].map((item, index) => (
-                        <motion.div 
-                          key={item}
-                          className="h-3 bg-gray-300 rounded"
-                          style={{ width: `${item.length * 8}px` }}
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          transition={{
-                            duration: 0.3,
-                            delay: 2.2 + (index * 0.1),
-                            ease: "easeOut"
-                          }}
-                        />
-                      ))}
-                    </motion.div>
-                  </div>
-                </div>
-              </motion.header>
-              
-              {/* Content skeleton covering full screen with gradual appearance */}
-              <div className="flex-1 w-full pt-16 lg:pt-20 p-8">
-                <motion.div 
-                  className="space-y-6 max-w-7xl mx-auto"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{
-                    duration: 0.8,
-                    delay: 2.2,
-                    ease: "easeOut"
-                  }}
-                >
-                  {/* Hero section skeleton */}
-                  <div className="space-y-4">
-                    <motion.div 
-                      className="h-8 rounded w-2/3"
-                      initial={{ backgroundColor: "rgba(75, 85, 99, 0.3)" }}
-                      animate={{ backgroundColor: "rgba(209, 213, 219, 1)" }}
-                      transition={{ duration: 1, delay: 2.5 }}
-                    />
-                    <motion.div 
-                      className="h-6 rounded w-1/2"
-                      initial={{ backgroundColor: "rgba(75, 85, 99, 0.3)" }}
-                      animate={{ backgroundColor: "rgba(209, 213, 219, 1)" }}
-                      transition={{ duration: 1, delay: 2.7 }}
-                    />
-                  </div>
-                  
-                  {/* Hero image skeleton */}
-                  <motion.div 
-                    className="h-64 md:h-96 rounded-lg w-full"
-                    initial={{ backgroundColor: "rgba(75, 85, 99, 0.3)" }}
-                    animate={{ backgroundColor: "rgba(209, 213, 219, 1)" }}
-                    transition={{ duration: 1, delay: 2.9 }}
-                  />
-                  
-                  {/* Content grid skeleton */}
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
-                    {[1, 2, 3].map((i) => (
-                      <motion.div 
-                        key={i}
-                        className="h-32 rounded"
-                        initial={{ backgroundColor: "rgba(75, 85, 99, 0.3)" }}
-                        animate={{ backgroundColor: "rgba(209, 213, 219, 1)" }}
-                        transition={{ duration: 1, delay: 3.0 + (i * 0.1) }}
-                      />
-                    ))}
-                  </div>
-                </motion.div>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
+      <section className="section wrap cols contact-cta has-bt" aria-labelledby="h-contact">
+        <BackdropType variant="cta" words={copy.typo} />
+        <div className="c-left">
+          <h2 className="t-h2" id="h-contact">{copy.home.contactTitle}</h2>
+          <p>{copy.home.contactText}</p>
+        </div>
+        <div className="c-right">
+          <a className="phone" href={`tel:${SITE.phone.e164}`}>{SITE.phone.national}</a>
+          <a className="link" href={`mailto:${SITE.email}`}>{SITE.email}</a>
+          <address>{SITE.address.street}, {SITE.address.postalCode} {SITE.address.city}</address>
+          <Link className="btn" href={`/${lang}/kontakt`}>{copy.home.contactButton}</Link>
+        </div>
+      </section>
+    </main>
   );
-};
-
-export default Landing;
+}

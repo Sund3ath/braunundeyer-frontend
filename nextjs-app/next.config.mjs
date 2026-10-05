@@ -97,10 +97,14 @@ const nextConfig = {
   },
   async redirects() {
     return [
+      // The homepage is served at /{lang}; the old /{lang}/homepage URL
+      // redirects permanently (308) so links and rankings consolidate.
+      // "/" itself is redirected by middleware.js (308 to /de, or 307 to a
+      // browser-negotiated locale).
       {
-        source: '/',
-        destination: '/de',
-        permanent: false,
+        source: '/:lang(de|en|fr|it|es|pt)/homepage',
+        destination: '/:lang',
+        permanent: true,
       },
     ];
   },

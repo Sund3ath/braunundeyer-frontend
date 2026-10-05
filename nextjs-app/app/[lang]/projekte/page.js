@@ -1,106 +1,92 @@
-import { getAllProjects } from '@/lib/api/projects';
-import ProjectGalleryClient from './ProjectGalleryClient';
-import { getNavigationSettings } from '@/lib/navigation';
+import Link from 'next/link';
+import { staticPageMetadata } from '@/lib/seo';
+import { getSeoCopy } from '@/lib/seo-copy';
+import { getUiCopy } from '@/lib/ui-copy';
+import { webPageGraph, simpleBreadcrumbs } from '@/lib/schema';
+import { getProjectList, withCovers, KNOWN_CATEGORIES, isBuildPhase } from '@/lib/project-data';
+import JsonLd from '@/components/JsonLd';
+import PageHead from '@/components/site/PageHead';
+import BackdropType from '@/components/ui/BackdropType';
+import ProjectIndex from '@/components/projects/ProjectIndex';
 
-// Force dynamic rendering with ISR (revalidate every 60 seconds)
+// ISR: regenerate at most every 60 seconds.
 export const revalidate = 60;
 
-// This is a Server Component that fetches data
-export default async function ProjectsPage({ params }) {
+export async function generateMetadata({ params }) {
   const { lang } = await params;
-  
-  let projects = [];
-  let error = null;
-  let dict = {};
-  
-  // Fetch navigation settings
-  const navigationSettings = await getNavigationSettings(lang);
-  
-  // Load translations
-  try {
-    const [homepageDict, translationDict] = await Promise.all([
-      import(`@/lib/locales/${lang}/homepage.json`),
-      import(`@/lib/locales/${lang}/translation.json`)
-    ]);
-    dict = {
-      ...homepageDict.default,
-      translation: translationDict.default
-    };
-  } catch (error) {
-    console.error('Failed to load translations:', error);
-  }
-  
-  try {
-    // Fetch projects from CMS API with language support
-    projects = await getAllProjects(lang);
-    console.log(`Fetched ${projects.length} projects for language: ${lang}`);
-  } catch (err) {
-    console.error('Error fetching projects from CMS:', err);
-    error = err.message;
-    
-    // Fallback to demo data if API fails
-    projects = [
-      {
-        id: 1,
-        name: "Moderne Stadtvilla Saarbrücken",
-        title: "Moderne Stadtvilla Saarbrücken",
-        location: "Saarbrücken-St. Johann",
-        year: 2023,
-        category: "Neubau",
-        image: "/uploads/placeholder.png",
-        description: "Zeitgenössische Villa mit klaren Linien, nachhaltigen Materialien und panoramischem Stadtblick.",
-        area: "420 m²",
-        status: "Fertiggestellt"
-      },
-      {
-        id: 2,
-        name: "Altbausanierung Mettlach",
-        title: "Altbausanierung Mettlach",
-        location: "Mettlach",
-        year: 2022,
-        category: "Altbausanierung",
-        image: "/uploads/sarnierung_alt_neu.png",
-        description: "Behutsame Sanierung eines denkmalgeschützten Fachwerkhauses unter Erhaltung historischer Details.",
-        area: "280 m²",
-        status: "Fertiggestellt"
-      },
-      {
-        id: 3,
-        name: "Bürogebäude Luxemburg",
-        title: "Bürogebäude Luxemburg",
-        location: "Luxemburg-Stadt",
-        year: 2023,
-        category: "Neubau",
-        image: "/uploads/alt_neu_ungestaltung.png",
-        description: "Modernes Bürogebäude mit flexiblen Arbeitsbereichen und nachhaltiger Energieversorgung.",
-        area: "1.200 m²",
-        status: "In Bearbeitung"
-      },
-      {
-        id: 4,
-        name: "Innenarchitektur Restaurant",
-        title: "Innenarchitektur Restaurant",
-        location: "Saarlouis",
-        year: 2023,
-        category: "Innenarchitektur",
-        image: "/uploads/innenarchitektur.png",
-        description: "Komplette Neugestaltung eines gehobenen Restaurants mit zeitgenössischem Design.",
-        area: "350 m²",
-        status: "Fertiggestellt"
-      }
-    ];
-  }
+  return staticPageMetadata('projects', lang);
+}
 
-  // Ensure projects is always an array
-  const projectsArray = Array.isArray(projects) ? projects : [];
-  
+export default async function ProjectsPage({ params }) {
+  const { lang = 'de' } = await params;
+  const copy = getUiCopy(lang);
+  const seo = getSeoCopy(lang);
+
+  const { projects: list, error } = await getProjectList(lang);
+  // Runtime API failure: keep serving the last good ISR version.
+  if (error && !isBuildPhase()) throw new Error('Projects API unavailable');
+  const projects = await withCovers(list, lang);
+
+  // Category facets in office order, then any other CMS category.
+  const counts = new Map();
+  projects.forEach((p) => {
+    if (!p.categoryKey) return;
+    const c = counts.get(p.categoryKey) || { key: p.categoryKey, label: p.categoryLabel, count: 0 };
+    c.count += 1;
+    counts.set(p.categoryKey, c);
+  });
+  const categories = [
+    ...KNOWN_CATEGORIES.filter((k) => counts.has(k)).map((k) => counts.get(k)),
+    ...[...counts.values()].filter((c) => !KNOWN_CATEGORIES.includes(c.key)),
+  ];
+
+  const items = projects.map((p) => ({
+    id: p.id,
+    href: p.href,
+    title: p.title,
+    meta: p.meta,
+    categoryKey: p.categoryKey,
+    categoryLabel: p.categoryLabel,
+    cover: p.cover ? { src: p.cover.src, w: p.cover.w, h: p.cover.h, alt: p.cover.alt } : null,
+  }));
+
   return (
-    <ProjectGalleryClient 
-      initialProjects={projectsArray}
-      lang={lang}
-      apiError={error}
-      navigationSettings={navigationSettings}
-      dict={dict}
-    />
+    <main id="main">
+      <JsonLd
+        data={webPageGraph({
+          lang,
+          path: '/projekte',
+          type: 'CollectionPage',
+          name: seo.breadcrumb.projects,
+          description: seo.projects.description,
+          breadcrumbs: simpleBreadcrumbs(lang, 'projects', '/projekte'),
+        })}
+      />
+      <div className="has-bt">
+        <BackdropType variant="pageProjects" words={copy.typo} />
+      <PageHead
+        title={seo.breadcrumb.projects}
+        aside={copy.projects.intro}
+        crumbs={[{ href: `/${lang}`, label: seo.breadcrumb.home }, { label: seo.breadcrumb.projects }]}
+        crumbsLabel={copy.common.breadcrumbs}
+      />
+      <div className="wrap">
+        {error && items.length === 0 ? (
+          <div className="g-empty" role="alert">
+            <h2 className="t-h3">{copy.projects.error}</h2>
+            <p><a className="btn btn--ghost" href={`/${lang}/projekte`}>{copy.projects.reload}</a></p>
+          </div>
+        ) : items.length === 0 ? (
+          <p className="g-empty">{copy.projects.empty}</p>
+        ) : (
+          <ProjectIndex projects={items} categories={categories} copy={copy.projects} />
+        )}
+        <div className="g-more">
+          <p className="t-body">{copy.projects.galleryHint}</p>
+          <Link className="link" href={`/${lang}/gallery`}>{copy.projects.toGallery}</Link>
+        </div>
+      </div>
+      </div>
+    </main>
   );
 }

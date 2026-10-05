@@ -35,9 +35,11 @@ const processImageUrl = (url) => {
 };
 
 /**
- * Fetch all projects from the API with optional language support
+ * Fetch all projects from the API with optional language support.
+ * Returns [] on failure; pass { throwOnError: true } to get an exception
+ * instead (pages use it to show an error state rather than "no projects").
  */
-export async function getAllProjects(language = 'de') {
+export async function getAllProjects(language = 'de', { throwOnError = false } = {}) {
   try {
     // Use the translation endpoint for non-German languages
     const endpoint = language && language !== 'de' 
@@ -56,6 +58,7 @@ export async function getAllProjects(language = 'de') {
 
     if (!response.ok) {
       console.error('Failed to fetch projects:', response.status);
+      if (throwOnError) throw new Error(`Projects API responded ${response.status}`);
       return [];
     }
 
@@ -93,14 +96,20 @@ export async function getAllProjects(language = 'de') {
     return processedProjects;
   } catch (error) {
     console.error('Error fetching projects:', error);
+    if (throwOnError) throw error;
     return [];
   }
 }
 
 /**
- * Fetch a single project by ID with optional language support
+ * Fetch a single project by ID with optional language support.
+ *
+ * Returns null when the project does not exist (HTTP 404). By default any other
+ * failure also returns null (legacy behaviour); pass { throwOnError: true } to
+ * get an exception instead, so a page can answer 404 only for projects that
+ * really don't exist and never cache a 404 because the API was briefly down.
  */
-export async function getProjectById(id, language = 'de') {
+export async function getProjectById(id, language = 'de', { throwOnError = false } = {}) {
   try {
     // First fetch the base project
     const response = await fetch(`${API_BASE_URL}/api/projects/${id}`, {
@@ -112,7 +121,9 @@ export async function getProjectById(id, language = 'de') {
     });
 
     if (!response.ok) {
+      if (response.status === 404) return null;
       console.error('Failed to fetch project:', response.status);
+      if (throwOnError) throw new Error(`Project API responded ${response.status}`);
       return null;
     }
 
@@ -178,6 +189,7 @@ export async function getProjectById(id, language = 'de') {
     };
   } catch (error) {
     console.error('Error fetching project:', error);
+    if (throwOnError) throw error;
     return null;
   }
 }
