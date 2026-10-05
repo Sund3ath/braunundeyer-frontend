@@ -49,7 +49,7 @@ docker compose -f docker-compose.dev.yml logs -f [service-name]
 
 ### React App (Original)
 ```bash
-cd /                          # Root directory
+# from repo root
 npm start                     # Dev server on port 4028  
 npm run build                 # Build with sitemap to /build
 npm run generate-sitemap      # Generate sitemap.xml
@@ -76,10 +76,13 @@ npm run preview               # Preview production build
 ### Backend API
 ```bash
 cd backend
-npm start                     # Production server on port 3001
+npm start                     # node src/server.js, port 3001
 npm run dev                   # Development with nodemon
-npm run migrate               # Run database migrations
+npm run migrate               # node src/utils/migrate.js
+npm test                      # Jest configured, but no test files exist yet
 ```
+
+No test suite exists for any app (only `npm run test:seo` at root). Admin and Next.js have no `test` script, yet `.github/workflows/deploy.yml` runs `npm test` in both, so that CI job will fail. Verify UI changes by building the app and checking the route. `make dev` / `make down-dev` wrap the dev compose file (see `Makefile`). `AGENTS.md` holds style conventions (2-space indent, semicolons, single quotes).
 
 ## High-Level Architecture
 
@@ -95,6 +98,9 @@ npm run migrate               # Run database migrations
                      │   Database  │
                      └─────────────┘
 ```
+
+### Which app is current
+`nextjs-app/` is the live public site; the root Vite app (`src/`, `build/`) is legacy. Only touch it if a task explicitly targets it. Backend is ESM (`import`), starts from `backend/src/server.js`; routes live in `backend/src/routes/*.routes.js` and are mounted there. Mount order matters: `/api/content/footer` and `/api/content/legal` are registered before the generic `/api/content`, and `servicesRoutes` is mounted on bare `/api` last.
 
 ### Database Schema (SQLite)
 Key tables and relationships:
@@ -117,8 +123,15 @@ Key tables and relationships:
 /api/content/{key}            # CMS content (services, footer, navigation)
 /api/analytics                # Dashboard metrics and tracking
 /api/translate                # DeepSeek AI translation service
+/api/ai                       # AI content optimization
+/api/contact                  # Contact form (see EMAIL_SETUP.md)
+/api/rebuild                  # Triggers Next.js container rebuild (see below)
+/api/settings, /api/project-translations
 /api/services                 # Service categories and process steps
 ```
+
+### Content-driven rebuilds
+The Next.js site is statically/ISR-rendered from backend data. `backend/src/routes/rebuild.routes.js` shells out to `cd /home/braunundeyer-frontend && docker compose -f docker-compose.prod-nginx.yml up -d --build nextjs-app` (rate-limited to 1/min, queued). It only works on the production host, not locally.
 
 ### Authentication Flow
 1. Login at `/api/auth/login` returns JWT token
@@ -138,7 +151,7 @@ Key tables and relationships:
 ### App Router Layout
 ```
 app/
-  [lang]/                     # Language parameter (de/en/fr/it/es)
+  [lang]/                     # Language parameter (de/en/fr/it/es/pt)
     layout.js                 # Root layout with providers
     homepage/                 # Main landing page
       page.js                 # Server component with data fetching
@@ -148,12 +161,16 @@ app/
     leistungen/               # Services page
     uber-uns/                 # About page
     kontakt/                  # Contact page
+    gallery/
     impressum/                # Legal information (German requirement)
     datenschutz/              # Privacy policy (GDPR)
   api/                        # API routes
     analytics/                # Analytics endpoints
     images/                   # Image proxy routes
 ```
+
+### i18n
+Locales are `de` (default), `en`, `fr`, `it`, `es`, `pt`. `middleware.js` redirects any path without a locale prefix (Accept-Language detection) and skips `api`, `_next`, `cms`, and anything with a file extension. Dictionaries are in `lib/locales/<lang>/`, loaded via `lib/getDictionary.js` / `lib/dictionaries.js`; route/slug helpers are in `lib/navigation.js`. When adding a language or string, update every locale folder (and the `locales` array in `middleware.js`). Pages were recently reworked into client components, so data fetching may live in `*Client.js` or `lib/api/`.
 
 ### Key Implementation Patterns
 
@@ -331,7 +348,7 @@ npm run test:seo              # Validates meta tags and structured data
 - Desktop: 1024px+
 
 ### Language Testing
-- Verify all 5 languages render correctly
+- Verify all 6 languages render correctly
 - Check URL routing with language prefixes
 - Validate translation keys exist
 
