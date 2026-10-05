@@ -5,7 +5,7 @@ import db from '../config/db-simple.js';
 const router = express.Router();
 
 // Get services configuration
-router.get('/content/services', authenticate, (req, res) => {
+router.get('/content/services', (req, res) => {
   try {
     const stmt = db.prepare('SELECT * FROM content WHERE key = ? AND language = ?');
     const content = stmt.get('services', 'de');
@@ -58,8 +58,45 @@ router.get('/content/services', authenticate, (req, res) => {
   }
 });
 
+// Update services configuration
+router.post('/content/services', authenticate, authorize(['admin']), (req, res) => {
+  try {
+    const { key, value, language = 'de' } = req.body;
+    
+    if (!key || !value) {
+      return res.status(400).json({ error: 'Key and value are required' });
+    }
+
+    // Check if content exists
+    const checkStmt = db.prepare('SELECT * FROM content WHERE key = ? AND language = ?');
+    const existing = checkStmt.get(key, language);
+
+    if (existing) {
+      // Update existing content
+      const updateStmt = db.prepare(`
+        UPDATE content 
+        SET value = ?, updated_at = CURRENT_TIMESTAMP 
+        WHERE key = ? AND language = ?
+      `);
+      updateStmt.run(value, key, language);
+    } else {
+      // Insert new content
+      const insertStmt = db.prepare(`
+        INSERT INTO content (key, value, language, created_at, updated_at)
+        VALUES (?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+      `);
+      insertStmt.run(key, value, language);
+    }
+
+    res.json({ success: true, message: 'Services configuration updated successfully' });
+  } catch (error) {
+    console.error('Error updating services:', error);
+    res.status(500).json({ error: 'Failed to update services configuration' });
+  }
+});
+
 // Get contact settings
-router.get('/content/contact-settings', authenticate, (req, res) => {
+router.get('/content/contact-settings', (req, res) => {
   try {
     const stmt = db.prepare('SELECT * FROM content WHERE key = ? AND language = ?');
     const content = stmt.get('contact-settings', 'de');
@@ -129,6 +166,43 @@ router.get('/content/contact-settings', authenticate, (req, res) => {
   } catch (error) {
     console.error('Error fetching contact settings:', error);
     res.status(500).json({ error: 'Failed to fetch contact settings' });
+  }
+});
+
+// Update contact settings
+router.post('/content/contact-settings', authenticate, authorize(['admin']), (req, res) => {
+  try {
+    const { key, value, language = 'de' } = req.body;
+    
+    if (!key || !value) {
+      return res.status(400).json({ error: 'Key and value are required' });
+    }
+
+    // Check if content exists
+    const checkStmt = db.prepare('SELECT * FROM content WHERE key = ? AND language = ?');
+    const existing = checkStmt.get(key, language);
+
+    if (existing) {
+      // Update existing content
+      const updateStmt = db.prepare(`
+        UPDATE content 
+        SET value = ?, updated_at = CURRENT_TIMESTAMP 
+        WHERE key = ? AND language = ?
+      `);
+      updateStmt.run(value, key, language);
+    } else {
+      // Insert new content
+      const insertStmt = db.prepare(`
+        INSERT INTO content (key, value, language, created_at, updated_at)
+        VALUES (?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+      `);
+      insertStmt.run(key, value, language);
+    }
+
+    res.json({ success: true, message: 'Contact settings updated successfully' });
+  } catch (error) {
+    console.error('Error updating contact settings:', error);
+    res.status(500).json({ error: 'Failed to update contact settings' });
   }
 });
 

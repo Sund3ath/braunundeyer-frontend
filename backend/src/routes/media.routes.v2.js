@@ -67,7 +67,7 @@ const upload = useS3
   : multer({
       storage: localStorage,
       limits: {
-        fileSize: parseInt(process.env.MAX_FILE_SIZE) || 104857600 // 100MB default (increased for videos)
+        fileSize: parseInt(process.env.MAX_FILE_SIZE) || 209715200 // 200MB default (increased for videos)
       },
       fileFilter: fileFilter
     });

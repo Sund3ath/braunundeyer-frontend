@@ -70,6 +70,8 @@ async function triggerRebuild(reason, triggeredBy) {
   return new Promise((resolve) => {
     logger.info(`Starting Next.js rebuild - Reason: ${reason}, Triggered by: ${triggeredBy}`);
     
+    // Execute the rebuild script on the host
+    // Note: This requires the backend container to have access to Docker socket
     const command = 'cd /home/braunundeyer-frontend && docker compose -f docker-compose.prod-nginx.yml up -d --build nextjs-app';
     
     exec(command, { maxBuffer: 10 * 1024 * 1024 }, async (error, stdout, stderr) => {

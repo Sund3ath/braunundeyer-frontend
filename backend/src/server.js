@@ -47,6 +47,9 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+// Trust proxy - needed for rate limiting and correct IP detection behind nginx
+app.set('trust proxy', true);
+
 // Apply CORS middleware with imported configuration
 app.use(cors(corsOptions));
 app.use(helmet({
@@ -54,8 +57,8 @@ app.use(helmet({
   contentSecurityPolicy: false // Disable for development, configure properly for production
 }));
 app.use(compression());
-app.use(express.json({ limit: '100mb' }));
-app.use(express.urlencoded({ extended: true, limit: '100mb' }));
+app.use(express.json({ limit: '200mb' }));
+app.use(express.urlencoded({ extended: true, limit: '200mb' }));
 
 // Request logging
 if (process.env.NODE_ENV === 'development') {
