@@ -392,3 +392,4 @@ docker restart braunundeyer-backend-prod
 - **Config File**: `/etc/nginx/sites-enabled/braunundeyer-prod`
 - **Upload Limit**: 200MB (configured for large video uploads)
 - **Reload Nginx**: `sudo nginx -t && sudo systemctl reload nginx`
+- the build is running at docker and its working well we need to care about the functionality when adding new functions
