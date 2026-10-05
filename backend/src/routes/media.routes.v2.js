@@ -136,11 +136,13 @@ router.post('/upload',
           try {
             // Create thumbnail (300px width)
             await sharp(req.file.path)
+              .rotate() // apply EXIF orientation
               .resize(300, null, { withoutEnlargement: true })
               .toFile(thumbnailPath);
 
             // Create medium size (800px width)
             await sharp(req.file.path)
+              .rotate() // apply EXIF orientation
               .resize(800, null, { withoutEnlargement: true })
               .toFile(mediumPath);
           } catch (err) {
@@ -283,10 +285,12 @@ router.post('/upload-multiple',
 
             try {
               await sharp(file.path)
+                .rotate() // apply EXIF orientation
                 .resize(300, null, { withoutEnlargement: true })
                 .toFile(thumbnailPath);
 
               await sharp(file.path)
+                .rotate() // apply EXIF orientation
                 .resize(800, null, { withoutEnlargement: true })
                 .toFile(mediumPath);
             } catch (err) {
@@ -386,11 +390,13 @@ router.post('/upload/bulk',
               
               // Create thumbnail
               await sharp(inputPath)
+                .rotate() // apply EXIF orientation
                 .resize(200, 200, { fit: 'cover' })
                 .toFile(path.join(uploadDir, 'thumb-' + file.filename));
               
               // Create medium size
               await sharp(inputPath)
+                .rotate() // apply EXIF orientation
                 .resize(800, 800, { fit: 'inside', withoutEnlargement: true })
                 .toFile(path.join(uploadDir, 'medium-' + file.filename));
             } catch (err) {
