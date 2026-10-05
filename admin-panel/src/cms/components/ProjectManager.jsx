@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { API_BASE_URL, BACKEND_URL } from "../../config/api";
 import { motion, AnimatePresence } from 'framer-motion';
 import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
-import { arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy, rectSortingStrategy } from '@dnd-kit/sortable';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { useTranslation } from 'react-i18next';
@@ -13,7 +13,64 @@ import EditableImage from './EditableImage';
 import Icon from 'components/AppIcon';
 import ProjectTranslations from './ProjectTranslations';
 import { projectsAPI } from '../../services/api';
-import rebuildService from '../../services/rebuild';
+
+// Sortable Gallery Image Component
+const SortableGalleryImage = ({ id, img, index, onRemove }) => {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging
+  } = useSortable({ id });
+  
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+    cursor: isDragging ? 'grabbing' : 'grab'
+  };
+  
+  return (
+    <div
+      ref={setNodeRef}
+      style={style}
+      className="relative group"
+    >
+      <div
+        {...attributes}
+        {...listeners}
+        className="relative"
+      >
+        <img
+          src={img.startsWith('http') ? img : `${BACKEND_URL}${img.startsWith('/') ? '' : '/'}${img}`}
+          alt={`Gallery ${index + 1}`}
+          className="w-full h-24 object-cover rounded"
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="128" height="96" viewBox="0 0 128 96"%3E%3Crect width="128" height="96" fill="%23f3f4f6"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%239ca3af" font-family="system-ui" font-size="10"%3ENo Image%3C/text%3E%3C/svg%3E';
+          }}
+        />
+        {/* Order indicator */}
+        <div className="absolute top-1 left-1 bg-black/70 text-white text-xs px-1.5 py-0.5 rounded">
+          {index + 1}
+        </div>
+        {/* Drag indicator on hover */}
+        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-200 rounded flex items-center justify-center">
+          <Icon name="Move" size={20} className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+        </div>
+      </div>
+      <button
+        type="button"
+        onClick={onRemove}
+        className="absolute top-1 right-1 p-1 bg-red-500 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+      >
+        <Icon name="X" size={12} />
+      </button>
+    </div>
+  );
+};
 
 // Sortable Project Card
 const SortableProjectCard = ({ project, onEdit, onDelete }) => {
@@ -142,6 +199,14 @@ const ProjectEditorModal = ({ project, isOpen, onClose, onSave }) => {
   });
   const [isOptimizing, setIsOptimizing] = useState(false);
   const [optimizingField, setOptimizingField] = useState(null);
+  
+  // Sensors for drag and drop
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates
+    })
+  );
   
   useEffect(() => {
     if (project) {
@@ -455,33 +520,47 @@ const ProjectEditorModal = ({ project, isOpen, onClose, onSave }) => {
                 {/* Gallery */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Gallery Images
+                    Gallery Images (Drag to reorder)
                   </label>
-                  <div className="grid grid-cols-4 gap-4 mb-4">
-                    {formData.gallery?.map((img, index) => (
-                      <div key={index} className="relative">
-                        <img
-                          src={img.startsWith('http') ? img : `${BACKEND_URL}${img.startsWith('/') ? '' : '/'}${img}`}
-                          alt={`Gallery ${index + 1}`}
-                          className="w-full h-24 object-cover rounded"
-                          onError={(e) => {
-                            e.target.onerror = null;
-                            e.target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="128" height="96" viewBox="0 0 128 96"%3E%3Crect width="128" height="96" fill="%23f3f4f6"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%239ca3af" font-family="system-ui" font-size="10"%3ENo Image%3C/text%3E%3C/svg%3E';
-                          }}
-                        />
-                        <button
-                          type="button"
-                          onClick={() => {
-                            const newGallery = formData.gallery.filter((_, i) => i !== index);
-                            setFormData({ ...formData, gallery: newGallery });
-                          }}
-                          className="absolute top-1 right-1 p-1 bg-red-500 text-white rounded"
-                        >
-                          <Icon name="X" size={12} />
-                        </button>
-                      </div>
-                    ))}
-                  </div>
+                  {formData.gallery && formData.gallery.length > 0 ? (
+                    <DndContext
+                      sensors={sensors}
+                      collisionDetection={closestCenter}
+                      onDragEnd={(event) => {
+                        const { active, over } = event;
+                        if (active.id !== over.id) {
+                          const oldIndex = formData.gallery.findIndex(img => img === active.id);
+                          const newIndex = formData.gallery.findIndex(img => img === over.id);
+                          const newGallery = arrayMove(formData.gallery, oldIndex, newIndex);
+                          setFormData({ ...formData, gallery: newGallery });
+                        }
+                      }}
+                    >
+                      <SortableContext
+                        items={formData.gallery}
+                        strategy={rectSortingStrategy}
+                      >
+                        <div className="grid grid-cols-4 gap-4 mb-4">
+                          {formData.gallery.map((img, index) => (
+                            <SortableGalleryImage
+                              key={img}
+                              id={img}
+                              img={img}
+                              index={index}
+                              onRemove={() => {
+                                const newGallery = formData.gallery.filter((_, i) => i !== index);
+                                setFormData({ ...formData, gallery: newGallery });
+                              }}
+                            />
+                          ))}
+                        </div>
+                      </SortableContext>
+                    </DndContext>
+                  ) : (
+                    <div className="mb-4 p-4 border-2 border-dashed border-gray-300 rounded text-center text-gray-500">
+                      No gallery images yet
+                    </div>
+                  )}
                   <input
                     type="file"
                     accept="image/*"
@@ -657,10 +736,16 @@ const ProjectManager = () => {
   };
   
   const handleSave = (formData) => {
+    // Sync images field with gallery for Next.js compatibility
+    const dataToSave = {
+      ...formData,
+      images: formData.gallery || [] // Ensure images field matches gallery order
+    };
+    
     if (editingProject) {
-      updateProject(editingProject.id, formData);
+      updateProject(editingProject.id, dataToSave);
     } else {
-      addProject(formData);
+      addProject(dataToSave);
     }
     setEditingProject(null);
   };

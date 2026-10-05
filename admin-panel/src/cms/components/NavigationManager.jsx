@@ -16,7 +16,7 @@ const NavigationManager = () => {
   const languages = ['de', 'en', 'fr', 'it', 'es'];
   const linkTypes = ['internal', 'external', 'anchor', 'dropdown'];
   
-  // Default menu structure
+  // Default menu structure matching Next.js app routes
   const defaultMenuItems = [
     {
       id: '1',
@@ -31,44 +31,27 @@ const NavigationManager = () => {
     {
       id: '2',
       label: { de: 'Projekte', en: 'Projects', fr: 'Projets', it: 'Progetti', es: 'Proyectos' },
-      url: { de: '/de/projekte', en: '/en/projects', fr: '/fr/projets', it: '/it/progetti', es: '/es/proyectos' },
+      url: { de: '/de/projekte', en: '/en/projekte', fr: '/fr/projekte', it: '/it/projekte', es: '/es/projekte' },
       type: 'internal',
-      icon: 'Folder',
+      icon: 'Building2',
       visible: true,
       order: 1,
       children: []
     },
     {
       id: '3',
-      label: { de: 'Leistungen', en: 'Services', fr: 'Services', it: 'Servizi', es: 'Servicios' },
-      url: { de: '/de/leistungen', en: '/en/services', fr: '/fr/services', it: '/it/servizi', es: '/es/servicios' },
-      type: 'dropdown',
-      icon: 'Briefcase',
+      label: { de: 'Galerie', en: 'Gallery', fr: 'Galerie', it: 'Galleria', es: 'Galería' },
+      url: { de: '/de/gallery', en: '/en/gallery', fr: '/fr/gallery', it: '/it/gallery', es: '/es/gallery' },
+      type: 'internal',
+      icon: 'Images',
       visible: true,
       order: 2,
-      children: [
-        {
-          id: '3-1',
-          label: { de: 'Neubau', en: 'New Construction', fr: 'Construction neuve', it: 'Nuova costruzione', es: 'Nueva construcción' },
-          url: { de: '/de/leistungen/neubau', en: '/en/services/new-construction' },
-          type: 'internal',
-          visible: true,
-          order: 0
-        },
-        {
-          id: '3-2',
-          label: { de: 'Sanierung', en: 'Renovation', fr: 'Rénovation', it: 'Ristrutturazione', es: 'Renovación' },
-          url: { de: '/de/leistungen/sanierung', en: '/en/services/renovation' },
-          type: 'internal',
-          visible: true,
-          order: 1
-        }
-      ]
+      children: []
     },
     {
       id: '4',
-      label: { de: 'Über uns', en: 'About', fr: 'À propos', it: 'Chi siamo', es: 'Nosotros' },
-      url: { de: '/de/ueber-uns', en: '/en/about', fr: '/fr/a-propos', it: '/it/chi-siamo', es: '/es/nosotros' },
+      label: { de: 'Über Uns', en: 'About Us', fr: 'À propos', it: 'Chi siamo', es: 'Nosotros' },
+      url: { de: '/de/uber-uns', en: '/en/uber-uns', fr: '/fr/uber-uns', it: '/it/uber-uns', es: '/es/uber-uns' },
       type: 'internal',
       icon: 'Users',
       visible: true,
@@ -77,12 +60,22 @@ const NavigationManager = () => {
     },
     {
       id: '5',
+      label: { de: 'Leistungen', en: 'Services', fr: 'Services', it: 'Servizi', es: 'Servicios' },
+      url: { de: '/de/leistungen', en: '/en/leistungen', fr: '/fr/leistungen', it: '/it/leistungen', es: '/es/leistungen' },
+      type: 'internal',
+      icon: 'Settings',
+      visible: true,
+      order: 4,
+      children: []
+    },
+    {
+      id: '6',
       label: { de: 'Kontakt', en: 'Contact', fr: 'Contact', it: 'Contatto', es: 'Contacto' },
-      url: { de: '/de/kontakt', en: '/en/contact', fr: '/fr/contact', it: '/it/contatto', es: '/es/contacto' },
+      url: { de: '/de/kontakt', en: '/en/kontakt', fr: '/fr/kontakt', it: '/it/kontakt', es: '/es/kontakt' },
       type: 'internal',
       icon: 'Mail',
       visible: true,
-      order: 4,
+      order: 5,
       children: []
     }
   ];
@@ -152,17 +145,16 @@ const NavigationManager = () => {
         mobileMenu: mobileMenuItems
       };
       
-      await axios.post(
-        API_BASE_URL + '/content',
+      await axios.put(
+        API_BASE_URL + '/content/navigation',
         {
-          key: 'navigation',
           value: JSON.stringify(data),
           language: 'de'
         },
         { headers: token ? { Authorization: `Bearer ${token}` } : {} }
       );
       
-      alert('Navigation settings saved successfully!');
+      alert('Navigation settings saved successfully! Changes will appear within 60 seconds.');
     } catch (error) {
       console.error('Error saving navigation:', error);
       alert('Failed to save navigation settings');

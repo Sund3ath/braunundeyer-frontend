@@ -4,7 +4,7 @@ import { useDropzone } from 'react-dropzone';
 import axios from 'axios';
 import { API_BASE_URL, BACKEND_URL } from '../../config/api';
 
-const MediaLibraryEnhanced = () => {
+const MediaLibraryEnhanced = ({ onSelectMedia, selectionMode, fileTypes }) => {
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [view, setView] = useState('grid'); // grid, list
@@ -493,28 +493,48 @@ const MediaLibraryEnhanced = () => {
                       </div>
                     )}
                     
-                    <div className="absolute top-2 left-2">
-                      <input
-                        type="checkbox"
-                        checked={!!selectedFiles.find(f => f.id === file.id)}
-                        onChange={() => handleFileSelect(file)}
-                        className="w-4 h-4"
-                      />
-                    </div>
+                    {!selectionMode && (
+                      <div className="absolute top-2 left-2">
+                        <input
+                          type="checkbox"
+                          checked={!!selectedFiles.find(f => f.id === file.id)}
+                          onChange={() => handleFileSelect(file)}
+                          className="w-4 h-4"
+                        />
+                      </div>
+                    )}
 
                     <div className="absolute top-2 right-2 flex space-x-1">
-                      <button
-                        onClick={() => handleEditFile(file)}
-                        className="p-1 bg-white rounded shadow hover:bg-gray-100"
-                      >
-                        <Icon name="Edit" size={14} />
-                      </button>
-                      <button
-                        onClick={() => copyToClipboard(`${BACKEND_URL}${file.path || file.url}`)}
-                        className="p-1 bg-white rounded shadow hover:bg-gray-100"
-                      >
-                        <Icon name="Copy" size={14} />
-                      </button>
+                      {selectionMode === 'single' && onSelectMedia ? (
+                        <button
+                          onClick={() => {
+                            onSelectMedia({
+                              id: file.id,
+                              url: file.path || file.url,
+                              filename: file.filename,
+                              altText: file.altText
+                            });
+                          }}
+                          className="px-2 py-1 bg-blue-600 text-white rounded shadow hover:bg-blue-700 text-xs"
+                        >
+                          Select
+                        </button>
+                      ) : (
+                        <>
+                          <button
+                            onClick={() => handleEditFile(file)}
+                            className="p-1 bg-white rounded shadow hover:bg-gray-100"
+                          >
+                            <Icon name="Edit" size={14} />
+                          </button>
+                          <button
+                            onClick={() => copyToClipboard(`${BACKEND_URL}${file.path || file.url}`)}
+                            className="p-1 bg-white rounded shadow hover:bg-gray-100"
+                          >
+                            <Icon name="Copy" size={14} />
+                          </button>
+                        </>
+                      )}
                     </div>
                   </div>
                   

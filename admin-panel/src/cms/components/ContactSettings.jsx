@@ -9,15 +9,15 @@ const ContactSettings = () => {
   
   // Office Information
   const [officeInfo, setOfficeInfo] = useState({
-    companyName: 'Braun & Eyer Architekturbüro',
-    street: 'Hauptstraße 123',
+    companyName: 'Braun & Eyer Architekten GbR',
+    street: 'Mainzerstrasse 29',
     zipCode: '66111',
     city: 'Saarbrücken',
     country: 'Deutschland',
-    phone: '+49 681 123456',
-    fax: '+49 681 123457',
+    phone: '+49 681 95417488',
+    fax: '+49 681 95417487',
     email: 'info@braunundeyer.de',
-    vatId: 'DE123456789',
+    vatId: 'DE 202 945 356',
     registrationCourt: 'Amtsgericht Saarbrücken',
     registrationNumber: 'HRB 12345'
   });
@@ -108,7 +108,7 @@ const ContactSettings = () => {
       };
       
       await axios.post(
-        API_BASE_URL + '/content',
+        API_BASE_URL + '/content/contact-settings',
         {
           key: 'contact-settings',
           value: JSON.stringify(data),
@@ -117,7 +117,7 @@ const ContactSettings = () => {
         { headers: token ? { Authorization: `Bearer ${token}` } : {} }
       );
       
-      alert('Contact settings saved successfully!');
+      alert('Contact settings saved successfully! Changes will appear within 60 seconds.');
     } catch (error) {
       console.error('Error saving contact settings:', error);
       alert('Failed to save contact settings');

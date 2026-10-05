@@ -12,6 +12,7 @@ import HomepageEditor from '../components/HomepageEditor';
 import AnalyticsDashboardEnhanced from '../components/AnalyticsDashboardEnhanced';
 import TeamManager from '../components/TeamManager';
 import ContactSettings from '../components/ContactSettings';
+import ServicesManager from '../components/ServicesManager';
 import NavigationManager from '../components/NavigationManager';
 import SEOManager from '../components/SEOManager';
 import LegalPagesEditor from '../components/LegalPagesEditor';
@@ -172,6 +173,7 @@ const AdminDashboard = () => {
     { id: 'overview', name: 'Overview', icon: 'LayoutDashboard' },
     { id: 'homepage', name: 'Homepage', icon: 'Home' },
     { id: 'projects', name: 'Projects', icon: 'Folder' },
+    { id: 'services', name: 'Services', icon: 'Briefcase' },
     { id: 'team', name: 'Team', icon: 'Users' },
     { id: 'contact', name: 'Contact', icon: 'Mail' },
     { id: 'navigation', name: 'Navigation', icon: 'Menu' },
@@ -524,6 +526,9 @@ const AdminDashboard = () => {
         {/* Team Tab */}
         {activeTab === 'team' && <TeamManager />}
         
+        
+        {/* Services Tab */}
+        {activeTab === 'services' && <ServicesManager />}
         
         {/* Contact Tab */}
         {activeTab === 'contact' && <ContactSettings />}
