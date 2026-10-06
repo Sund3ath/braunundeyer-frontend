@@ -124,6 +124,10 @@
     .mark span { font-size: 15px; }
   }
   .mark:focus-visible { outline-offset: 4px; }
+  /* The tab hangs 15px below the top edge and reaches 15px past the header
+     bar into the hero / page; its height is exactly bar + 15px so the overlap
+     is the same at every width. (Footer and 404 keep the plain tab.) */
+  .header-inner .mark, .mmenu-top .mark { display: flex; flex-direction: column; justify-content: center; height: var(--header-h); margin: 15px 0 0; padding-block: 0; }
   .nav { display: none; align-self: center; }
   .nav ul { display: flex; gap: var(--s-6); align-items: center; }
   .nav a, .lang-btn { display: inline-flex; align-items: center; min-height: 44px; font-size: .9375rem; font-weight: 450; text-decoration: none; color: var(--anthracite); }
