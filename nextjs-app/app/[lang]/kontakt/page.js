@@ -130,7 +130,7 @@ export default async function ContactPage({ params }) {
             )}
           </div>
           <div className="c-form">
-            <ContactForm copy={copy.contact.form} privacyHref={`/${lang}/datenschutz`} email={email} />
+            <ContactForm copy={copy.contact.form} privacyHref={`/${lang}/datenschutz`} email={email} phone={phone} lang={lang} />
           </div>
         </div>
       </div>

@@ -6,13 +6,17 @@ const EMPTY = { name: '', email: '', phone: '', projectType: '', timeline: '', m
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 /**
- * Contact form. Posts the same payload as before to the existing endpoint
+ * Contact form. Posts to the existing endpoint
  * (POST {NEXT_PUBLIC_API_URL}/contact: name, email, phone, projectType,
- * timeline, message). Required fields match the backend (name, email,
+ * timeline, message, language). Required fields match the backend (name, email,
  * message). Visible labels, errors as text (never colour alone), linked to
  * the fields with aria-describedby; focus moves to the first invalid field.
+ *
+ * Success is only shown when the backend confirms the e-mail was sent. If the
+ * backend stored the enquiry but could not e-mail it (503, error
+ * "mail_unavailable"), the visitor is asked to write or call directly.
  */
-export default function ContactForm({ copy, privacyHref, email }) {
+export default function ContactForm({ copy, privacyHref, email, phone, lang }) {
   const [data, setData] = useState(EMPTY);
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
@@ -50,7 +54,7 @@ export default function ContactForm({ copy, privacyHref, email }) {
       const res = await fetch(`${apiUrl}/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...data, name: data.name.trim(), email: data.email.trim() }),
+        body: JSON.stringify({ ...data, name: data.name.trim(), email: data.email.trim(), language: lang }),
       });
       const result = await res.json().catch(() => ({}));
       if (res.ok && result.success) {
@@ -58,7 +62,7 @@ export default function ContactForm({ copy, privacyHref, email }) {
         setData(EMPTY);
         requestAnimationFrame(() => doneRef.current?.focus());
       } else {
-        setErrors({ submit: true });
+        setErrors({ submit: result.error === 'mail_unavailable' ? 'unavailable' : true });
       }
     } catch {
       setErrors({ submit: true });
@@ -130,7 +134,19 @@ export default function ContactForm({ copy, privacyHref, email }) {
       <p className="form-note">
         {copy.privacy} <a className="link" href={privacyHref}>{copy.privacyLink}</a>.
       </p>
-      {errors.submit && (
+      {errors.submit === 'unavailable' && (
+        <p className="form-alert" role="alert">
+          {copy.errUnavailable} <a className="link" href={`mailto:${email}`}>{email}</a>
+          {phone && (
+            <>
+              {' '}{copy.errUnavailableCall}{' '}
+              <a className="link" href={`tel:${phone.replace(/[^\d+]/g, '')}`}>{phone}</a>
+            </>
+          )}
+          .
+        </p>
+      )}
+      {errors.submit === true && (
         <p className="form-alert" role="alert">
           {copy.errSubmit} <a className="link" href={`mailto:${email}`}>{email}</a>.
         </p>

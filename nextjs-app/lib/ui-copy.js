@@ -233,6 +233,9 @@ const de = {
       errEmailInvalid: 'Diese E-Mail-Adresse ist unvollständig, zum Beispiel name@beispiel.de.',
       errMessage: 'Bitte schreiben Sie eine kurze Nachricht.',
       errSubmit: 'Die Nachricht konnte nicht gesendet werden. Bitte versuchen Sie es erneut oder schreiben Sie direkt an',
+      // shown when the backend stored the enquiry but could not e-mail it
+      errUnavailable: 'Ihre Nachricht konnte nicht zugestellt werden. Bitte schreiben Sie uns direkt an',
+      errUnavailableCall: 'oder rufen Sie an:',
     },
   },
   legal: {
@@ -390,6 +393,8 @@ const en = {
       errEmailInvalid: 'This email address is incomplete, for example name@example.com.',
       errMessage: 'Please write a short message.',
       errSubmit: 'The message could not be sent. Please try again or write directly to',
+      errUnavailable: 'Your message could not be delivered. Please write to us directly at',
+      errUnavailableCall: 'or call us:',
     },
   },
   legal: {
@@ -517,6 +522,8 @@ const fr = {
       errEmailInvalid: 'Cette adresse e-mail est incomplète, par exemple nom@exemple.fr.',
       errMessage: 'Veuillez écrire un court message.',
       errSubmit: 'Le message n’a pas pu être envoyé. Veuillez réessayer ou écrire directement à',
+      errUnavailable: 'Votre message n’a pas pu être transmis. Veuillez nous écrire directement à',
+      errUnavailableCall: 'ou appelez-nous :',
     },
   },
   legal: {
@@ -644,6 +651,8 @@ const it = {
       errEmailInvalid: 'Questo indirizzo e-mail è incompleto, per esempio nome@esempio.it.',
       errMessage: 'Scrivete un breve messaggio.',
       errSubmit: 'Non è stato possibile inviare il messaggio. Riprovate o scrivete direttamente a',
+      errUnavailable: 'Non è stato possibile recapitare il messaggio. Scriveteci direttamente a',
+      errUnavailableCall: 'oppure chiamateci:',
     },
   },
   legal: {
@@ -771,6 +780,8 @@ const es = {
       errEmailInvalid: 'Este correo electrónico está incompleto, por ejemplo nombre@ejemplo.es.',
       errMessage: 'Escriba un mensaje breve.',
       errSubmit: 'No se ha podido enviar el mensaje. Inténtelo de nuevo o escriba directamente a',
+      errUnavailable: 'No se ha podido entregar su mensaje. Escríbanos directamente a',
+      errUnavailableCall: 'o llámenos:',
     },
   },
   legal: {
@@ -898,6 +909,8 @@ const pt = {
       errEmailInvalid: 'Este endereço de e-mail está incompleto, por exemplo nome@exemplo.pt.',
       errMessage: 'Escreva uma mensagem curta.',
       errSubmit: 'Não foi possível enviar a mensagem. Tente novamente ou escreva diretamente para',
+      errUnavailable: 'Não foi possível entregar a sua mensagem. Escreva-nos diretamente para',
+      errUnavailableCall: 'ou ligue-nos:',
     },
   },
   legal: {
