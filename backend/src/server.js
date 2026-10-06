@@ -6,10 +6,12 @@ import morgan from 'morgan';
 import rateLimit from 'express-rate-limit';
 import dotenv from 'dotenv';
 import path from 'path';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
 
 // Import middleware
 import errorHandler from './middleware/error.middleware.js';
+import { isPrivateIp } from './middleware/rate-limit.middleware.js';
 
 // Import routes
 import authRoutes from './routes/auth.routes.js';
@@ -27,7 +29,6 @@ import servicesRoutes from './routes/services.routes.js';
 import footerRoutes from './routes/footer.routes.js';
 import legalRoutes from './routes/legal.routes.js';
 import contactRoutes from './routes/contact.routes.js';
-import rebuildRoutes from './routes/rebuild.routes.js';
 
 // Import database
 import db from './config/db-simple.js';
@@ -47,8 +48,12 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Trust proxy - needed for rate limiting and correct IP detection behind nginx
-app.set('trust proxy', true);
+// Trust exactly one proxy hop: browser -> host nginx -> this container (the
+// port is bound to 127.0.0.1, see docker-compose.prod-nginx.yml). req.ip is
+// then the address nginx appended to X-Forwarded-For; values a client puts
+// into X-Forwarded-For itself are ignored. `true` trusted the left-most,
+// client-controlled entry and made every IP-based limit bypassable.
+app.set('trust proxy', 1);
 
 // Apply CORS middleware with imported configuration
 app.use(cors(corsOptions));
@@ -57,13 +62,14 @@ app.use(helmet({
   contentSecurityPolicy: false // Disable for development, configure properly for production
 }));
 app.use(compression());
-app.use(express.json({ limit: '200mb' }));
-app.use(express.urlencoded({ extended: true, limit: '200mb' }));
+// File uploads are multipart (multer, own limits); JSON bodies are small
+app.use(express.json({ limit: '2mb' }));
+app.use(express.urlencoded({ extended: true, limit: '2mb' }));
 
 // Request logging
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
-} else {
+} else if (process.env.NODE_ENV !== 'test') {
   app.use(morgan('combined'));
 }
 
@@ -74,6 +80,12 @@ const limiter = rateLimit({
   message: 'Too many requests from this IP, please try again later.',
   standardHeaders: true,
   legacyHeaders: false,
+  // Server-side requests from the Next.js container (SSR/ISR fetches and the
+  // analytics proxy) arrive over the Docker network without X-Forwarded-For.
+  // They all share one private source address and must not exhaust a single
+  // per-IP bucket. Login, refresh and contact have their own limiters that
+  // are NOT skipped this way.
+  skip: (req) => isPrivateIp(req.ip),
 });
 
 // Special rate limiter for translation endpoints (more lenient)
@@ -167,7 +179,6 @@ app.use('/api/analytics', analyticsRoutes);
 app.use('/api/test', testRoutes);
 app.use('/api/team', teamRoutes);
 app.use('/api/contact', contactRoutes); // Contact form routes
-app.use('/api/rebuild', rebuildRoutes); // Rebuild automation routes
 app.use('/api', servicesRoutes); // Services and contact settings routes
 
 // 404 handler
@@ -202,20 +213,34 @@ const startServer = async () => {
   }
 };
 
-// Handle graceful shutdown
-process.on('SIGTERM', async () => {
-  logger.info('SIGTERM signal received: closing HTTP server');
-  await db.close();
-  process.exit(0);
-});
+// Only listen (and install signal handlers) when this file is the entry point
+// (`node src/server.js`, nodemon). Tests import the app without starting it.
+const normalizePath = (p) => {
+  try {
+    return fs.realpathSync(p).normalize('NFC');
+  } catch {
+    return path.resolve(p).normalize('NFC');
+  }
+};
+const isEntryPoint = Boolean(process.argv[1]) && normalizePath(process.argv[1]) === normalizePath(__filename);
 
-process.on('SIGINT', async () => {
-  logger.info('SIGINT signal received: closing HTTP server');
-  await db.close();
-  process.exit(0);
-});
+if (isEntryPoint) {
+  // Handle graceful shutdown
+  process.on('SIGTERM', async () => {
+    logger.info('SIGTERM signal received: closing HTTP server');
+    await db.close();
+    process.exit(0);
+  });
 
-// Start the server
-startServer();
+  process.on('SIGINT', async () => {
+    logger.info('SIGINT signal received: closing HTTP server');
+    await db.close();
+    process.exit(0);
+  });
 
+  // Start the server
+  startServer();
+}
+
+export { startServer };
 export default app;

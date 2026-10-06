@@ -138,7 +138,27 @@ class SimpleDB {
         expires_at DATETIME NOT NULL,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (user_id) REFERENCES users(id)
-      )`
+      )`,
+
+      // Contact form submissions (stored before any e-mail is attempted, so
+      // nothing is lost when SMTP is down or not configured)
+      `CREATE TABLE IF NOT EXISTS contact_messages (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL,
+        email TEXT NOT NULL,
+        phone TEXT,
+        subject TEXT,
+        project_type TEXT,
+        timeline TEXT,
+        message TEXT NOT NULL,
+        language TEXT,
+        ip TEXT,
+        user_agent TEXT,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        emailed INTEGER NOT NULL DEFAULT 0,
+        email_error TEXT
+      )`,
+      `CREATE INDEX IF NOT EXISTS idx_contact_messages_created_at ON contact_messages (created_at)`
     ];
 
     for (const table of tables) {

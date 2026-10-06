@@ -176,9 +176,9 @@ const MediaLibraryEnhanced = ({ onSelectMedia, selectionMode, fileTypes }) => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: {
-      'image/*': ['.png', '.jpg', '.jpeg', '.gif', '.webp', '.svg'],
-      'video/*': ['.mp4', '.webm', '.mov'],
-      'application/pdf': ['.pdf']
+      // Must match the backend whitelist (backend/src/utils/upload-policy.js)
+      'image/*': ['.png', '.jpg', '.jpeg', '.gif', '.webp', '.avif'],
+      'video/*': ['.mp4', '.webm']
     },
     multiple: true
   });

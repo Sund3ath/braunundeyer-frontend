@@ -1,9 +1,11 @@
 import express from 'express';
+import crypto from 'crypto';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { body, validationResult } from 'express-validator';
 import db from '../config/db-simple.js';
 import { authenticate } from '../middleware/auth.middleware.js';
+import { loginLimiter, refreshLimiter } from '../middleware/rate-limit.middleware.js';
 import logger from '../utils/logger.js';
 
 const router = express.Router();
@@ -17,17 +19,19 @@ const generateToken = (user) => {
   );
 };
 
-// Generate refresh token
+// Generate refresh token (jti makes it unique: two logins of the same user
+// within one second used to produce identical tokens and a UNIQUE violation)
 const generateRefreshToken = (user) => {
   return jwt.sign(
-    { id: user.id, type: 'refresh' },
+    { id: user.id, type: 'refresh', jti: crypto.randomUUID() },
     process.env.JWT_REFRESH_SECRET || process.env.JWT_SECRET,
     { expiresIn: process.env.JWT_REFRESH_EXPIRES_IN || '30d' }
   );
 };
 
-// Login
+// Login (failed attempts are rate limited per client IP)
 router.post('/login',
+  loginLimiter,
   [
     body('email').isEmail().normalizeEmail(),
     body('password').notEmpty()
@@ -93,74 +97,12 @@ router.post('/login',
   }
 );
 
-// Register
-router.post('/register',
-  [
-    body('email').isEmail().normalizeEmail(),
-    body('password').isLength({ min: 6 }),
-    body('name').notEmpty().trim()
-  ],
-  async (req, res) => {
-    try {
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-      }
-
-      const { email, password, name } = req.body;
-      
-      // Check if user exists
-      const existingUser = await db.get('SELECT id FROM users WHERE email = ?', [email]);
-      
-      if (existingUser) {
-        return res.status(400).json({ error: 'Email already registered' });
-      }
-      
-      // Hash password
-      const hashedPassword = await bcrypt.hash(password, 10);
-      
-      // Create user
-      const result = await db.run(
-        'INSERT INTO users (email, password, name, role) VALUES (?, ?, ?, ?)',
-        [email, hashedPassword, name, 'user']
-      );
-      
-      const user = {
-        id: result.lastInsertRowid,
-        email,
-        name,
-        role: 'user'
-      };
-      
-      // Generate tokens
-      const token = generateToken(user);
-      const refreshToken = generateRefreshToken(user);
-      
-      // Store refresh token
-      const expiresAt = new Date();
-      expiresAt.setDate(expiresAt.getDate() + 30);
-      
-      await db.run(
-        'INSERT INTO sessions (user_id, refresh_token, expires_at) VALUES (?, ?, ?)',
-        [user.id, refreshToken, expiresAt.toISOString()]
-      );
-      
-      logger.info(`New user registered: ${email}`);
-      
-      res.status(201).json({
-        token,
-        refreshToken,
-        user
-      });
-    } catch (error) {
-      logger.error('Registration error:', error);
-      res.status(500).json({ error: 'Registration failed' });
-    }
-  }
-);
+// Public self-registration (POST /register) was removed: every account had
+// CMS read access and nothing in the admin panel used it. Admin accounts are
+// seeded from ADMIN_EMAIL/ADMIN_PASSWORD (see config/db-simple.js).
 
 // Refresh token
-router.post('/refresh', async (req, res) => {
+router.post('/refresh', refreshLimiter, async (req, res) => {
   try {
     const { refreshToken } = req.body;
     

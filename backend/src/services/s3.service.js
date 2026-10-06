@@ -15,6 +15,7 @@ import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
 import fs from 'fs/promises';
 import logger from '../utils/logger.js';
+import { createFileFilter } from '../utils/upload-policy.js';
 
 // Initialize S3 client
 const s3Client = new S3Client({
@@ -64,17 +65,8 @@ export const s3Upload = multer({
   limits: {
     fileSize: parseInt(process.env.MAX_FILE_SIZE) || 10485760 // 10MB default
   },
-  fileFilter: (req, file, cb) => {
-    const allowedTypes = /jpeg|jpg|png|gif|webp|svg|pdf/;
-    const extname = allowedTypes.test(getFileExtension(file.originalname));
-    const mimetype = allowedTypes.test(file.mimetype);
-
-    if (mimetype && extname) {
-      return cb(null, true);
-    } else {
-      cb(new Error('Invalid file type. Only images and PDFs are allowed.'));
-    }
-  }
+  // Same whitelist as local uploads (no SVG/HTML/PDF), see utils/upload-policy.js
+  fileFilter: createFileFilter({ allowVideo: true })
 });
 
 // Upload file to S3 with image optimization

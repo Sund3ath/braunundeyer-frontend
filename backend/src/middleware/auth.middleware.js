@@ -10,20 +10,7 @@ export const authenticate = async (req, res, next) => {
       return res.status(401).json({ error: 'Authentication required' });
     }
 
-    // Development mode: Accept mock token for testing
-    if (process.env.NODE_ENV === 'development' && token === 'mock_token_123') {
-      // Create a mock user for development
-      req.user = {
-        id: 1,
-        email: 'admin@braunundeyer.de',
-        name: 'Admin User',
-        role: 'admin'
-      };
-      req.token = token;
-      return next();
-    }
-
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'dev-secret-key');
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const user = await db.get('SELECT id, email, name, role FROM users WHERE id = ?', [decoded.id]);
     
     if (!user) {
@@ -48,24 +35,29 @@ export const authenticate = async (req, res, next) => {
   }
 };
 
-export const authorize = (roles) => {
+/**
+ * Role check. Accepts every call shape used in the routes:
+ *   authorize('admin'), authorize(['admin', 'editor']), authorize('admin', 'editor')
+ * All arguments are flattened into one list of allowed roles. (Before, only the
+ * first argument was read, so authorize('admin', 'editor') silently meant
+ * admin-only.)
+ */
+export const authorize = (...roles) => {
+  const requiredRoles = roles.flat(Infinity).filter(Boolean);
+
   return (req, res, next) => {
     if (!req.user) {
       logger.error('Authorization failed: No user in request');
       return res.status(401).json({ error: 'Authentication required' });
     }
     
-    // Ensure roles is an array
-    const requiredRoles = Array.isArray(roles) ? roles : [roles];
-    
-    logger.info(`Authorization check: User role="${req.user.role}", Required roles=[${requiredRoles.join(',')}]`);
+    logger.debug(`Authorization check: User role="${req.user.role}", Required roles=[${requiredRoles.join(',')}]`);
     
     if (!requiredRoles.includes(req.user.role)) {
       logger.error(`Authorization failed: User role '${req.user.role}' not in required roles [${requiredRoles.join(',')}]`);
       return res.status(403).json({ error: 'Insufficient permissions' });
     }
     
-    logger.info('Authorization successful');
     next();
   };
 };
@@ -75,19 +67,7 @@ export const optionalAuth = async (req, res, next) => {
     const token = req.headers.authorization?.replace('Bearer ', '');
     
     if (token) {
-      // Development mode: Accept mock token
-      if (process.env.NODE_ENV === 'development' && token === 'mock_token_123') {
-        req.user = {
-          id: 1,
-          email: 'admin@braunundeyer.de',
-          name: 'Admin User',
-          role: 'admin'
-        };
-        req.token = token;
-        return next();
-      }
-
-      const decoded = jwt.verify(token, process.env.JWT_SECRET || 'dev-secret-key');
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
       const user = await db.get('SELECT id, email, name, role FROM users WHERE id = ?', [decoded.id]);
       
       if (user) {

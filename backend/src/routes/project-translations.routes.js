@@ -59,10 +59,10 @@ router.get('/project/:projectId/:language', async (req, res) => {
   }
 });
 
-// Create or update a translation (temporarily without auth for testing)
+// Create or update a translation
 router.post('/project/:projectId/:language', 
-  // authenticate,
-  // authorize(['admin', 'editor']),
+  authenticate,
+  authorize(['admin', 'editor']),
   [
     body('title').notEmpty().withMessage('Title is required'),
     body('description').optional(),
@@ -250,10 +250,10 @@ router.get('/language/:language', async (req, res) => {
   }
 });
 
-// Bulk translate using AI (temporarily without auth for testing)
+// Bulk translate using AI (writes to the DB and causes DeepSeek costs)
 router.post('/bulk-translate/:projectId',
-  // authenticate,
-  // authorize(['admin']),
+  authenticate,
+  authorize(['admin']),
   async (req, res) => {
     try {
       const { projectId } = req.params;
@@ -282,7 +282,10 @@ router.post('/bulk-translate/:projectId',
       
       // Import fetch for API calls
       const fetch = (await import('node-fetch')).default;
-      const DEEPSEEK_API_KEY = process.env.DEEPSEEK_API_KEY || 'sk-374a85178de1439d8b7438c2ac56be77';
+      const DEEPSEEK_API_KEY = process.env.DEEPSEEK_API_KEY;
+      if (!DEEPSEEK_API_KEY) {
+        return res.status(503).json({ message: 'AI translation is not configured (DEEPSEEK_API_KEY missing)' });
+      }
       
       for (const lang of targetLanguages) {
         if (lang === 'de') continue; // Skip German

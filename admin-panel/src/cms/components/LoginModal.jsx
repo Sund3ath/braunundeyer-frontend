@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Icon from 'components/AppIcon';
+import { useEditMode } from '../contexts/EditModeContext';
 
 const LoginModal = ({ isOpen, onClose, onLogin }) => {
+  const { login } = useEditMode();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -13,33 +15,21 @@ const LoginModal = ({ isOpen, onClose, onLogin }) => {
     setError('');
     setIsLoading(true);
     
-    // Use provided onLogin function or default authentication
-    if (onLogin) {
-      const result = onLogin({ username: email, password });
-      if (result) {
+    try {
+      // Use provided onLogin function or the real API login
+      const result = onLogin
+        ? { success: Boolean(await onLogin({ username: email, password })) }
+        : await login(email, password);
+      if (result.success) {
         onClose();
         setEmail('');
         setPassword('');
       } else {
-        setError('Invalid credentials');
+        setError(result.error || 'Invalid credentials');
       }
-    } else {
-      // Default authentication for demo
-      if (email === 'admin' && password === 'admin123') {
-        onClose();
-        setEmail('');
-        setPassword('');
-      } else {
-        setError('Invalid credentials');
-      }
+    } finally {
+      setIsLoading(false);
     }
-    
-    setIsLoading(false);
-  };
-  
-  const handleDemoLogin = () => {
-    setEmail('admin');
-    setPassword('admin123');
   };
   
   return (
@@ -130,23 +120,7 @@ const LoginModal = ({ isOpen, onClose, onLogin }) => {
                   )}
                 </button>
               </form>
-              
-              {/* Demo Credentials - Only show in development mode */}
-              {import.meta.env.DEV && (
-                <div className="mt-6 pt-6 border-t border-gray-200">
-                  <p className="text-sm text-gray-600 mb-2">Demo credentials:</p>
-                  <button
-                    onClick={handleDemoLogin}
-                    className="text-sm text-blue-600 hover:text-blue-700 font-medium"
-                  >
-                    Use demo account
-                  </button>
-                  <p className="text-xs text-gray-500 mt-1">
-                    Email: admin@braunundeyer.de<br />
-                    Password: admin123
-                  </p>
-                </div>
-              )}
+
             </div>
           </motion.div>
         </>

@@ -1,10 +1,24 @@
 import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 import { projectsAPI, contentAPI, mediaAPI } from '../../services/api';
-import rebuildService from '../../services/rebuild';
 
 // Track initialization promise to prevent concurrent calls
 let initializationPromise = null;
+
+// Tell the editor that a change was NOT saved on the server. Throttled so a
+// failing auto-save does not open one dialog per keystroke.
+let lastSaveErrorAt = 0;
+const notifySaveError = (action, error) => {
+  console.error(`${action} failed:`, error);
+  const now = Date.now();
+  if (now - lastSaveErrorAt < 5000) return;
+  lastSaveErrorAt = now;
+  const reason = error?.message ? `\n\n(${error.message})` : '';
+  window.alert(
+    `${action} fehlgeschlagen – die Änderung wurde NICHT gespeichert.\n` +
+    `Bitte prüfen Sie die Verbindung bzw. melden Sie sich neu an und versuchen Sie es erneut.${reason}`
+  );
+};
 
 const useCMSStore = create(
   devtools(
@@ -170,6 +184,8 @@ const useCMSStore = create(
         },
 
         // Actions
+        // Server first: the local state only changes when the API call
+        // succeeded. Returns true/false so callers can react.
         setContent: async (key, value, language = null) => {
           const lang = language || get().currentLanguage;
           
@@ -177,7 +193,9 @@ const useCMSStore = create(
             // Update on server
             await contentAPI.update(key, value, lang);
           } catch (error) {
-            console.error('Failed to update content on server:', error);
+            notifySaveError('Speichern', error);
+            set({ error: error?.message || 'Save failed' });
+            return false;
           }
           
           // Update locally
@@ -191,6 +209,7 @@ const useCMSStore = create(
             }
           }));
           get().addToHistory();
+          return true;
         },
         
         setProjects: (projects) => set({ projects }),
@@ -207,26 +226,12 @@ const useCMSStore = create(
             }));
             get().addToHistory();
             
-            // Trigger rebuild for Next.js
-            rebuildService.queueAutoRebuild('projects', 'create');
-            
             return newProject;
           } catch (error) {
-            console.error('Failed to add project:', error);
-            // Fallback to local storage
-            const newProject = {
-              id: Date.now().toString(),
-              createdAt: new Date().toISOString(),
-              updatedAt: new Date().toISOString(),
-              status: 'draft',
-              ...project
-            };
-            
-            set((state) => ({
-              projects: [...state.projects, newProject]
-            }));
-            get().addToHistory();
-            return newProject;
+            // No local-only fallback: the project would never reach the website
+            notifySaveError('Projekt anlegen', error);
+            set({ error: error?.message || 'Save failed' });
+            return null;
           }
         },
         
@@ -238,36 +243,29 @@ const useCMSStore = create(
                 p.id === id ? updatedProject : p
               )
             }));
-            
-            // Trigger rebuild for Next.js
-            rebuildService.queueAutoRebuild('projects', 'update');
           } catch (error) {
-            console.error('Failed to update project:', error);
-            // Fallback to local update
-            set((state) => ({
-              projects: state.projects.map(p => 
-                p.id === id 
-                  ? { ...p, ...updates, updatedAt: new Date().toISOString() }
-                  : p
-              )
-            }));
+            // Keep the last saved state; do not pretend the update worked
+            notifySaveError('Projekt speichern', error);
+            set({ error: error?.message || 'Save failed' });
+            return false;
           }
           get().addToHistory();
+          return true;
         },
         
         deleteProject: async (id) => {
           try {
             await projectsAPI.delete(id);
-            
-            // Trigger rebuild for Next.js
-            rebuildService.queueAutoRebuild('projects', 'delete');
           } catch (error) {
-            console.error('Failed to delete project:', error);
+            notifySaveError('Projekt löschen', error);
+            set({ error: error?.message || 'Delete failed' });
+            return false;
           }
           set((state) => ({
             projects: state.projects.filter(p => p.id !== id)
           }));
           get().addToHistory();
+          return true;
         },
         
         addSection: (pageId, section) => {
@@ -360,11 +358,13 @@ const useCMSStore = create(
           try {
             await mediaAPI.delete(id);
           } catch (error) {
-            console.error('Failed to delete media:', error);
+            notifySaveError('Datei löschen', error);
+            return false;
           }
           set((state) => ({
             media: state.media.filter(m => m.id !== id)
           }));
+          return true;
         },
         
         setCurrentLanguage: (language) => {

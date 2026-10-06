@@ -64,16 +64,6 @@ export const authAPI = {
     return data;
   },
 
-  register: async (userData) => {
-    const response = await fetchWithTimeout(`${API_BASE_URL}/auth/register`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(userData),
-      credentials: 'include'
-    });
-    return handleResponse(response);
-  },
-
   logout: async () => {
     const response = await fetchWithTimeout(`${API_BASE_URL}/auth/logout`, {
       method: 'POST',

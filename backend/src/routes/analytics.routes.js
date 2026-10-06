@@ -1,6 +1,7 @@
 import express from 'express';
 import db from '../config/db-simple.js';
 import logger from '../utils/logger.js';
+import { authenticate, authorize } from '../middleware/auth.middleware.js';
 
 const router = express.Router();
 
@@ -285,8 +286,11 @@ router.post('/event', async (req, res) => {
   }
 });
 
+// Read endpoints below expose visitor data and are admin-only. The tracking
+// POSTs above (/pageview, /visitor, /session, /event) stay public.
+
 // Get analytics dashboard data
-router.get('/dashboard', async (req, res) => {
+router.get('/dashboard', authenticate, authorize(['admin']), async (req, res) => {
   try {
     const { range = '7d' } = req.query;
     
@@ -596,7 +600,7 @@ router.get('/dashboard', async (req, res) => {
 });
 
 // Get real-time analytics
-router.get('/realtime', async (req, res) => {
+router.get('/realtime', authenticate, authorize(['admin']), async (req, res) => {
   try {
     // Get active visitors (last 5 minutes)
     const activeUsers = await db.prepare(`
@@ -707,7 +711,7 @@ router.get('/realtime', async (req, res) => {
 });
 
 // Get analytics stats for admin panel
-router.get('/stats', async (req, res) => {
+router.get('/stats', authenticate, authorize(['admin']), async (req, res) => {
   try {
     const { period = '7d' } = req.query;
     

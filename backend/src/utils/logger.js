@@ -34,22 +34,32 @@ const format = winston.format.combine(
   ),
 );
 
+// Log directory (default: backend/logs). LOG_DIR allows pointing local or
+// test runs somewhere else.
+const logDir = process.env.LOG_DIR || path.join(__dirname, '../..', 'logs');
+const isTest = process.env.NODE_ENV === 'test';
+
 // Define transports
 const transports = [
   // Console transport
   new winston.transports.Console(),
-  
-  // File transport for errors
-  new winston.transports.File({
-    filename: path.join(__dirname, '../..', 'logs', 'error.log'),
-    level: 'error',
-  }),
-  
-  // File transport for all logs
-  new winston.transports.File({
-    filename: path.join(__dirname, '../..', 'logs', 'combined.log'),
-  }),
 ];
+
+// Tests never write log files
+if (!isTest) {
+  transports.push(
+    // File transport for errors
+    new winston.transports.File({
+      filename: path.join(logDir, 'error.log'),
+      level: 'error',
+    }),
+    
+    // File transport for all logs
+    new winston.transports.File({
+      filename: path.join(logDir, 'combined.log'),
+    }),
+  );
+}
 
 // Create logger
 const logger = winston.createLogger({
@@ -57,6 +67,7 @@ const logger = winston.createLogger({
   levels,
   format,
   transports,
+  silent: isTest && !process.env.LOG_IN_TESTS,
 });
 
 export default logger;

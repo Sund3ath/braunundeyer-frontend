@@ -39,17 +39,10 @@ export const EditModeProvider = ({ children }) => {
             setUser(profile.user || userData);
             setIsAuthenticated(true);
           } catch (error) {
-            // If API is down but we have a mock token, still restore session
-            if (token === 'mock_token_123') {
-              console.log('API unavailable, restoring mock session:', userData);
-              setUser(userData);
-              setIsAuthenticated(true);
-            } else {
-              console.log('Token invalid, clearing session');
-              localStorage.removeItem('token');
-              localStorage.removeItem('refreshToken');
-              localStorage.removeItem('user');
-            }
+            console.log('Token invalid, clearing session');
+            localStorage.removeItem('token');
+            localStorage.removeItem('refreshToken');
+            localStorage.removeItem('user');
           }
         } catch (error) {
           console.error('Failed to parse user data:', error);
@@ -76,49 +69,33 @@ export const EditModeProvider = ({ children }) => {
     return () => window.removeEventListener('beforeunload', handleBeforeUnload);
   }, [unsavedChanges]);
 
+  // Real API login only. A failed request is reported as an error; there is
+  // no offline/mock fallback (it used to open a CMS that saved nothing).
   const login = async (email, password) => {
     try {
-      console.log('Attempting login with:', email);
+      const response = await authAPI.login(email, password);
       
-      // Try real API
-      try {
-        const response = await authAPI.login(email, password);
-        
-        if (response && response.user) {
-          console.log('API login successful:', response.user);
-          setUser(response.user);
-          setIsAuthenticated(true);
-          setIsEditMode(true);
-          return { success: true };
-        }
-      } catch (apiError) {
-        console.log('API login failed, using fallback:', apiError.message);
-        
-        // Fallback to mock authentication for development without backend
-        if (email === 'admin@braunundeyer.de' && password === 'admin123') {
-          const userData = {
-            id: 1,
-            email,
-            name: 'Admin User',
-            role: 'admin'
-          };
-          
-          // Store mock data
-          localStorage.setItem('token', 'mock_token_123');
-          localStorage.setItem('user', JSON.stringify(userData));
-          
-          console.log('Mock login successful:', userData);
-          setUser(userData);
-          setIsAuthenticated(true);
-          setIsEditMode(true);
-          return { success: true };
-        }
+      if (response && response.user) {
+        setUser(response.user);
+        setIsAuthenticated(true);
+        setIsEditMode(true);
+        return { success: true };
       }
       
-      return { success: false, error: 'Invalid credentials' };
+      return { success: false, error: 'Login failed: unexpected server response' };
     } catch (error) {
       console.error('Login error:', error);
-      return { success: false, error: error.message || 'Login failed' };
+      const message = error?.message || '';
+      if (/invalid credentials/i.test(message)) {
+        return { success: false, error: 'E-Mail oder Passwort ist falsch.' };
+      }
+      if (/too many/i.test(message)) {
+        return { success: false, error: 'Zu viele Anmeldeversuche. Bitte warten Sie 15 Minuten.' };
+      }
+      return {
+        success: false,
+        error: `Anmeldung fehlgeschlagen – Server nicht erreichbar oder Fehler (${message || 'unbekannt'}).`
+      };
     }
   };
 

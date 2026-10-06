@@ -4,7 +4,6 @@ import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import Icon from '../../components/AppIcon';
 import useCMSStore from '../store/cmsStore';
 import { contentAPI } from '../../services/api';
-import rebuildService from '../../services/rebuild';
 
 const HomepageEditor = () => {
   const { projects, media, content, setContent, updateProject, uploadMedia, currentLanguage, loadContent } = useCMSStore();
@@ -196,11 +195,13 @@ const HomepageEditor = () => {
       }).filter(Boolean)
     };
 
-    await setContent('homepage', homepageConfig);
-    alert('Homepage configuration saved! Triggering site rebuild...');
-    
-    // Trigger rebuild to update Next.js with new content
-    rebuildService.queueAutoRebuild('homepage_config', 'update');
+    const saved = await setContent('homepage', homepageConfig);
+    if (!saved) {
+      // The store already told the editor that saving failed
+      return;
+    }
+    // The website picks up changes by itself (ISR), no rebuild needed
+    alert('Homepage gespeichert. Die Änderung erscheint auf der Website in etwa 2 Minuten.');
     
     // Reload content to ensure sync with backend
     if (loadContent) {
@@ -442,7 +443,7 @@ const HomepageEditor = () => {
                                         Upload
                                         <input
                                           type="file"
-                                          accept="video/mp4,video/webm,video/ogg,video/mov,video/avi"
+                                          accept="video/mp4,video/webm"
                                           onChange={(e) => handleVideoUpload(slide.id, e.target.files[0])}
                                           className="hidden"
                                           disabled={uploadingSlide === slide.id}

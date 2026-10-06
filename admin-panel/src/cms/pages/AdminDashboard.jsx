@@ -219,14 +219,6 @@ const AdminDashboard = () => {
               <div className="text-center">
                 <p className="text-sm text-gray-500">Or press Ctrl/Cmd + Shift + L</p>
               </div>
-              
-              <div className="pt-4 border-t border-gray-200">
-                <p className="text-xs text-gray-400 text-center">
-                  Demo credentials:<br/>
-                  Email: admin@braunundeyer.de<br/>
-                  Password: admin123
-                </p>
-              </div>
             </div>
           </div>
         </div>

@@ -9,8 +9,9 @@ const errorHandler = (err, req, res, next) => {
     stack: err.stack
   });
 
-  // Set default error status
-  const status = err.status || err.statusCode || 500;
+  // Set default error status (multer: file too large -> 413, other upload errors -> 400)
+  const multerStatus = err.name === 'MulterError' ? (err.code === 'LIMIT_FILE_SIZE' ? 413 : 400) : null;
+  const status = multerStatus || err.status || err.statusCode || 500;
   const message = err.message || 'Internal Server Error';
 
   // Send error response

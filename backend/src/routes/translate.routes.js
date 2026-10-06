@@ -1,12 +1,16 @@
 import express from 'express';
-import { authenticate } from '../middleware/auth.middleware.js';
+import { authenticate, authorize } from '../middleware/auth.middleware.js';
 import translationService from '../services/translation.service.js';
 import logger from '../utils/logger.js';
 
 const router = express.Router();
 
+// Every translation endpoint causes DeepSeek API costs or exposes/clears the
+// translation cache, so all of them are admin-only.
+router.use(authenticate, authorize(['admin']));
+
 // Translate single text
-router.post('/', authenticate, async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const { text, targetLanguage, sourceLanguage = 'de', context = '' } = req.body;
     
@@ -40,7 +44,7 @@ router.post('/', authenticate, async (req, res) => {
 });
 
 // Bulk translate
-router.post('/bulk', authenticate, async (req, res) => {
+router.post('/bulk', async (req, res) => {
   try {
     const { texts, targetLanguages, sourceLanguage = 'de' } = req.body;
     
@@ -77,7 +81,7 @@ router.post('/bulk', authenticate, async (req, res) => {
 });
 
 // Translate object with context
-router.post('/object', authenticate, async (req, res) => {
+router.post('/object', async (req, res) => {
   try {
     const { object, targetLanguage, sourceLanguage = 'de', context = '' } = req.body;
     
@@ -110,7 +114,7 @@ router.post('/object', authenticate, async (req, res) => {
 });
 
 // Translate homepage content
-router.post('/homepage', authenticate, async (req, res) => {
+router.post('/homepage', async (req, res) => {
   try {
     const { homepageData, targetLanguage, sourceLanguage = 'de' } = req.body;
     
@@ -142,7 +146,7 @@ router.post('/homepage', authenticate, async (req, res) => {
 });
 
 // Get translation stats
-router.get('/stats', authenticate, async (req, res) => {
+router.get('/stats', async (req, res) => {
   try {
     const stats = await translationService.getStats();
     res.json(stats);
@@ -156,7 +160,7 @@ router.get('/stats', authenticate, async (req, res) => {
 });
 
 // Clear translation cache
-router.delete('/cache', authenticate, async (req, res) => {
+router.delete('/cache', async (req, res) => {
   try {
     await translationService.clearCache();
     res.json({ message: 'Translation cache cleared successfully' });

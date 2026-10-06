@@ -7,6 +7,13 @@ import { fileURLToPath } from 'url';
 import db from '../config/db-simple.js';
 import { authenticate, authorize } from '../middleware/auth.middleware.js';
 import logger from '../utils/logger.js';
+import {
+  createFileFilter,
+  enforceTypeSizeLimits,
+  generateFilename,
+  MAX_IMAGE_SIZE,
+  MAX_VIDEO_SIZE
+} from '../utils/upload-policy.js';
 import { 
   uploadToS3, 
   deleteFromS3, 
@@ -25,41 +32,22 @@ const useS3 = process.env.USE_S3 === 'true';
 
 // Local storage configuration
 const localStorage = multer.diskStorage({
-  destination: async (req, file, cb) => {
+  destination: (req, file, cb) => {
     const uploadDir = path.join(__dirname, '../..', 'uploads');
-    await fs.mkdir(uploadDir, { recursive: true });
-    cb(null, uploadDir);
+    fs.mkdir(uploadDir, { recursive: true })
+      .then(() => cb(null, uploadDir))
+      .catch((err) => cb(err));
   },
+  // Server-generated name (`image-<ts>-<rand>.jpg`); only the whitelisted,
+  // lower-cased extension is taken from the client.
   filename: (req, file, cb) => {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    const ext = path.extname(file.originalname);
-    cb(null, file.fieldname + '-' + uniqueSuffix + ext);
+    cb(null, generateFilename(file.fieldname, file));
   }
 });
 
-// File filter for both local and S3
-const fileFilter = (req, file, cb) => {
-  // Allow images (including HEIC/HEIF), videos, and PDFs
-  const allowedImageTypes = /jpeg|jpg|png|gif|webp|svg|pdf|heic|heif/;
-  const allowedVideoTypes = /mp4|webm|ogg|mov|avi|mkv/;
-  
-  const ext = path.extname(file.originalname).toLowerCase().substring(1);
-  const isImage = allowedImageTypes.test(ext);
-  const isVideo = allowedVideoTypes.test(ext);
-  
-  // Also check mimetype - be more permissive
-  const isImageMime = file.mimetype.startsWith('image/') || 
-                      file.mimetype === 'application/pdf' ||
-                      file.mimetype === 'application/octet-stream'; // Some browsers send this for HEIC
-  const isVideoMime = file.mimetype.startsWith('video/');
-
-  // Allow if extension OR mimetype matches (more permissive)
-  if (isImage || isVideo || isImageMime || isVideoMime) {
-    return cb(null, true);
-  } else {
-    cb(new Error('Only image files, videos, and PDFs are allowed'));
-  }
-};
+// Whitelist: extension AND MIME type must match (images: jpg, jpeg, png, webp,
+// gif, avif; videos: mp4, webm). See utils/upload-policy.js.
+const fileFilter = createFileFilter({ allowVideo: true });
 
 // Choose storage based on configuration
 const upload = useS3 
@@ -67,7 +55,9 @@ const upload = useS3
   : multer({
       storage: localStorage,
       limits: {
-        fileSize: parseInt(process.env.MAX_FILE_SIZE) || 209715200 // 200MB default (increased for videos)
+        // multer knows one limit only; images are checked against
+        // MAX_IMAGE_SIZE afterwards (enforceTypeSizeLimits)
+        fileSize: Math.max(MAX_IMAGE_SIZE, MAX_VIDEO_SIZE)
       },
       fileFilter: fileFilter
     });
@@ -77,6 +67,7 @@ router.post('/upload',
   authenticate,
   authorize('admin', 'editor'),
   upload.single('image'),
+  enforceTypeSizeLimits,
   async (req, res) => {
     try {
       if (!req.file) {
@@ -253,6 +244,7 @@ router.post('/upload-multiple',
   authenticate,
   authorize('admin', 'editor'),
   upload.array('images', 10),
+  enforceTypeSizeLimits,
   async (req, res) => {
     try {
       if (!req.files || req.files.length === 0) {
@@ -353,6 +345,7 @@ router.post('/upload/bulk',
   authenticate,
   authorize('admin', 'editor'),
   upload.array('files', 50), // Allow up to 50 files
+  enforceTypeSizeLimits,
   async (req, res) => {
     try {
       if (!req.files || req.files.length === 0) {

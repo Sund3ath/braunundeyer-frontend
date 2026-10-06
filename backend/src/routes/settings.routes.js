@@ -7,7 +7,7 @@ import logger from '../utils/logger.js';
 const router = express.Router();
 
 // Get all settings
-router.get('/', authenticate, async (req, res) => {
+router.get('/', authenticate, authorize(['admin']), async (req, res) => {
   try {
     const settings = await db.all('SELECT * FROM settings ORDER BY key ASC');
     
@@ -32,7 +32,7 @@ router.get('/', authenticate, async (req, res) => {
 });
 
 // Get single setting
-router.get('/:key', authenticate, async (req, res) => {
+router.get('/:key', authenticate, authorize(['admin']), async (req, res) => {
   try {
     const { key } = req.params;
     const setting = await db.get('SELECT * FROM settings WHERE key = ?', [key]);

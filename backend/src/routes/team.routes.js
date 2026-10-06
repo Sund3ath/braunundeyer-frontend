@@ -6,36 +6,54 @@ import logger from '../utils/logger.js';
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs/promises';
+import { fileURLToPath } from 'url';
+import { createFileFilter, generateFilename } from '../utils/upload-policy.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const router = express.Router();
 
+// Team photos live in backend/uploads/team (the persistent uploads volume in
+// Docker; served at /uploads/team/...). Older photos may still sit in
+// public/uploads/team, which server.js serves as a fallback for /uploads.
+const TEAM_UPLOAD_DIR = path.join(__dirname, '../..', 'uploads', 'team');
+const LEGACY_TEAM_UPLOAD_DIR = path.join(process.cwd(), 'public', 'uploads', 'team');
+
+// Delete a stored team photo. Only the file name from the DB value is used,
+// so a manipulated path can never point outside the team upload folders.
+const deleteTeamImage = async (imageUrl) => {
+  if (!imageUrl || !String(imageUrl).startsWith('/uploads/team/')) return;
+  const name = path.basename(String(imageUrl));
+  for (const dir of [TEAM_UPLOAD_DIR, LEGACY_TEAM_UPLOAD_DIR]) {
+    try {
+      await fs.unlink(path.join(dir, name));
+      return;
+    } catch (err) {
+      if (err.code !== 'ENOENT') {
+        logger.warn('Could not delete team member image:', err);
+      }
+    }
+  }
+};
+
 // Configure multer for image uploads
 const storage = multer.diskStorage({
-  destination: async (req, file, cb) => {
-    const uploadDir = path.join(process.cwd(), 'public/uploads/team');
-    await fs.mkdir(uploadDir, { recursive: true });
-    cb(null, uploadDir);
+  destination: (req, file, cb) => {
+    fs.mkdir(TEAM_UPLOAD_DIR, { recursive: true })
+      .then(() => cb(null, TEAM_UPLOAD_DIR))
+      .catch((err) => cb(err));
   },
   filename: (req, file, cb) => {
-    const uniqueName = `team-${Date.now()}-${Math.round(Math.random() * 1E9)}${path.extname(file.originalname)}`;
-    cb(null, uniqueName);
+    cb(null, generateFilename('team', file));
   }
 });
 
 const upload = multer({
   storage,
   limits: { fileSize: 10 * 1024 * 1024 }, // 10MB
-  fileFilter: (req, file, cb) => {
-    const allowedTypes = /jpeg|jpg|png|gif|webp/;
-    const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
-    const mimetype = allowedTypes.test(file.mimetype);
-    
-    if (mimetype && extname) {
-      return cb(null, true);
-    } else {
-      cb(new Error('Only image files are allowed'));
-    }
-  }
+  // Images only: jpg, jpeg, png, webp, gif, avif (extension AND MIME type)
+  fileFilter: createFileFilter({ allowVideo: false })
 });
 
 // Get all team members (public endpoint)
@@ -271,14 +289,7 @@ router.put('/:id',
         image = `/uploads/team/${req.file.filename}`;
         
         // Delete old image if exists
-        if (member.image) {
-          const oldImagePath = path.join(process.cwd(), 'public', member.image);
-          try {
-            await fs.unlink(oldImagePath);
-          } catch (err) {
-            logger.warn('Could not delete old image:', err);
-          }
-        }
+        await deleteTeamImage(member.image);
       }
       
       await db.run(
@@ -335,14 +346,7 @@ router.delete('/:id',
       }
       
       // Delete image if exists
-      if (member.image) {
-        const imagePath = path.join(process.cwd(), 'public', member.image);
-        try {
-          await fs.unlink(imagePath);
-        } catch (err) {
-          logger.warn('Could not delete team member image:', err);
-        }
-      }
+      await deleteTeamImage(member.image);
       
       await db.run('DELETE FROM team_members WHERE id = ?', [id]);
       
