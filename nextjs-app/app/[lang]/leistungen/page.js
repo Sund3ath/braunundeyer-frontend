@@ -42,7 +42,6 @@ export default async function ServicesPage({ params }) {
     description: clean(s.description),
     details: lines(s.details),
     features: (Array.isArray(s.features) ? s.features : []).map(clean).filter(Boolean),
-    timeline: clean(s.timeline),
     image: s.image ? processImageUrl(s.image) : null,
   }));
   const dims = await getImageDimensions(services.map((s) => s.image).filter(Boolean));
@@ -85,7 +84,7 @@ export default async function ServicesPage({ params }) {
                   </span>
                 )}
               </div>
-              {(s.features.length > 0 || s.timeline) && (
+              {s.features.length > 0 && (
                 <div className="srv-aside">
                   {s.features.length > 0 && (
                     <>
@@ -94,9 +93,6 @@ export default async function ServicesPage({ params }) {
                         {s.features.map((f) => <li key={f}>{f}</li>)}
                       </ul>
                     </>
-                  )}
-                  {s.timeline && (
-                    <p className="t-meta mt-5">{copy.services.timeline}: <span className="ink">{s.timeline}</span></p>
                   )}
                 </div>
               )}
